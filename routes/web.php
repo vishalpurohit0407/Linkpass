@@ -37,44 +37,5 @@ Route::group(['middleware' => 'auth'], function () {
 	    ]
 	]);
 
-	Route::post('/support-ticket/list/data','SupportTicketController@listdata')->name('user.support.ticket.listdata');
-	Route::post('/support-ticket/send-comment','SupportTicketController@sendComment')->name('user.support.ticket.sendcomment');
-	Route::post('/support-ticket/getcomment','SupportTicketController@getComment')->name('user.support.ticket.getcomment');
-	Route::resource('/support-ticket', 'SupportTicketController', [
-	    'names' => [
-	        'index' => 'user.support.ticket.list',
-	        'store' => 'user.support.ticket.store',
-	    ]
-	]);
-
-	//Maintenance Module Routes
-	Route::get('/maintenance/search','MaintenanceController@search')->name('user.maintenance.search');
-	Route::resource('/maintenance/guide', 'MaintenanceController', [
-	    'names' => [
-	        'index' => 'user.maintenance.list',
-	        'show' => 'user.maintenance.show'
-	    ]
-	]);
-
-	//Warranty Extension Module Routes
-	Route::post('/warranty_extension/user-img-upload/{id}','WarrantyExtensionController@userImgUpload')->name('user.warranty_extension.imgupload');
-	Route::get('/warranty_extension/history/{unique_key}','WarrantyExtensionController@warrantyExtensionHistory')->name('user.warranty_extension.history');
-	Route::post('/warranty_extension/list/data','WarrantyExtensionController@listdata')->name('user.warranty_extension.listdata');
-	Route::get('/warranty_extension/list/request','WarrantyExtensionController@requestListData')->name('user.warranty_extension.listreqest');
-	Route::post('/warranty_extension/list/request-data','WarrantyExtensionController@requestListData')->name('user.warranty_extension.listreqest.data');
-
-	Route::post('/warranty_extension/history/saverequest','WarrantyExtensionController@saveRequest')->name('user.warranty_extension.saverequest');
-	
-	Route::resource('/warranty_extension', 'WarrantyExtensionController', [
-	    'names' => [
-	        'index' => 'user.warranty_extension.list',
-	        'create' => 'user.warranty_extension.create',
-	        'store' => 'user.warranty_extension.store',
-	        'edit' => 'user.warranty_extension.edit',
-	        'update' => 'user.warranty_extension.update',
-	        'show' => 'user.warranty_extension.show'
-	    ]
-	]);
-
 });
 Route::get('/{url_slug}','PagepreviewController@pagepreview')->name('cms.pagepreview');
