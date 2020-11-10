@@ -31,7 +31,8 @@
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-sm">
-                                <a href="{{route('admin.user.list')}}" class="text-nowrap font-weight-600">See Details</a>
+                                <!-- <a href="{{route('admin.user.list')}}" class="text-nowrap font-weight-600">See Details</a> -->
+                                <a href="javascript:void(0);" class="text-nowrap font-weight-600">See Details</a>
                             </p>
                         </div>
                     </div>
@@ -52,7 +53,8 @@
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-sm">
-                                <a href="{{route('admin.warrantyextension.listreqest')}}" class="text-nowrap font-weight-600">See Details</a>
+                                <!-- <a href="{{route('admin.warrantyextension.listreqest')}}" class="text-nowrap font-weight-600">See Details</a> -->
+                                <a href="javascript:void(0);" class="text-nowrap font-weight-600">See Details</a>
                             </p>
                         </div>
                     </div>
@@ -73,7 +75,8 @@
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-sm">
-                                <a href="{{route('admin.selfdiagnosis.list')}}" class="text-nowrap font-weight-600">See Details</a>
+                                <!-- <a href="{{route('admin.selfdiagnosis.list')}}" class="text-nowrap font-weight-600">See Details</a> -->
+                                <a href="javascript:void(0);" class="text-nowrap font-weight-600">See Details</a>
                             </p>
                         </div>
                     </div>
@@ -94,7 +97,8 @@
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-sm">
-                                <a href="{{route('admin.maintenance.list')}}" class="text-nowrap font-weight-600">See Details</a>
+                                <!-- <a href="{{route('admin.maintenance.list')}}" class="text-nowrap font-weight-600">See Details</a> -->
+                                <a href="javascript:void(0);" class="text-nowrap font-weight-600">See Details</a>
                             </p>
                         </div>
                     </div>
