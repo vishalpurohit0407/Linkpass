@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>{{ config('app.name', 'Argon Dashboard') }}</title>
   <!-- Favicon -->
-  <link rel="icon" href="{{asset('assets/img/brand/favicon.png')}}" type="image/png">
+  <link rel="icon" href="{{asset('assets/img/favicon.png')}}" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -21,7 +21,7 @@
   <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container justify-content-center">
       <a class="navbar-brand" >
-        <img src="{{asset('assets/img/brand/logo.png')}}">
+        <img src="{{asset('assets/img/Linkpasser-Logo.svg')}}">
       </a>
     </div>
   </nav>

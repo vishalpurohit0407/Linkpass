@@ -4,7 +4,7 @@
       <!-- Brand -->
       <div class="sidenav-header d-flex align-items-center">
         <a class="navbar-brand main-logo" href="{{route('home')}}">
-          <img src="{{asset('assets/img/brand/logo.png')}}" class="navbar-brand-img" alt="navbar-brand-img">
+          <img src="{{asset('assets/img/Linkpasser-Logo.svg')}}" class="navbar-brand-img" alt="navbar-brand-img">
         </a>
         <div class="ml-auto">
           <!-- Sidenav toggler -->
