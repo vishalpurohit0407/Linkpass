@@ -25,11 +25,11 @@
             <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}" href="{{route('admin.dashboard')}}">
                 <i class="ni ni-shop text-primary"></i>
-                <span class="nav-link-text">Dashboards</span>
+                <span class="nav-link-text">Dashboard</span>
               </a>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.category.*') ? 'active' : '' }}" href="{{route('admin.category.list')}}">
                 <i class="ni ni-ungroup text-info"></i>
                 <span class="nav-link-text">Categories</span>
@@ -117,7 +117,7 @@
                 <i class="fas fa-sitemap text-info"></i>
                 <span class="nav-link-text">Flowchart</span>
               </a>
-            </li>
+            </li> -->
             
           </ul>
           

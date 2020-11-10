@@ -73,17 +73,20 @@
                         </label>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
+                        <!-- <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button> -->
+                        <button type="button" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
                     </div>
                 </form>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="{{ route('password.request') }}" class="text-light"><small>{{ __('Forgot Password?') }}</small></a>
+              <!-- <a href="{{ route('password.request') }}" class="text-light"><small>{{ __('Forgot Password?') }}</small></a> -->
+              <a href="javascript:void(0);" class="text-light"><small>{{ __('Forgot Password?') }}</small></a>
             </div>
             <div class="col-6 text-right">
-                <a href="{{ route('register') }}" class="text-light"><small>{{ __('Create New Account') }}</small></a>
+                <!-- <a href="{{ route('register') }}" class="text-light"><small>{{ __('Create New Account') }}</small></a> -->
+                <a href="javascript:void(0);" class="text-light"><small>{{ __('Create New Account') }}</small></a>
             </div>
           </div>
         </div>
