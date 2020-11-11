@@ -29,6 +29,23 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link {{ Request::routeIs('admin.user.*') ? 'active' : '' }}" href="#navbar-forms-user" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-user">
+                <i class="fas fa-users text-green"></i>
+                <span class="nav-link-text">Users</span>
+              </a>
+              <div class="collapse {{ Request::routeIs('admin.user.*') ? 'show' : '' }}" id="navbar-forms-user" style="">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item">
+                    <a href="{{route('admin.user.list')}}" class="nav-link {{ Request::routeIs('admin.user.list') ? 'active' : '' }}">All Users</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('admin.user.create')}}" class="nav-link {{ Request::routeIs('admin.user.create') ? 'active' : '' }}">Add New User</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
             <!-- <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.category.*') ? 'active' : '' }}" href="{{route('admin.category.list')}}">
                 <i class="ni ni-ungroup text-info"></i>
