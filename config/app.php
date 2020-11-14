@@ -175,7 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Torann\Hashids\HashidsServiceProvider::class,
+        //Torann\Hashids\HashidsServiceProvider::class,
     ],
 
     /*
@@ -229,7 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Zendesk' => 'Superbalist\Zendesk\ZendeskFacade',
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Hashids' => Torann\Hashids\Facade\Hashids::class,
+        //'Hashids' => Torann\Hashids\Facade\Hashids::class,
     ],
 
 ];
