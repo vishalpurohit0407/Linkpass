@@ -6,23 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Storage;
-use Uuid;
-
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
-    public static function boot()
-    {
-        parent::boot();
-        self::creating(function ($model) {
-            $model->id = (string) Uuid::generate(4);
-        });
-    }
 
-    protected $keyType = 'string';
-
-    public $incrementing = false;
+    protected $table = 'users';
 
     protected $appends = [ 'user_image_url' ];
     /**

@@ -32,7 +32,7 @@
             <!-- Card body -->
             <div class="card-body">
                 <!-- Form groups used in grid -->
-                <form method="post" action="{{route('admin.category.store')}}"> 
+                <form method="post" action="{{route('admin.category.store')}}">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -45,6 +45,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group @if($errors->has('parent_id')) has-danger @endif ">
+                                <label class="form-control-label" for="parent_id">Parent Category</label>
+                                <select class="form-control @if($errors->has('parent_id')) is-invalid @endif" name="parent_id" id="parent_id">
+                                  <option value="">Please Select Parent Category</option>
+                                  @if($categories)
+                                      @foreach($categories as $category)
+                                          <option value="{{$category['id']}}">{!! $category['name'] !!}</option>
+                                      @endforeach
+                                  @endif
+                                </select>
+                                @if($errors->has('parent_id'))
+                                    <span class="form-text text-danger">{{ $errors->first('parent_id') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-control-label" for="name">Status</label>
@@ -66,7 +86,7 @@
 @section('pagewise_js')
 <script type="text/javascript">
 $(document).ready(function() {
-    
+
 });
 </script>
 @endsection

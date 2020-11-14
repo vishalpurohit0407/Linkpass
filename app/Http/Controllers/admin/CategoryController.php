@@ -11,6 +11,7 @@ class CategoryController extends Controller
 
     public function __construct() {
         $this->middleware(['web','admin']);
+        $this->category = new Category();
         $this->messages = [
             'required' => 'The :attribute is required.',
             'mime_types' => 'Only excel file allowed.'
@@ -36,41 +37,41 @@ class CategoryController extends Controller
     public function listdata(Request $request)
     {
       // echo "<pre>"; print_r($request->session()->token()); exit();
-      $columns = array( 
-                            0 =>'id', 
+      $columns = array(
+                            0 =>'id',
                             1 =>'name',
                             2=> 'status',
                             3=> 'created_at',
                         );
-  
-        $totalData = Category::where('status','!=','2')->count();
-            
-        $totalFiltered = $totalData; 
+
+        $totalData = $this->category->where('status','!=','2')->count();
+
+        $totalFiltered = $totalData;
 
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-            
+
         if(empty($request->input('search.value')))
-        {            
-            $posts = Category::offset($start)
+        {
+            $posts = $this->category->offset($start)
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->where('status','!=','2')
                          ->get();
         }
         else {
-            $search = $request->input('search.value'); 
+            $search = $request->input('search.value');
 
-            $posts =  Category::orWhere('name', 'LIKE',"%{$search}%")
+            $posts =  $this->category->orWhere('name', 'LIKE',"%{$search}%")
                             ->where('status','!=','2')
                             ->offset($start)
                             ->limit($limit)
                             ->orderBy($order,$dir)
                             ->get();
 
-            $totalFiltered = Category::where('status','!=','2')
+            $totalFiltered = $this->category->where('status','!=','2')
                             ->orWhere('name', 'LIKE',"%{$search}%")
                             ->count();
         }
@@ -87,7 +88,7 @@ class CategoryController extends Controller
                 $nestedData['id'] = $post->id;
                 $nestedData['srnumber'] = $srnumber;
                 $nestedData['name'] = ucfirst($post->name);
-                if($post->status == '1'){ 
+                if($post->status == '1'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-success">Active</span>';
                 }elseif($post->status == '0'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-warning">Inactive</span>';
@@ -95,21 +96,21 @@ class CategoryController extends Controller
                   $nestedData['status'] = '<span class="badge badge-pill badge-danger">Deleted</span>';
                 };
                 $nestedData['created_at'] = date('d-M-Y',strtotime($post->created_at));
-                $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-primary btn-sm mr-0' title='EDIT' >Edit</a> 
+                $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-primary btn-sm mr-0' title='EDIT' >Edit</a>
                                           &emsp;<form action='{$destroy}' method='POST' style='display: contents;' id='frm_{$post->id}'> <input type='hidden' name='_method' value='DELETE'> <input type='hidden' name='_token' value='{$token}'> <a type='submit' class='btn btn-danger btn-sm' style='color: white;' onclick='return deleteConfirm(this);' id='{$post->id}'>Delete</a></form>";
-                
+
                 $srnumber++;
                 $data[] = $nestedData;
             }
         }
-          
+
         $json_data = array(
-                    "draw"            => intval($request->input('draw')),  
-                    "recordsTotal"    => intval($totalData),  
-                    "recordsFiltered" => intval($totalFiltered), 
-                    "data"            => $data   
+                    "draw"            => intval($request->input('draw')),
+                    "recordsTotal"    => intval($totalData),
+                    "recordsFiltered" => intval($totalFiltered),
+                    "data"            => $data
                     );
-            
+
         echo json_encode($json_data);
     }
 
@@ -119,9 +120,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
-        return view('admin.category.add',array('title' => 'Category Add'));
+    {
+        $categories = $this->category->categoryParentChildTree();
+
+        return view('admin.category.add',array('title' => 'Category Add', 'categories' => $categories));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -135,17 +139,18 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
         $input = $request->all();
-        $input['status']=(isset($input['status']))?'1':'0';
-        
+        $input['status'] = (isset($input['status']))?'1':'0';
+        $input['parent_id'] = !empty($input['parent_id']) ? $input['parent_id'] : '0';
+
         try {
-            $category = Category::create($input);
-            if($category){ 
+            $category = $this->category->create($input);
+            if($category){
               $request->session()->flash('alert-success', 'Category Added successfuly.');
             }
         } catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.category.add'));
-        } 
+        }
         return redirect(route('admin.category.list'));
     }
 
@@ -156,7 +161,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show()
-    {    
+    {
       //
     }
 
@@ -167,8 +172,10 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
-    {    
-        return view('admin.category.edit',array('title' => 'Category Edit','categorydata'=>$category));
+    {
+        $categories = $this->category->categoryParentChildTree();
+
+        return view('admin.category.edit',array('title' => 'Category Edit','categorydata'=>$category, 'categories' => $categories));
     }
 
     /**
@@ -185,22 +192,23 @@ class CategoryController extends Controller
         ]);
 
         try {
-          
+
           if(!$category){
             return abort(404) ;
           }
-         
+
           $category->name = $request->name;
+          $category->parent_id = $request->parent_id;
           $category->status = (isset($request->status))?'1':'0';
-          
+
           if($category->save())
           {
-              $request->session()->flash('alert-success', 'Category updated successfuly.');  
+              $request->session()->flash('alert-success', 'Category updated successfuly.');
           }
           return redirect(route('admin.category.list'));
 
         } catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.category.list'));
         }
     }
@@ -214,7 +222,7 @@ class CategoryController extends Controller
     public function destroy(Category $category, Request $request)
     {
         try {
-          
+
             if(!$category){
                 return abort(404) ;
             }
@@ -224,7 +232,7 @@ class CategoryController extends Controller
             }
             return redirect(route('admin.category.list'));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.category.list'));
         }
     }

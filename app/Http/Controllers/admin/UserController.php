@@ -23,25 +23,25 @@ class UserController extends Controller
     public function listdata(Request $request)
     {
       // echo "<pre>"; print_r($request->session()->token()); exit();
-      $columns = array( 
-                        0 => 'id', 
+      $columns = array(
+                        0 => 'id',
                         1 => 'name',
                         2 => 'email',
                         3 => 'status',
                         4 => 'created_at',
                     );
-  
+
         $totalData = User::where('status','!=','3')->count();
-            
-        $totalFiltered = $totalData; 
+
+        $totalFiltered = $totalData;
 
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-            
+
         if(empty($request->input('search.value')))
-        {            
+        {
             $posts = User::offset($start)
                          ->limit($limit)
                          ->orderBy($order,$dir)
@@ -49,7 +49,7 @@ class UserController extends Controller
                          ->get();
         }
         else {
-            $search = $request->input('search.value'); 
+            $search = $request->input('search.value');
             $posts =  User::where('status','!=','3')
                             ->where(function ($query)  use ($search) {
                                 $query->where('email','LIKE',"%{$search}%")
@@ -83,7 +83,7 @@ class UserController extends Controller
                 $nestedData['email'] = $post->email;
                 if($post->status == '0'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-warning">Inactive</span>';
-                }elseif($post->status == '1'){ 
+                }elseif($post->status == '1'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-success">Active</span>';
                 }elseif($post->status == '2'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-info">Pending</span>';
@@ -91,21 +91,21 @@ class UserController extends Controller
                   $nestedData['status'] = '<span class="badge badge-pill badge-danger">Deleted</span>';
                 };
                 $nestedData['created_at'] = date('d-M-Y',strtotime($post->created_at));
-                $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-primary btn-sm mr-0' title='EDIT' >Edit</a> 
+                $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-primary btn-sm mr-0' title='EDIT' >Edit</a>
                                           &emsp;<form action='{$destroy}' method='POST' style='display: contents;' id='frm_{$post->id}'> <input type='hidden' name='_method' value='DELETE'> <input type='hidden' name='_token' value='{$token}'> <a type='submit' class='btn btn-danger btn-sm' style='color: white;' onclick='return deleteConfirm(this);' id='{$post->id}'>Delete</a></form>";
-                
+
                 $srnumber++;
                 $data[] = $nestedData;
             }
         }
-          
+
         $json_data = array(
-                    "draw"            => intval($request->input('draw')),  
-                    "recordsTotal"    => intval($totalData),  
-                    "recordsFiltered" => intval($totalFiltered), 
-                    "data"            => $data   
+                    "draw"            => intval($request->input('draw')),
+                    "recordsTotal"    => intval($totalData),
+                    "recordsFiltered" => intval($totalFiltered),
+                    "data"            => $data
                     );
-            
+
         echo json_encode($json_data);
     }
 
@@ -115,7 +115,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         return view('admin.user.add',array('title' => 'Create User'));
     }
 
@@ -130,7 +130,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,',
-            'password' => 'min:8|required_with:confirmpass|same:confirmpass', 
+            'password' => 'min:8|required_with:confirmpass|same:confirmpass',
             'confirmpass' => 'min:8',
         ]);
         try {
@@ -139,7 +139,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'status' => $request->status ? '1' : '0',
                 'password' => Hash::make($request->password),
-            ]); 
+            ]);
             if($user){
                 $file=$request->file('profile_img');
                 if($file){
@@ -155,11 +155,11 @@ class UserController extends Controller
                     $user->profile_img = $path;
                     $user->save();
                 }
-                $request->session()->flash('alert-success', 'User Created successfuly.');  
+                $request->session()->flash('alert-success', 'User Created successfuly.');
             }
             return redirect(route('admin.user.list'));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.user.list'));
         }
     }
@@ -175,7 +175,7 @@ class UserController extends Controller
         if (!$user) {
           return abort(404);
         }
-        
+
         $document = Document::where('user_id',$user->id)->where('status','1')->with('document_media','document_type')->get();
         $shereNo = $document->where('shared_number','!=','0')->count();
         // $shereNo = array();
@@ -230,7 +230,7 @@ class UserController extends Controller
             $user->status = $request->status ? '1' : '0';
             if ($request->password) {
                 $request->validate([
-                    'password' => 'min:8', 
+                    'password' => 'min:8',
                 ]);
                 $user->password = Hash::make($request->password);
             }
@@ -252,11 +252,11 @@ class UserController extends Controller
             }
             if($user->save())
             {
-                $request->session()->flash('alert-success', 'User updated successfuly.');  
+                $request->session()->flash('alert-success', 'User updated successfuly.');
             }
             return redirect(route('admin.user.list'));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.user.list'));
         }
     }
@@ -279,7 +279,7 @@ class UserController extends Controller
             }
             return redirect(route('admin.user.list'));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.user.list'));
         }
     }
@@ -310,7 +310,7 @@ class UserController extends Controller
         if($field == 'full_name'){
             $field = 'user_details.name';
         }
-        
+
         $userdata=$userdata->orderBy($field,$sort)->paginate($perpage,['*'],'page',$page);
         // echo "<pre>";print_r($userdata);exit;
         $result['meta']=array(
@@ -346,7 +346,7 @@ class UserController extends Controller
                     "mobile"=> $user->mobile,
                     "status"=> $user->status,
                     "created_at"=> date('d-M-Y', strtotime( $user->created_at)),
-                    "Actions" => null        
+                    "Actions" => null
                 );
                 $count++;
             }
@@ -363,11 +363,11 @@ class UserController extends Controller
             $userdata->status = '1';
             if($userdata->save())
             {
-                $request->session()->flash('alert-success', 'User restored successfuly.');  
+                $request->session()->flash('alert-success', 'User restored successfuly.');
             }
             return redirect(route('user.deleted.list'));
         } catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('user.deleted.list'));
         }
     }
@@ -386,15 +386,15 @@ class UserController extends Controller
             if($document->save())
             {
                 if ($document->scanit_verify == '1') {
-                    $request->session()->flash('alert-success', 'User document verified successfuly.'); 
+                    $request->session()->flash('alert-success', 'User document verified successfuly.');
                 }else{
                     $request->session()->flash('alert-success', 'User document unverified successfuly.');
                 }
-                 
+
             }
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect()->back();
         }
     }
@@ -424,11 +424,11 @@ class UserController extends Controller
                     Common::deleteImage($media_value->document_path);
                     $media_value->delete();
                 }
-                
+
             }
             return redirect(route('user.show',$user_id));
         } catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('user.show',$user_id));
         }
     }

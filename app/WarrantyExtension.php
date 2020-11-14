@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Uuid;
 use Storage;
 use App\Notifications\WarrantyExtensions as WarrantyExtensionsNotification;
 use Mail;
@@ -15,18 +14,7 @@ class WarrantyExtension extends Model
 {
     use Notifiable;
 
-    public static function boot()
-    {
-        parent::boot();
-        self::creating(function ($model) {
-            $model->id = (string) Uuid::generate(4);
-        });
-    }
-
 	protected $table = 'warranty_extension';
-    protected $keyType = 'string';
-
-    public $incrementing = false;
 
     protected $appends = [ 'image_by_user', 'image_by_admin' ];
     /**

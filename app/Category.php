@@ -3,27 +3,10 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Uuid;
 
 class Category extends Authenticatable
 {
     protected $table = 'category';
-    /**protected $table = 'category';
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
-    public static function boot()
-    {
-        parent::boot();
-        self::creating(function ($model) {
-            $model->id = (string) Uuid::generate(4);
-        });
-    }
-    protected $keyType = 'string';
-
-    public $incrementing = false;
 
     protected $fillable = [
         'name', 'parent_id', 'icon', 'status'
@@ -40,6 +23,25 @@ class Category extends Authenticatable
     public function parent()
     {
         return $this->hasOne('App\Category', 'id', 'parent_id');
+    }
+
+    public function categoryParentChildTree($parent = 0, $spacing = '', $category_tree_array = '')
+    {
+        if (!is_array($category_tree_array)){
+            $category_tree_array = array();
+        }
+
+        $categories = $this->where('parent_id', $parent)->where('status' , '1')->orderBy('id', 'asc')->get();
+
+        if ($categories->isNotEmpty()) {
+            foreach($categories as $categoryRow) {
+
+                $category_tree_array[] = array('id' => $categoryRow->id, 'name' => $spacing . $categoryRow->name);
+                $category_tree_array = $this->categoryParentChildTree($categoryRow->id, '&nbsp;&nbsp;&nbsp;&nbsp;'.$spacing . '-&nbsp;', $category_tree_array);
+            }
+        }
+
+        return $category_tree_array;
     }
 
 }

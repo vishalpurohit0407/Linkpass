@@ -46,17 +46,17 @@
               </div>
             </li>
 
-            <!-- <li class="nav-item">
-              <a class="nav-link {{ Request::routeIs('admin.category.*') ? 'active' : '' }}" href="{{route('admin.category.list')}}">
-                <i class="ni ni-ungroup text-info"></i>
-                <span class="nav-link-text">Categories</span>
-              </a>
-            </li>
-
             <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.cms.page.*') ? 'active' : '' }}" href="{{route('admin.cms.page.list')}}">
                 <i class="ni ni-single-copy-04 text-pink"></i>
                 <span class="nav-link-text">CMS Pages</span>
+              </a>
+            </li>
+
+            <!-- <li class="nav-item">
+              <a class="nav-link {{ Request::routeIs('admin.category.*') ? 'active' : '' }}" href="{{route('admin.category.list')}}">
+                <i class="ni ni-ungroup text-info"></i>
+                <span class="nav-link-text">Categories</span>
               </a>
             </li>
 
@@ -107,7 +107,7 @@
                   <li class="nav-item">
                     <a href="{{route('admin.maintenance.create')}}" class="nav-link {{ Request::routeIs('admin.maintenance.create') ? 'active' : '' }}">Add New Maintenance Guide</a>
                   </li>
-                  
+
                 </ul>
               </div>
             </li>
@@ -135,9 +135,9 @@
                 <span class="nav-link-text">Flowchart</span>
               </a>
             </li> -->
-            
+
           </ul>
-          
+
         </div>
       </div>
     </div>
