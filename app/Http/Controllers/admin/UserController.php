@@ -73,11 +73,11 @@ class UserController extends Controller
         {   $srnumber = 1;
             foreach ($posts as $post)
             {
-                $destroy =  route('admin.user.destroy',$post->id);
-                $edit =  route('admin.user.edit',$post->id);
+                $destroy =  route('admin.user.destroy',$post->hashid);
+                $edit =  route('admin.user.edit',$post->hashid);
                 $token =  $request->session()->token();
 
-                $nestedData['id'] = $post->id;
+                $nestedData['id'] = $post->hashid;
                 $nestedData['srnumber'] = $srnumber;
                 $nestedData['name'] = '<td class="table-user"> <img src="'.$post->user_image_url.'" class="avatar rounded-circle mr-3"> <b>'.ucfirst($post->name).'</b> </td>';
                 $nestedData['email'] = $post->email;
@@ -92,7 +92,7 @@ class UserController extends Controller
                 };
                 $nestedData['created_at'] = date('d-M-Y',strtotime($post->created_at));
                 $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-primary btn-sm mr-0' title='EDIT' >Edit</a>
-                                          &emsp;<form action='{$destroy}' method='POST' style='display: contents;' id='frm_{$post->id}'> <input type='hidden' name='_method' value='DELETE'> <input type='hidden' name='_token' value='{$token}'> <a type='submit' class='btn btn-danger btn-sm' style='color: white;' onclick='return deleteConfirm(this);' id='{$post->id}'>Delete</a></form>";
+                                          &emsp;<form action='{$destroy}' method='POST' style='display: contents;' id='frm_{$post->hashid}'> <input type='hidden' name='_method' value='DELETE'> <input type='hidden' name='_token' value='{$token}'> <a type='submit' class='btn btn-danger btn-sm' style='color: white;' onclick='return deleteConfirm(this);' id='{$post->hashid}'>Delete</a></form>";
 
                 $srnumber++;
                 $data[] = $nestedData;

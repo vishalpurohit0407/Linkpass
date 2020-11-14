@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Traits\Hashidable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +10,7 @@ use Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, Hashidable;
 
     protected $table = 'users';
 

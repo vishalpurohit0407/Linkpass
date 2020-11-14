@@ -31,7 +31,7 @@
             <!-- Card body -->
             <div class="card-body">
                 <!-- Form groups used in grid -->
-                <form class="form" action="{{ route('admin.cms.page.update',$page->id) }}" method="post" enctype="multipart/form-data">
+                <form class="form" action="{{ route('admin.cms.page.update',$page->hashid) }}" method="post" enctype="multipart/form-data">
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
                     <div class="row">

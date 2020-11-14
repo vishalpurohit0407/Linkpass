@@ -32,7 +32,7 @@
             <!-- Card body -->
             <div class="card-body">
                 <!-- Form groups used in grid -->
-                <form class="form" action="{{ route('admin.user.update',$userdata->id) }}" method="post" enctype="multipart/form-data">
+                <form class="form" action="{{ route('admin.user.update',$userdata->hashid) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                     <div class="row">
@@ -42,7 +42,7 @@
                                 <div class="custom-file">
                                     <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" lang="en" onchange="loadFile(event)">
                                     <label class="custom-file-label" for="customFileLang">Select file</label>
-                                </div>   
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -83,7 +83,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -106,7 +106,7 @@
 @section('pagewise_js')
 <script type="text/javascript">
 $(document).ready(function() {
-    
+
 });
 
 var loadFile = function(event) {

@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Http\Traits\Hashidable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class CmsPage extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Hashidable;
 
     protected $table = 'cms_pages';
 

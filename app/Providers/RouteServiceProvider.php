@@ -30,9 +30,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::bind('user', function ($value, $route) {
+            return $this->getModel(\App\User::class, $value);
+        });
+
+        Route::bind('cms_page', function ($value, $route) {
+            return $this->getModel(\App\CmsPage::class, $value);
+        });
     }
 
     /**
@@ -92,5 +98,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
+    }
+
+    private function getModel($model, $routeKey)
+    {
+        $id = \Hashids::decode($routeKey)[0] ?? null;
+        $modelInstance = resolve($model);
+
+        return  $modelInstance->findOrFail($id);
     }
 }
