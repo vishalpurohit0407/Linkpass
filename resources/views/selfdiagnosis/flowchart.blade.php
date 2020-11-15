@@ -13,7 +13,7 @@
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
                             @if($guide->guide_type == 'self-diagnosis')
-                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.selfdiagnosis.show',$guide->id)}}">Self Diagnosis Details</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.selfdiagnosis.show',$guide->id)}}">Content Details</a></li>
                             @else
                                 <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.maintenance.show',$guide->id)}}">Maintenance Guide Details</a></li>
                             @endif
@@ -41,7 +41,7 @@
           </div>
         </div>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('pagewise_js')
@@ -68,14 +68,14 @@
                                 no:'{{$node->orient_no}}',
                             }
                         shapesArr.push({
-                            label: '{{$node->label}}', 
-                            type: '{{$node->type}}', 
+                            label: '{{$node->label}}',
+                            type: '{{$node->type}}',
                             text : decisionTextArr,
                             yes : yes_lable,
                             no : no_lable,
                             orient : orientArr,
                         });
-    @php            
+    @php
                     }else if($node->type == 'process') {
                     $next_process = \App\Flowchartnode::where('id',$node->next)->first();
                     $wordwrapProcess = explode("<br>",wordwrap($node->text,25,"<br>"));
@@ -85,8 +85,8 @@
                         var processTextTipsArr = <?php echo json_encode($wordwrapProcessTip); ?>;
                         var next_lable = '{{$next_process ? $next_process->label : ''}}';
                         shapesArr.push({
-                            label: '{{$node->label}}', 
-                            type: '{{$node->type}}', 
+                            label: '{{$node->label}}',
+                            type: '{{$node->type}}',
                             text : processTextArr,
                             links: [
                             {
@@ -111,8 +111,8 @@
                         var textArr = <?php echo json_encode($wordwrapData); ?>;
                         var tipsTextArr = <?php echo json_encode($wordwrapTipData); ?>;
                         shapesArr.push({
-                            label: '{{$node->label}}', 
-                            type: '{{$node->type}}', 
+                            label: '{{$node->label}}',
+                            type: '{{$node->type}}',
                             text : textArr,
                             links: [
                             {
@@ -128,7 +128,7 @@
 
     @php
                     }
-                } 
+                }
             }
         }
     @endphp

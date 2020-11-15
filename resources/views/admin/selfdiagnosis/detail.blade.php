@@ -21,13 +21,13 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('admin.selfdiagnosis.list')}}">Self Diagnosis</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('admin.selfdiagnosis.list')}}">Content</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                         </ol>
                     </nav>
                 </div>
                 <div class="col-lg-3 col-2 text-right">
-                    
+
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
 <div class="container-fluid mt--6">
     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
         @if(Session::has('alert-' . $msg))
-             <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">                           
+             <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">
                 <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
                 <div class="alert-close">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -44,7 +44,7 @@
                     </button>
                 </div>
             </div>
-        @endif 
+        @endif
     @endforeach
     <!-- Card stats -->
     <div class="card">
@@ -120,7 +120,7 @@
                                         @foreach($selfdiagnosis->guide_step as $stepdata)
                                             <li class="toclevel-1">
                                                 <a href="#Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}">
-                                                    <span class="tocnumber">{{$srno}}</span> 
+                                                    <span class="tocnumber">{{$srno}}</span>
                                                     <span class="toctext">Step {{$step}} - {{$stepdata->title}}</span>
                                                 </a>
                                             </li>
@@ -139,7 +139,7 @@
                 @if($selfdiagnosis->introduction)
                     <h2 class="display-3 mb-0">Introduction</h2>
                     <p>{!!$selfdiagnosis->introduction!!}</p>
-                    <hr>    
+                    <hr>
                 @endif
                 @if($selfdiagnosis->introduction_video_link)
                     <h2 class="display-3 mb-0">Video overview</h2>
@@ -156,7 +156,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <div id="carousel-tools" class="carousel slide carousel-fade carousel-thumbnails carousel-thumbnails-bottom" data-ride="carousel" data-interval="false">
-                                      
+
                                       <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active">
                                           <img class="" src="https://wikifab.org/images/6/60/Repair_Cafe%27_IMG_20191031_142207_2.jpg" alt="First slide">
@@ -168,9 +168,9 @@
                                           <img class="" src="https://wikifab.org/images/5/5d/Repair_Cafe%27_IMG_20191031_155214_5.jpg" alt="Third slide">
                                         </div>
                                       </div>
-                                      
 
-                                      
+
+
                                       <ol class="carousel-indicators">
                                         <li data-target="#carousel-tools" data-slide-to="0" class="active"> <img class="" src="https://wikifab.org/images/6/60/Repair_Cafe%27_IMG_20191031_142207_2.jpg"
                                             class="img-fluid"></li>
@@ -217,15 +217,15 @@
                                       <div class="carousel-inner lightgallery" style="cursor: pointer;" data-id="{{$stepdata->id}}" title="Show Image">
                                         @if($stepdata->media)
                                             @foreach($stepdata->media as $media)
-                                            @php 
+                                            @php
                                                 $extensions = ["jpeg","png","jpg","gif","svg"];
                                                 $isImage = pathinfo(storage_path($media->media_url), PATHINFO_EXTENSION);
                                             @endphp
-                                             
+
                                                 <div class="carousel-item @if($loop->first) active @endif">
                                                   <img class="d-block" src="{{asset($media->media_url)}}" alt="First slide">
                                                 </div>
-                                            
+
                                             @endforeach
                                         @endif
 
@@ -241,21 +241,21 @@
                                         @if($stepdata->media)
                                         @php $dataslide = 0; @endphp
                                             @foreach($stepdata->media as $media)
-                                            @php 
+                                            @php
                                                 $extensions = ["jpeg","png","jpg","gif","svg"];
                                                 $isImage = pathinfo(storage_path($media->media_url), PATHINFO_EXTENSION);
                                             @endphp
-                                                
-                                                    <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'image')" data-slide-to="{{$dataslide}}" @if($loop->first) class="active" @endif > 
+
+                                                    <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'image')" data-slide-to="{{$dataslide}}" @if($loop->first) class="active" @endif >
                                                         <img class="d-block" src="{{asset($media->media_url)}}" class="img-fluid">
                                                     </li>
-                                               
+
                                             @php $dataslide++; @endphp
                                             @endforeach
                                         @endif
 
                                         @if($stepdata->video_media)
-                                            <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'video')" data-slide-to="{{$dataslide}}" class="step-video-li"> 
+                                            <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'video')" data-slide-to="{{$dataslide}}" class="step-video-li">
                                                 <img class="d-block img-fluid step-video-icon" src="{{asset('assets/img/icons/'.$stepdata->video_type.'.png')}}" >
                                             </li>
                                         @endif
@@ -285,22 +285,22 @@
                   <span class="d-block mb-1 text-muted"> <i class="fa fa-flag-checkered text-info"></i>&nbsp;FINISH LINE</span>
                 </h5>
                 <div class="mt-5 mb-4">
-                    @php 
-                        
+                    @php
+
                         $completed_guide_count = \App\GuideCompletion::where('guide_id',$selfdiagnosis->id)->count();
 
                     @endphp
-                    
+
                 </div>
                 <small class="h4 font-weight-light text-primary">{{$completed_guide_count}} other people completed this guide.</small>
             </div>
         </div>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('pagewise_js')
-<script type="text/javascript"> 
+<script type="text/javascript">
 var elementArr = new Array();
     @php
         if($selfdiagnosis->guide_step){
@@ -310,14 +310,14 @@ var elementArr = new Array();
                     var mediaArr = new Array();
     @php
                     foreach ($stepdata->media as $media){
-    @endphp            
+    @endphp
                         mediaArr.push({src: '{{asset($media->media_url)}}', thumb: '{{asset($media->media_url)}}', subHtml : '{{$stepdata->title}}'});
-    @php   
-                    } 
+    @php
+                    }
                 }
     @endphp
                 elementArr['{{$stepdata->id}}'] = mediaArr;
-    @php        
+    @php
             }
         }
     @endphp
@@ -336,7 +336,7 @@ jQuery(document).ready(function($){
             autoplay:false,
             autoplayControls:false,
         })
-    }); 
+    });
 
     $('#lightgallery').on('click', function(e) {
         e.preventDefault();
@@ -353,7 +353,7 @@ jQuery(document).ready(function($){
             autoplay:false,
             autoplayControls:false,
         })
-    }); 
+    });
 
     $(".togglelink").click(function(e){
         e.preventDefault();

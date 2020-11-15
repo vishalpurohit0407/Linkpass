@@ -25,12 +25,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
-	// Self Diagnosis Module Routes
-	Route::get('/guide/flowchart/{flowchart_id}/{guide_id}','GuideController@flowChart')->name('user.flowchart');
-	Route::get('/guide/pdf/{id}','GuideController@createPDF')->name('selfdiagnosis.pdf.export');
-	Route::get('/guide/complete/{id}','GuideController@completedGuide')->name('user.complete.guide');
-	Route::get('/guide/search','GuideController@search')->name('user.selfdiagnosis.search');
-	Route::resource('/guide', 'GuideController', [
+	// Content Module Routes
+	Route::get('/guide/flowchart/{flowchart_id}/{guide_id}','ContentController@flowChart')->name('user.flowchart');
+	Route::get('/guide/pdf/{id}','ContentController@createPDF')->name('selfdiagnosis.pdf.export');
+	Route::get('/guide/complete/{id}','ContentController@completedGuide')->name('user.complete.guide');
+	Route::get('/guide/search','ContentController@search')->name('user.selfdiagnosis.search');
+	Route::resource('/guide', 'ContentController', [
 	    'names' => [
 	        'index' => 'user.selfdiagnosis.list',
 	        'show' => 'user.selfdiagnosis.show'

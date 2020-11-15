@@ -24,24 +24,24 @@ class FlowchartController extends Controller
 
     public function listdata(Request $request){
         // echo "<pre>"; print_r($request->session()->token()); exit();
-      $columns = array( 
-                        0 => 'id', 
+      $columns = array(
+                        0 => 'id',
                         1 => 'title',
                         2 => 'status',
                         3 => 'created_at',
                     );
-  
+
         $totalData = Flowchart::where('status','!=','3')->count();
-            
-        $totalFiltered = $totalData; 
+
+        $totalFiltered = $totalData;
 
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-            
+
         if(empty($request->input('search.value')))
-        {            
+        {
             $flowchart = Flowchart::where('status','!=','3')
             			 ->offset($start)
                          ->limit($limit)
@@ -49,7 +49,7 @@ class FlowchartController extends Controller
                          ->get();
         }
         else {
-            $search = $request->input('search.value'); 
+            $search = $request->input('search.value');
             $flowchart =  Flowchart::where('status','!=','3')
             				->where(function ($query) use ($search){
                                 $query->orWhere('description','LIKE',"%{$search}%")
@@ -83,11 +83,11 @@ class FlowchartController extends Controller
                 $nestedData['title'] = $chart->title;
                 if($chart->status == '0'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-info">Draft</span>';
-                }elseif($chart->status == '1'){ 
+                }elseif($chart->status == '1'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-success">Active</span>';
-                }elseif($chart->status == '2'){ 
+                }elseif($chart->status == '2'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-warning">Inactive</span>';
-                }elseif($chart->status == '3'){ 
+                }elseif($chart->status == '3'){
                   $nestedData['status'] = '<span class="badge badge-pill badge-danger">Deleted</span>';
                 };
                 $nestedData['created_at'] = date('d-M-Y',strtotime($chart->created_at));
@@ -98,14 +98,14 @@ class FlowchartController extends Controller
                 $data[] = $nestedData;
             }
         }
-          
+
         $json_data = array(
-                    "draw"            => intval($request->input('draw')),  
-                    "recordsTotal"    => intval($totalData),  
-                    "recordsFiltered" => intval($totalFiltered), 
-                    "data"            => $data   
+                    "draw"            => intval($request->input('draw')),
+                    "recordsTotal"    => intval($totalData),
+                    "recordsFiltered" => intval($totalFiltered),
+                    "data"            => $data
                     );
-            
+
         echo json_encode($json_data);
     }
 
@@ -130,7 +130,7 @@ class FlowchartController extends Controller
     {
     	// echo "<pre>";print_r($request->all());exit();
         $request->validate([
-            'title' => 'required|max:255', 
+            'title' => 'required|max:255',
         ]);
         try {
             $input = $request->all();
@@ -140,11 +140,11 @@ class FlowchartController extends Controller
             $flowchart = Flowchart::create($input);
             if($flowchart)
             {
-                $request->session()->flash('alert-success', 'Flowchart created successfuly.');  
+                $request->session()->flash('alert-success', 'Flowchart created successfuly.');
             }
             return redirect(route('admin.flowchart.edit',$flowchart->id));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.flowchart.list'));
         }
     }
@@ -173,11 +173,11 @@ class FlowchartController extends Controller
         }
 
         $childNode = Flowchartnode::where('flowchart_id',$flowchart->id)->orderBy('created_at','desc')->get();
-        
+
         $maintenance = Guide::where('guide_type','maintenance')->where('status','1')->get();
-        $self_diagnosis = Guide::where('guide_type','self-diagnosis')->where('status','1')->get();
+        $content = Guide::where('guide_type','self-diagnosis')->where('status','1')->get();
         $guideflowchart_guideid = GuideFlowchart::where('flowchart_id',$flowchart->id)->pluck('guide_id')->toArray();
-        return view('admin.flowchart.edit',array('title' => 'Edit Flowchart','flowchart'=>$flowchart, 'childNode' => $childNode,'self_diagnosis'=>$self_diagnosis,'maintenance'=>$maintenance, 'guide_id_array'=>$guideflowchart_guideid));
+        return view('admin.flowchart.edit',array('title' => 'Edit Flowchart','flowchart'=>$flowchart, 'childNode' => $childNode,'content'=>$content,'maintenance'=>$maintenance, 'guide_id_array'=>$guideflowchart_guideid));
     }
 
     /**
@@ -202,7 +202,7 @@ class FlowchartController extends Controller
         	if ($request->flag == 'flowchart_details') {
         		$request->validate([
 			        'title' => 'required|max:255',
-			    ]);   
+			    ]);
 	            $flowchart['title'] = $request->title;
 	            $flowchart['description'] = $request->description;
 	            if ($request->flowchart_details_submit == 'Publish') {
@@ -224,7 +224,7 @@ class FlowchartController extends Controller
 	            }
 	            if($flowchart->save())
 	            {
-	                $request->session()->flash('alert-success', 'Flowchart details updated successfuly.');  
+	                $request->session()->flash('alert-success', 'Flowchart details updated successfuly.');
 	            }
 
         	}
@@ -240,7 +240,7 @@ class FlowchartController extends Controller
                 }
         		$validationArr = [
 		            'lable' => $labelvalidation,
-		            'type' => 'required', 
+		            'type' => 'required',
 		            'text' => 'required'
 		        ];
 
@@ -264,7 +264,7 @@ class FlowchartController extends Controller
 		        }
 		        $request->validate($validationArr);
 
-        		$flowchartnodeArr = array();    
+        		$flowchartnodeArr = array();
 	            $flowchartnodeArr['flowchart_id'] = $flowchart->id;
 	            $flowchartnodeArr['label'] = str_replace(' ', '-', $request->lable);
 	            $flowchartnodeArr['type'] = $request->type;
@@ -289,7 +289,7 @@ class FlowchartController extends Controller
 	                $flowchartnodeArr['tips_title'] = $request->tip_title;
 	                $flowchartnodeArr['tips_text'] = $request->tip_text;
 	            }
-	            
+
 	            if(isset($request->change_orient) && $request->type == 'decision'){
 	                $flowchartnodeArr['orient_yes'] = $request->orient_yes;
 	                $flowchartnodeArr['orient_no'] = $request->orient_no;
@@ -297,7 +297,7 @@ class FlowchartController extends Controller
 
 	            if(Flowchartnode::create($flowchartnodeArr))
 	            {
-	                $request->session()->flash('alert-success', 'Flowchart node added successfuly.');  
+	                $request->session()->flash('alert-success', 'Flowchart node added successfuly.');
 	            }
 
         	}
@@ -308,7 +308,7 @@ class FlowchartController extends Controller
         	}
             return redirect(route('admin.flowchart.edit', $redirect));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.flowchart.edit',$flowchart->id));
         }
     }
@@ -329,10 +329,10 @@ class FlowchartController extends Controller
                     $labelvalidation = 'required';
                 }
         try {
-            
+
             $validationArr = [
                 'lable' => $labelvalidation,
-                'type' => 'required', 
+                'type' => 'required',
                 'text' => 'required'
             ];
 
@@ -356,7 +356,7 @@ class FlowchartController extends Controller
             }
             $request->validate($validationArr);
 
-            
+
             $flowchartnode['label'] = str_replace(' ', '-', $request->lable);
             $flowchartnode['type'] = $request->type;
             $flowchartnode['text'] = $request->text;
@@ -380,7 +380,7 @@ class FlowchartController extends Controller
                 $flowchartnode['tips_title'] = $request->tip_title;
                 $flowchartnode['tips_text'] = $request->tip_text;
             }
-            
+
             if(isset($request->change_orient) && $request->type == 'decision'){
                 $flowchartnode['orient_yes'] = $request->orient_yes;
                 $flowchartnode['orient_no'] = $request->orient_no;
@@ -391,9 +391,9 @@ class FlowchartController extends Controller
                 $request->session()->flash('alert-success', 'Node updated successfuly.');
                 return Response::json(['status' => true, 'message' => 'Node updated successfuly.']);
             }
-            
+
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
-            
+
         }catch (ModelNotFoundException $exception) {
             return Response::json(['status' => false, 'message' => $exception->getMessage()]);
         }
@@ -417,14 +417,14 @@ class FlowchartController extends Controller
             }
             return redirect(route('admin.flowchart.list'));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.flowchart.list'));
         }
     }
 
     public function removeNode(Request $request, $id)
     {
-        
+
         try {
 
 
@@ -434,7 +434,7 @@ class FlowchartController extends Controller
             if(!$node){
                 return abort(404) ;
             }
-            
+
             if ($node->delete()) {
                 Flowchartnode::where('yes',$id)->update(['yes'=>NULL,]);
                 Flowchartnode::where('no',$id)->update(['no'=>NULL,]);
@@ -443,7 +443,7 @@ class FlowchartController extends Controller
             }
             return redirect(route('admin.flowchart.edit', $flowchartId));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.flowchart.list'));
         }
     }

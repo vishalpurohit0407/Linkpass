@@ -66,9 +66,9 @@ Route::group(['middleware' => ['admin']],function(){
 	    ]
 	]);
 
-	// Self Diagnosis Module Routes
-	Route::get('/guide/search','admin\GuideController@search')->name('admin.selfdiagnosis.search');
-	Route::resource('/guide', 'admin\GuideController', [
+	// Content Module Routes
+	Route::get('/guide/search','admin\ContentController@search')->name('admin.selfdiagnosis.search');
+	Route::resource('/guide', 'admin\ContentController', [
 	    'names' => [
 	        'index' => 'admin.selfdiagnosis.list',
 	        'create' => 'admin.selfdiagnosis.create',
@@ -79,11 +79,11 @@ Route::group(['middleware' => ['admin']],function(){
 	        'show' => 'admin.selfdiagnosis.show'
 	    ]
 	]);
-	Route::post('/selfdiagnosis/img-upload','admin\GuideController@img_upload')->name('admin.selfdiagnosis.upload');
-	Route::post('/selfdiagnosis/main-img-upload/{id}','admin\GuideController@mainImgUpload')->name('admin.selfdiagnosis.mainupload');
-	Route::post('/selfdiagnosis/remove/img-upload','admin\GuideController@removeImage')->name('admin.selfdiagnosis.remove.image');
-	Route::post('/selfdiagnosis/remove/step','admin\GuideController@removeStep')->name('admin.selfdiagnosis.remove.step');
-	Route::get('/selfdiagnosis/pdf/{id}','GuideController@createPDF')->name('selfdiagnosis.pdf.export');
+	Route::post('/selfdiagnosis/img-upload','admin\ContentController@img_upload')->name('admin.selfdiagnosis.upload');
+	Route::post('/selfdiagnosis/main-img-upload/{id}','admin\ContentController@mainImgUpload')->name('admin.selfdiagnosis.mainupload');
+	Route::post('/selfdiagnosis/remove/img-upload','admin\ContentController@removeImage')->name('admin.selfdiagnosis.remove.image');
+	Route::post('/selfdiagnosis/remove/step','admin\ContentController@removeStep')->name('admin.selfdiagnosis.remove.step');
+	Route::get('/selfdiagnosis/pdf/{id}','ContentController@createPDF')->name('selfdiagnosis.pdf.export');
 
 
 	//Maintenance Module Routes

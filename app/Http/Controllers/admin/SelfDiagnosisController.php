@@ -23,13 +23,13 @@ class SelfDiagnosisController extends Controller
     public function index(Request $request){
         $selfdiagnosis = Selfdiagnosis::with('guide_category','guide_category.category')->orderBy('created_at', 'desc')->paginate(6);
         // Selfdiagnosis::with('guide_category','guide_category.category')
-        
+
         if($request->ajax()){
             return view('admin.selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
         }else{
             $categorys = Category::all();
             //print_r($categorys);
-            return view('admin.selfdiagnosis.list',array('title' => 'Self Diagnosis List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.selfdiagnosis.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
         }
     }
 
@@ -56,9 +56,9 @@ class SelfDiagnosisController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    { 
+    {
         $category = Category::where('status','1')->get();
-        return view('admin.selfdiagnosis.add',array('title' => 'Self Diagnosis Add','category'=>$category));
+        return view('admin.selfdiagnosis.add',array('title' => 'Content Add','category'=>$category));
     }
 
     /**
@@ -82,10 +82,10 @@ class SelfDiagnosisController extends Controller
             //'guide_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
         ],$messages);
 
-        try {            
+        try {
             return redirect(route('organization.list'));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('organization.list'));
         }
     }
@@ -130,18 +130,18 @@ class SelfDiagnosisController extends Controller
         //dd($request->all());
         if($request->unique_id && $request->file('file_image')){
             $file=$request->file('file_image');
-            
+
             $request->validate([
                 'file_image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
-            
+
             $file_name =$file->getClientOriginalName();
             $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = $request->unique_id;
             $imgext =$file->getClientOriginalExtension();
             $path = 'guide/step_media/'.$imageName.".".$imgext;
             $fileAdded = Storage::disk('public')->putFileAs('guide/step_media/',$file,$imageName.".".$imgext);
-            
+
             if($fileAdded){
                 $guidMediaArr = array();
                 $guidMediaArr['step_key'] = $request->unique_id;
@@ -160,18 +160,18 @@ class SelfDiagnosisController extends Controller
         dd($request->all());
         if($request->unique_id && $request->file('file_image')){
             $file=$request->file('file_image');
-            
+
             $request->validate([
                 'file_image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
-            
+
             $file_name =$file->getClientOriginalName();
             $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = $request->unique_id;
             $imgext =$file->getClientOriginalExtension();
             $path = 'guide/step_media/'.$imageName.".".$imgext;
             $fileAdded = Storage::disk('public')->putFileAs('guide/step_media/',$file,$imageName.".".$imgext);
-            
+
             if($fileAdded){
                 $guidMediaArr = array();
                 $guidMediaArr['step_key'] = $request->unique_id;
@@ -193,7 +193,7 @@ class SelfDiagnosisController extends Controller
 
             if(Storage::disk('public')->delete($media->media)){
 
-               $media->delete(); 
+               $media->delete();
                return Response::json(['status' => true, 'message' => 'Media deleted.']);
             }
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -218,7 +218,7 @@ class SelfDiagnosisController extends Controller
             }
             return redirect(route('admin.selfdiagnosis.list'));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('admin.selfdiagnosis.list'));
         }
     }

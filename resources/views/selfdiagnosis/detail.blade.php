@@ -24,13 +24,13 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.selfdiagnosis.list')}}">Self Diagnosis</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.selfdiagnosis.list')}}">Content</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                         </ol>
                     </nav>
                 </div>
                 <div class="col-lg-3 col-2 text-right">
-                    
+
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
 <div class="container-fluid mt--6">
     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
         @if(Session::has('alert-' . $msg))
-             <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">                           
+             <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">
                 <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
                 <div class="alert-close">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -47,7 +47,7 @@
                     </button>
                 </div>
             </div>
-        @endif 
+        @endif
     @endforeach
     <!-- Card stats -->
     <div class="card">
@@ -130,7 +130,7 @@
                                         @foreach($selfdiagnosis->guide_step as $stepdata)
                                             <li class="toclevel-1">
                                                 <a href="#Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}">
-                                                    <span class="tocnumber">{{$srno}}</span> 
+                                                    <span class="tocnumber">{{$srno}}</span>
                                                     <span class="toctext">Step {{$step}} - {{$stepdata->title}}</span>
                                                 </a>
                                             </li>
@@ -149,8 +149,8 @@
                 <div id="Introduction" class="mt-4 ckeditimg" s>
                     <h2 class="display-3 mb-0">Introduction</h2>
                     <p>{!!$selfdiagnosis->introduction!!}</p>
-                    <hr> 
-                </div>   
+                    <hr>
+                </div>
             @endif
             @if($selfdiagnosis->introduction_video_link)
                 <div id="Introduction" class="mt-4">
@@ -191,7 +191,7 @@
                                         @if($stepdata->media)
                                         @php $dataslide = 0; @endphp
                                             @foreach($stepdata->media as $media)
-                                                <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'image')" data-slide-to="{{$dataslide}}" @if($loop->first) class="active" @endif > 
+                                                <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'image')" data-slide-to="{{$dataslide}}" @if($loop->first) class="active" @endif >
                                                     <img class="d-block" src="{{asset($media->media_url)}}" class="img-fluid">
                                                 </li>
                                             @php $dataslide++; @endphp
@@ -199,7 +199,7 @@
                                         @endif
 
                                         @if($stepdata->video_media)
-                                            <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'video')" data-slide-to="{{$dataslide}}" class="step-video-li"> 
+                                            <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'video')" data-slide-to="{{$dataslide}}" class="step-video-li">
                                                 <img class="d-block img-fluid step-video-icon" src="{{asset('assets/img/icons/'.$stepdata->video_type.'.png')}}" >
                                             </li>
                                         @endif
@@ -229,7 +229,7 @@
                   <span class="d-block mb-1 text-muted"> <i class="fa fa-flag-checkered text-info"></i>&nbsp;FINISH LINE</span>
                 </h5>
                 <div class="mt-5 mb-4">
-                    @php 
+                    @php
                         $completed_guide = \App\GuideCompletion::where('guide_id',$selfdiagnosis->id)->where('user_id',\Auth::user()->id)->first();
                         $completed_guide_count = \App\GuideCompletion::where('guide_id',$selfdiagnosis->id)->count();
 
@@ -250,11 +250,11 @@
             </div>
         </div>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('pagewise_js')
-<script type="text/javascript"> 
+<script type="text/javascript">
 var elementArr = new Array();
     @php
         if($selfdiagnosis->guide_step){
@@ -264,14 +264,14 @@ var elementArr = new Array();
                     var mediaArr = new Array();
     @php
                     foreach ($stepdata->media as $media){
-    @endphp            
+    @endphp
                         mediaArr.push({src: '{{asset($media->media_url)}}', thumb: '{{asset($media->media_url)}}', subHtml : '{{$stepdata->title}}'});
-    @php   
-                    } 
+    @php
+                    }
                 }
     @endphp
                 elementArr['{{$stepdata->id}}'] = mediaArr;
-    @php        
+    @php
             }
         }
     @endphp
@@ -290,7 +290,7 @@ jQuery(document).ready(function($){
             autoplay:false,
             autoplayControls:false,
         })
-    }); 
+    });
 
     $('#lightgallery').on('click', function(e) {
         e.preventDefault();
@@ -307,7 +307,7 @@ jQuery(document).ready(function($){
             autoplay:false,
             autoplayControls:false,
         })
-    }); 
+    });
 
     $(".togglelink").click(function(e){
         e.preventDefault();

@@ -56,15 +56,15 @@
             <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.selfdiagnosis.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
                 <i class="ni ni-settings text-orange"></i>
-                <span class="nav-link-text">Self Diagnosis</span>
+                <span class="nav-link-text">Content</span>
               </a>
               <div class="collapse {{ Request::routeIs('admin.selfdiagnosis.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.list')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.list') ? 'active' : '' }}">All Self Diagnosis</a>
+                    <a href="{{route('admin.selfdiagnosis.list')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.list') ? 'active' : '' }}">All Content</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.create')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.create') ? 'active' : '' }}">Add New Self Diagnosis</a>
+                    <a href="{{route('admin.selfdiagnosis.create')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.create') ? 'active' : '' }}">Add New Content</a>
                   </li>
                 </ul>
               </div>
@@ -98,15 +98,15 @@
             <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.selfdiagnosis.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
                 <i class="ni ni-settings text-orange"></i>
-                <span class="nav-link-text">Self Diagnosis</span>
+                <span class="nav-link-text">Content</span>
               </a>
               <div class="collapse {{ Request::routeIs('admin.selfdiagnosis.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.list')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.list') ? 'active' : '' }}">All Self Diagnosis</a>
+                    <a href="{{route('admin.selfdiagnosis.list')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.list') ? 'active' : '' }}">All Content</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.create')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.create') ? 'active' : '' }}">Add New Self Diagnosis</a>
+                    <a href="{{route('admin.selfdiagnosis.create')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.create') ? 'active' : '' }}">Add New Content</a>
                   </li>
                 </ul>
               </div>

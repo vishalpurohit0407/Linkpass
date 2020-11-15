@@ -12,7 +12,7 @@ use PDF;
 use Str;
 use Dompdf\Dompdf;
 
-class GuideController extends Controller
+class ContentController extends Controller
 {
 
     public function __construct()
@@ -27,13 +27,13 @@ class GuideController extends Controller
     public function index(Request $request)
     {
         $selfdiagnosis = Guide::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1')->orderBy('created_at', 'desc')->paginate($this->getrecord);
-        
+
         if($request->ajax()){
             return view('selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
         }else{
             $categorys = Category::where('status','1')->orderBy('name','asc')->get();
             //print_r($categorys);
-            return view('selfdiagnosis.list',array('title' => 'Self Diagnosis List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('selfdiagnosis.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
         }
     }
 
@@ -71,7 +71,7 @@ class GuideController extends Controller
             $completed_guide->user_id = Auth::user()->id;
             if($completed_guide->save())
             {
-                $request->session()->flash('alert-success', ($guide->guide_type == 'self-diagnosis' ? 'Self Diagnosis':'Maintenance').' Guide completed successfuly.');  
+                $request->session()->flash('alert-success', ($guide->guide_type == 'self-diagnosis' ? 'Content':'Maintenance').' Guide completed successfuly.');
             }
             if ($guide->guide_type == 'self-diagnosis') {
                 $route = 'user.selfdiagnosis.show';
@@ -80,7 +80,7 @@ class GuideController extends Controller
             }
             return redirect(route($route,$guide->id));
         }catch (ModelNotFoundException $exception) {
-            $request->session()->flash('alert-danger', $exception->getMessage()); 
+            $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route($route,$guide->id));
         };
     }
@@ -97,11 +97,11 @@ class GuideController extends Controller
         $pdf = PDF::loadView('selfdiagnosis.pdf_view', $selfdiagnosis);
         return $pdf->download(Str::slug($selfdiagnosis->main_title, '-').'.pdf');
 
-        // Load content from html file 
+        // Load content from html file
         // $dompdf = new Dompdf();
-        // $dompdf->loadHtml(view('selfdiagnosis.pdf_view', compact('selfdiagnosis'))); 
-        // $dompdf->setPaper('A4', 'landscape'); 
-        // $dompdf->render(); 
+        // $dompdf->loadHtml(view('selfdiagnosis.pdf_view', compact('selfdiagnosis')));
+        // $dompdf->setPaper('A4', 'landscape');
+        // $dompdf->render();
         // $dompdf->stream("codexworld", array("Attachment" => 1));
     }
 
@@ -139,7 +139,7 @@ class GuideController extends Controller
      */
     public function show(Guide $guide)
     {
-        return view('selfdiagnosis.detail',array('title'=>'Self Diagnosis Details','selfdiagnosis'=>$guide));
+        return view('selfdiagnosis.detail',array('title'=>'Content Details','selfdiagnosis'=>$guide));
     }
 
     /**
