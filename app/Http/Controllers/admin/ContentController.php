@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Guide;
+use App\Content;
 use App\Category;
 use Illuminate\Http\Request;
 use Storage;
-use App\GuideStepMedia;
-use App\Guidecategory;
-use App\GuideSteps;
+use App\ContentStepMedia;
+use App\Contentcategory;
+use App\ContentSteps;
 use Response;
 
 class ContentController extends Controller
@@ -25,20 +25,20 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $selfdiagnosis = Guide::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $selfdiagnosis = Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
-            return view('admin.selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
         }else{
             $categorys = Category::where('status','1')->orderBy('name','asc')->get();
             //print_r($categorys);
-            return view('admin.selfdiagnosis.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
         }
     }
 
     public function search(Request $request){
 
-        $selfdiagnosis=Guide::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2');
+        $selfdiagnosis=Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2');
         //->where('status','!=','2')
         if(isset($request->search) && !empty($request->search)){
             $selfdiagnosis=$selfdiagnosis->where('main_title','LIKE','%'.$request->search.'%');
@@ -51,7 +51,7 @@ class ContentController extends Controller
         }
         $selfdiagnosis=$selfdiagnosis->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
-        return view('admin.selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+        return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
     }
 
     /**
@@ -64,8 +64,8 @@ class ContentController extends Controller
         $guidArr = array();
         $guidArr['status'] = '3';
         $guidArr['guide_type'] = 'self-diagnosis';
-        $guide = Guide::create($guidArr);
-        return redirect(route('admin.selfdiagnosis.edit',['guide' => $guide->id ]));
+        $content = Content::create($guidArr);
+        return redirect(route('admin.content.edit',['content' => $content ]));
     }
 
     /**
@@ -115,12 +115,12 @@ class ContentController extends Controller
             $fileAdded = Storage::disk('public')->putFileAs('guide/'.$request->guide_id.'/step_media/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
-                $getStepId = GuideSteps::where('step_key',$request->unique_id)->first();
+                $getStepId = ContentSteps::where('step_key',$request->unique_id)->first();
                 $guidMediaArr = array();
                 $guidMediaArr['step_key'] = $request->unique_id;
                 $guidMediaArr['step_id'] = ($getStepId)? $getStepId->id : NULL;
                 $guidMediaArr['media'] =  $path;
-                $media = GuideStepMedia::create($guidMediaArr);
+                $media = ContentStepMedia::create($guidMediaArr);
                 return Response::json(['status' => true, 'message' => 'Media uploaded.', 'id' => $media->id]);
             }
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -146,9 +146,9 @@ class ContentController extends Controller
             $fileAdded = Storage::disk('public')->putFileAs('guide/'.$id.'/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
-                $guideData = Guide::find($id);
-                Storage::disk('public')->delete($guideData->main_image);
-                $media = Guide::where('id',$id)->update(['main_image' => $path]);
+                $contentData = Content::find($id);
+                Storage::disk('public')->delete($contentData->main_image);
+                $media = Content::where('id',$id)->update(['main_image' => $path]);
                 return Response::json(['status' => true, 'message' => 'Media uploaded.']);
             }
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -159,7 +159,7 @@ class ContentController extends Controller
 
     public function removeImage(Request $request)
     {
-        $media = GuideStepMedia::find($request->imageId);
+        $media = ContentStepMedia::find($request->imageId);
         //dd($media);
         if($media){
 
@@ -176,15 +176,15 @@ class ContentController extends Controller
     public function removeStep(Request $request)
     {
 
-        $steps = GuideSteps::where('step_key',$request->step_key)->first();
+        $steps = ContentSteps::where('step_key',$request->step_key)->first();
 
         if($steps){
 
-            $medias = GuideStepMedia::where('step_id', $steps->id)->get();
+            $medias = ContentStepMedia::where('step_id', $steps->id)->get();
             foreach ($medias as $media) {
                 Storage::deleteDirectory($media->media);
             }
-            GuideStepMedia::where('step_id', $steps->id)->delete();
+            ContentStepMedia::where('step_id', $steps->id)->delete();
             $steps->delete();
             return Response::json(['status' => true, 'message' => 'Step deleted.']);
         }
@@ -194,40 +194,40 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function show(Guide $guide)
+    public function show(Content $content)
     {
-        return view('admin.selfdiagnosis.detail',array('title'=>'Content Details','selfdiagnosis'=>$guide));
+        return view('admin.content.detail',array('title'=>'Content Details','selfdiagnosis'=>$content));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function edit(Guide $guide)
+    public function edit(Content $content)
     {
         $category = Category::where('status','1')->get();
-        $guide_step = GuideSteps::where('guide_id',$guide->id)->with('media')->orderBy('step_no','asc')->get();
-        //dd($guide_step);
-        $selectedCategory = Guidecategory::where('guide_id',$guide->id)->pluck('category_id')->toArray();
-        return view('admin.selfdiagnosis.add',array('title' => 'Content Add','category'=> $category, 'guide' => $guide, 'selectedCategory' => $selectedCategory, 'guide_step' => $guide_step));
+        $content_step = ContentSteps::where('guide_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
+
+        $selectedCategory = Contentcategory::where('guide_id',$content->id)->pluck('category_id')->toArray();
+        return view('admin.content.add',array('title' => 'Content Add','category'=> $category, 'content' => $content, 'selectedCategory' => $selectedCategory, 'content_step' => $content_step));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Guide $guide)
+    public function update(Request $request, Content $content)
     {
         //dd($request->all());
-        if(!$guide){
+        if(!$content){
             abort(404);
         }
 
@@ -259,29 +259,29 @@ class ContentController extends Controller
             ]);
         }
 
-        $guide->main_title = $request->main_title;
-        $guide->description = $request->description;
-        $guide->type = $request->type;
-        $guide->duration = $request->duration;
-        $guide->duration_type = $request->duration_type;
-        $guide->difficulty = $request->difficulty;
-        $guide->cost = $request->cost;
-        $guide->tags = $request->tags;
-        $guide->introduction = $request->introduction;
-        $guide->introduction_video_type = $request->vid_link_type;
-        $guide->introduction_video_link = $request->vid_link_url;
-        $guide->status = ($request->submit == 'Save As Draft')? '3' : '1';
+        $content->main_title = $request->main_title;
+        $content->description = $request->description;
+        $content->type = $request->type;
+        $content->duration = $request->duration;
+        $content->duration_type = $request->duration_type;
+        $content->difficulty = $request->difficulty;
+        $content->cost = $request->cost;
+        $content->tags = $request->tags;
+        $content->introduction = $request->introduction;
+        $content->introduction_video_type = $request->vid_link_type;
+        $content->introduction_video_link = $request->vid_link_url;
+        $content->status = ($request->submit == 'Save As Draft')? '3' : '1';
 
         if(isset($request->category) && is_array($request->category)){
-            Guidecategory::where('guide_id', $guide->id)->whereNotIn('category_id', $request->category)->delete();
+            Contentcategory::where('guide_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
             foreach ($request->category as $key => $cate) {
 
-                $checkCat = Guidecategory::where('guide_id', $guide->id)->where('category_id', $cate)->count();
+                $checkCat = Contentcategory::where('guide_id', $content->id)->where('category_id', $cate)->count();
                 if($checkCat == 0){
                     $cateArr = array();
-                    $cateArr['guide_id'] = $guide->id;
+                    $cateArr['guide_id'] = $content->id;
                     $cateArr['category_id'] = $cate;
-                    Guidecategory::create($cateArr);
+                    Contentcategory::create($cateArr);
                 }
             }
         }
@@ -300,51 +300,51 @@ class ContentController extends Controller
 
                 $stepArr['description'] = $step['step_description'];
 
-                $checkstep = GuideSteps::where('step_key', $step['step_key'])->where('guide_id',  $guide->id)->first();
+                $checkstep = ContentSteps::where('step_key', $step['step_key'])->where('guide_id',  $content->id)->first();
 
                 if($checkstep){
 
-                    //$stepData = GuideSteps::where('step_key', $step['step_key'])->where('guide_id',  $guide->id)->update($stepArr);
+                    //$stepData = ContentSteps::where('step_key', $step['step_key'])->where('guide_id',  $content->id)->update($stepArr);
                     $checkstep->update($stepArr);
-                    GuideStepMedia::where('step_key',$checkstep->step_key)->update(['step_id' => $checkstep->id]);
+                    ContentStepMedia::where('step_key',$checkstep->step_key)->update(['step_id' => $checkstep->id]);
                 }else{
 
                     $stepArr['step_key'] = $step['step_key'];
-                    $stepArr['guide_id'] = $guide->id;
+                    $stepArr['guide_id'] = $content->id;
                     //dd($stepArr);
-                    $stepData = GuideSteps::create($stepArr);
-                    GuideStepMedia::where('step_key',$step['step_key'])->update(['step_id' => $stepData->id]);
+                    $stepData = ContentSteps::create($stepArr);
+                    ContentStepMedia::where('step_key',$step['step_key'])->update(['step_id' => $stepData->id]);
                 }
 
             }
         }
 
-        if ($guide->save()) {
+        if ($content->save()) {
             $request->session()->flash('alert-success', 'Selfdiagnosis updated successfuly.');
         }
-        return redirect(route('admin.selfdiagnosis.list'));
+        return redirect(route('admin.content.list'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Guide $guide, Request $request)
+    public function destroy(Content $content, Request $request)
     {
         try {
-            if(!$guide){
+            if(!$content){
                 return abort(404) ;
             }
-            $guide->status = '2';
-            if ($guide->save()) {
+            $content->status = '2';
+            if ($content->save()) {
                 $request->session()->flash('alert-success', 'Selfdiagnosis deleted successfuly.');
             }
-            return redirect(route('admin.selfdiagnosis.list'));
+            return redirect(route('admin.content.list'));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('admin.selfdiagnosis.list'));
+            return redirect(route('admin.content.list'));
         }
     }
 }

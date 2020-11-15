@@ -6,9 +6,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Config;
 use Storage;
 
-class Guide extends Authenticatable
+class Content extends Authenticatable
 {
-    protected $table = 'guide';
+    protected $table = 'content';
 
     protected $fillable = [
         'main_title', 'main_image', 'description', 'type','duration','duration_type','difficulty','cost','tags','introduction','introduction_video_type','introduction_video_link', 'guide_type', 'status'
@@ -18,7 +18,7 @@ class Guide extends Authenticatable
 
     public function guide_category()
     {
-        return $this->hasMany('App\Guidecategory', 'guide_id','id');
+        return $this->hasMany('App\Contentcategory', 'guide_id','id');
     }
 
     public function getMainImageUrlAttribute()
@@ -26,17 +26,17 @@ class Guide extends Authenticatable
         return (isset($this->main_image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->main_image) ? Config('filesystems.disks.public.url').'/'.$this->main_image : asset('assets/img/theme/no-image.jpg'));
     }
 
-    public function getCompletionGuideCountAttribute()
+    public function getCompletionContentCountAttribute()
     {
-        return \App\GuideCompletion::where('guide_id', $this->id)->count();
+        return \App\ContentCompletion::where('guide_id', $this->id)->count();
     }
 
     public function guide_step()
     {
-        return $this->hasMany('App\GuideSteps', 'guide_id','id')->orderBy('step_no', 'asc');
+        return $this->hasMany('App\ContentSteps', 'guide_id','id')->orderBy('step_no', 'asc');
     }
     public function guide_flowchart()
     {
-        return $this->hasOne('App\GuideFlowchart', 'guide_id','id');
+        return $this->hasOne('App\ContentFlowchart', 'guide_id','id');
     }
 }

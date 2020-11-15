@@ -21,7 +21,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('admin.selfdiagnosis.list')}}">Content</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('admin.content.list')}}">Content</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                         </ol>
                     </nav>
@@ -54,7 +54,7 @@
                     <h5 class="h3 mb-0">{{$selfdiagnosis->main_title}}</h5>
                 </div>
                 <div class="col-4 text-right">
-                    <a href="{{route('selfdiagnosis.pdf.export',$selfdiagnosis->id)}}" class="btn btn-sm btn-neutral">Export PDF</a>
+                    <a href="{{route('content.pdf.export',$selfdiagnosis->id)}}" class="btn btn-sm btn-neutral">Export PDF</a>
                     <!-- <button class="btn btn-sm btn-neutral" onclick="printDiv('printableArea')">Print</button> -->
                 </div>
             </div>
@@ -287,7 +287,7 @@
                 <div class="mt-5 mb-4">
                     @php
 
-                        $completed_guide_count = \App\GuideCompletion::where('guide_id',$selfdiagnosis->id)->count();
+                        $completed_guide_count = \App\ContentCompletion::where('guide_id',$selfdiagnosis->id)->count();
 
                     @endphp
 

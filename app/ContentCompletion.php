@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Storage;
 
-class GuideCompletion extends Authenticatable
+class ContentCompletion extends Authenticatable
 {
-    protected $table = 'guide_completion';
+    protected $table = 'content_completion';
 
     protected $fillable = [
         'guide_id', 'user_id',

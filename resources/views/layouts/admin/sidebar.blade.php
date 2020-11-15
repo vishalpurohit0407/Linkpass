@@ -54,17 +54,17 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link {{ Request::routeIs('admin.selfdiagnosis.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
+              <a class="nav-link {{ Request::routeIs('admin.content.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
                 <i class="ni ni-settings text-orange"></i>
                 <span class="nav-link-text">Content</span>
               </a>
-              <div class="collapse {{ Request::routeIs('admin.selfdiagnosis.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
+              <div class="collapse {{ Request::routeIs('admin.content.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.list')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.list') ? 'active' : '' }}">All Content</a>
+                    <a href="{{route('admin.content.list')}}" class="nav-link {{ Request::routeIs('admin.content.list') ? 'active' : '' }}">All Content</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.create')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.create') ? 'active' : '' }}">Add New Content</a>
+                    <a href="{{route('admin.content.create')}}" class="nav-link {{ Request::routeIs('admin.content.create') ? 'active' : '' }}">Add New Content</a>
                   </li>
                 </ul>
               </div>
@@ -96,17 +96,17 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link {{ Request::routeIs('admin.selfdiagnosis.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
+              <a class="nav-link {{ Request::routeIs('admin.content.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
                 <i class="ni ni-settings text-orange"></i>
                 <span class="nav-link-text">Content</span>
               </a>
-              <div class="collapse {{ Request::routeIs('admin.selfdiagnosis.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
+              <div class="collapse {{ Request::routeIs('admin.content.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.list')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.list') ? 'active' : '' }}">All Content</a>
+                    <a href="{{route('admin.content.list')}}" class="nav-link {{ Request::routeIs('admin.content.list') ? 'active' : '' }}">All Content</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('admin.selfdiagnosis.create')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.create') ? 'active' : '' }}">Add New Content</a>
+                    <a href="{{route('admin.content.create')}}" class="nav-link {{ Request::routeIs('admin.content.create') ? 'active' : '' }}">Add New Content</a>
                   </li>
                 </ul>
               </div>
@@ -120,10 +120,10 @@
               <div class="collapse {{ Request::routeIs('admin.maintenance.*') ? 'show' : '' }}" id="navbar-forms-maintenance" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
-                    <a href="{{route('admin.maintenance.list')}}" class="nav-link {{ Request::routeIs('admin.maintenance.list') ? 'active' : '' }}">All Maintenance Guides</a>
+                    <a href="{{route('admin.maintenance.list')}}" class="nav-link {{ Request::routeIs('admin.maintenance.list') ? 'active' : '' }}">All Maintenance Contents</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('admin.maintenance.create')}}" class="nav-link {{ Request::routeIs('admin.maintenance.create') ? 'active' : '' }}">Add New Maintenance Guide</a>
+                    <a href="{{route('admin.maintenance.create')}}" class="nav-link {{ Request::routeIs('admin.maintenance.create') ? 'active' : '' }}">Add New Maintenance Content</a>
                   </li>
 
                 </ul>

@@ -31,7 +31,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ Request::routeIs('user.selfdiagnosis.*') ? 'active' : '' }}" href="{{route('user.selfdiagnosis.list')}}">
+              <a class="nav-link {{ Request::routeIs('user.content.*') ? 'active' : '' }}" href="{{route('user.content.list')}}">
                 <i class="ni ni-settings text-orange"></i>
                 <span class="nav-link-text">Blogs</span>
               </a>

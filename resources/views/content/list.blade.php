@@ -14,7 +14,7 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        
+
                     </div>
                 </div>
                 <div class="row">
@@ -24,7 +24,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Search..." type="text" id="search">   
+                                <input class="form-control" placeholder="Search..." type="text" id="search">
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                     <div class="col-sm-1">
                         <a href="javascript:void(0);" class="btn btn-neutral" style="height: 45px;" onclick="return resetFilter();">Clear</a>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
     <div class="container-fluid mt--6" id="selfdiagnosis_data">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
             @if(Session::has('alert-' . $msg))
-                 <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">                           
+                 <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">
                     <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
                     <div class="alert-close">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,10 +65,10 @@
                         </button>
                     </div>
                 </div>
-            @endif 
+            @endif
         @endforeach
         <div class="row">
-            @include('selfdiagnosis.selfdiagnosis_data')
+            @include('content.content_data')
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
@@ -118,7 +118,7 @@ function getData(){
     $(".guide-listing-loader").show();
     $.ajax(
     {
-        url: '{{route("user.selfdiagnosis.search")}}',
+        url: '{{route("user.content.search")}}',
         type: "get",
         datatype: "html",
         data:{page:pageno,search:$('#search').val(),category_id:$('#category').val()},

@@ -18,9 +18,9 @@
                     <p><a href="javascript:void(0);"><strong>{{$selfdiagnos->completion_guide_count}} people completed this guide</strong></a></p>
                     <div class="footer-button">
 
-                        <a href="{{route('admin.selfdiagnosis.show',$selfdiagnos->id)}}" class="btn btn-success btn-sm">View</a>
-                        <a href="{{route('admin.selfdiagnosis.edit',$selfdiagnos->id)}}" class="btn btn-info btn-sm">Edit</a>
-                        <form action="{{route('admin.selfdiagnosis.destroy',$selfdiagnos->id)}}" method='POST' style='display: contents;' id="frm_{{$selfdiagnos->id}}">
+                        <a href="{{route('admin.content.show',$selfdiagnos->id)}}" class="btn btn-success btn-sm">View</a>
+                        <a href="{{route('admin.content.edit',$selfdiagnos->id)}}" class="btn btn-info btn-sm">Edit</a>
+                        <form action="{{route('admin.content.destroy',$selfdiagnos->id)}}" method='POST' style='display: contents;' id="frm_{{$selfdiagnos->id}}">
                             @csrf
                             <input type='hidden' name='_method' value='DELETE'>
                             <a type="submit" class="btn btn-danger btn-sm" style="color: white;" onclick="return deleteConfirm(this);" id="{{$selfdiagnos->id}}">Delete</a>
@@ -36,7 +36,7 @@
         </div>
     @endforeach
 @else
-        
+
             <!-- Image-Text card -->
             <div class="card">
                 <!-- Card body -->
@@ -44,5 +44,5 @@
                     <h5 class="h3 card-title mb-0 text-center">No records available.</h5>
                 </div>
             </div>
-        
+
 @endif

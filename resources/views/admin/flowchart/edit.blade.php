@@ -97,7 +97,7 @@
                                                     <label class="form-control-label" for="guide_id[]">Choose Content for this flowchart</label>
                                                     <select class="form-control" name="guide_id[]" data-toggle="select" multiple data-placeholder="Select Content" id="content">
                                                         @foreach($content as $diagnosis)
-                                                            <option value="{{$diagnosis->id}}" {{ $diagnosis->id == in_array($diagnosis->id, $guide_id_array) ? 'selected' : '' }}>{{$diagnosis->main_title}}</option>
+                                                            <option value="{{$diagnosis->id}}" {{ $diagnosis->id == in_array($diagnosis->id, $content_id_array) ? 'selected' : '' }}>{{$diagnosis->main_title}}</option>
                                                         @endforeach
                                                     </select>
                                                     @if($errors->has('guide_id[]'))
@@ -108,10 +108,10 @@
 
                                             <div class="col-sm-6 col-md-6" >
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="maintenance">Choose Maintenance Guide for this flowchart</label>
+                                                    <label class="form-control-label" for="maintenance">Choose Maintenance Content for this flowchart</label>
                                                     <select class="form-control" id="maintenance" name="guide_id[]" data-toggle="select" multiple placeholder="Select Maintenance">
                                                         @foreach($maintenance as $mainten)
-                                                            <option class="text-white" value="{{$mainten->id}}" {{ $mainten->id == in_array($mainten->id, $guide_id_array) ? 'selected' : '' }}>{{$mainten->main_title}}</option>
+                                                            <option class="text-white" value="{{$mainten->id}}" {{ $mainten->id == in_array($mainten->id, $content_id_array) ? 'selected' : '' }}>{{$mainten->main_title}}</option>
                                                         @endforeach
                                                     </select>
                                                      @if($errors->has('guide_id[]'))

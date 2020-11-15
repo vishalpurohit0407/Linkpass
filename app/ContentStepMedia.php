@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Storage;
 
-class GuideStepMedia extends Authenticatable
+class ContentStepMedia extends Authenticatable
 {
-    protected $table = 'guide_step_media';
+    protected $table = 'content_step_media';
 
     protected $fillable = [
         'step_id', 'step_key', 'media'

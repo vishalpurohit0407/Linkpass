@@ -1,6 +1,6 @@
 @if($selfdiagnosis && count($selfdiagnosis)>0)
 <div class="row">
-    @include('admin.selfdiagnosis.selfdiagnosis_data')
+    @include('admin.content.content_data')
 </div>
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-end">

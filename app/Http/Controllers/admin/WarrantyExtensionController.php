@@ -25,25 +25,25 @@ class WarrantyExtensionController extends Controller
     public function listdata(Request $request)
     {
         //echo "<pre>"; print_r($request->all()); exit();
-        $columns = array(  
+        $columns = array(
             0 => 'warranty_extension.id',
             1 => 'users.name',
             2 => 'warranty_extension.unique_key',
             3 => 'warranty_extension.updated_at',
         );
-  
-         
+
+
 
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
 
-        $totalData = WarrantyExtension::distinct('unique_key')->count();     
+        $totalData = WarrantyExtension::distinct('unique_key')->count();
         $totalFiltered = $totalData;
-            
+
         if(empty($request->input('search.value')))
-        {            
+        {
             $extensions = WarrantyExtension::join('users', 'users.id', '=', 'warranty_extension.user_id')
                          ->select('warranty_extension.*','users.name')
                          ->offset($start)
@@ -53,7 +53,7 @@ class WarrantyExtensionController extends Controller
                          ->orderBy($order,$dir)
                          ->get();
         }else{
-            $search = $request->input('search.value'); 
+            $search = $request->input('search.value');
 
             $extensions =  WarrantyExtension::join('users', 'users.id', '=', 'warranty_extension.user_id')
                             ->where('users.name', 'LIKE',"%{$search}%")
@@ -83,7 +83,7 @@ class WarrantyExtensionController extends Controller
                 }else {
                     $edit =  route('admin.warrantyextension.edit',$extension->id);
                 }
-                
+
                 $token =  $request->session()->token();
 
                 $nestedData['id'] = $extension->id;
@@ -92,22 +92,22 @@ class WarrantyExtensionController extends Controller
                 $nestedData['key'] = $extension->unique_key;
 
                 $extension_latest = WarrantyExtension::where('unique_key',$extension->unique_key)->latest()->select('updated_at')->first();
-                
+
                 $nestedData['updated_at'] = date('d-M-Y',strtotime($extension_latest->updated_at));
                 $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-success btn-sm mr-0'>View</a>";
-                
+
                 $srnumber++;
                 $data[] = $nestedData;
             }
         }
-          
+
         $json_data = array(
-                    "draw"            => intval($request->input('draw')),  
-                    "recordsTotal"    => intval($totalData),  
-                    "recordsFiltered" => intval($totalFiltered), 
-                    "data"            => $data   
+                    "draw"            => intval($request->input('draw')),
+                    "recordsTotal"    => intval($totalData),
+                    "recordsFiltered" => intval($totalFiltered),
+                    "data"            => $data
                     );
-            
+
         echo json_encode($json_data);
     }
 
@@ -115,9 +115,9 @@ class WarrantyExtensionController extends Controller
     public function requestListData(Request $request)
     {
         if($request->ajax()){
-            
+
             //echo "<pre>"; print_r($request->all()); exit();
-            $columns = array(  
+            $columns = array(
                 0 => 'warranty_extension.id',
                 1 => 'users.name',
                 2 => 'warranty_extension.unique_key',
@@ -129,11 +129,11 @@ class WarrantyExtensionController extends Controller
             $order = $columns[$request->input('order.0.column')];
             $dir = $request->input('order.0.dir');
 
-            $totalData = WarrantyExtension::distinct('unique_key')->whereIn('warranty_extension.status',['0','1','2'])->count();     
+            $totalData = WarrantyExtension::distinct('unique_key')->whereIn('warranty_extension.status',['0','1','2'])->count();
             $totalFiltered = $totalData;
-                
+
             if(empty($request->input('search.value')))
-            {            
+            {
                 $extensions = WarrantyExtension::join('users', 'users.id', '=', 'warranty_extension.user_id')
                              ->select('warranty_extension.*','users.name')
                              ->whereIn('warranty_extension.status',['0','1','2'])
@@ -145,7 +145,7 @@ class WarrantyExtensionController extends Controller
                              ->get();
 
             }else{
-                $search = $request->input('search.value'); 
+                $search = $request->input('search.value');
 
                 $extensions =  WarrantyExtension::join('users', 'users.id', '=', 'warranty_extension.user_id')
                                 ->whereIn('warranty_extension.status',['0','1','2'])
@@ -185,19 +185,19 @@ class WarrantyExtensionController extends Controller
 
                     $nestedData['updated_at'] = date('d-M-Y',strtotime($extension_latest->updated_at));
                     $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-success btn-sm mr-0' title='EDIT' >View</a>";
-                    
+
                     $srnumber++;
                     $data[] = $nestedData;
                 }
             }
-              
+
             $json_data = array(
-                "draw"            => intval($request->input('draw')),  
-                "recordsTotal"    => intval($totalData),  
-                "recordsFiltered" => intval($totalFiltered), 
-                "data"            => $data   
+                "draw"            => intval($request->input('draw')),
+                "recordsTotal"    => intval($totalData),
+                "recordsFiltered" => intval($totalFiltered),
+                "data"            => $data
             );
-                
+
             echo json_encode($json_data);die();
         }
 
@@ -254,7 +254,7 @@ class WarrantyExtensionController extends Controller
      */
     public function edit(WarrantyExtension $warrantyExtension)
     {
-        
+
         return view('admin.warrantyextension.edit',array('title' => 'Warranty Extension View','warrantyExtension'=>$warrantyExtension));
     }
 
@@ -279,7 +279,7 @@ class WarrantyExtensionController extends Controller
         $user = User::find($warrantyExtension->user_id);
 
         if(isset($request->approve) || isset($request->decline)){
-            
+
             $request->validate([
                 'next_warranty_valid_date' => 'required'
             ]);
@@ -301,13 +301,13 @@ class WarrantyExtensionController extends Controller
                 if($user){
                     WarrantyExtension::sendWarrantyNotification($user->email, $user->name, $messageNoti, route('user.warranty_extension.list'));
                 }
-                $request->session()->flash('alert-success', 'Warranty Extension updated successfuly.');  
+                $request->session()->flash('alert-success', 'Warranty Extension updated successfuly.');
             }
             return redirect(route('admin.warrantyextension.list'));
         }
 
         $input = $request->all();
-        
+
         if($warrantyExtension->status == '0'){
 
             if($user && $warrantyExtension->status == '0'){
@@ -323,7 +323,7 @@ class WarrantyExtensionController extends Controller
             $warrantyExtension->admin_vid_link_type = $request->admin_vid_link_type == 'youtube' ? 'youtube' : 'vimeo';
             $warrantyExtension->admin_vid_link_url = $request->admin_vid_link_url;
             $warrantyExtension->status = '1';
-            
+
         }else{
             if ($request->admin_vid_link_url) {
               Storage::disk('public')->delete($warrantyExtension->picture_by_admin);
@@ -339,10 +339,10 @@ class WarrantyExtensionController extends Controller
             $warrantyExtension->thing_on = (isset($request->thing_on) && $request->thing_on == 'on')? 'yes' : 'no';;
             $warrantyExtension->do_something = (isset($request->do_something))? 'true' : 'false';
         }
-          
+
         if($warrantyExtension->save())
         {
-            $request->session()->flash('alert-success', 'Warranty Extension updated successfuly.');  
+            $request->session()->flash('alert-success', 'Warranty Extension updated successfuly.');
         }
         return redirect(route('admin.warrantyextension.list'));
 
@@ -363,22 +363,22 @@ class WarrantyExtensionController extends Controller
     {
         $file = $request->file('file');
         if($file && $id){
-        
+
             $request->validate([
                 'file' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
-            
+
             $file_name =$file->getClientOriginalName();
             $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = md5($fileslug.time());
             $imgext =$file->getClientOriginalExtension();
             $path = 'warranty_extension/'.$id.'/'.$imageName.".".$imgext;
             $fileAdded = Storage::disk('public')->putFileAs('warranty_extension/'.$id.'/',$file,$imageName.".".$imgext);
-            
+
             if($fileAdded){
 
-                $guideData = WarrantyExtension::find($id);
-                Storage::disk('public')->delete($guideData->picture_by_admin);
+                $contentData = WarrantyExtension::find($id);
+                Storage::disk('public')->delete($contentData->picture_by_admin);
                 $media = WarrantyExtension::where('id',$id)->update(['picture_by_admin' => $path,'admin_vid_link_url'=>NULL,'admin_vid_link_type'=>NULL]);
                 return Response::json(['status' => true, 'message' => 'Media uploaded.']);
             }

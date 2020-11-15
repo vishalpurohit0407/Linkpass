@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\GuideCompletion;
+use App\ContentCompletion;
 use Zendesk;
 use Auth;
 use App\WarrantyExtension;
-use App\Guide;
+use App\Content;
 
 class HomeController extends Controller
 {
@@ -34,8 +34,8 @@ class HomeController extends Controller
         //     $totalSupportTicket = 0;
         //     $tickets = [];
         // }
-       
-        
+
+
         // $extensions = WarrantyExtension::where('user_id', Auth::user()->id)
         //    ->whereIn('warranty_extension.status',['0','1','2'])
         //    ->limit(5)
@@ -44,14 +44,14 @@ class HomeController extends Controller
         //    ->get();
 
 
-        
+
         // $totalWarrantyRequest = WarrantyExtension::where('user_id',Auth::user()->id)->groupBy('unique_key')->count();
-        // $totalSelfDiagnosis = GuideCompletion::leftJoin('guide', 'guide_completion.guide_id', '=', 'guide.id')
+        // $totalSelfDiagnosis = ContentCompletion::leftJoin('content', 'guide_completion.guide_id', '=', 'guide.id')
         // ->where('guide_completion.user_id',Auth::user()->id)->where('guide.guide_type','self-diagnosis')->count();
-        // $totalMaintenance = GuideCompletion::leftJoin('guide', 'guide_completion.guide_id', '=', 'guide.id')
+        // $totalMaintenance = ContentCompletion::leftJoin('content', 'guide_completion.guide_id', '=', 'guide.id')
         // ->where('guide_completion.user_id',Auth::user()->id)->where('guide.guide_type','maintenance')->count();
 
-        // return view('dashboard',array('totalSupportTicket' => $totalSupportTicket, 'totalWarrantyRequest' => $totalWarrantyRequest, 'totalSelfDiagnosis' => $totalSelfDiagnosis, 'totalMaintenance' => $totalMaintenance, 'extensions' => $extensions, 'tickets' => $tickets)); 
+        // return view('dashboard',array('totalSupportTicket' => $totalSupportTicket, 'totalWarrantyRequest' => $totalWarrantyRequest, 'totalSelfDiagnosis' => $totalSelfDiagnosis, 'totalMaintenance' => $totalMaintenance, 'extensions' => $extensions, 'tickets' => $tickets));
         return view('coming_soon');
     }
 }

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\admin\admin;
 use Illuminate\Http\Request;
 use App\User;
 use App\Category;
-use App\GuideStepMedia;
+use App\ContentStepMedia;
 use App\Selfdiagnosis;
-use App\Guidecategory;
+use App\Contentcategory;
 use Response;
 use Hash;
 use Auth;
@@ -25,11 +25,11 @@ class SelfDiagnosisController extends Controller
         // Selfdiagnosis::with('guide_category','guide_category.category')
 
         if($request->ajax()){
-            return view('admin.selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
         }else{
             $categorys = Category::all();
             //print_r($categorys);
-            return view('admin.selfdiagnosis.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
         }
     }
 
@@ -48,7 +48,7 @@ class SelfDiagnosisController extends Controller
         }
         $selfdiagnosis=$selfdiagnosis->paginate(6);
 
-        return view('admin.selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+        return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
     }
     /**
      * Show the form for creating a new resource.
@@ -58,7 +58,7 @@ class SelfDiagnosisController extends Controller
     public function create()
     {
         $category = Category::where('status','1')->get();
-        return view('admin.selfdiagnosis.add',array('title' => 'Content Add','category'=>$category));
+        return view('admin.content.add',array('title' => 'Content Add','category'=>$category));
     }
 
     /**
@@ -146,7 +146,7 @@ class SelfDiagnosisController extends Controller
                 $guidMediaArr = array();
                 $guidMediaArr['step_key'] = $request->unique_id;
                 $guidMediaArr['media'] =  $path;
-                $media = GuideStepMedia::create($guidMediaArr);
+                $media = ContentStepMedia::create($guidMediaArr);
                 return Response::json(['status' => true, 'message' => 'Media uploaded.', 'id' => $media->id]);
             }
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -176,7 +176,7 @@ class SelfDiagnosisController extends Controller
                 $guidMediaArr = array();
                 $guidMediaArr['step_key'] = $request->unique_id;
                 $guidMediaArr['media'] =  $path;
-                $media = GuideStepMedia::create($guidMediaArr);
+                $media = ContentStepMedia::create($guidMediaArr);
                 return Response::json(['status' => true, 'message' => 'Media uploaded.', 'id' => $media->id]);
             }
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -187,7 +187,7 @@ class SelfDiagnosisController extends Controller
 
     public function removeImage(Request $request)
     {
-        $media = GuideStepMedia::find($request->imageId);
+        $media = ContentStepMedia::find($request->imageId);
         //dd($media);
         if($media){
 
@@ -216,10 +216,10 @@ class SelfDiagnosisController extends Controller
             $selfdiagnosis->status = '3';
             if ($selfdiagnosis->save()) {
             }
-            return redirect(route('admin.selfdiagnosis.list'));
+            return redirect(route('admin.content.list'));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('admin.selfdiagnosis.list'));
+            return redirect(route('admin.content.list'));
         }
     }
 }

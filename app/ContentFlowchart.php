@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
 
-class GuideFlowchart extends Model
+class ContentFlowchart extends Model
 {
-	protected $table = 'guide_flowchart';
+	protected $table = 'content_flowchart';
 
     /**
      * The attributes that are mass assignable.

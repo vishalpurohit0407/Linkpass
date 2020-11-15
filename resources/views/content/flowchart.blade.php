@@ -12,10 +12,10 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
-                            @if($guide->guide_type == 'self-diagnosis')
-                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.selfdiagnosis.show',$guide->id)}}">Content Details</a></li>
+                            @if($content->guide_type == 'self-diagnosis')
+                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.content.show',$content->id)}}">Content Details</a></li>
                             @else
-                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.maintenance.show',$guide->id)}}">Maintenance Guide Details</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.maintenance.show',$content->id)}}">Maintenance Content Details</a></li>
                             @endif
                             <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                         </ol>

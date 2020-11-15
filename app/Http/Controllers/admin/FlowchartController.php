@@ -7,8 +7,8 @@ use App\Flowchartnode;
 use Illuminate\Http\Request;
 use Response;
 use Str;
-use App\Guide;
-use App\GuideFlowchart;
+use App\Content;
+use App\ContentFlowchart;
 
 class FlowchartController extends Controller
 {
@@ -174,10 +174,10 @@ class FlowchartController extends Controller
 
         $childNode = Flowchartnode::where('flowchart_id',$flowchart->id)->orderBy('created_at','desc')->get();
 
-        $maintenance = Guide::where('guide_type','maintenance')->where('status','1')->get();
-        $content = Guide::where('guide_type','self-diagnosis')->where('status','1')->get();
-        $guideflowchart_guideid = GuideFlowchart::where('flowchart_id',$flowchart->id)->pluck('guide_id')->toArray();
-        return view('admin.flowchart.edit',array('title' => 'Edit Flowchart','flowchart'=>$flowchart, 'childNode' => $childNode,'content'=>$content,'maintenance'=>$maintenance, 'guide_id_array'=>$guideflowchart_guideid));
+        $maintenance = Content::where('guide_type','maintenance')->where('status','1')->get();
+        $content = Content::where('guide_type','self-diagnosis')->where('status','1')->get();
+        $contentflowchart_guideid = ContentFlowchart::where('flowchart_id',$flowchart->id)->pluck('guide_id')->toArray();
+        return view('admin.flowchart.edit',array('title' => 'Edit Flowchart','flowchart'=>$flowchart, 'childNode' => $childNode,'content'=>$content,'maintenance'=>$maintenance, 'guide_id_array'=>$contentflowchart_guideid));
     }
 
     /**
@@ -212,15 +212,15 @@ class FlowchartController extends Controller
 	            }
 
 	            if ($request->guide_id) {
-	            	$guideflowid = GuideFlowchart::where('flowchart_id',$flowchart->id)->whereNotIn('guide_id',$request->guide_id)->delete();
-	            	foreach ($request->guide_id as $guidekey => $guide_id) {
-	            		$guideflowchart = GuideFlowchart::updateOrCreate([
-	            			'guide_id'=>$guide_id,
+	            	$contentflowid = ContentFlowchart::where('flowchart_id',$flowchart->id)->whereNotIn('guide_id',$request->guide_id)->delete();
+	            	foreach ($request->guide_id as $contentkey => $content_id) {
+	            		$contentflowchart = ContentFlowchart::updateOrCreate([
+	            			'guide_id'=>$content_id,
 	            			'flowchart_id'=>$flowchart->id,
 	            		]);
 	            	}
 	            }else{
-	            	GuideFlowchart::where('flowchart_id',$flowchart->id)->delete();
+	            	ContentFlowchart::where('flowchart_id',$flowchart->id)->delete();
 	            }
 	            if($flowchart->save())
 	            {

@@ -24,7 +24,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.selfdiagnosis.list')}}">Content</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.content.list')}}">Content</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                         </ol>
                     </nav>
@@ -58,12 +58,12 @@
                 </div>
 
                 <div class="col-4 text-right">
-                	<a href="{{route('selfdiagnosis.pdf.export',$selfdiagnosis->id)}}" class="btn btn-default btn-sm">Export PDF</a>
+                	<a href="{{route('content.pdf.export',$selfdiagnosis->id)}}" class="btn btn-default btn-sm">Export PDF</a>
                 	@php
-                        $guide_flowchart = \App\GuideFlowchart::where('guide_id',$selfdiagnosis->id)->first();
+                        $content_flowchart = \App\ContentFlowchart::where('guide_id',$selfdiagnosis->id)->first();
                     @endphp
-                    @if($guide_flowchart)
-                        <a class="btn btn-primary btn-sm" href="{{route('user.flowchart',[$guide_flowchart->flowchart_id,$selfdiagnosis->id])}}">View Flowchart</a>
+                    @if($content_flowchart)
+                        <a class="btn btn-primary btn-sm" href="{{route('user.flowchart',[$content_flowchart->flowchart_id,$selfdiagnosis->id])}}">View Flowchart</a>
                     @endif
                     <!-- <button class="btn btn-sm btn-neutral" onclick="printDiv('printableArea')">Print</button> -->
                 </div>
@@ -230,8 +230,8 @@
                 </h5>
                 <div class="mt-5 mb-4">
                     @php
-                        $completed_guide = \App\GuideCompletion::where('guide_id',$selfdiagnosis->id)->where('user_id',\Auth::user()->id)->first();
-                        $completed_guide_count = \App\GuideCompletion::where('guide_id',$selfdiagnosis->id)->count();
+                        $completed_guide = \App\ContentCompletion::where('guide_id',$selfdiagnosis->id)->where('user_id',\Auth::user()->id)->first();
+                        $completed_guide_count = \App\ContentCompletion::where('guide_id',$selfdiagnosis->id)->count();
 
                     @endphp
                     @if($completed_guide)
@@ -242,7 +242,7 @@
                     @else
                         <a href="{{route('user.complete.guide',$selfdiagnosis->id)}}" class="btn btn-icon btn-primary">
                             <span class="btn-inner--icon"><i class="fa fa-check"></i></span>
-                            <span class="btn-inner--text">Complete Guide</span>
+                            <span class="btn-inner--text">Complete Content</span>
                         </a>
                     @endif
                 </div>

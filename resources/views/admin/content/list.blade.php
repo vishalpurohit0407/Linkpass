@@ -15,7 +15,7 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{route('admin.selfdiagnosis.create')}}" class="btn btn-sm btn-neutral">Add New</a>
+                        <a href="{{route('admin.content.create')}}" class="btn btn-sm btn-neutral">Add New</a>
                     </div>
 
                 </div>
@@ -75,7 +75,7 @@
             @endif
         @endforeach
         <div class="row">
-            @include('admin.selfdiagnosis.selfdiagnosis_data')
+            @include('admin.content.content_data')
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
@@ -125,7 +125,7 @@ function getData(){
     $(".guide-listing-loader").show();
     $.ajax(
     {
-        url: '{{route("admin.selfdiagnosis.search")}}',
+        url: '{{route("admin.content.search")}}',
         type: "get",
         datatype: "html",
         data:{page:pageno,search:$('#search').val(),category_id:$('#category').val()},

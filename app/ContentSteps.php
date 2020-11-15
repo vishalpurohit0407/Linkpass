@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Storage;
-use App\GuideStepMedia;
+use App\ContentStepMedia;
 
-class GuideSteps extends Authenticatable
+class ContentSteps extends Authenticatable
 {
-    protected $table = 'guide_steps';
+    protected $table = 'content_steps';
 
     protected $fillable = [
         'guide_id', 'title', 'description', 'step_key', 'video_type', 'video_media'
@@ -16,6 +16,6 @@ class GuideSteps extends Authenticatable
 
     public function media()
     {
-        return $this->hasMany('App\GuideStepMedia', 'step_id','id');
+        return $this->hasMany('App\ContentStepMedia', 'step_id','id');
     }
 }

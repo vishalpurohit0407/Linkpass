@@ -2,7 +2,7 @@
 @extends('layouts.adminapp')
 @section('content')
 @php
-    $stepcount=count($guide_step);
+    $stepcount=count($content_step);
     if($stepcount==0){
         $stepcount=1;
     }
@@ -17,7 +17,7 @@
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.maintenance.list')}}">Maintenance Guides</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.maintenance.list')}}">Maintenance Contents</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
             </ol>
           </nav>
@@ -39,7 +39,7 @@
 
         <!-- Card body -->
         <div class="card-body">
-          <form action="{{ route('admin.maintenance.update',$guide->id) }}" method="post" enctype="multipart/form-data">
+          <form action="{{ route('admin.maintenance.update',$content->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           {{ method_field('PUT') }}
               <div class="row">
@@ -47,7 +47,7 @@
                   <div class="form-group">
                     <label class="form-control-label" for="guide_main_image">Main Image</label>
 
-                    <div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="{{route('admin.maintenance.mainupload',['id' => $guide->id])}}">
+                    <div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="{{route('admin.maintenance.mainupload',['id' => $content->id])}}">
                       <div class="fallback">
                         <div class="custom-file">
                           <input type="file" class="custom-file-input" id="guide_main_image">
@@ -67,14 +67,14 @@
                 <div class="col-md-7">
                     <div class="form-group ">
                         <label class="form-control-label" for="example3cols2Input">Main Title <strong class="text-danger">*</strong></label>
-                        <input type="text" name="main_title" class="form-control @if($errors->has('main_title')) is-invalid @endif" id="main_title" value="{{old('main_title', $guide->main_title)}}">
+                        <input type="text" name="main_title" class="form-control @if($errors->has('main_title')) is-invalid @endif" id="main_title" value="{{old('main_title', $content->main_title)}}">
                         @if($errors->has('main_title'))
                             <span class="invalid-feedback">{{ $errors->first('main_title') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label class="form-control-label @if($errors->has('description')) has-danger @endif" for="description">Description <strong class="text-danger">*</strong></label>
-                        <textarea class="form-control @if($errors->has('description')) is-invalid @endif" id="description" name="description" rows="3">{{old('description', $guide->description)}}</textarea>
+                        <textarea class="form-control @if($errors->has('description')) is-invalid @endif" id="description" name="description" rows="3">{{old('description', $content->description)}}</textarea>
                         @if($errors->has('description'))
                             <span class="invalid-feedback">{{ $errors->first('description') }}</span>
                         @endif
@@ -96,7 +96,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-control-label" for="type">Type <strong class="text-danger">*</strong></label>
-                                <input type="text" class="form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type" placeholder="Type" value="{{old('type', $guide->type)}}">
+                                <input type="text" class="form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type" placeholder="Type" value="{{old('type', $content->type)}}">
                                 @if($errors->has('type'))
                                     <span class="invalid-feedback">{{ $errors->first('type') }}</span>
                                 @endif
@@ -107,13 +107,13 @@
                                 <label class="form-control-label" for="example4cols2Input">Duration <strong class="text-danger">*</strong></label>
                                 <div class="input-group mb-3">
                                   <div class="input-group-prepend">
-                                    <input type="number" class="form-control @if($errors->has('duration')) is-invalid @endif" id="duration" name="duration" placeholder="Duration" value="{{old('duration', $guide->duration)}}">
+                                    <input type="number" class="form-control @if($errors->has('duration')) is-invalid @endif" id="duration" name="duration" placeholder="Duration" value="{{old('duration', $content->duration)}}">
                                   </div>
                                   <select class="custom-select" id="duration_type" name="duration_type">
-                                    <option value="minute(s)" @if(old('duration_type', $guide->duration_type) == 'minute(s)') selected @endif>minute(s)</option>
-                                    <option value="hour(s)" @if(old('duration_type', $guide->duration_type) == 'hour(s)') selected @endif>hour(s)</option>
-                                    <option value="day(s)" @if(old('duration_type', $guide->duration_type) == 'day(s)') selected @endif>day(s)</option>
-                                    <option value="month(s)" @if(old('duration_type', $guide->duration_type) == 'month(s)') selected @endif>month(s)</option>
+                                    <option value="minute(s)" @if(old('duration_type', $content->duration_type) == 'minute(s)') selected @endif>minute(s)</option>
+                                    <option value="hour(s)" @if(old('duration_type', $content->duration_type) == 'hour(s)') selected @endif>hour(s)</option>
+                                    <option value="day(s)" @if(old('duration_type', $content->duration_type) == 'day(s)') selected @endif>day(s)</option>
+                                    <option value="month(s)" @if(old('duration_type', $content->duration_type) == 'month(s)') selected @endif>month(s)</option>
                                   </select>
                                     @if($errors->has('duration'))
                                         <span class="invalid-feedback">{{ $errors->first('duration') }}</span>
@@ -127,11 +127,11 @@
                             <div class="form-group">
                                 <label class="form-control-label" for="difficulty">Difficulty <strong class="text-danger">*</strong></label>
                                 <select class="form-control" name="difficulty" id="difficulty">
-                                    <option value="Very easy" @if(old('difficulty', $guide->difficulty) == 'Very easy') selected @endif>Very easy</option>
-                                    <option value="Easy" @if(old('difficulty', $guide->difficulty) == 'Easy') selected @endif>Easy</option>
-                                    <option value="Medium" @if(old('difficulty', $guide->difficulty) == 'Medium') selected @endif>Medium</option>
-                                    <option value="Hard" @if(old('difficulty', $guide->difficulty) == 'Hard') selected @endif>Hard</option>
-                                    <option value="Very Hard" @if(old('difficulty', $guide->difficulty) == 'Very Hard') selected @endif>Very Hard</option>
+                                    <option value="Very easy" @if(old('difficulty', $content->difficulty) == 'Very easy') selected @endif>Very easy</option>
+                                    <option value="Easy" @if(old('difficulty', $content->difficulty) == 'Easy') selected @endif>Easy</option>
+                                    <option value="Medium" @if(old('difficulty', $content->difficulty) == 'Medium') selected @endif>Medium</option>
+                                    <option value="Hard" @if(old('difficulty', $content->difficulty) == 'Hard') selected @endif>Hard</option>
+                                    <option value="Very Hard" @if(old('difficulty', $content->difficulty) == 'Very Hard') selected @endif>Very Hard</option>
                                 </select>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                 <label class="form-control-label" for="cost">Cost <strong class="text-danger">*</strong></label>
                                 <!--  -->
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @if($errors->has('cost')) is-invalid @endif" name="cost" id="cost" placeholder="Cost" value="{{old('cost', $guide->cost)}}">
+                                    <input type="text" class="form-control @if($errors->has('cost')) is-invalid @endif" name="cost" id="cost" placeholder="Cost" value="{{old('cost', $content->cost)}}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">$</span>
                                     </div>
@@ -154,7 +154,7 @@
 
                     <div class="form-group">
                         <label class="form-control-label" for="tags">Tags</label><br>
-                        <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $guide->tags)}}" data-toggle="tags" />
+                        <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $content->tags)}}" data-toggle="tags" />
                     </div>
 
                 </div>
@@ -166,7 +166,7 @@
                 <div class="col-sm-12">
                   <div class="form-group">
                     <label class="form-control-label" for="example4cols3Input">Introduction (optional)</label>
-                    <textarea name="introduction" id="introduction" class="form-control" rows="10">{{old('introduction', $guide->introduction)}}</textarea>
+                    <textarea name="introduction" id="introduction" class="form-control" rows="10">{{old('introduction', $content->introduction)}}</textarea>
                   </div>
                 </div>
               </div>
@@ -178,11 +178,11 @@
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <select class="custom-select" id="vid_link_type" name="vid_link_type" style="border-radius: 0;font-size:1rem;">
-                              <option value="youtube" @if(old('vid_link_type', $guide->introduction_video_type) == 'youtube') selected @endif>Youtube</option>
-                              <option value="vimeo" @if(old('vid_link_type', $guide->introduction_video_type) == 'vimeo') selected @endif>Vimeo</option>
+                              <option value="youtube" @if(old('vid_link_type', $content->introduction_video_type) == 'youtube') selected @endif>Youtube</option>
+                              <option value="vimeo" @if(old('vid_link_type', $content->introduction_video_type) == 'vimeo') selected @endif>Vimeo</option>
                             </select>
                           </div>
-                          <input type="text" class="form-control" id="vid_link_url" name="vid_link_url" placeholder="Enter here the URL of a Youtube or Vimeo video" value="{{old('vid_link_url', $guide->introduction_video_link)}}">
+                          <input type="text" class="form-control" id="vid_link_url" name="vid_link_url" placeholder="Enter here the URL of a Youtube or Vimeo video" value="{{old('vid_link_url', $content->introduction_video_link)}}">
                         </div>
                         <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
                     </div>
@@ -194,15 +194,15 @@
                 <div data-repeater-list="guide_step">
                     <script type="text/javascript">let stepMediaArr = new Array();</script>
 
-                    @if(old('step_count') == '' && $guide_step->count() > 0)
-                        @foreach ($guide_step as $key => $guidestep)
+                    @if(old('step_count') == '' && $content_step->count() > 0)
+                        @foreach ($content_step as $key => $contentstep)
 
                             <div class="guide_step_list" data-repeater-item>
                                 <div class="row mb-6">
                                   <div class="col-sm-12">
                                     <h1 class="step">Step <span class="step_number">{{$key + 1}}</span></h1>
                                     <a href="javascript:;" data-repeater-delete="" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
-                                    <input type="hidden" class="step_key" name="step_key" value="{{ $guidestep->step_key }}">
+                                    <input type="hidden" class="step_key" name="step_key" value="{{ $contentstep->step_key }}">
 
                                     <div class="dropzone dropzone-init"></div>
 
@@ -212,18 +212,18 @@
                                   <div class="col-sm-6">
                                       <div class="form-group">
                                           <label class="form-control-label" for="step_title">Title</label>
-                                          <input type="text" class="form-control" name="step_title" placeholder="Title" value="{{ $guidestep->title }}">
+                                          <input type="text" class="form-control" name="step_title" placeholder="Title" value="{{ $contentstep->title }}">
                                       </div>
                                       <div class="form-group">
                                           <label class="form-control-label" for="step_video">Video</label>
                                           <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                               <select class="custom-select" id="step_video_type" name="step_video_type" style="border-radius: 0;font-size:1rem;">
-                                                <option value="youtube" @if(old('step_video_type', $guidestep->video_type) == 'youtube') selected @endif>Youtube</option>
-                                                <option value="vimeo" @if(old('step_video_type', $guidestep->video_type) == 'vimeo') selected @endif>Vimeo</option>
+                                                <option value="youtube" @if(old('step_video_type', $contentstep->video_type) == 'youtube') selected @endif>Youtube</option>
+                                                <option value="vimeo" @if(old('step_video_type', $contentstep->video_type) == 'vimeo') selected @endif>Vimeo</option>
                                               </select>
                                             </div>
-                                            <input type="text" class="form-control" id="step_video_media" name="step_video_media" placeholder="Enter here the URL of a Youtube or vimeo video" value="{{old('step_video_media', $guidestep->video_media)}}">
+                                            <input type="text" class="form-control" id="step_video_media" name="step_video_media" placeholder="Enter here the URL of a Youtube or vimeo video" value="{{old('step_video_media', $contentstep->video_media)}}">
                                           </div>
                                           <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
                                       </div>
@@ -231,21 +231,21 @@
                                   <div class="col-sm-6">
                                       <div class="form-group">
                                           <label class="form-control-label">Points/Description</label>
-                                          <textarea name="step_description" id="step_description_{{$key}}" class="form-control step_description" rows="10">{{ $guidestep->description }}</textarea>
+                                          <textarea name="step_description" id="step_description_{{$key}}" class="form-control step_description" rows="10">{{ $contentstep->description }}</textarea>
                                       </div>
                                   </div>
                                 </div>
                                 <hr>
                             </div>
-                            @if($guidestep->media)
+                            @if($contentstep->media)
                                 <script type="text/javascript">var subMediaArr = new Array();</script>
-                                @foreach ($guidestep->media as $key => $substep)
+                                @foreach ($contentstep->media as $key => $substep)
                                     <script type="text/javascript">
                                         subMediaArr.push({ name: '{{$substep->media}}', size: '', url: '{{$substep->media_url}}', id: '{{$substep->id}}'});
                                     </script>
                                 @endforeach
                                 <script type="text/javascript">
-                                    stepMediaArr['{{$guidestep->step_key}}'] = subMediaArr;
+                                    stepMediaArr['{{$contentstep->step_key}}'] = subMediaArr;
                                 </script>
                             @endif
 
@@ -377,7 +377,7 @@
 
               <div class="row">
                 <div class="col-6">
-                    @if($guide->status == '3')
+                    @if($content->status == '3')
                         <input type="submit" class="btn btn-info" name="submit" value="Save As Draft">
                     @endif
                     <input type="submit" class="btn btn-success" name="submit" value="Published">
@@ -414,15 +414,15 @@
 <script src="{{asset('assets/vendor/jquery-repeater/jquery.repeater.min.js')}}"></script>
 <script type="text/javascript">
 var stepCount = 1;
-let guide_id= '{{$guide->id}}';
+let guide_id= '{{$content->id}}';
 $(document).ready(function() {
     console.log(stepMediaArr);
-    @if($guide->main_image)
-        $(".dz-preview.dz-preview-single").html('<div class="dz-preview-cover dz-processing dz-image-preview dz-success dz-complete"><img class="dz-preview-img" src="{{asset($guide->main_image_url)}}"></div>');
+    @if($content->main_image)
+        $(".dz-preview.dz-preview-single").html('<div class="dz-preview-cover dz-processing dz-image-preview dz-success dz-complete"><img class="dz-preview-img" src="{{asset($content->main_image_url)}}"></div>');
         $(".dropzone.dropzone-single").addClass('dz-clickable dz-max-files-reached');
     @endif
     /*var mainImage = $(".dropzone-single-new").dropzone({
-        url: "{{route('admin.selfdiagnosis.mainupload',['id' => $guide->id])}}",
+        url: "{{route('admin.content.mainupload',['id' => $content->id])}}",
         maxFiles: 5,
         paramName: 'file',
         maxFilesSize: 1024,
@@ -437,9 +437,9 @@ $(document).ready(function() {
     });*/
 
 
-    /*var mockFile = { name: '{{$guide->main_image}}'};
+    /*var mockFile = { name: '{{$content->main_image}}'};
     mainImage.emit("addedfile", mockFile);
-    mainImage.emit("thumbnail", mockFile, '{{$guide->main_image_url}}');
+    mainImage.emit("thumbnail", mockFile, '{{$content->main_image_url}}');
     mainImage.emit("complete", mockFile);
     mainImage.files.push(mockFile);*/
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Guide;
+use App\Content;
 use App\Category;
 use Illuminate\Http\Request;
 use Auth;
-use App\GuideCompletion;
+use App\ContentCompletion;
 use App\Flowchart;
 use PDF;
 use Str;
@@ -26,19 +26,19 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $selfdiagnosis = Guide::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $selfdiagnosis = Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
-            return view('selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+            return view('content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
         }else{
             $categorys = Category::where('status','1')->orderBy('name','asc')->get();
             //print_r($categorys);
-            return view('selfdiagnosis.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('content.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
         }
     }
 
     public function search(Request $request){
-        $selfdiagnosis=Guide::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1');
+        $selfdiagnosis=Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1');
         //->where('status','!=','2')
         if(isset($request->search) && !empty($request->search)){
             $selfdiagnosis=$selfdiagnosis->where('main_title','LIKE','%'.$request->search.'%');
@@ -51,7 +51,7 @@ class ContentController extends Controller
         }
         $selfdiagnosis=$selfdiagnosis->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
-        return view('selfdiagnosis.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+        return view('content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
     }
 
     /**
@@ -59,60 +59,60 @@ class ContentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function completedGuide(Request $request, $guide_id ,Guide $guide)
+    public function completedContent(Request $request, $content_id ,Content $content)
     {
-        $guide = Guide::find($guide_id);
+        $content = Content::find($content_id);
         try {
-            if (!$guide) {
+            if (!$content) {
               return abort(404);
             }
-            $completed_guide = new GuideCompletion;
-            $completed_guide->guide_id = $guide->id;
+            $completed_guide = new ContentCompletion;
+            $completed_guide->guide_id = $content->id;
             $completed_guide->user_id = Auth::user()->id;
             if($completed_guide->save())
             {
-                $request->session()->flash('alert-success', ($guide->guide_type == 'self-diagnosis' ? 'Content':'Maintenance').' Guide completed successfuly.');
+                $request->session()->flash('alert-success', ($content->guide_type == 'self-diagnosis' ? 'Content':'Maintenance').' Content completed successfuly.');
             }
-            if ($guide->guide_type == 'self-diagnosis') {
-                $route = 'user.selfdiagnosis.show';
+            if ($content->guide_type == 'self-diagnosis') {
+                $route = 'user.content.show';
             }else{
                 $route = 'user.maintenance.show';
             }
-            return redirect(route($route,$guide->id));
+            return redirect(route($route,$content->id));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route($route,$guide->id));
+            return redirect(route($route,$content->id));
         };
     }
 
-    public function createPDF(Request $request ,$guide_id) {
+    public function createPDF(Request $request ,$content_id) {
         // retreive all records from db
-        $selfdiagnosis = Guide::find($guide_id);
+        $selfdiagnosis = Content::find($content_id);
         if (!$selfdiagnosis) {
             return abort(404);
         }
         // share data to view
         view()->share('selfdiagnosis',$selfdiagnosis);
-        // return view('selfdiagnosis.pdf_view', $selfdiagnosis);
-        $pdf = PDF::loadView('selfdiagnosis.pdf_view', $selfdiagnosis);
+        // return view('content.pdf_view', $selfdiagnosis);
+        $pdf = PDF::loadView('content.pdf_view', $selfdiagnosis);
         return $pdf->download(Str::slug($selfdiagnosis->main_title, '-').'.pdf');
 
         // Load content from html file
         // $dompdf = new Dompdf();
-        // $dompdf->loadHtml(view('selfdiagnosis.pdf_view', compact('selfdiagnosis')));
+        // $dompdf->loadHtml(view('content.pdf_view', compact('selfdiagnosis')));
         // $dompdf->setPaper('A4', 'landscape');
         // $dompdf->render();
         // $dompdf->stream("codexworld", array("Attachment" => 1));
     }
 
-    public function flowChart(Request $request,$flowchart_id,$guide_id)
+    public function flowChart(Request $request,$flowchart_id,$content_id)
     {
-        $guide = Guide::find($guide_id);
+        $content = Content::find($content_id);
         $flowchart = Flowchart::where('id',$flowchart_id)->with('flowchart_node')->first();
-        if (!$flowchart && !$guide) {
+        if (!$flowchart && !$content) {
             return abort(404);
         }
-        return view('selfdiagnosis.flowchart',array('title'=>'Flow Chart','flowchart'=>$flowchart,'guide'=>$guide));
+        return view('content.flowchart',array('title'=>'Flow Chart','flowchart'=>$flowchart,'content'=>$content));
     }
 
     public function create()
@@ -134,33 +134,33 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function show(Guide $guide)
+    public function show(Content $content)
     {
-        return view('selfdiagnosis.detail',array('title'=>'Content Details','selfdiagnosis'=>$guide));
+        return view('content.detail',array('title'=>'Content Details','selfdiagnosis'=>$content));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function edit(Guide $guide)
+    public function edit(Content $content)
     {
-        // echo "<pre>";print_r($guide);exit();
+        // echo "<pre>";print_r($content);exit();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Guide $guide)
+    public function update(Request $request, Content $content)
     {
         //
     }
@@ -168,10 +168,10 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Guide  $guide
+     * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Guide $guide, Request $request)
+    public function destroy(Content $content, Request $request)
     {
         //
     }

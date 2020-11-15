@@ -27,13 +27,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// Content Module Routes
 	Route::get('/guide/flowchart/{flowchart_id}/{guide_id}','ContentController@flowChart')->name('user.flowchart');
-	Route::get('/guide/pdf/{id}','ContentController@createPDF')->name('selfdiagnosis.pdf.export');
-	Route::get('/guide/complete/{id}','ContentController@completedGuide')->name('user.complete.guide');
-	Route::get('/guide/search','ContentController@search')->name('user.selfdiagnosis.search');
+	Route::get('/guide/pdf/{id}','ContentController@createPDF')->name('content.pdf.export');
+	Route::get('/guide/complete/{id}','ContentController@completedContent')->name('user.complete.guide');
+	Route::get('/guide/search','ContentController@search')->name('user.content.search');
 	Route::resource('/guide', 'ContentController', [
 	    'names' => [
-	        'index' => 'user.selfdiagnosis.list',
-	        'show' => 'user.selfdiagnosis.show'
+	        'index' => 'user.content.list',
+	        'show' => 'user.content.show'
 	    ]
 	]);
 
