@@ -53,6 +53,24 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link {{ Request::routeIs('admin.selfdiagnosis.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
+                <i class="ni ni-settings text-orange"></i>
+                <span class="nav-link-text">Self Diagnosis</span>
+              </a>
+              <div class="collapse {{ Request::routeIs('admin.selfdiagnosis.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item">
+                    <a href="{{route('admin.selfdiagnosis.list')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.list') ? 'active' : '' }}">All Self Diagnosis</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('admin.selfdiagnosis.create')}}" class="nav-link {{ Request::routeIs('admin.selfdiagnosis.create') ? 'active' : '' }}">Add New Self Diagnosis</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+
             <!-- <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.category.*') ? 'active' : '' }}" href="{{route('admin.category.list')}}">
                 <i class="ni ni-ungroup text-info"></i>

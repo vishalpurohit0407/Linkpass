@@ -21,7 +21,7 @@ Route::post('/password/reset', 'Adminauth\ResetPasswordController@reset')->name(
 
 // Add new route for 'admin' middleware
 Route::group(['middleware' => ['admin']],function(){
-	
+
 	// Logout routes
 	//Route::get('/','admin\AdminController@index');
     Route::post('/logout','Adminauth\LoginController@logout');
@@ -140,8 +140,8 @@ Route::group(['middleware' => ['admin']],function(){
 
 
 	// CMS Page Module Routes
-	Route::post('/cms_page/list/data','admin\CmsPageController@listdata')->name('admin.cms.page.listdata');
-	Route::resource('/cms_page', 'admin\CmsPageController', [
+	Route::post('/cms-page/list/data','admin\CmsPageController@listdata')->name('admin.cms.page.listdata');
+	Route::resource('/cms-page', 'admin\CmsPageController', [
 	    'names' => [
 	        'index' => 'admin.cms.page.list',
 	        'create'=>'admin.cms.page.create',

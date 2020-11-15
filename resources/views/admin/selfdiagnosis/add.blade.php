@@ -22,10 +22,10 @@
             </ol>
           </nav>
         </div>
-       
+
       </div>
       <!-- Card stats -->
-      
+
     </div>
   </div>
 </div>
@@ -46,7 +46,7 @@
                 <div class="col-md-5 main-img">
                   <div class="form-group">
                     <label class="form-control-label" for="guide_main_image">Main Image</label>
-                    
+
                     <div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="{{route('admin.selfdiagnosis.mainupload',['id' => $guide->id])}}">
                       <div class="fallback">
                         <div class="custom-file">
@@ -61,7 +61,7 @@
                       </div>
                     </div>
                     <p class="text-info mb-0"><strong>Recommended Size: 800 X 600 px</strong></p>
-                   
+
                   </div>
                 </div>
                 <div class="col-md-7">
@@ -69,14 +69,14 @@
                         <label class="form-control-label" for="example3cols2Input">Main Title <strong class="text-danger">*</strong></label>
                         <input type="text" name="main_title" class="form-control @if($errors->has('main_title')) is-invalid @endif" id="main_title" value="{{old('main_title', $guide->main_title)}}">
                         @if($errors->has('main_title'))
-                            <span class="form-text text-danger">{{ $errors->first('main_title') }}</span>
+                            <span class="invalid-feedback">{{ $errors->first('main_title') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label class="form-control-label @if($errors->has('description')) has-danger @endif" for="description">Description <strong class="text-danger">*</strong></label>
                         <textarea class="form-control @if($errors->has('description')) is-invalid @endif" id="description" name="description" rows="3">{{old('description', $guide->description)}}</textarea>
                         @if($errors->has('description'))
-                            <span class="form-text text-danger">{{ $errors->first('description') }}</span>
+                            <span class="invalid-feedback">{{ $errors->first('description') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
@@ -89,7 +89,7 @@
                             @endif
                         </select>
                         @if($errors->has('category'))
-                            <span class="form-text text-danger">{{ $errors->first('category') }}</span>
+                            <span class="invalid-feedback">{{ $errors->first('category') }}</span>
                         @endif
                     </div>
                     <div class="row">
@@ -98,7 +98,7 @@
                                 <label class="form-control-label" for="type">Type <strong class="text-danger">*</strong></label>
                                 <input type="text" class="form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type" placeholder="Type" value="{{old('type', $guide->type)}}">
                                 @if($errors->has('type'))
-                                    <span class="form-text text-danger">{{ $errors->first('type') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('type') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                     <option value="month(s)" @if(old('duration_type', $guide->duration_type) == 'month(s)') selected @endif>month(s)</option>
                                   </select>
                                     @if($errors->has('duration'))
-                                        <span class="form-text text-danger">{{ $errors->first('duration') }}</span>
+                                        <span class="invalid-feedback">{{ $errors->first('duration') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                                     </div>
                                 </div>
                                 @if($errors->has('cost'))
-                                    <span class="form-text text-danger">{{ $errors->first('cost') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('cost') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -161,7 +161,7 @@
               </div>
 
                 <hr class="hr-dotted">
-          
+
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group">
@@ -196,7 +196,7 @@
 
                     @if(old('step_count') == '' && $guide_step->count() > 0)
                         @foreach ($guide_step as $key => $guidestep)
-                           
+
                             <div class="guide_step_list" data-repeater-item>
                                 <div class="row mb-6">
                                   <div class="col-sm-12">
@@ -205,7 +205,7 @@
                                     <input type="hidden" class="step_key" name="step_key" value="{{ $guidestep->step_key }}">
 
                                     <div class="dropzone dropzone-init"></div>
-                                
+
                                   </div>
                                 </div>
                                 <div class="row">
@@ -248,7 +248,7 @@
                                     stepMediaArr['{{$guidestep->step_key}}'] = subMediaArr;
                                 </script>
                             @endif
-                             
+
                         @endforeach
                     @else
 
@@ -261,7 +261,7 @@
                             <input type="hidden" class="step_key" name="step_key" value="{{ old('guide_step.0.step_key') }}">
 
                             <div class="dropzone dropzone-init"></div>
-                            
+
                             @if($errors->has('guide_step.0.stepfilupload'))
                                 <div class="invalid-feedback" >{{ $errors->first('guide_step.0.stepfilupload') }}</div>
                             @elseif($errors->has('guide_step.0.stepfilupload.*'))
@@ -276,7 +276,7 @@
                                   <label class="form-control-label" for="step_title">Title</label>
                                   <input type="text" class="form-control @if($errors->has('guide_step.0.step_title')) is-invalid @endif" name="step_title" placeholder="Title" value="{{ old('guide_step.0.step_title') }}">
                                     @if($errors->has('guide_step.0.step_title'))
-                                        <span class="form-text text-danger">{{ $errors->first('guide_step.0.step_title') }}</span>
+                                        <span class="invalid-feedback">{{ $errors->first('guide_step.0.step_title') }}</span>
                                     @endif
                               </div>
                                 <div class="form-group">
@@ -298,7 +298,7 @@
                                   <label class="form-control-label">Points/Description</label>
                                   <textarea name="step_description" id="step_description_1" class="form-control step_description @if($errors->has('guide_step.0.step_description')) is-invalid @endif" rows="10">{{ old('guide_step.0.step_description') }}</textarea>
                                     @if($errors->has('guide_step.0.step_description'))
-                                        <span class="form-text text-danger">{{ $errors->first('guide_step.0.step_description') }}</span>
+                                        <span class="invalid-feedback">{{ $errors->first('guide_step.0.step_description') }}</span>
                                     @endif
                               </div>
                           </div>
@@ -335,7 +335,7 @@
                                               <label class="form-control-label" for="step_title">Title</label>
                                               <input type="text" class="form-control @if($errors->has('guide_step.'.$e.'.step_title')) is-invalid @endif" name="step_title" placeholder="Title" value="{{ old('guide_step.'.$e.'.step_title') }}">
                                                 @if($errors->has('guide_step.'.$e.'.step_title'))
-                                                    <span class="form-text text-danger">{{ $errors->first('guide_step.'.$e.'.step_title') }}</span>
+                                                    <span class="invalid-feedback">{{ $errors->first('guide_step.'.$e.'.step_title') }}</span>
                                                 @endif
                                         </div>
 
@@ -359,7 +359,7 @@
                                           <label class="form-control-label">Points/Description</label>
                                           <textarea name="step_description" id="step_description_{{$e+1}}" class="form-control step_description @if($errors->has('guide_step.'.$e.'.step_description')) is-invalid @endif" rows="10">{{ old('guide_step.'.$e.'.step_description') }}</textarea>
                                             @if($errors->has('guide_step.'.$e.'.step_description'))
-                                                <span class="form-text text-danger">{{ $errors->first('guide_step.'.$e.'.step_description') }}</span>
+                                                <span class="invalid-feedback">{{ $errors->first('guide_step.'.$e.'.step_description') }}</span>
                                             @endif
                                       </div>
                                   </div>
@@ -389,8 +389,8 @@
 
         </div>
       </div>
-      
-      
+
+
     </div>
 <style type="text/css">
   .main-img .dz-default.dz-message{
@@ -417,7 +417,7 @@ var stepCount = 1;
 let guide_id= '{{$guide->id}}';
 $(document).ready(function() {
     // console.log(stepMediaArr);
-    @if($guide->main_image) 
+    @if($guide->main_image)
         $(".dz-preview.dz-preview-single").html('<div class="dz-preview-cover dz-processing dz-image-preview dz-success dz-complete"><img class="dz-preview-img" src="{{asset($guide->main_image_url)}}"></div>');
         $(".dropzone.dropzone-single").addClass('dz-clickable dz-max-files-reached');
     @endif
@@ -453,7 +453,7 @@ $(document).ready(function() {
       filebrowserUploadMethod: 'form'
     });
 
-   
+
     function addon_step_unique_id(){
         return "key_"+Math.random().toString(16).slice(2);
     }
@@ -472,7 +472,7 @@ $(document).ready(function() {
             $(this).show('fast',function(){
 
                 var unique_id=addon_step_unique_id();
-                
+
                 $(this).find(".step_key").val(unique_id);
 
                 $(this).find(".step_description").attr('id','step_description_'+step_count);
@@ -488,7 +488,7 @@ $(document).ready(function() {
                 Dropzone.autoDiscover = false;
 
                 $(this).find('.dropzone-init').each(function(){
-                    
+
                     var dropUrl = "{{ route('admin.selfdiagnosis.upload', ['_token' => csrf_token()]) }}";
                     dropUrl+="&unique_id="+unique_id+"&guide_id="+guide_id;
                     var dropMaxFiles = 6;
@@ -508,8 +508,8 @@ $(document).ready(function() {
                             });
                         },
                         success: function(file, response){
-                            
-                            if(response.status){   
+
+                            if(response.status){
                                 //linkObj.find(".dz-remove").attr("data-dz-media_id", response.id);
                                 $(file._removeLink).attr("data-dz-media_id", response.id);
                                 callRemoveImg();
@@ -538,11 +538,11 @@ $(document).ready(function() {
                         data: { step_key: keyId},
                         type: 'POST',
                         success: function (data) {
-                            
+
                             console.log();
                         },
                         error: function (data) {
-                            
+
                         }
                     });
                     step_count--;
@@ -574,7 +574,7 @@ $(document).ready(function() {
                 });
 
                 $(this).find('.dropzone-init').each(function(){
-                    
+
                     var dropUrl = "{{ route('admin.selfdiagnosis.upload', ['_token' => csrf_token()]) }}";
                     dropUrl+="&unique_id="+unique_id+"&guide_id="+guide_id;
                     var dropMaxFiles = 6;
@@ -597,16 +597,16 @@ $(document).ready(function() {
 
                             // If you only have access to the original image sizes on your server,
                             // and want to resize them in the browser:
-                            
+
 
                             if(stepMediaArr[unique_id]){
                                 for (i = 0; i < stepMediaArr[unique_id].length; i++) {
-                                    
+
                                     let mockFile = { name: stepMediaArr[unique_id][i].name};
                                     myDropzone.emit("addedfile", mockFile);
                                     myDropzone.emit("thumbnail", mockFile, stepMediaArr[unique_id][i].url);
                                     myDropzone.emit("complete", mockFile);
-                                    
+
                                     $(mockFile._removeLink).attr("data-dz-media_id", stepMediaArr[unique_id][i].id);
                                     $(mockFile.previewTemplate).find(".dz-image img").addClass("dropzone-saved-img");
                                     //$(myDropzone).find(".dz-remove").attr("data-dz-media_id", stepMediaArr[unique_id][i].id);
@@ -617,8 +617,8 @@ $(document).ready(function() {
 
                         },
                         success: function(file, response){
-                            
-                            if(response.status){   
+
+                            if(response.status){
                                 //linkObj.find(".dz-remove").attr("data-dz-media_id", response.id);
                                 $(file._removeLink).attr("data-dz-media_id", response.id);
                                 callRemoveImg();
@@ -633,7 +633,7 @@ $(document).ready(function() {
     function stepgenerateID(){
         var step_number=0;
         $( "#guide_repeater > .guide_step_list").each(function( index ) {
-            step_number++;             
+            step_number++;
             $(this).find('.step_number').text(step_number);
         });
     }
@@ -644,12 +644,12 @@ $(document).ready(function() {
 function callRemoveImg(){
 
     $(".dz-remove").on("click", function (e) {
-        
+
         e.preventDefault();
         e.stopPropagation();
 
         var imageId = $(this).data('dz-media_id');
-       
+
         if(imageId){
 
             $.ajax({
@@ -657,30 +657,30 @@ function callRemoveImg(){
                 data: { imageId: imageId},
                 type: 'POST',
                 success: function (data) {
-                    
+
                     console.log();
                 },
                 error: function (data) {
-                    
+
                 }
-            });     
+            });
         }
     });
 }
 
 function addMoreStep(){
-  
+
   stepCount++;
 
   var ids = 'step_description'+stepCount;
   var html = $("#step_hidden_html");
 
   var ele = html.find('.step_description_cl').attr('id',ids);
-  
+
   $("#step_html").append(html.html());
 
  /* $('.remove_level').on('click', function() {
-    
+
     $(this).closest('.row').remove();
   });*/
 
@@ -693,7 +693,7 @@ function addMoreStep(){
   });*/
 
   /*CKEDITOR.editorConfig = function (config) {
-      
+
     config.height = 300;
     config.extraPlugins ='justify,videodetector';
     config.height = '400px';

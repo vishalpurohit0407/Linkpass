@@ -27,7 +27,7 @@
       <!-- Table -->
       @foreach (['danger', 'warning', 'success', 'info'] as $msg)
           @if(Session::has('alert-' . $msg))
-              <div class="alert alert-custom alert-{{ $msg }} alert-dismissible fade show mb-2" role="alert">           
+              <div class="alert alert-custom alert-{{ $msg }} alert-dismissible fade show mb-2" role="alert">
                   <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
                   <div class="alert-close">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +35,7 @@
                       </button>
                   </div>
               </div>
-          @endif 
+          @endif
       @endforeach
       <div class="row">
         <div class="col">
@@ -89,13 +89,13 @@
                               <div class="input-group">
                                   <input class="form-control" name="title" id="title" placeholder="Title*" type="text">
                               </div>
-                              <span class="form-text text-danger" id="errortitle" style="display: none;">The title field is required.</span>
+                              <span class="invalid-feedback" id="errortitle" style="display: none;">The title field is required.</span>
                           </div>
                           <div class="form-group">
                               <div class="input-group">
                                   <textarea class="form-control" name="description" id="description" rows="10" placeholder="Description"></textarea>
                               </div>
-                              <span class="form-text text-danger" id="errordesc" style="display: none;">The description field is required.</span>
+                              <span class="invalid-feedback" id="errordesc" style="display: none;">The description field is required.</span>
                           </div>
                           <div class="text-center">
                               <button type="submit" class="btn btn-primary my-4">Save</button>
@@ -143,7 +143,7 @@
               { "data": "status" },
               { "data": "created_at" },
               { "data": "options" }
-          ]  
+          ]
       });
 
       $('#addflowchart').submit(function () {
