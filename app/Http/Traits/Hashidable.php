@@ -30,7 +30,7 @@ trait Hashidable
      */
     public function getHashidAttribute()
     {
-        //return \Hashids::encode($this->attributes['id']);
-        return $this->attributes['id'];
+        return \Hashids::encode($this->attributes['id']);
+        //return $this->attributes['id'];
     }
 }
