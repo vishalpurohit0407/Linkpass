@@ -7,7 +7,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Storage;
 use App\ContentStepMedia;
-use App\Contentcategory;
+use App\ContentCategory;
 use App\ContentSteps;
 use Response;
 
@@ -25,33 +25,33 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $selfdiagnosis = Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content = Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
-            return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.ajaxlist',array('content'=>$content));
         }else{
             $categorys = Category::where('status','1')->orderBy('name','asc')->get();
             //print_r($categorys);
-            return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'content'=>$content));
         }
     }
 
     public function search(Request $request){
 
-        $selfdiagnosis=Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2');
+        $content=Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2');
         //->where('status','!=','2')
         if(isset($request->search) && !empty($request->search)){
-            $selfdiagnosis=$selfdiagnosis->where('main_title','LIKE','%'.$request->search.'%');
+            $content=$content->where('main_title','LIKE','%'.$request->search.'%');
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $category_id=$request->category_id;
-            $selfdiagnosis=$selfdiagnosis->whereHas('guide_category', function ($query) use ($category_id) {
+            $content=$content->whereHas('guide_category', function ($query) use ($category_id) {
                     $query->where('category_id', $category_id);
                 });
         }
-        $selfdiagnosis=$selfdiagnosis->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content=$content->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
-        return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+        return view('admin.content.ajaxlist',array('content'=>$content));
     }
 
     /**
@@ -199,7 +199,7 @@ class ContentController extends Controller
      */
     public function show(Content $content)
     {
-        return view('admin.content.detail',array('title'=>'Content Details','selfdiagnosis'=>$content));
+        return view('admin.content.detail',array('title'=>'Content Details','content'=>$content));
     }
 
     /**
@@ -213,7 +213,7 @@ class ContentController extends Controller
         $category = Category::where('status','1')->get();
         $content_step = ContentSteps::where('guide_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
 
-        $selectedCategory = Contentcategory::where('guide_id',$content->id)->pluck('category_id')->toArray();
+        $selectedCategory = ContentCategory::where('guide_id',$content->id)->pluck('category_id')->toArray();
         return view('admin.content.add',array('title' => 'Content Add','category'=> $category, 'content' => $content, 'selectedCategory' => $selectedCategory, 'content_step' => $content_step));
     }
 
@@ -273,15 +273,15 @@ class ContentController extends Controller
         $content->status = ($request->submit == 'Save As Draft')? '3' : '1';
 
         if(isset($request->category) && is_array($request->category)){
-            Contentcategory::where('guide_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
+            ContentCategory::where('guide_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
             foreach ($request->category as $key => $cate) {
 
-                $checkCat = Contentcategory::where('guide_id', $content->id)->where('category_id', $cate)->count();
+                $checkCat = ContentCategory::where('guide_id', $content->id)->where('category_id', $cate)->count();
                 if($checkCat == 0){
                     $cateArr = array();
                     $cateArr['guide_id'] = $content->id;
                     $cateArr['category_id'] = $cate;
-                    Contentcategory::create($cateArr);
+                    ContentCategory::create($cateArr);
                 }
             }
         }

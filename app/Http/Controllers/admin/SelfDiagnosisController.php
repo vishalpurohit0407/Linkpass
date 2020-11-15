@@ -7,7 +7,7 @@ use App\User;
 use App\Category;
 use App\ContentStepMedia;
 use App\Selfdiagnosis;
-use App\Contentcategory;
+use App\ContentCategory;
 use Response;
 use Hash;
 use Auth;
@@ -21,34 +21,34 @@ class SelfDiagnosisController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $selfdiagnosis = Selfdiagnosis::with('guide_category','guide_category.category')->orderBy('created_at', 'desc')->paginate(6);
+        $content = Selfdiagnosis::with('guide_category','guide_category.category')->orderBy('created_at', 'desc')->paginate(6);
         // Selfdiagnosis::with('guide_category','guide_category.category')
 
         if($request->ajax()){
-            return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.ajaxlist',array('content'=>$content));
         }else{
             $categorys = Category::all();
             //print_r($categorys);
-            return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'content'=>$content));
         }
     }
 
     public function search(Request $request){
 
-        $selfdiagnosis=Selfdiagnosis::with('guide_category','guide_category.category')
+        $content=Selfdiagnosis::with('guide_category','guide_category.category')
             ->orderBy('created_at', 'desc');
         if(isset($request->search) && !empty($request->search)){
-            $selfdiagnosis=$selfdiagnosis->where('main_title','LIKE','%'.$request->search."%");
+            $content=$content->where('main_title','LIKE','%'.$request->search."%");
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $category_id=$request->category_id;
-            $selfdiagnosis=$selfdiagnosis->whereHas('guide_category', function ($query) use ($category_id) {
+            $content=$content->whereHas('guide_category', function ($query) use ($category_id) {
                     $query->where('category_id', $category_id);
                 });
         }
-        $selfdiagnosis=$selfdiagnosis->paginate(6);
+        $content=$content->paginate(6);
 
-        return view('admin.content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+        return view('admin.content.ajaxlist',array('content'=>$content));
     }
     /**
      * Show the form for creating a new resource.
@@ -206,15 +206,15 @@ class SelfDiagnosisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Selfdiagnosis $selfdiagnosis, Request $request)
+    public function destroy(Selfdiagnosis $content, Request $request)
     {
-        echo "<pre>";print_r($selfdiagnosis);exit();
+        echo "<pre>";print_r($content);exit();
         try {
-            if(!$selfdiagnosis){
+            if(!$content){
                 return abort(404) ;
             }
-            $selfdiagnosis->status = '3';
-            if ($selfdiagnosis->save()) {
+            $content->status = '3';
+            if ($content->save()) {
             }
             return redirect(route('admin.content.list'));
         }catch (ModelNotFoundException $exception) {

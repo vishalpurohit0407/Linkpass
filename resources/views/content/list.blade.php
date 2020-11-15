@@ -54,7 +54,7 @@
     <div class="guide-listing-loader" style="display: none;">
         <i class="fa fa-spinner fa-pulse"></i>
     </div>
-    <div class="container-fluid mt--6" id="selfdiagnosis_data">
+    <div class="container-fluid mt--6" id="content_data">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
             @if(Session::has('alert-' . $msg))
                  <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">
@@ -72,7 +72,7 @@
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-                {!! $selfdiagnosis->links() !!}
+                {!! $content->links() !!}
             </ul>
         </nav>
     </div>
@@ -123,7 +123,7 @@ function getData(){
         datatype: "html",
         data:{page:pageno,search:$('#search').val(),category_id:$('#category').val()},
     }).done(function(data){
-        $("#selfdiagnosis_data").html(data);
+        $("#content_data").html(data);
         $(".guide-listing-loader").hide();
         //location.hash = page;
     }).fail(function(jqXHR, ajaxOptions, thrownError){

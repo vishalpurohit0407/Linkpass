@@ -54,11 +54,11 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link {{ Request::routeIs('admin.content.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
+              <a class="nav-link {{ Request::routeIs('admin.content.*') ? 'active' : '' }}" href="#navbar-forms-content" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-content">
                 <i class="ni ni-settings text-orange"></i>
                 <span class="nav-link-text">Content</span>
               </a>
-              <div class="collapse {{ Request::routeIs('admin.content.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
+              <div class="collapse {{ Request::routeIs('admin.content.*') ? 'show' : '' }}" id="navbar-forms-content" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
                     <a href="{{route('admin.content.list')}}" class="nav-link {{ Request::routeIs('admin.content.list') ? 'active' : '' }}">All Content</a>
@@ -96,11 +96,11 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link {{ Request::routeIs('admin.content.*') ? 'active' : '' }}" href="#navbar-forms-selfdiagnosis" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-selfdiagnosis">
+              <a class="nav-link {{ Request::routeIs('admin.content.*') ? 'active' : '' }}" href="#navbar-forms-content" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-content">
                 <i class="ni ni-settings text-orange"></i>
                 <span class="nav-link-text">Content</span>
               </a>
-              <div class="collapse {{ Request::routeIs('admin.content.*') ? 'show' : '' }}" id="navbar-forms-selfdiagnosis" style="">
+              <div class="collapse {{ Request::routeIs('admin.content.*') ? 'show' : '' }}" id="navbar-forms-content" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
                     <a href="{{route('admin.content.list')}}" class="nav-link {{ Request::routeIs('admin.content.list') ? 'active' : '' }}">All Content</a>

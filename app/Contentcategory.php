@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Contentcategory extends Authenticatable
+class ContentCategory extends Authenticatable
 {
     protected $table = 'content_category';
 

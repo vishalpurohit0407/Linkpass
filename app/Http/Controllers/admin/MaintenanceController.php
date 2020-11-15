@@ -7,7 +7,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Storage;
 use App\ContentStepMedia;
-use App\Contentcategory;
+use App\ContentCategory;
 use App\ContentSteps;
 use Response;
 
@@ -197,7 +197,7 @@ class MaintenanceController extends Controller
         $category = Category::where('status','1')->get();
         $content_step = ContentSteps::where('guide_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
         //dd($content_step);
-        $selectedCategory = Contentcategory::where('guide_id',$content->id)->pluck('category_id')->toArray();
+        $selectedCategory = ContentCategory::where('guide_id',$content->id)->pluck('category_id')->toArray();
         return view('admin.maintenance.add',array('title' => 'Add Maintenance Content','category'=> $category, 'content' => $content, 'selectedCategory' => $selectedCategory, 'guide_step' => $content_step));
     }
 
@@ -257,15 +257,15 @@ class MaintenanceController extends Controller
         $content->status = ($request->submit == 'Save As Draft')? '3' : '1';
 
         if(isset($request->category) && is_array($request->category)){
-            Contentcategory::where('guide_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
+            ContentCategory::where('guide_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
             foreach ($request->category as $key => $cate) {
 
-                $checkCat = Contentcategory::where('guide_id', $content->id)->where('category_id', $cate)->count();
+                $checkCat = ContentCategory::where('guide_id', $content->id)->where('category_id', $cate)->count();
                 if($checkCat == 0){
                     $cateArr = array();
                     $cateArr['guide_id'] = $content->id;
                     $cateArr['category_id'] = $cate;
-                    Contentcategory::create($cateArr);
+                    ContentCategory::create($cateArr);
                 }
             }
         }

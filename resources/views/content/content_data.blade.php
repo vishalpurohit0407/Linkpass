@@ -1,5 +1,5 @@
-@if($selfdiagnosis && count($selfdiagnosis)>0)
-    @foreach($selfdiagnosis as $selfdiagnos)
+@if($content && count($content)>0)
+    @foreach($content as $selfdiagnos)
         <div class="col-lg-4 pb-5">
             <!-- Image-Text card -->
             <a href="{{route('user.content.show',$selfdiagnos->id)}}">

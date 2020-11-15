@@ -54,16 +54,16 @@
         <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-8">
-                    <h5 class="h3 mb-0">{{$selfdiagnosis->main_title}}</h5>
+                    <h5 class="h3 mb-0">{{$content->main_title}}</h5>
                 </div>
 
                 <div class="col-4 text-right">
-                	<a href="{{route('content.pdf.export',$selfdiagnosis->id)}}" class="btn btn-default btn-sm">Export PDF</a>
+                	<a href="{{route('content.pdf.export',$content->id)}}" class="btn btn-default btn-sm">Export PDF</a>
                 	@php
-                        $content_flowchart = \App\ContentFlowchart::where('guide_id',$selfdiagnosis->id)->first();
+                        $content_flowchart = \App\ContentFlowchart::where('guide_id',$content->id)->first();
                     @endphp
                     @if($content_flowchart)
-                        <a class="btn btn-primary btn-sm" href="{{route('user.flowchart',[$content_flowchart->flowchart_id,$selfdiagnosis->id])}}">View Flowchart</a>
+                        <a class="btn btn-primary btn-sm" href="{{route('user.flowchart',[$content_flowchart->flowchart_id,$content->id])}}">View Flowchart</a>
                     @endif
                     <!-- <button class="btn btn-sm btn-neutral" onclick="printDiv('printableArea')">Print</button> -->
                 </div>
@@ -73,35 +73,35 @@
             <div class="row">
                 <div class="col-md-5 col-sm-5 col-xs-12">
                     <div class="tuto-main-image noprint">
-                        <a class="image" href="" id="lightgallery" data-image="{{asset($selfdiagnosis->main_image_url)}}" data-maintitle="{{$selfdiagnosis->main_title}}" >
-                            <img class="img-fluid" style="filter: blur(0px);" src="{{asset($selfdiagnosis->main_image_url)}}">
+                        <a class="image" href="" id="lightgallery" data-image="{{asset($content->main_image_url)}}" data-maintitle="{{$content->main_title}}" >
+                            <img class="img-fluid" style="filter: blur(0px);" src="{{asset($content->main_image_url)}}">
                         </a>
                     </div>
                 </div>
                 <div class="col-md-7 col-sm-7 col-xs-12">
                     <div class="tuto-details-box">
-                        <p class="mt-0">{{$selfdiagnosis->description}}</p>
+                        <p class="mt-0">{{$content->description}}</p>
                         <div class="tuto-items-container">
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="ni ni-app"></i></span>
                                 <span class="alert-text">Type</span>
-                                <span class="alert-text-right"><strong>{{$selfdiagnosis->type}}</strong></span>
+                                <span class="alert-text-right"><strong>{{$content->type}}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="fas fa-tachometer-alt"></i></span>
                                 <span class="alert-text">Difficulty</span>
-                                <span class="alert-text-right"><strong>{{$selfdiagnosis->difficulty}}</strong></span>
+                                <span class="alert-text-right"><strong>{{$content->difficulty}}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="fas fa-clock"></i></span>
                                 <span class="alert-text">Duration</span>
-                                <span class="alert-text-right"><strong>{{$selfdiagnosis->duration}}&nbsp;{{$selfdiagnosis->duration_type}}</strong></span>
+                                <span class="alert-text-right"><strong>{{$content->duration}}&nbsp;{{$content->duration_type}}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="fas fa-tag"></i></span>
                                 <span class="alert-text">Categories</span>
                                 @php
-                                    $category_id = $selfdiagnosis->guide_category->pluck('category_id')->toArray();
+                                    $category_id = $content->guide_category->pluck('category_id')->toArray();
                                     $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
                                 @endphp
                                 <span class="alert-text-right"><strong>{{implode(', ',$category_name)}}</strong></span>
@@ -109,7 +109,7 @@
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="fas fa-money-bill-alt"></i></span>
                                 <span class="alert-text">Cost</span>
-                                <span class="alert-text-right"><strong><div class="tuto-items-details-container-right">{{$selfdiagnosis->cost}} USD ($)</div></strong></span>
+                                <span class="alert-text-right"><strong><div class="tuto-items-details-container-right">{{$content->cost}} USD ($)</div></strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="fas fa-list-ol"></i></span>
@@ -118,7 +118,7 @@
                                     <a href="#content-sr" role="button" tabindex="0" class="togglelink">hide</a>]&nbsp;
                                 </span>
                                 <ul id="content-sr">
-                                    @if($selfdiagnosis->guide_step)
+                                    @if($content->guide_step)
                                     @php $step = 1; @endphp
                                     @php $srno = 2; @endphp
                                         <li class="toclevel-1">
@@ -127,7 +127,7 @@
                                                 <span class="toctext">Introduction</span>
                                             </a>
                                         </li>
-                                        @foreach($selfdiagnosis->guide_step as $stepdata)
+                                        @foreach($content->guide_step as $stepdata)
                                             <li class="toclevel-1">
                                                 <a href="#Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}">
                                                     <span class="tocnumber">{{$srno}}</span>
@@ -145,26 +145,26 @@
                 </div>
             </div>
             <hr>
-            @if($selfdiagnosis->introduction)
+            @if($content->introduction)
                 <div id="Introduction" class="mt-4 ckeditimg" s>
                     <h2 class="display-3 mb-0">Introduction</h2>
-                    <p>{!!$selfdiagnosis->introduction!!}</p>
+                    <p>{!!$content->introduction!!}</p>
                     <hr>
                 </div>
             @endif
-            @if($selfdiagnosis->introduction_video_link)
+            @if($content->introduction_video_link)
                 <div id="Introduction" class="mt-4">
                     <h2 class="display-3 mb-0">Video overview</h2>
                     <div class="embed-responsive embed-responsive-16by9" id="non-printable">
-                        <iframe class="embed-responsive-item" class="text-center" src="{{$selfdiagnosis->introduction_video_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="embed-responsive-item" class="text-center" src="{{$content->introduction_video_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <hr>
                 </div>
             @endif
             <br>
-            @if($selfdiagnosis->guide_step)
+            @if($content->guide_step)
             @php $step = 1; @endphp
-                @foreach($selfdiagnosis->guide_step as $stepkey => $stepdata)
+                @foreach($content->guide_step as $stepkey => $stepdata)
                     <div id="Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}" class="mt-4">
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
@@ -230,8 +230,8 @@
                 </h5>
                 <div class="mt-5 mb-4">
                     @php
-                        $completed_guide = \App\ContentCompletion::where('guide_id',$selfdiagnosis->id)->where('user_id',\Auth::user()->id)->first();
-                        $completed_guide_count = \App\ContentCompletion::where('guide_id',$selfdiagnosis->id)->count();
+                        $completed_guide = \App\ContentCompletion::where('guide_id',$content->id)->where('user_id',\Auth::user()->id)->first();
+                        $completed_guide_count = \App\ContentCompletion::where('guide_id',$content->id)->count();
 
                     @endphp
                     @if($completed_guide)
@@ -240,7 +240,7 @@
                             <span class="btn-inner--text">Already Completed</span>
                         </a>
                     @else
-                        <a href="{{route('user.complete.guide',$selfdiagnosis->id)}}" class="btn btn-icon btn-primary">
+                        <a href="{{route('user.complete.guide',$content->id)}}" class="btn btn-icon btn-primary">
                             <span class="btn-inner--icon"><i class="fa fa-check"></i></span>
                             <span class="btn-inner--text">Complete Content</span>
                         </a>
@@ -257,8 +257,8 @@
 <script type="text/javascript">
 var elementArr = new Array();
     @php
-        if($selfdiagnosis->guide_step){
-            foreach($selfdiagnosis->guide_step as $stepdata){
+        if($content->guide_step){
+            foreach($content->guide_step as $stepdata){
                 if($stepdata->media){
     @endphp
                     var mediaArr = new Array();

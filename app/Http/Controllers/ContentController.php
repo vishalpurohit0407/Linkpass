@@ -26,32 +26,32 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $selfdiagnosis = Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content = Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
-            return view('content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+            return view('content.ajaxlist',array('content'=>$content));
         }else{
             $categorys = Category::where('status','1')->orderBy('name','asc')->get();
             //print_r($categorys);
-            return view('content.list',array('title' => 'Content List','categorys'=>$categorys,'selfdiagnosis'=>$selfdiagnosis));
+            return view('content.list',array('title' => 'Content List','categorys'=>$categorys,'content'=>$content));
         }
     }
 
     public function search(Request $request){
-        $selfdiagnosis=Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1');
+        $content=Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1');
         //->where('status','!=','2')
         if(isset($request->search) && !empty($request->search)){
-            $selfdiagnosis=$selfdiagnosis->where('main_title','LIKE','%'.$request->search.'%');
+            $content=$content->where('main_title','LIKE','%'.$request->search.'%');
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $category_id=$request->category_id;
-            $selfdiagnosis=$selfdiagnosis->whereHas('guide_category', function ($query) use ($category_id) {
+            $content=$content->whereHas('guide_category', function ($query) use ($category_id) {
                     $query->where('category_id', $category_id);
                 });
         }
-        $selfdiagnosis=$selfdiagnosis->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content=$content->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
-        return view('content.ajaxlist',array('selfdiagnosis'=>$selfdiagnosis));
+        return view('content.ajaxlist',array('content'=>$content));
     }
 
     /**
@@ -87,19 +87,19 @@ class ContentController extends Controller
 
     public function createPDF(Request $request ,$content_id) {
         // retreive all records from db
-        $selfdiagnosis = Content::find($content_id);
-        if (!$selfdiagnosis) {
+        $content = Content::find($content_id);
+        if (!$content) {
             return abort(404);
         }
         // share data to view
-        view()->share('selfdiagnosis',$selfdiagnosis);
-        // return view('content.pdf_view', $selfdiagnosis);
-        $pdf = PDF::loadView('content.pdf_view', $selfdiagnosis);
-        return $pdf->download(Str::slug($selfdiagnosis->main_title, '-').'.pdf');
+        view()->share('content',$content);
+        // return view('content.pdf_view', $content);
+        $pdf = PDF::loadView('content.pdf_view', $content);
+        return $pdf->download(Str::slug($content->main_title, '-').'.pdf');
 
         // Load content from html file
         // $dompdf = new Dompdf();
-        // $dompdf->loadHtml(view('content.pdf_view', compact('selfdiagnosis')));
+        // $dompdf->loadHtml(view('content.pdf_view', compact('content')));
         // $dompdf->setPaper('A4', 'landscape');
         // $dompdf->render();
         // $dompdf->stream("codexworld", array("Attachment" => 1));
@@ -139,7 +139,7 @@ class ContentController extends Controller
      */
     public function show(Content $content)
     {
-        return view('content.detail',array('title'=>'Content Details','selfdiagnosis'=>$content));
+        return view('content.detail',array('title'=>'Content Details','content'=>$content));
     }
 
     /**
