@@ -1,0 +1,5 @@
+[10-Nov-2020 07:40:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/linkpass/public_html/bootstrap/app.php:14
+Stack trace:
+#0 /home/linkpass/public_html/artisan(20): require_once()
+#1 {main}
+  thrown in /home/linkpass/public_html/bootstrap/app.php on line 14
