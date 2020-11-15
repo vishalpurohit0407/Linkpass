@@ -174,10 +174,10 @@ class FlowchartController extends Controller
 
         $childNode = Flowchartnode::where('flowchart_id',$flowchart->id)->orderBy('created_at','desc')->get();
 
-        $maintenance = Content::where('guide_type','maintenance')->where('status','1')->get();
-        $content = Content::where('guide_type','self-diagnosis')->where('status','1')->get();
-        $contentflowchart_guideid = ContentFlowchart::where('flowchart_id',$flowchart->id)->pluck('guide_id')->toArray();
-        return view('admin.flowchart.edit',array('title' => 'Edit Flowchart','flowchart'=>$flowchart, 'childNode' => $childNode,'content'=>$content,'maintenance'=>$maintenance, 'guide_id_array'=>$contentflowchart_guideid));
+        $maintenance = Content::where('content_type','maintenance')->where('status','1')->get();
+        $content = Content::where('content_type','self-diagnosis')->where('status','1')->get();
+        $contentflowchart_contentid = ContentFlowchart::where('flowchart_id',$flowchart->id)->pluck('content_id')->toArray();
+        return view('admin.flowchart.edit',array('title' => 'Edit Flowchart','flowchart'=>$flowchart, 'childNode' => $childNode,'content'=>$content,'maintenance'=>$maintenance, 'content_id_array'=>$contentflowchart_contentid));
     }
 
     /**
@@ -211,11 +211,11 @@ class FlowchartController extends Controller
 	            	$flowchart['status'] = '0';
 	            }
 
-	            if ($request->guide_id) {
-	            	$contentflowid = ContentFlowchart::where('flowchart_id',$flowchart->id)->whereNotIn('guide_id',$request->guide_id)->delete();
-	            	foreach ($request->guide_id as $contentkey => $content_id) {
+	            if ($request->content_id) {
+	            	$contentflowid = ContentFlowchart::where('flowchart_id',$flowchart->id)->whereNotIn('content_id',$request->content_id)->delete();
+	            	foreach ($request->content_id as $contentkey => $content_id) {
 	            		$contentflowchart = ContentFlowchart::updateOrCreate([
-	            			'guide_id'=>$content_id,
+	            			'content_id'=>$content_id,
 	            			'flowchart_id'=>$flowchart->id,
 	            		]);
 	            	}

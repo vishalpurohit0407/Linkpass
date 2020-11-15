@@ -15,6 +15,6 @@ class ContentFlowchart extends Model
      * @var array
      */
     protected $fillable = [
-        'guide_id', 'flowchart_id'
+        'content_id', 'flowchart_id'
     ];
 }

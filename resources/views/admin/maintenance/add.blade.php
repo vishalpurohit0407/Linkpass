@@ -45,13 +45,13 @@
               <div class="row">
                 <div class="col-md-5 main-img">
                   <div class="form-group">
-                    <label class="form-control-label" for="guide_main_image">Main Image</label>
+                    <label class="form-control-label" for="content_main_image">Main Image</label>
 
                     <div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="{{route('admin.maintenance.mainupload',['id' => $content->id])}}">
                       <div class="fallback">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="guide_main_image">
-                          <label class="custom-file-label" for="guide_main_image">Choose file</label>
+                          <input type="file" class="custom-file-input" id="content_main_image">
+                          <label class="custom-file-label" for="content_main_image">Choose file</label>
                         </div>
                       </div>
                       <div class="dz-preview dz-preview-single" style="height: 300px;">
@@ -190,14 +190,14 @@
               </div>
 
               <hr class="hr-dotted">
-              <div class="guide_repeater">
-                <div data-repeater-list="guide_step">
+              <div class="content_repeater">
+                <div data-repeater-list="content_step">
                     <script type="text/javascript">let stepMediaArr = new Array();</script>
 
                     @if(old('step_count') == '' && $content_step->count() > 0)
                         @foreach ($content_step as $key => $contentstep)
 
-                            <div class="guide_step_list" data-repeater-item>
+                            <div class="content_step_list" data-repeater-item>
                                 <div class="row mb-6">
                                   <div class="col-sm-12">
                                     <h1 class="step">Step <span class="step_number">{{$key + 1}}</span></h1>
@@ -252,31 +252,31 @@
                         @endforeach
                     @else
 
-                      <div class="guide_step_list" data-repeater-item>
+                      <div class="content_step_list" data-repeater-item>
 
                         <div class="row mb-6">
                           <div class="col-sm-12">
                             <h1 class="step">Step <span class="step_number">1</span></h1>
                             <a href="javascript:;" data-repeater-delete="" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
-                            <input type="hidden" class="step_key" name="step_key" value="{{ old('guide_step.0.step_key') }}">
+                            <input type="hidden" class="step_key" name="step_key" value="{{ old('content_step.0.step_key') }}">
 
                             <div class="dropzone dropzone-init"></div>
 
-                            @if($errors->has('guide_step.0.stepfilupload'))
-                                <div class="invalid-feedback" >{{ $errors->first('guide_step.0.stepfilupload') }}</div>
-                            @elseif($errors->has('guide_step.0.stepfilupload.*'))
-                                <div class="invalid-feedback" >{{ $errors->first('guide_step.0.stepfilupload.*') }}</div>
+                            @if($errors->has('content_step.0.stepfilupload'))
+                                <div class="invalid-feedback" >{{ $errors->first('content_step.0.stepfilupload') }}</div>
+                            @elseif($errors->has('content_step.0.stepfilupload.*'))
+                                <div class="invalid-feedback" >{{ $errors->first('content_step.0.stepfilupload.*') }}</div>
                             @endif
                           </div>
                         </div>
 
                         <div class="row">
                           <div class="col-sm-6">
-                              <div class="form-group @if($errors->has('guide_step.0.step_title')) has-danger @endif">
+                              <div class="form-group @if($errors->has('content_step.0.step_title')) has-danger @endif">
                                   <label class="form-control-label" for="step_title">Title</label>
-                                  <input type="text" class="form-control @if($errors->has('guide_step.0.step_title')) is-invalid @endif" name="step_title" placeholder="Type" value="{{ old('guide_step.0.step_title') }}">
-                                    @if($errors->has('guide_step.0.step_title'))
-                                        <span class="invalid-feedback">{{ $errors->first('guide_step.0.step_title') }}</span>
+                                  <input type="text" class="form-control @if($errors->has('content_step.0.step_title')) is-invalid @endif" name="step_title" placeholder="Type" value="{{ old('content_step.0.step_title') }}">
+                                    @if($errors->has('content_step.0.step_title'))
+                                        <span class="invalid-feedback">{{ $errors->first('content_step.0.step_title') }}</span>
                                     @endif
                               </div>
                                 <div class="form-group">
@@ -284,21 +284,21 @@
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                           <select class="custom-select" id="step_video_type" name="step_video_type" style="border-radius: 0;font-size:1rem;">
-                                            <option value="youtube" @if(old('guide_step.0.step_video_type') == 'youtube') selected @endif>Youtube</option>
-                                            <option value="vimeo" @if(old('guide_step.0.step_video_type') == 'vimeo') selected @endif>Vimeo</option>
+                                            <option value="youtube" @if(old('content_step.0.step_video_type') == 'youtube') selected @endif>Youtube</option>
+                                            <option value="vimeo" @if(old('content_step.0.step_video_type') == 'vimeo') selected @endif>Vimeo</option>
                                           </select>
                                         </div>
-                                        <input type="text" class="form-control" id="step_video_media" name="step_video_media" placeholder="Enter here the URL of a Youtube or vimeo video" value="{{old('guide_step.0.step_video_media')}}">
+                                        <input type="text" class="form-control" id="step_video_media" name="step_video_media" placeholder="Enter here the URL of a Youtube or vimeo video" value="{{old('content_step.0.step_video_media')}}">
                                     </div>
                                     <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
                                 </div>
                           </div>
                           <div class="col-sm-6">
-                              <div class="form-group @if($errors->has('guide_step.0.step_description')) has-danger @endif">
+                              <div class="form-group @if($errors->has('content_step.0.step_description')) has-danger @endif">
                                   <label class="form-control-label">Points/Description</label>
-                                  <textarea name="step_description" id="step_description_1" class="form-control step_description @if($errors->has('guide_step.0.step_description')) is-invalid @endif" rows="10">{{ old('guide_step.0.step_description') }}</textarea>
-                                    @if($errors->has('guide_step.0.step_description'))
-                                        <span class="invalid-feedback">{{ $errors->first('guide_step.0.step_description') }}</span>
+                                  <textarea name="step_description" id="step_description_1" class="form-control step_description @if($errors->has('content_step.0.step_description')) is-invalid @endif" rows="10">{{ old('content_step.0.step_description') }}</textarea>
+                                    @if($errors->has('content_step.0.step_description'))
+                                        <span class="invalid-feedback">{{ $errors->first('content_step.0.step_description') }}</span>
                                     @endif
                               </div>
                           </div>
@@ -307,12 +307,12 @@
                       </div>
                         @if($step_count>=2)
                             @for($e=1;$e<$step_count;$e++)
-                            <div class="guide_step_list" data-repeater-item>
+                            <div class="content_step_list" data-repeater-item>
                                 <div class="row mb-6">
                                   <div class="col-sm-12">
                                     <h1 class="step">Step <span class="step_number">{{ $e+1 }}</span></h1>
                                     <a href="javascript:;" data-repeater-delete="" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
-                                    <input type="hidden" class="step_key" name="step_key" value="{{ old('guide_step.'.$e.'.step_key') }}">
+                                    <input type="hidden" class="step_key" name="step_key" value="{{ old('content_step.'.$e.'.step_key') }}">
                                     <div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple data-dropzone-url="http://">
                                       <div class="fallback">
                                         <div class="custom-file">
@@ -331,11 +331,11 @@
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group @if($errors->has('guide_step.'.$e.'.step_title')) has-danger @endif">
+                                        <div class="form-group @if($errors->has('content_step.'.$e.'.step_title')) has-danger @endif">
                                               <label class="form-control-label" for="step_title">Title</label>
-                                              <input type="text" class="form-control @if($errors->has('guide_step.'.$e.'.step_title')) is-invalid @endif" name="step_title" placeholder="Type" value="{{ old('guide_step.'.$e.'.step_title') }}">
-                                                @if($errors->has('guide_step.'.$e.'.step_title'))
-                                                    <span class="invalid-feedback">{{ $errors->first('guide_step.'.$e.'.step_title') }}</span>
+                                              <input type="text" class="form-control @if($errors->has('content_step.'.$e.'.step_title')) is-invalid @endif" name="step_title" placeholder="Type" value="{{ old('content_step.'.$e.'.step_title') }}">
+                                                @if($errors->has('content_step.'.$e.'.step_title'))
+                                                    <span class="invalid-feedback">{{ $errors->first('content_step.'.$e.'.step_title') }}</span>
                                                 @endif
                                         </div>
 
@@ -344,22 +344,22 @@
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                   <select class="custom-select" id="step_video_type" name="step_video_type" style="border-radius: 0;font-size:1rem;">
-                                                    <option value="youtube" @if(old('guide_step.'.$e.'.step_video_type') == 'youtube') selected @endif>Youtube</option>
-                                                    <option value="vimeo" @if(old('guide_step.'.$e.'.step_video_type') == 'vimeo') selected @endif>Vimeo</option>
+                                                    <option value="youtube" @if(old('content_step.'.$e.'.step_video_type') == 'youtube') selected @endif>Youtube</option>
+                                                    <option value="vimeo" @if(old('content_step.'.$e.'.step_video_type') == 'vimeo') selected @endif>Vimeo</option>
                                                   </select>
                                                 </div>
-                                                <input type="text" class="form-control" id="step_video_media" name="step_video_media" placeholder="Enter here the URL of a Youtube or vimeo video" value="{{ old('guide_step.'.$e.'.step_video_media') }}">
+                                                <input type="text" class="form-control" id="step_video_media" name="step_video_media" placeholder="Enter here the URL of a Youtube or vimeo video" value="{{ old('content_step.'.$e.'.step_video_media') }}">
                                             </div>
                                             <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
                                         </div>
 
                                     </div>
                                   <div class="col-sm-6">
-                                      <div class="form-group @if($errors->has('guide_step.'.$e.'.step_description')) has-danger @endif">
+                                      <div class="form-group @if($errors->has('content_step.'.$e.'.step_description')) has-danger @endif">
                                           <label class="form-control-label">Points/Description</label>
-                                          <textarea name="step_description" id="step_description_{{$e+1}}" class="form-control step_description @if($errors->has('guide_step.'.$e.'.step_description')) is-invalid @endif" rows="10">{{ old('guide_step.'.$e.'.step_description') }}</textarea>
-                                            @if($errors->has('guide_step.'.$e.'.step_description'))
-                                                <span class="invalid-feedback">{{ $errors->first('guide_step.'.$e.'.step_description') }}</span>
+                                          <textarea name="step_description" id="step_description_{{$e+1}}" class="form-control step_description @if($errors->has('content_step.'.$e.'.step_description')) is-invalid @endif" rows="10">{{ old('content_step.'.$e.'.step_description') }}</textarea>
+                                            @if($errors->has('content_step.'.$e.'.step_description'))
+                                                <span class="invalid-feedback">{{ $errors->first('content_step.'.$e.'.step_description') }}</span>
                                             @endif
                                       </div>
                                   </div>
@@ -414,7 +414,7 @@
 <script src="{{asset('assets/vendor/jquery-repeater/jquery.repeater.min.js')}}"></script>
 <script type="text/javascript">
 var stepCount = 1;
-let guide_id= '{{$content->id}}';
+let content_id= '{{$content->id}}';
 $(document).ready(function() {
     console.log(stepMediaArr);
     @if($content->main_image)
@@ -458,7 +458,7 @@ $(document).ready(function() {
         return "key_"+Math.random().toString(16).slice(2);
     }
     var step_count=<?php echo $step_count;?>;
-    $(".guide_repeater").repeater({
+    $(".content_repeater").repeater({
         initEmpty:false,
         isFirstItemUndeletable: true,
         defaultValues:{},
@@ -490,7 +490,7 @@ $(document).ready(function() {
                 $(this).find('.dropzone-init').each(function(){
 
                     var dropUrl = "{{ route('admin.maintenance.upload', ['_token' => csrf_token()]) }}";
-                    dropUrl+="&unique_id="+unique_id+"&guide_id="+guide_id;
+                    dropUrl+="&unique_id="+unique_id+"&content_id="+content_id;
                     var dropMaxFiles = 6;
                     var dropParamName = 'file_image';
                     var dropMaxFileSize = 2048;
@@ -557,7 +557,7 @@ $(document).ready(function() {
             Dropzone.options.myAwesomeDropzone = false;
             Dropzone.autoDiscover = false;
 
-            $('.guide_step_list').each(function(){
+            $('.content_step_list').each(function(){
 
                 var unique_id = $(this).find(".step_key").val()
                 if($(this).find(".step_key").val()==''){
@@ -576,7 +576,7 @@ $(document).ready(function() {
                 $(this).find('.dropzone-init').each(function(){
 
                     var dropUrl = "{{ route('admin.maintenance.upload', ['_token' => csrf_token()]) }}";
-                    dropUrl+="&unique_id="+unique_id+"&guide_id="+guide_id;
+                    dropUrl+="&unique_id="+unique_id+"&content_id="+content_id;
                     var dropMaxFiles = 6;
                     var dropParamName = 'file_image';
                     var dropMaxFileSize = 2048;
@@ -632,7 +632,7 @@ $(document).ready(function() {
     });
     function stepgenerateID(){
         var step_number=0;
-        $( "#guide_repeater > .guide_step_list").each(function( index ) {
+        $( "#content_repeater > .content_step_list").each(function( index ) {
             step_number++;
             $(this).find('.step_number').text(step_number);
         });

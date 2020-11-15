@@ -51,7 +51,7 @@
         </div>
     </div>
     <!-- Page content -->
-    <div class="guide-listing-loader" style="display: none;">
+    <div class="content-listing-loader" style="display: none;">
         <i class="fa fa-spinner fa-pulse"></i>
     </div>
     <div class="container-fluid mt--6" id="content_data">
@@ -115,7 +115,7 @@ $(document).ready(function() {
 });
 
 function getData(){
-    $(".guide-listing-loader").show();
+    $(".content-listing-loader").show();
     $.ajax(
     {
         url: '{{route("user.content.search")}}',
@@ -124,11 +124,11 @@ function getData(){
         data:{page:pageno,search:$('#search').val(),category_id:$('#category').val()},
     }).done(function(data){
         $("#content_data").html(data);
-        $(".guide-listing-loader").hide();
+        $(".content-listing-loader").hide();
         //location.hash = page;
     }).fail(function(jqXHR, ajaxOptions, thrownError){
           //alert('No response from server');
-          $(".guide-listing-loader").hide();
+          $(".content-listing-loader").hide();
     });
 }
 

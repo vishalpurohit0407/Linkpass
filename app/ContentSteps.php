@@ -11,7 +11,7 @@ class ContentSteps extends Authenticatable
     protected $table = 'content_steps';
 
     protected $fillable = [
-        'guide_id', 'title', 'description', 'step_key', 'video_type', 'video_media'
+        'content_id', 'title', 'description', 'step_key', 'video_type', 'video_media'
     ];
 
     public function media()

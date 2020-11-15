@@ -35,8 +35,8 @@ class AdminController extends Controller {
 
       // $totalUser = User::where('status', '!=', '3')->count();
       // $totalWarrantyRequest = WarrantyExtension::whereIn('status',['0','1','2'])->count();
-      // $totalSelfDiagnosis = Content::where('guide_type','self-diagnosis')->where('status','!=','3')->count();
-      // $totalMaintenance = Content::where('guide_type','maintenance')->where('status','!=','3')->count();
+      // $totalSelfDiagnosis = Content::where('content_type','self-diagnosis')->where('status','!=','3')->count();
+      // $totalMaintenance = Content::where('content_type','maintenance')->where('status','!=','3')->count();
 
       // $extensions = WarrantyExtension::join('users', 'users.id', '=', 'warranty_extension.user_id')
       //    ->select('warranty_extension.*','users.name')

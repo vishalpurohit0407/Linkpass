@@ -16,9 +16,9 @@ class Selfdiagnosis extends Authenticatable
         "status" => "int"
     ];
 
-    public function guide_category()
+    public function content_category()
     {
-        return $this->hasMany('App\ContentCategory', 'guide_id','id');
+        return $this->hasMany('App\ContentCategory', 'content_id','id');
     }
 
 }

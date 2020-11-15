@@ -91,7 +91,7 @@
                                 <span class="alert-icon"><i class="fas fa-tag"></i></span>
                                 <span class="alert-text">Categories</span>
                                 @php
-                                    $category_id = $maintenance->guide_category->pluck('category_id')->toArray();
+                                    $category_id = $maintenance->content_category->pluck('category_id')->toArray();
                                     $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
                                 @endphp
                                 <span class="alert-text-right"><strong>{{implode(', ',$category_name)}}</strong></span>
@@ -108,7 +108,7 @@
                                     <a href="#content-sr" role="button" tabindex="0" class="togglelink">hide</a>]&nbsp;
                                 </span>
                                 <ul id="content-sr">
-                                    @if($maintenance->guide_step)
+                                    @if($maintenance->content_step)
                                     @php $step = 1; @endphp
                                     @php $srno = 2; @endphp
                                         <li class="toclevel-1">
@@ -117,7 +117,7 @@
                                                 <span class="toctext">Introduction</span>
                                             </a>
                                         </li>
-                                        @foreach($maintenance->guide_step as $stepdata)
+                                        @foreach($maintenance->content_step as $stepdata)
                                             <li class="toclevel-1">
                                                 <a href="#Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}">
                                                     <span class="tocnumber">{{$srno}}</span>
@@ -206,9 +206,9 @@
                 </div> -->
             </div>
             <br>
-            @if($maintenance->guide_step)
+            @if($maintenance->content_step)
             @php $step = 1; @endphp
-                @foreach($maintenance->guide_step as $stepkey => $stepdata)
+                @foreach($maintenance->content_step as $stepkey => $stepdata)
                     <div id="Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}" class="mt-4">
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
@@ -287,12 +287,12 @@
                 <div class="mt-5 mb-4">
                     @php
 
-                        $completed_guide_count = \App\ContentCompletion::where('guide_id',$maintenance->id)->count();
+                        $completed_content_count = \App\ContentCompletion::where('content_id',$maintenance->id)->count();
 
                     @endphp
 
                 </div>
-                <small class="h4 font-weight-light text-primary">{{$completed_guide_count}} other people completed this guide.</small>
+                <small class="h4 font-weight-light text-primary">{{$completed_content_count}} other people completed this content.</small>
             </div>
         </div>
     </div>
@@ -303,8 +303,8 @@
 <script type="text/javascript">
 var elementArr = new Array();
     @php
-        if($maintenance->guide_step){
-            foreach($maintenance->guide_step as $stepdata){
+        if($maintenance->content_step){
+            foreach($maintenance->content_step as $stepdata){
                 if($stepdata->media){
     @endphp
                     var mediaArr = new Array();

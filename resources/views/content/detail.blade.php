@@ -60,7 +60,7 @@
                 <div class="col-4 text-right">
                 	<a href="{{route('content.pdf.export',$content->id)}}" class="btn btn-default btn-sm">Export PDF</a>
                 	@php
-                        $content_flowchart = \App\ContentFlowchart::where('guide_id',$content->id)->first();
+                        $content_flowchart = \App\ContentFlowchart::where('content_id',$content->id)->first();
                     @endphp
                     @if($content_flowchart)
                         <a class="btn btn-primary btn-sm" href="{{route('user.flowchart',[$content_flowchart->flowchart_id,$content->id])}}">View Flowchart</a>
@@ -101,7 +101,7 @@
                                 <span class="alert-icon"><i class="fas fa-tag"></i></span>
                                 <span class="alert-text">Categories</span>
                                 @php
-                                    $category_id = $content->guide_category->pluck('category_id')->toArray();
+                                    $category_id = $content->content_category->pluck('category_id')->toArray();
                                     $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
                                 @endphp
                                 <span class="alert-text-right"><strong>{{implode(', ',$category_name)}}</strong></span>
@@ -118,7 +118,7 @@
                                     <a href="#content-sr" role="button" tabindex="0" class="togglelink">hide</a>]&nbsp;
                                 </span>
                                 <ul id="content-sr">
-                                    @if($content->guide_step)
+                                    @if($content->content_step)
                                     @php $step = 1; @endphp
                                     @php $srno = 2; @endphp
                                         <li class="toclevel-1">
@@ -127,7 +127,7 @@
                                                 <span class="toctext">Introduction</span>
                                             </a>
                                         </li>
-                                        @foreach($content->guide_step as $stepdata)
+                                        @foreach($content->content_step as $stepdata)
                                             <li class="toclevel-1">
                                                 <a href="#Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}">
                                                     <span class="tocnumber">{{$srno}}</span>
@@ -162,9 +162,9 @@
                 </div>
             @endif
             <br>
-            @if($content->guide_step)
+            @if($content->content_step)
             @php $step = 1; @endphp
-                @foreach($content->guide_step as $stepkey => $stepdata)
+                @foreach($content->content_step as $stepkey => $stepdata)
                     <div id="Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}" class="mt-4">
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
@@ -230,23 +230,23 @@
                 </h5>
                 <div class="mt-5 mb-4">
                     @php
-                        $completed_guide = \App\ContentCompletion::where('guide_id',$content->id)->where('user_id',\Auth::user()->id)->first();
-                        $completed_guide_count = \App\ContentCompletion::where('guide_id',$content->id)->count();
+                        $completed_content = \App\ContentCompletion::where('content_id',$content->id)->where('user_id',\Auth::user()->id)->first();
+                        $completed_content_count = \App\ContentCompletion::where('content_id',$content->id)->count();
 
                     @endphp
-                    @if($completed_guide)
+                    @if($completed_content)
                         <a class="btn btn-icon btn-primary text-white">
                             <span class="btn-inner--icon"><i class="fa fa-check"></i></span>
                             <span class="btn-inner--text">Already Completed</span>
                         </a>
                     @else
-                        <a href="{{route('user.complete.guide',$content->id)}}" class="btn btn-icon btn-primary">
+                        <a href="{{route('user.complete.content',$content->id)}}" class="btn btn-icon btn-primary">
                             <span class="btn-inner--icon"><i class="fa fa-check"></i></span>
                             <span class="btn-inner--text">Complete Content</span>
                         </a>
                     @endif
                 </div>
-                <small class="h4 font-weight-light text-primary">{{$completed_guide_count}} other people completed this guide.</small>
+                <small class="h4 font-weight-light text-primary">{{$completed_content_count}} other people completed this content.</small>
             </div>
         </div>
     </div>
@@ -257,8 +257,8 @@
 <script type="text/javascript">
 var elementArr = new Array();
     @php
-        if($content->guide_step){
-            foreach($content->guide_step as $stepdata){
+        if($content->content_step){
+            foreach($content->content_step as $stepdata){
                 if($stepdata->media){
     @endphp
                     var mediaArr = new Array();

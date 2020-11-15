@@ -59,7 +59,7 @@
                             <span class="alert-icon mt-1"><i class="fas fa-tag mt-1"></i></span>
                             <span class="alert-text">Categories</span>
                             @php
-                                $category_id = $content->guide_category->pluck('category_id')->toArray();
+                                $category_id = $content->content_category->pluck('category_id')->toArray();
                                 $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
                             @endphp
                             <span class="alert-text-right"><strong>{{implode(', ',$category_name)}}</strong></span>
@@ -92,14 +92,14 @@
                             <span class="alert-icon"><i class="fas fa-list-ol"></i></span>
                             <span class="alert-text">Contents</span>
                             <ol id="content-sr">
-                            @if($content->guide_step)
+                            @if($content->content_step)
                             @php $step = 1; @endphp
                                 <li class="toclevel-1">
                                     <a href="#Introduction">
                                         <span class="toctext">Introduction</span>
                                     </a>
                                 </li>
-                                @foreach($content->guide_step as $stepdata)
+                                @foreach($content->content_step as $stepdata)
                                     <li class="toclevel-1">
                                         <a>
                                             <span class="toctext">Step {{$step}} - {{$stepdata->title}}</span>
@@ -126,9 +126,9 @@
                         </a>
                         <hr>
                     @endif
-                    @if($content->guide_step)
+                    @if($content->content_step)
                     @php $step = 1; @endphp
-                        @foreach($content->guide_step as $stepkey => $stepdata)
+                        @foreach($content->content_step as $stepkey => $stepdata)
                                 <div class="col-xs-12 step-instructions mb-1">
                                     <h5 class="">Step {{$step}} - {{$stepdata->title}}</h5>
                                     <div>

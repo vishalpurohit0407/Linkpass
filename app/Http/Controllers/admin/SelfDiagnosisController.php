@@ -21,8 +21,8 @@ class SelfDiagnosisController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $content = Selfdiagnosis::with('guide_category','guide_category.category')->orderBy('created_at', 'desc')->paginate(6);
-        // Selfdiagnosis::with('guide_category','guide_category.category')
+        $content = Selfdiagnosis::with('content_category','content_category.category')->orderBy('created_at', 'desc')->paginate(6);
+        // Selfdiagnosis::with('content_category','content_category.category')
 
         if($request->ajax()){
             return view('admin.content.ajaxlist',array('content'=>$content));
@@ -35,14 +35,14 @@ class SelfDiagnosisController extends Controller
 
     public function search(Request $request){
 
-        $content=Selfdiagnosis::with('guide_category','guide_category.category')
+        $content=Selfdiagnosis::with('content_category','content_category.category')
             ->orderBy('created_at', 'desc');
         if(isset($request->search) && !empty($request->search)){
             $content=$content->where('main_title','LIKE','%'.$request->search."%");
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $category_id=$request->category_id;
-            $content=$content->whereHas('guide_category', function ($query) use ($category_id) {
+            $content=$content->whereHas('content_category', function ($query) use ($category_id) {
                     $query->where('category_id', $category_id);
                 });
         }
@@ -72,14 +72,14 @@ class SelfDiagnosisController extends Controller
         //echo "<pre>";print_r($request->stepfilupload);exit;
 
         $messages = [
-            'guide_step.*.step_title.required' => 'The title field is required.',
-            'guide_step.*.step_description.required' => 'The points/description field is required.',
-            //'guide_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
+            'content_step.*.step_title.required' => 'The title field is required.',
+            'content_step.*.step_description.required' => 'The points/description field is required.',
+            //'content_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
         ];
         $request->validate([
-            'guide_step.*.step_title' => 'required',
-            'guide_step.*.step_description' => 'required',
-            //'guide_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
+            'content_step.*.step_title' => 'required',
+            'content_step.*.step_description' => 'required',
+            //'content_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
         ],$messages);
 
         try {
@@ -139,8 +139,8 @@ class SelfDiagnosisController extends Controller
             $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = $request->unique_id;
             $imgext =$file->getClientOriginalExtension();
-            $path = 'guide/step_media/'.$imageName.".".$imgext;
-            $fileAdded = Storage::disk('public')->putFileAs('guide/step_media/',$file,$imageName.".".$imgext);
+            $path = 'content/step_media/'.$imageName.".".$imgext;
+            $fileAdded = Storage::disk('public')->putFileAs('content/step_media/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
                 $guidMediaArr = array();
@@ -169,8 +169,8 @@ class SelfDiagnosisController extends Controller
             $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = $request->unique_id;
             $imgext =$file->getClientOriginalExtension();
-            $path = 'guide/step_media/'.$imageName.".".$imgext;
-            $fileAdded = Storage::disk('public')->putFileAs('guide/step_media/',$file,$imageName.".".$imgext);
+            $path = 'content/step_media/'.$imageName.".".$imgext;
+            $fileAdded = Storage::disk('public')->putFileAs('content/step_media/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
                 $guidMediaArr = array();

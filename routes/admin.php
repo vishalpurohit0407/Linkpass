@@ -88,7 +88,7 @@ Route::group(['middleware' => ['admin']],function(){
 
 	//Maintenance Module Routes
 	Route::get('/maintenance/search','admin\MaintenanceController@search')->name('admin.maintenance.search');
-	Route::resource('/maintenance/guide', 'admin\MaintenanceController', [
+	Route::resource('/maintenance/content', 'admin\MaintenanceController', [
 	    'names' => [
 	        'index' => 'admin.maintenance.list',
 	        'create' => 'admin.maintenance.create',

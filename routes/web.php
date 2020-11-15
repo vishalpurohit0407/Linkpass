@@ -26,11 +26,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 	// Content Module Routes
-	Route::get('/guide/flowchart/{flowchart_id}/{guide_id}','ContentController@flowChart')->name('user.flowchart');
-	Route::get('/guide/pdf/{id}','ContentController@createPDF')->name('content.pdf.export');
-	Route::get('/guide/complete/{id}','ContentController@completedContent')->name('user.complete.guide');
-	Route::get('/guide/search','ContentController@search')->name('user.content.search');
-	Route::resource('/guide', 'ContentController', [
+	Route::get('/content/flowchart/{flowchart_id}/{content_id}','ContentController@flowChart')->name('user.flowchart');
+	Route::get('/content/pdf/{id}','ContentController@createPDF')->name('content.pdf.export');
+	Route::get('/content/complete/{id}','ContentController@completedContent')->name('user.complete.content');
+	Route::get('/content/search','ContentController@search')->name('user.content.search');
+	Route::resource('/content', 'ContentController', [
 	    'names' => [
 	        'index' => 'user.content.list',
 	        'show' => 'user.content.show'

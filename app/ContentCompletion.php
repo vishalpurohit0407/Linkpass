@@ -10,7 +10,7 @@ class ContentCompletion extends Authenticatable
     protected $table = 'content_completion';
 
     protected $fillable = [
-        'guide_id', 'user_id',
+        'content_id', 'user_id',
     ];
 
 

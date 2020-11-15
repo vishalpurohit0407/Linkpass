@@ -26,7 +26,7 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $content = Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content = Content::with('content_category','content_category.category')->where('main_title','!=','')->where('content_type','=','self-diagnosis')->where('status','=','1')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
             return view('content.ajaxlist',array('content'=>$content));
@@ -38,14 +38,14 @@ class ContentController extends Controller
     }
 
     public function search(Request $request){
-        $content=Content::with('guide_category','guide_category.category')->where('main_title','!=','')->where('guide_type','=','self-diagnosis')->where('status','=','1');
+        $content=Content::with('content_category','content_category.category')->where('main_title','!=','')->where('content_type','=','self-diagnosis')->where('status','=','1');
         //->where('status','!=','2')
         if(isset($request->search) && !empty($request->search)){
             $content=$content->where('main_title','LIKE','%'.$request->search.'%');
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $category_id=$request->category_id;
-            $content=$content->whereHas('guide_category', function ($query) use ($category_id) {
+            $content=$content->whereHas('content_category', function ($query) use ($category_id) {
                     $query->where('category_id', $category_id);
                 });
         }
@@ -66,14 +66,14 @@ class ContentController extends Controller
             if (!$content) {
               return abort(404);
             }
-            $completed_guide = new ContentCompletion;
-            $completed_guide->guide_id = $content->id;
-            $completed_guide->user_id = Auth::user()->id;
-            if($completed_guide->save())
+            $completed_content = new ContentCompletion;
+            $completed_content->content_id = $content->id;
+            $completed_content->user_id = Auth::user()->id;
+            if($completed_content->save())
             {
-                $request->session()->flash('alert-success', ($content->guide_type == 'self-diagnosis' ? 'Content':'Maintenance').' Content completed successfuly.');
+                $request->session()->flash('alert-success', ($content->content_type == 'self-diagnosis' ? 'Content':'Maintenance').' Content completed successfuly.');
             }
-            if ($content->guide_type == 'self-diagnosis') {
+            if ($content->content_type == 'self-diagnosis') {
                 $route = 'user.content.show';
             }else{
                 $route = 'user.maintenance.show';

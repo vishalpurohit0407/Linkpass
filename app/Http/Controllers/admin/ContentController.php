@@ -25,7 +25,7 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $content = Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content = Content::with('content_category','content_category.category')->where('content_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
             return view('admin.content.ajaxlist',array('content'=>$content));
@@ -38,14 +38,14 @@ class ContentController extends Controller
 
     public function search(Request $request){
 
-        $content=Content::with('guide_category','guide_category.category')->where('guide_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2');
+        $content=Content::with('content_category','content_category.category')->where('content_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2');
         //->where('status','!=','2')
         if(isset($request->search) && !empty($request->search)){
             $content=$content->where('main_title','LIKE','%'.$request->search.'%');
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $category_id=$request->category_id;
-            $content=$content->whereHas('guide_category', function ($query) use ($category_id) {
+            $content=$content->whereHas('content_category', function ($query) use ($category_id) {
                     $query->where('category_id', $category_id);
                 });
         }
@@ -63,7 +63,7 @@ class ContentController extends Controller
     {
         $guidArr = array();
         $guidArr['status'] = '3';
-        $guidArr['guide_type'] = 'self-diagnosis';
+        $guidArr['content_type'] = 'self-diagnosis';
         $content = Content::create($guidArr);
         return redirect(route('admin.content.edit',['content' => $content ]));
     }
@@ -79,14 +79,14 @@ class ContentController extends Controller
         //echo "<pre>";print_r($request->stepfilupload);exit;
 
         $messages = [
-            'guide_step.*.step_title.required' => 'The title field is required.',
-            'guide_step.*.step_description.required' => 'The points/description field is required.',
-            //'guide_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
+            'content_step.*.step_title.required' => 'The title field is required.',
+            'content_step.*.step_description.required' => 'The points/description field is required.',
+            //'content_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
         ];
         $request->validate([
-            'guide_step.*.step_title' => 'required',
-            'guide_step.*.step_description' => 'required',
-            //'guide_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
+            'content_step.*.step_title' => 'required',
+            'content_step.*.step_description' => 'required',
+            //'content_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
         ],$messages);
 
         try {
@@ -111,8 +111,8 @@ class ContentController extends Controller
             $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = md5($fileslug.time());
             $imgext =$file->getClientOriginalExtension();
-            $path = 'guide/'.$request->guide_id.'/step_media/'.$imageName.".".$imgext;
-            $fileAdded = Storage::disk('public')->putFileAs('guide/'.$request->guide_id.'/step_media/',$file,$imageName.".".$imgext);
+            $path = 'content/'.$request->content_id.'/step_media/'.$imageName.".".$imgext;
+            $fileAdded = Storage::disk('public')->putFileAs('content/'.$request->content_id.'/step_media/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
                 $getStepId = ContentSteps::where('step_key',$request->unique_id)->first();
@@ -142,8 +142,8 @@ class ContentController extends Controller
             $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = md5($fileslug.time());
             $imgext =$file->getClientOriginalExtension();
-            $path = 'guide/'.$id.'/'.$imageName.".".$imgext;
-            $fileAdded = Storage::disk('public')->putFileAs('guide/'.$id.'/',$file,$imageName.".".$imgext);
+            $path = 'content/'.$id.'/'.$imageName.".".$imgext;
+            $fileAdded = Storage::disk('public')->putFileAs('content/'.$id.'/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
                 $contentData = Content::find($id);
@@ -211,9 +211,9 @@ class ContentController extends Controller
     public function edit(Content $content)
     {
         $category = Category::where('status','1')->get();
-        $content_step = ContentSteps::where('guide_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
+        $content_step = ContentSteps::where('content_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
 
-        $selectedCategory = ContentCategory::where('guide_id',$content->id)->pluck('category_id')->toArray();
+        $selectedCategory = ContentCategory::where('content_id',$content->id)->pluck('category_id')->toArray();
         return view('admin.content.add',array('title' => 'Content Add','category'=> $category, 'content' => $content, 'selectedCategory' => $selectedCategory, 'content_step' => $content_step));
     }
 
@@ -232,9 +232,9 @@ class ContentController extends Controller
         }
 
         $messages = [
-            'guide_step.*.step_title.required' => 'The title field is required.',
-            'guide_step.*.step_description.required' => 'The points/description field is required.',
-            //'guide_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
+            'content_step.*.step_title.required' => 'The title field is required.',
+            'content_step.*.step_description.required' => 'The points/description field is required.',
+            //'content_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
         ];
 
         if($request->submit == 'Save As Draft'){
@@ -253,9 +253,9 @@ class ContentController extends Controller
                 'duration' => 'required|numeric',
                 'cost' => 'required|numeric|between:0,99999999.99',
 
-                //'guide_step.*.step_title' => 'required',
-                //'guide_step.*.step_description' => 'required',
-                //'guide_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
+                //'content_step.*.step_title' => 'required',
+                //'content_step.*.step_description' => 'required',
+                //'content_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
             ]);
         }
 
@@ -273,22 +273,22 @@ class ContentController extends Controller
         $content->status = ($request->submit == 'Save As Draft')? '3' : '1';
 
         if(isset($request->category) && is_array($request->category)){
-            ContentCategory::where('guide_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
+            ContentCategory::where('content_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
             foreach ($request->category as $key => $cate) {
 
-                $checkCat = ContentCategory::where('guide_id', $content->id)->where('category_id', $cate)->count();
+                $checkCat = ContentCategory::where('content_id', $content->id)->where('category_id', $cate)->count();
                 if($checkCat == 0){
                     $cateArr = array();
-                    $cateArr['guide_id'] = $content->id;
+                    $cateArr['content_id'] = $content->id;
                     $cateArr['category_id'] = $cate;
                     ContentCategory::create($cateArr);
                 }
             }
         }
 
-        if(isset($request->guide_step) && is_array($request->guide_step)){
+        if(isset($request->content_step) && is_array($request->content_step)){
 
-            foreach ($request->guide_step as $key1 => $step) {
+            foreach ($request->content_step as $key1 => $step) {
 
                 $stepArr = array();
                 $stepArr['title'] = $step['step_title'];
@@ -300,17 +300,17 @@ class ContentController extends Controller
 
                 $stepArr['description'] = $step['step_description'];
 
-                $checkstep = ContentSteps::where('step_key', $step['step_key'])->where('guide_id',  $content->id)->first();
+                $checkstep = ContentSteps::where('step_key', $step['step_key'])->where('content_id',  $content->id)->first();
 
                 if($checkstep){
 
-                    //$stepData = ContentSteps::where('step_key', $step['step_key'])->where('guide_id',  $content->id)->update($stepArr);
+                    //$stepData = ContentSteps::where('step_key', $step['step_key'])->where('content_id',  $content->id)->update($stepArr);
                     $checkstep->update($stepArr);
                     ContentStepMedia::where('step_key',$checkstep->step_key)->update(['step_id' => $checkstep->id]);
                 }else{
 
                     $stepArr['step_key'] = $step['step_key'];
-                    $stepArr['guide_id'] = $content->id;
+                    $stepArr['content_id'] = $content->id;
                     //dd($stepArr);
                     $stepData = ContentSteps::create($stepArr);
                     ContentStepMedia::where('step_key',$step['step_key'])->update(['step_id' => $stepData->id]);

@@ -10,13 +10,13 @@
                     <div class="card-body">
                         <h5 class="h2 card-title mb-0">{{ucfirst($mainten->main_title)}}</h5>
                         @php
-                        $category_id = $mainten->guide_category->pluck('category_id')->toArray();
+                        $category_id = $mainten->content_category->pluck('category_id')->toArray();
                         $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
                         @endphp
                         <p class="card-text mt-4 text-uppercase text-muted h5">
                             {{implode(', ',$category_name)}}
                         </p>
-                        <p><a href="javascript:void(0);"><strong>{{$mainten->completion_guide_count}} people completed this guide</strong></a></p>
+                        <p><a href="javascript:void(0);"><strong>{{$mainten->completion_content_count}} people completed this content</strong></a></p>
                         <div class="footer-button">
                             <a href="{{route('admin.maintenance.show',$mainten->id)}}" class="btn btn-success btn-sm">View</a>
                             <a href="{{route('admin.maintenance.edit',$mainten->id)}}" class="btn btn-info btn-sm">Edit</a>
@@ -37,7 +37,7 @@
         @endforeach
     </div>
 @else
-        
+
             <!-- Image-Text card -->
 <div class="card">
     <!-- Card body -->
@@ -45,5 +45,5 @@
         <h5 class="h3 card-title mb-0 text-center">No records available.</h5>
     </div>
 </div>
-        
+
 @endif

@@ -9,7 +9,7 @@ class ContentCategory extends Authenticatable
     protected $table = 'content_category';
 
     protected $fillable = [
-        'guide_id', 'category_id'
+        'content_id', 'category_id'
     ];
 
     protected $casts = [
