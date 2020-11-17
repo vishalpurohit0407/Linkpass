@@ -11,7 +11,7 @@ class Content extends Authenticatable
     protected $table = 'content';
 
     protected $fillable = [
-        'main_title', 'main_image', 'description', 'type','duration','duration_type','difficulty','cost','tags','introduction','introduction_video_type','introduction_video_link', 'content_type', 'status'
+        'category_id', 'user_id', 'main_title', 'main_image', 'description', 'website', 'tags','introduction','introduction_video_type','introduction_video_link', 'status', 'posted_at', 'published_at'
     ];
 
     protected $appends = [ 'main_image_url', 'completion_content_count' ];

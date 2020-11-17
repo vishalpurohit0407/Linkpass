@@ -9,6 +9,7 @@ use Storage;
 use App\ContentStepMedia;
 use App\ContentCategory;
 use App\ContentSteps;
+use App\User;
 use Response;
 
 class ContentController extends Controller
@@ -16,7 +17,13 @@ class ContentController extends Controller
 
     public function __construct()
     {
-        $this->getrecord = '12';
+        $this->getrecord        = '12';
+        $this->category         = new Category();
+        $this->contentCategory  = new ContentCategory();
+        $this->content          = new Content();
+        $this->contentStepMedia = new ContentStepMedia();
+        $this->contentSteps     = new ContentSteps();
+        $this->user             = new User();
     }
     /**
      * Display a listing of the resource.
@@ -25,12 +32,12 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $content = Content::with('content_category','content_category.category')->where('content_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content = $this->content->with('content_category','content_category.category')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
             return view('admin.content.ajaxlist',array('content'=>$content));
         }else{
-            $categorys = Category::where('status','1')->orderBy('name','asc')->get();
+            $categorys = $this->category->where('status','1')->orderBy('name','asc')->get();
             //print_r($categorys);
             return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'content'=>$content));
         }
@@ -38,7 +45,7 @@ class ContentController extends Controller
 
     public function search(Request $request){
 
-        $content=Content::with('content_category','content_category.category')->where('content_type','=','self-diagnosis')->where('main_title','!=','')->where('status','!=','2');
+        $content=$this->content->with('content_category','content_category.category')->where('main_title','!=','')->where('status','!=','2');
         //->where('status','!=','2')
         if(isset($request->search) && !empty($request->search)){
             $content=$content->where('main_title','LIKE','%'.$request->search.'%');
@@ -64,7 +71,7 @@ class ContentController extends Controller
         $guidArr = array();
         $guidArr['status'] = '3';
         $guidArr['content_type'] = 'self-diagnosis';
-        $content = Content::create($guidArr);
+        $content = $this->content->create($guidArr);
         return redirect(route('admin.content.edit',['content' => $content ]));
     }
 
@@ -115,12 +122,12 @@ class ContentController extends Controller
             $fileAdded = Storage::disk('public')->putFileAs('content/'.$request->content_id.'/step_media/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
-                $getStepId = ContentSteps::where('step_key',$request->unique_id)->first();
+                $getStepId = $this->contentSteps->where('step_key',$request->unique_id)->first();
                 $guidMediaArr = array();
                 $guidMediaArr['step_key'] = $request->unique_id;
                 $guidMediaArr['step_id'] = ($getStepId)? $getStepId->id : NULL;
                 $guidMediaArr['media'] =  $path;
-                $media = ContentStepMedia::create($guidMediaArr);
+                $media = $this->contentStepMedia->create($guidMediaArr);
                 return Response::json(['status' => true, 'message' => 'Media uploaded.', 'id' => $media->id]);
             }
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -146,9 +153,9 @@ class ContentController extends Controller
             $fileAdded = Storage::disk('public')->putFileAs('content/'.$id.'/',$file,$imageName.".".$imgext);
 
             if($fileAdded){
-                $contentData = Content::find($id);
+                $contentData = $this->content->find($id);
                 Storage::disk('public')->delete($contentData->main_image);
-                $media = Content::where('id',$id)->update(['main_image' => $path]);
+                $media = $this->content->where('id',$id)->update(['main_image' => $path]);
                 return Response::json(['status' => true, 'message' => 'Media uploaded.']);
             }
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -159,7 +166,7 @@ class ContentController extends Controller
 
     public function removeImage(Request $request)
     {
-        $media = ContentStepMedia::find($request->imageId);
+        $media = $this->contentStepMedia->find($request->imageId);
         //dd($media);
         if($media){
 
@@ -176,15 +183,15 @@ class ContentController extends Controller
     public function removeStep(Request $request)
     {
 
-        $steps = ContentSteps::where('step_key',$request->step_key)->first();
+        $steps = $this->contentSteps->where('step_key',$request->step_key)->first();
 
         if($steps){
 
-            $medias = ContentStepMedia::where('step_id', $steps->id)->get();
+            $medias = $this->contentStepMedia->where('step_id', $steps->id)->get();
             foreach ($medias as $media) {
                 Storage::deleteDirectory($media->media);
             }
-            ContentStepMedia::where('step_id', $steps->id)->delete();
+            $this->contentStepMedia->where('step_id', $steps->id)->delete();
             $steps->delete();
             return Response::json(['status' => true, 'message' => 'Step deleted.']);
         }
@@ -210,11 +217,11 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        $category = Category::where('status','1')->get();
-        $content_step = ContentSteps::where('content_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
+        $categories   = $this->category->categoryParentChildTree();
+        $users        = $this->user->get();
+        $content_step = $this->contentSteps->where('content_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
 
-        $selectedCategory = ContentCategory::where('content_id',$content->id)->pluck('category_id')->toArray();
-        return view('admin.content.add',array('title' => 'Content Add','category'=> $category, 'content' => $content, 'selectedCategory' => $selectedCategory, 'content_step' => $content_step));
+        return view('admin.content.add',array('title' => 'Add Content','categories'=> $categories, 'content' => $content, 'users' => $users, 'content_step' => $content_step));
     }
 
     /**
@@ -246,45 +253,44 @@ class ContentController extends Controller
         }else{
 
             $request->validate([
-                'main_title' => 'required',
-                'description' => 'required',
-                'category' => 'required',
-                'type' => 'required',
-                'duration' => 'required|numeric',
-                'cost' => 'required|numeric|between:0,99999999.99',
-
+                'main_title'   => 'required',
+                'description'  => 'required',
+                'category_id'  => 'required',
+                'user_id'      => 'required',
+                'posted_at'    => 'required',
+                'published_at' => 'required',
                 //'content_step.*.step_title' => 'required',
                 //'content_step.*.step_description' => 'required',
                 //'content_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
             ]);
         }
 
-        $content->main_title = $request->main_title;
-        $content->description = $request->description;
-        $content->type = $request->type;
-        $content->duration = $request->duration;
-        $content->duration_type = $request->duration_type;
-        $content->difficulty = $request->difficulty;
-        $content->cost = $request->cost;
-        $content->tags = $request->tags;
-        $content->introduction = $request->introduction;
+        $content->main_title              = $request->main_title;
+        $content->category_id             = $request->category_id;
+        $content->user_id                 = $request->user_id;
+        $content->description             = $request->description;
+        $content->website                 = $request->has('website') ? $request->website : '';
+        $content->posted_at               = $request->has('posted_at') ? date("Y-m-d H:i:s", strtotime($request->posted_at)) : '';
+        $content->published_at            = $request->has('published_at') ? date("Y-m-d H:i:s", strtotime($request->published_at)) : '';
+        $content->tags                    = $request->tags;
+        $content->introduction            = $request->introduction;
         $content->introduction_video_type = $request->vid_link_type;
         $content->introduction_video_link = $request->vid_link_url;
         $content->status = ($request->submit == 'Save As Draft')? '3' : '1';
 
-        if(isset($request->category) && is_array($request->category)){
-            ContentCategory::where('content_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
-            foreach ($request->category as $key => $cate) {
+        // if(isset($request->category) && is_array($request->category)){
+        //     $this->contentCategory->where('content_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
+        //     foreach ($request->category as $key => $cate) {
 
-                $checkCat = ContentCategory::where('content_id', $content->id)->where('category_id', $cate)->count();
-                if($checkCat == 0){
-                    $cateArr = array();
-                    $cateArr['content_id'] = $content->id;
-                    $cateArr['category_id'] = $cate;
-                    ContentCategory::create($cateArr);
-                }
-            }
-        }
+        //         $checkCat = $this->contentCategory->where('content_id', $content->id)->where('category_id', $cate)->count();
+        //         if($checkCat == 0){
+        //             $cateArr = array();
+        //             $cateArr['content_id'] = $content->id;
+        //             $cateArr['category_id'] = $cate;
+        //             $this->contentCategory->create($cateArr);
+        //         }
+        //     }
+        // }
 
         if(isset($request->content_step) && is_array($request->content_step)){
 
@@ -300,27 +306,27 @@ class ContentController extends Controller
 
                 $stepArr['description'] = $step['step_description'];
 
-                $checkstep = ContentSteps::where('step_key', $step['step_key'])->where('content_id',  $content->id)->first();
+                $checkstep = $this->contentSteps->where('step_key', $step['step_key'])->where('content_id',  $content->id)->first();
 
                 if($checkstep){
 
-                    //$stepData = ContentSteps::where('step_key', $step['step_key'])->where('content_id',  $content->id)->update($stepArr);
+                    //$stepData = $this->contentSteps->where('step_key', $step['step_key'])->where('content_id',  $content->id)->update($stepArr);
                     $checkstep->update($stepArr);
-                    ContentStepMedia::where('step_key',$checkstep->step_key)->update(['step_id' => $checkstep->id]);
+                    $this->contentStepMedia->where('step_key',$checkstep->step_key)->update(['step_id' => $checkstep->id]);
                 }else{
 
                     $stepArr['step_key'] = $step['step_key'];
                     $stepArr['content_id'] = $content->id;
                     //dd($stepArr);
-                    $stepData = ContentSteps::create($stepArr);
-                    ContentStepMedia::where('step_key',$step['step_key'])->update(['step_id' => $stepData->id]);
+                    $stepData = $this->contentSteps->create($stepArr);
+                    $this->contentStepMedia->where('step_key',$step['step_key'])->update(['step_id' => $stepData->id]);
                 }
 
             }
         }
 
         if ($content->save()) {
-            $request->session()->flash('alert-success', 'Selfdiagnosis updated successfuly.');
+            $request->session()->flash('alert-success', 'Content updated successfuly.');
         }
         return redirect(route('admin.content.list'));
     }
@@ -339,7 +345,7 @@ class ContentController extends Controller
             }
             $content->status = '2';
             if ($content->save()) {
-                $request->session()->flash('alert-success', 'Selfdiagnosis deleted successfuly.');
+                $request->session()->flash('alert-success', 'Content deleted successfuly.');
             }
             return redirect(route('admin.content.list'));
         }catch (ModelNotFoundException $exception) {

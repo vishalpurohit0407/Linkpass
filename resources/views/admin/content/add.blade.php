@@ -80,76 +80,65 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" for="category">Category <strong class="text-danger">*</strong></label><br>
-                        <select class="js-example-basic-single form-control @if($errors->has('category')) is-invalid @endif" id="category" name="category[]" multiple="multiple">
-                            @if($category)
-                              @foreach($category as $cate)
-                                <option value="{{$cate->id}}" @if(in_array($cate->id,$selectedCategory)) selected @endif>{{$cate->name}}</option>
+                        <label class="form-control-label" for="category_id">Category <strong class="text-danger">*</strong></label><br>
+                        <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
+                          <option value="">Please Select Category</option>
+                            @if(count($categories) > 0)
+                              @foreach($categories as $category)
+                                <option value="{{$category['id']}}" @if($category['id'] == $content['category_id'])) selected @endif>{!! $category['name'] !!}</option>
                               @endforeach
                             @endif
                         </select>
-                        @if($errors->has('category'))
-                            <span class="invalid-feedback">{{ $errors->first('category') }}</span>
+                        @if($errors->has('category_id'))
+                            <span class="invalid-feedback">{{ $errors->first('category_id') }}</span>
                         @endif
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="user_id">Author <strong class="text-danger">*</strong></label><br>
+                        <select class="js-example-basic-single form-control @if($errors->has('user_id')) is-invalid @endif" id="user_id" name="user_id">
+                          <option value="">Please Select Author</option>
+                          @if(count($users) > 0)
+                            @foreach($users as $user)
+                              <option value="{{$user['id']}}" @if($user['id'] == $content['user_id'])) selected @endif>{!! $user['name'] !!}</option>
+                            @endforeach
+                          @endif
+                        </select>
+                        @if($errors->has('user_id'))
+                          <span class="invalid-feedback">{{ $errors->first('user_id') }}</span>
+                        @endif
+                    </div>
+
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label class="form-control-label" for="type">Type <strong class="text-danger">*</strong></label>
-                                <input type="text" class="form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type" placeholder="Type" value="{{old('type', $content->type)}}">
-                                @if($errors->has('type'))
-                                    <span class="invalid-feedback">{{ $errors->first('type') }}</span>
+                                <label class="form-control-label" for="type">Website</label>
+                                <input type="url" class="form-control @if($errors->has('website')) is-invalid @endif" id="website" name="website" placeholder="Website" value="{{old('website', $content->website)}}">
+                                @if($errors->has('website'))
+                                    <span class="invalid-feedback">{{ $errors->first('website') }}</span>
                                 @endif
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="example4cols2Input">Duration <strong class="text-danger">*</strong></label>
-                                <div class="input-group mb-3">
-                                  <div class="input-group-prepend">
-                                    <input type="number" class="form-control @if($errors->has('duration')) is-invalid @endif" id="duration" name="duration" placeholder="Duration" value="{{old('duration', $content->duration)}}">
-                                  </div>
-                                  <select class="custom-select" id="duration_type" name="duration_type">
-                                    <option value="minute(s)" @if(old('duration_type', $content->duration_type) == 'minute(s)') selected @endif>minute(s)</option>
-                                    <option value="hour(s)" @if(old('duration_type', $content->duration_type) == 'hour(s)') selected @endif>hour(s)</option>
-                                    <option value="day(s)" @if(old('duration_type', $content->duration_type) == 'day(s)') selected @endif>day(s)</option>
-                                    <option value="month(s)" @if(old('duration_type', $content->duration_type) == 'month(s)') selected @endif>month(s)</option>
-                                  </select>
-                                    @if($errors->has('duration'))
-                                        <span class="invalid-feedback">{{ $errors->first('duration') }}</span>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="difficulty">Difficulty <strong class="text-danger">*</strong></label>
-                                <select class="form-control" name="difficulty" id="difficulty">
-                                    <option value="Very easy" @if(old('difficulty', $content->difficulty) == 'Very easy') selected @endif>Very easy</option>
-                                    <option value="Easy" @if(old('difficulty', $content->difficulty) == 'Easy') selected @endif>Easy</option>
-                                    <option value="Medium" @if(old('difficulty', $content->difficulty) == 'Medium') selected @endif>Medium</option>
-                                    <option value="Hard" @if(old('difficulty', $content->difficulty) == 'Hard') selected @endif>Hard</option>
-                                    <option value="Very Hard" @if(old('difficulty', $content->difficulty) == 'Very Hard') selected @endif>Very Hard</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="cost">Cost <strong class="text-danger">*</strong></label>
-                                <!--  -->
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control @if($errors->has('cost')) is-invalid @endif" name="cost" id="cost" placeholder="Cost" value="{{old('cost', $content->cost)}}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">$</span>
-                                    </div>
-                                </div>
-                                @if($errors->has('cost'))
-                                    <span class="invalid-feedback">{{ $errors->first('cost') }}</span>
-                                @endif
-                            </div>
-                        </div>
+                      <div class="col-sm-6">
+                          <div class="form-group">
+                              <label class="form-control-label" for="type">Posted At <strong class="text-danger">*</strong></label>
+                              <input type="date" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posted At" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
+                              @if($errors->has('posted_at'))
+                                  <span class="invalid-feedback">{{ $errors->first('posted_at') }}</span>
+                              @endif
+                          </div>
+                      </div>
+                      <div class="col-sm-6">
+                          <div class="form-group">
+                              <label class="form-control-label" for="type">Published At <strong class="text-danger">*</strong></label>
+                              <input type="date" class="form-control @if($errors->has('published_at')) is-invalid @endif" id="published_at" name="published_at" placeholder="Published At" value="{{old('published_at', !empty($content->published_at) ? date('Y-m-d', strtotime($content->published_at)) : '')}}">
+                              @if($errors->has('published_at'))
+                                  <span class="invalid-feedback">{{ $errors->first('published_at') }}</span>
+                              @endif
+                          </div>
+                      </div>
                     </div>
 
                     <div class="form-group">
@@ -182,7 +171,7 @@
                               <option value="vimeo" @if(old('vid_link_type', $content->introduction_video_type) == 'vimeo') selected @endif>Vimeo</option>
                             </select>
                           </div>
-                          <input type="text" class="form-control" id="vid_link_url" name="vid_link_url" placeholder="Enter here the URL of a Youtube or Vimeo video" value="{{old('vid_link_url', $content->introduction_video_link)}}">
+                          <input type="url" class="form-control" id="vid_link_url" name="vid_link_url" placeholder="Enter here the URL of a Youtube or Vimeo video" value="{{old('vid_link_url', $content->introduction_video_link)}}">
                         </div>
                         <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
                     </div>
