@@ -35,9 +35,9 @@
                             <div class="col-md-12">
                                 <select class="form-control" id="category">
                                     <option value="">All</option>
-                                    @if($categorys)
-                                        @foreach($categorys as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @if($categories)
+                                        @foreach($categories as $category)
+                                            <option value="{!! $category['id'] !!}">{!! $category['name'] !!}</option>
                                         @endforeach
                                     @endif
                                 </select>

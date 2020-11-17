@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Http\Traits\Hashidable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Config;
 use Storage;
 
 class Content extends Authenticatable
 {
+    use Hashidable;
+
     protected $table = 'content';
 
     protected $fillable = [
@@ -19,6 +22,11 @@ class Content extends Authenticatable
     public function content_category()
     {
         return $this->hasMany('App\ContentCategory', 'content_id','id');
+    }
+
+    public function content_user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function getMainImageUrlAttribute()

@@ -176,6 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Torann\Hashids\HashidsServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
     ],
 
     /*

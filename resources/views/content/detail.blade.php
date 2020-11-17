@@ -246,7 +246,7 @@
                         </a>
                     @endif
                 </div>
-                <small class="h4 font-weight-light text-primary">{{$completed_content_count}} other people completed this content.</small>
+                <small class="h4 font-weight-light text-primary">{{$completed_content_count}} other people viewed this content.</small>
             </div>
         </div>
     </div>

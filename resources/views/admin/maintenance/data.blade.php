@@ -16,7 +16,7 @@
                         <p class="card-text mt-4 text-uppercase text-muted h5">
                             {{implode(', ',$category_name)}}
                         </p>
-                        <p><a href="javascript:void(0);"><strong>{{$mainten->completion_content_count}} people completed this content</strong></a></p>
+                        <p><a href="javascript:void(0);"><strong>{{$mainten->completion_content_count}} people viewed this content</strong></a></p>
                         <div class="footer-button">
                             <a href="{{route('admin.maintenance.show',$mainten->id)}}" class="btn btn-success btn-sm">View</a>
                             <a href="{{route('admin.maintenance.edit',$mainten->id)}}" class="btn btn-info btn-sm">Edit</a>

@@ -66,6 +66,15 @@
     max-width: 100%;
     object-fit: cover;
 }
+.carousel-thumbnails-bottom .carousel-item audio {
+    height: 415px;
+    width: 100%;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    margin: 0 auto;
+    max-width: 100%;
+    object-fit: cover;
+}
 .carousel-thumbnails-bottom .carousel-indicators li {
     width: 15%;
     display: inline-block;
@@ -75,6 +84,11 @@
     border: 0;
 }
 .carousel-thumbnails-bottom .carousel-indicators li img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.carousel-thumbnails-bottom .carousel-indicators li audio {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -381,6 +395,9 @@
 
 @media (max-width: 768px) {
     .carousel-thumbnails-bottom .carousel-item img {
+        height: 270px;
+    }
+    .carousel-thumbnails-bottom .carousel-item audio {
         height: 270px;
     }
 }

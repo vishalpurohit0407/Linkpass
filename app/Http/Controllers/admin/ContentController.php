@@ -37,26 +37,26 @@ class ContentController extends Controller
         if($request->ajax()){
             return view('admin.content.ajaxlist',array('content'=>$content));
         }else{
-            $categorys = $this->category->where('status','1')->orderBy('name','asc')->get();
-            //print_r($categorys);
-            return view('admin.content.list',array('title' => 'Content List','categorys'=>$categorys,'content'=>$content));
+            $categories = $this->category->categoryParentChildTree();
+            //print_r($categories);
+            return view('admin.content.list',array('title' => 'Content List','categories'=>$categories,'content'=>$content));
         }
     }
 
     public function search(Request $request){
 
-        $content=$this->content->with('content_category','content_category.category')->where('main_title','!=','')->where('status','!=','2');
-        //->where('status','!=','2')
+        $content = $this->content->with('content_category','content_category.category')->where('main_title','!=','')->where('status','!=','2');
+
         if(isset($request->search) && !empty($request->search)){
-            $content=$content->where('main_title','LIKE','%'.$request->search.'%');
+            $content = $content->where('main_title','LIKE','%'.$request->search.'%');
         }
         if(isset($request->category_id) && !empty($request->category_id)){
-            $category_id=$request->category_id;
+            $category_id = $request->category_id;
             $content=$content->whereHas('content_category', function ($query) use ($category_id) {
                     $query->where('category_id', $category_id);
-                });
+            });
         }
-        $content=$content->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content = $content->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         return view('admin.content.ajaxlist',array('content'=>$content));
     }
@@ -70,7 +70,6 @@ class ContentController extends Controller
     {
         $guidArr = array();
         $guidArr['status'] = '3';
-        $guidArr['content_type'] = 'self-diagnosis';
         $content = $this->content->create($guidArr);
         return redirect(route('admin.content.edit',['content' => $content ]));
     }
@@ -83,17 +82,11 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        //echo "<pre>";print_r($request->stepfilupload);exit;
-
         $messages = [
-            'content_step.*.step_title.required' => 'The title field is required.',
-            'content_step.*.step_description.required' => 'The points/description field is required.',
-            //'content_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
+            'content_step.*.step_title.required' => 'The title field is required.'
         ];
         $request->validate([
-            'content_step.*.step_title' => 'required',
-            'content_step.*.step_description' => 'required',
-            //'content_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
+            'content_step.*.step_title' => 'required'
         ],$messages);
 
         try {
@@ -106,18 +99,19 @@ class ContentController extends Controller
 
     public function img_upload(Request $request)
     {
+        $allowedExtensions = implode(',', array_merge(config('default.image_extensions'), config('default.audio_extensions')));
         //dd($request->all());
         if($request->unique_id && $request->file('file_image')){
             $file=$request->file('file_image');
 
             $request->validate([
-                'file_image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'file_image' => 'mimes:'.$allowedExtensions.'|max:2048'
             ]);
 
-            $file_name =$file->getClientOriginalName();
-            $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
+            $file_name = $file->getClientOriginalName();
+            $fileslug = pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = md5($fileslug.time());
-            $imgext =$file->getClientOriginalExtension();
+            $imgext = $file->getClientOriginalExtension();
             $path = 'content/'.$request->content_id.'/step_media/'.$imageName.".".$imgext;
             $fileAdded = Storage::disk('public')->putFileAs('content/'.$request->content_id.'/step_media/',$file,$imageName.".".$imgext);
 
@@ -138,17 +132,19 @@ class ContentController extends Controller
 
     public function mainImgUpload(Request $request, $id)
     {
-        $file = $request->file('file');
+        $file            = $request->file('file');
+        $imageExtensions = implode(',', config('default.image_extensions'));
+
         if($file && $id){
 
             $request->validate([
-                'file' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'file' => 'mimes:'.$imageExtensions.'|max:2048'
             ]);
 
-            $file_name =$file->getClientOriginalName();
-            $fileslug= pathinfo($file_name, PATHINFO_FILENAME);
+            $file_name = $file->getClientOriginalName();
+            $fileslug = pathinfo($file_name, PATHINFO_FILENAME);
             $imageName = md5($fileslug.time());
-            $imgext =$file->getClientOriginalExtension();
+            $imgext = $file->getClientOriginalExtension();
             $path = 'content/'.$id.'/'.$imageName.".".$imgext;
             $fileAdded = Storage::disk('public')->putFileAs('content/'.$id.'/',$file,$imageName.".".$imgext);
 
@@ -239,9 +235,7 @@ class ContentController extends Controller
         }
 
         $messages = [
-            'content_step.*.step_title.required' => 'The title field is required.',
-            'content_step.*.step_description.required' => 'The points/description field is required.',
-            //'content_step.*.stepfilupload.*' => 'Please upload jpg,jpeg,png,bmp image',
+            'content_step.*.step_title.required' => 'The title field is required.'
         ];
 
         if($request->submit == 'Save As Draft'){
@@ -259,10 +253,10 @@ class ContentController extends Controller
                 'user_id'      => 'required',
                 'posted_at'    => 'required',
                 'published_at' => 'required',
-                //'content_step.*.step_title' => 'required',
+                'content_step.*.step_title' => 'required'
                 //'content_step.*.step_description' => 'required',
                 //'content_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
-            ]);
+            ], $messages);
         }
 
         $content->main_title              = $request->main_title;
@@ -303,8 +297,6 @@ class ContentController extends Controller
                     $stepArr['video_type'] = $step['step_video_type'];
                     $stepArr['video_media'] = $step['step_video_media'];
                 }
-
-                $stepArr['description'] = $step['step_description'];
 
                 $checkstep = $this->contentSteps->where('step_key', $step['step_key'])->where('content_id',  $content->id)->first();
 

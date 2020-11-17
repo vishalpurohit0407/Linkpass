@@ -16,8 +16,8 @@
           <h6 class="h2 text-white d-inline-block mb-0">Add Content</h6>
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="#">Content</a></li>
+                <li class="breadcrumb-item"><a href="{!! url('admin') !!}"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="{!! url('admin/content') !!}">Content</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Content</li>
             </ol>
           </nav>
@@ -39,7 +39,7 @@
 
         <!-- Card body -->
         <div class="card-body">
-          <form action="{{ route('admin.content.update',$content->id) }}" method="post" enctype="multipart/form-data">
+          <form action="{{ route('admin.content.update',$content->hashid) }}" method="post" enctype="multipart/form-data">
           @csrf
           {{ method_field('PUT') }}
               <div class="row">
@@ -54,6 +54,7 @@
                           <label class="custom-file-label" for="content_main_image">Choose file</label>
                         </div>
                       </div>
+                      <div class="dz-message" data-dz-message><span>Drop file here or click to upload.</span></div>
                       <div class="dz-preview dz-preview-single" style="height: 300px;">
                         <div class="dz-preview-cover">
                           <img class="dz-preview-img" src="" data-dz-thumbnail>
@@ -149,7 +150,7 @@
                 </div>
               </div>
 
-                <hr class="hr-dotted">
+                <hr class="hr-dotted mb-3 mt-0">
 
               <div class="row">
                 <div class="col-sm-12">
@@ -178,7 +179,7 @@
                 </div>
               </div>
 
-              <hr class="hr-dotted">
+              <hr class="hr-dotted mb-3 mt-0">
               <div class="content_repeater">
                 <div data-repeater-list="content_step">
                     <script type="text/javascript">let stepMediaArr = new Array();</script>
@@ -187,21 +188,20 @@
                         @foreach ($content_step as $key => $contentstep)
 
                             <div class="content_step_list" data-repeater-item>
-                                <div class="row mb-6">
+                                <div class="row mb-3">
                                   <div class="col-sm-12">
-                                    <h1 class="step">Step <span class="step_number">{{$key + 1}}</span></h1>
+                                    <h1 class="step">Media <span class="step_number">{{$key + 1}}</span></h1>
                                     <a href="javascript:;" data-repeater-delete="" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
                                     <input type="hidden" class="step_key" name="step_key" value="{{ $contentstep->step_key }}">
-
+                                    <input type="hidden" id="media_wrap_{{$key}}">
                                     <div class="dropzone dropzone-init"></div>
-
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-sm-6">
-                                      <div class="form-group">
-                                          <label class="form-control-label" for="step_title">Title</label>
-                                          <input type="text" class="form-control" name="step_title" placeholder="Title" value="{{ $contentstep->title }}">
+                                      <div class="form-group mb-0">
+                                        <label class="form-control-label" for="step_title">Title</label>
+                                        <input type="text" class="form-control" name="step_title" placeholder="Title" value="{{ $contentstep->title }}">
                                       </div>
                                       <div class="form-group">
                                           <label class="form-control-label" for="step_video">Video</label>
@@ -215,12 +215,6 @@
                                             <input type="text" class="form-control" id="step_video_media" name="step_video_media" placeholder="Enter here the URL of a Youtube or vimeo video" value="{{old('step_video_media', $contentstep->video_media)}}">
                                           </div>
                                           <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
-                                      </div>
-                                  </div>
-                                  <div class="col-sm-6">
-                                      <div class="form-group">
-                                          <label class="form-control-label">Points/Description</label>
-                                          <textarea name="step_description" id="step_description_{{$key}}" class="form-control step_description" rows="10">{{ $contentstep->description }}</textarea>
                                       </div>
                                   </div>
                                 </div>
@@ -243,12 +237,12 @@
 
                       <div class="content_step_list" data-repeater-item>
 
-                        <div class="row mb-6">
+                        <div class="row mb-3">
                           <div class="col-sm-12">
-                            <h1 class="step">Step <span class="step_number">1</span></h1>
+                            <h1 class="step">Media <span class="step_number">1</span></h1>
                             <a href="javascript:;" data-repeater-delete="" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
                             <input type="hidden" class="step_key" name="step_key" value="{{ old('content_step.0.step_key') }}">
-
+                            <input type="hidden" id="media_wrap_1">
                             <div class="dropzone dropzone-init"></div>
 
                             @if($errors->has('content_step.0.stepfilupload'))
@@ -261,14 +255,14 @@
 
                         <div class="row">
                           <div class="col-sm-6">
-                              <div class="form-group @if($errors->has('content_step.0.step_title')) has-danger @endif">
+                                <div class="form-group @if($errors->has('content_step.0.step_title')) has-danger @endif">
                                   <label class="form-control-label" for="step_title">Title</label>
                                   <input type="text" class="form-control @if($errors->has('content_step.0.step_title')) is-invalid @endif" name="step_title" placeholder="Title" value="{{ old('content_step.0.step_title') }}">
                                     @if($errors->has('content_step.0.step_title'))
                                         <span class="invalid-feedback">{{ $errors->first('content_step.0.step_title') }}</span>
                                     @endif
-                              </div>
-                                <div class="form-group">
+                                </div>
+                                <div class="form-group mb-0">
                                   <label class="form-control-label" for="step_video">Video</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -282,26 +276,18 @@
                                     <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
                                 </div>
                           </div>
-                          <div class="col-sm-6">
-                              <div class="form-group @if($errors->has('content_step.0.step_description')) has-danger @endif">
-                                  <label class="form-control-label">Points/Description</label>
-                                  <textarea name="step_description" id="step_description_1" class="form-control step_description @if($errors->has('content_step.0.step_description')) is-invalid @endif" rows="10">{{ old('content_step.0.step_description') }}</textarea>
-                                    @if($errors->has('content_step.0.step_description'))
-                                        <span class="invalid-feedback">{{ $errors->first('content_step.0.step_description') }}</span>
-                                    @endif
-                              </div>
-                          </div>
                         </div>
                         <hr>
                       </div>
                         @if($step_count>=2)
                             @for($e=1;$e<$step_count;$e++)
                             <div class="content_step_list" data-repeater-item>
-                                <div class="row mb-6">
+                                <div class="row mb-3">
                                   <div class="col-sm-12">
-                                    <h1 class="step">Step <span class="step_number">{{ $e+1 }}</span></h1>
+                                    <h1 class="step">Media <span class="step_number">{{ $e+1 }}</span></h1>
                                     <a href="javascript:;" data-repeater-delete="" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
                                     <input type="hidden" class="step_key" name="step_key" value="{{ old('content_step.'.$e.'.step_key') }}">
+                                    <input type="hidden" id="media_wrap_{{$e+1}}">
                                     <div class="dropzone dropzone-multiple" data-toggle="dropzone" data-dropzone-multiple data-dropzone-url="http://">
                                       <div class="fallback">
                                         <div class="custom-file">
@@ -320,15 +306,14 @@
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group @if($errors->has('content_step.'.$e.'.step_title')) has-danger @endif">
-                                              <label class="form-control-label" for="step_title">Title</label>
-                                              <input type="text" class="form-control @if($errors->has('content_step.'.$e.'.step_title')) is-invalid @endif" name="step_title" placeholder="Title" value="{{ old('content_step.'.$e.'.step_title') }}">
+                                        <div class="form-group mb-0">
+                                            <div class="form-group @if($errors->has('content_step.'.$e.'.step_title')) has-danger @endif">
+                                                <label class="form-control-label" for="step_title">Title</label>
+                                                <input type="text" class="form-control @if($errors->has('content_step.'.$e.'.step_title')) is-invalid @endif" name="step_title" placeholder="Title" value="{{ old('content_step.'.$e.'.step_title') }}">
                                                 @if($errors->has('content_step.'.$e.'.step_title'))
                                                     <span class="invalid-feedback">{{ $errors->first('content_step.'.$e.'.step_title') }}</span>
                                                 @endif
-                                        </div>
-
-                                        <div class="form-group">
+                                            </div>
                                             <label class="form-control-label" for="step_video">Video</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -341,17 +326,7 @@
                                             </div>
                                             <p class="text-info mb-0"><strong>Note: Please add embed URL for Youtube and Vimeo video.</strong></p>
                                         </div>
-
                                     </div>
-                                  <div class="col-sm-6">
-                                      <div class="form-group @if($errors->has('content_step.'.$e.'.step_description')) has-danger @endif">
-                                          <label class="form-control-label">Points/Description</label>
-                                          <textarea name="step_description" id="step_description_{{$e+1}}" class="form-control step_description @if($errors->has('content_step.'.$e.'.step_description')) is-invalid @endif" rows="10">{{ old('content_step.'.$e.'.step_description') }}</textarea>
-                                            @if($errors->has('content_step.'.$e.'.step_description'))
-                                                <span class="invalid-feedback">{{ $errors->first('content_step.'.$e.'.step_description') }}</span>
-                                            @endif
-                                      </div>
-                                  </div>
                                 </div>
                                 <hr>
                               </div>
@@ -359,10 +334,10 @@
                         @endif
                     @endif
                 </div>
-                <input class="btn btn-primary btn-sm" data-repeater-create type="button" value="Add Steps"/>
+                <input class="btn btn-primary btn-sm" data-repeater-create type="button" value="Add More Media"/>
               </div>
 
-              <hr class="hr-dotted">
+              <hr class="hr-dotted mb-3 mt-3">
 
               <div class="row">
                 <div class="col-6">
@@ -410,27 +385,6 @@ $(document).ready(function() {
         $(".dz-preview.dz-preview-single").html('<div class="dz-preview-cover dz-processing dz-image-preview dz-success dz-complete"><img class="dz-preview-img" src="{{asset($content->main_image_url)}}"></div>');
         $(".dropzone.dropzone-single").addClass('dz-clickable dz-max-files-reached');
     @endif
-    /*var mainImage = $(".dropzone-single-new").dropzone({
-        url: "{{route('admin.content.mainupload',['id' => $content->id])}}",
-        maxFiles: 5,
-        paramName: 'file',
-        maxFilesSize: 1024,
-        init: function() {
-
-            var thisDropzone = this;
-            var mockFile = { name: 'Name Image', size: 12345, type: 'image/jpeg' };
-            thisDropzone.emit("addedfile", mockFile);
-            thisDropzone.emit("success", mockFile);
-            thisDropzone.emit("thumbnail", mockFile, "https://admin.scanit.in/storage/adminprofile/1/b06edd21b7724c7d3c7333fb142fa65a.jpg")
-        },
-    });*/
-
-
-    /*var mockFile = { name: '{{$content->main_image}}'};
-    mainImage.emit("addedfile", mockFile);
-    mainImage.emit("thumbnail", mockFile, '{{$content->main_image_url}}');
-    mainImage.emit("complete", mockFile);
-    mainImage.files.push(mockFile);*/
 
     $('.js-example-basic-single').select2();
 
@@ -446,7 +400,9 @@ $(document).ready(function() {
     function addon_step_unique_id(){
         return "key_"+Math.random().toString(16).slice(2);
     }
-    var step_count=<?php echo $step_count;?>;
+    var step_count      = {!! $step_count!!};
+    var audioExtensions = {!! json_encode(config('default.audio_extensions')) !!};
+
     $(".content_repeater").repeater({
         initEmpty:false,
         isFirstItemUndeletable: true,
@@ -460,18 +416,13 @@ $(document).ready(function() {
             $(this).find('.step_number').text(step_count);
             $(this).show('fast',function(){
 
-                var unique_id=addon_step_unique_id();
+                var unique_id = addon_step_unique_id();
 
                 $(this).find(".step_key").val(unique_id);
 
-                $(this).find(".step_description").attr('id','step_description_'+step_count);
-                CKEDITOR.replace('step_description_'+step_count, {
-                  extraPlugins:'justify,videodetector',
-                  height : '300px',
-                  allowedContent : true,
-                  filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
-                  filebrowserUploadMethod: 'form'
-                });
+                $(this).find(".media_wrap").attr('id','media_wrap_'+step_count);
+
+                $(this).find("#step_video_type").val('youtube'); // Set Default
 
                 Dropzone.options.myAwesomeDropzone = false;
                 Dropzone.autoDiscover = false;
@@ -489,6 +440,8 @@ $(document).ready(function() {
                         maxFiles: dropMaxFiles,
                         paramName: dropParamName,
                         maxFilesSize: dropMaxFileSize,
+                        dictDefaultMessage : 'Drop files(images/audio) here or click to upload.',
+                        acceptedFiles :  'image/jpeg, image/png, image/gif, image/svg, audio/mpeg, audio/mp4, audio/vnd.wav',
                         addRemoveLinks: true,
                         init: function() {
                             this.on("complete", function(file) {
@@ -498,8 +451,8 @@ $(document).ready(function() {
                         },
                         success: function(file, response){
 
-                            if(response.status){
-                                //linkObj.find(".dz-remove").attr("data-dz-media_id", response.id);
+                            if(response.status)
+                            {
                                 $(file._removeLink).attr("data-dz-media_id", response.id);
                                 callRemoveImg();
                             }
@@ -548,23 +501,18 @@ $(document).ready(function() {
 
             $('.content_step_list').each(function(){
 
-                var unique_id = $(this).find(".step_key").val()
+                var unique_id = $(this).find(".step_key").val();
+
                 if($(this).find(".step_key").val()==''){
                     var unique_id=addon_step_unique_id();
                     $(this).find(".step_key").val(unique_id);
                 }
 
-                CKEDITOR.replace($(this).find('.step_description').attr('id'), {
-                  extraPlugins:'justify,videodetector',
-                  height : '300px',
-                  allowedContent : true,
-                  filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
-                  filebrowserUploadMethod: 'form'
-                });
-
                 $(this).find('.dropzone-init').each(function(){
 
-                    var dropUrl = "{{ route('admin.content.upload', ['_token' => csrf_token()]) }}";
+                    var dropUrl    = "{{ route('admin.content.upload', ['_token' => csrf_token()]) }}",
+                        audioThumb = "{{asset('assets/img/icons/audio.png')}}";
+
                     dropUrl+="&unique_id="+unique_id+"&content_id="+content_id;
                     var dropMaxFiles = 6;
                     var dropParamName = 'file_image';
@@ -575,6 +523,8 @@ $(document).ready(function() {
                         maxFiles: dropMaxFiles,
                         paramName: dropParamName,
                         maxFilesSize: dropMaxFileSize,
+                        dictDefaultMessage: 'Drop files(images/audio) here or click to upload.',
+                        acceptedFiles:  'image/jpeg, image/png, image/gif, image/svg, audio/mpeg, audio/mp4, audio/vnd.wav',
                         addRemoveLinks: true,
                         init: function() {
                             this.on("complete", function(file) {
@@ -587,13 +537,21 @@ $(document).ready(function() {
                             // If you only have access to the original image sizes on your server,
                             // and want to resize them in the browser:
 
-
                             if(stepMediaArr[unique_id]){
                                 for (i = 0; i < stepMediaArr[unique_id].length; i++) {
 
-                                    let mockFile = { name: stepMediaArr[unique_id][i].name};
+                                    var mockFileName    = stepMediaArr[unique_id][i].name,
+                                        mockFile        = { name: mockFileName},
+                                        ext             = mockFileName.split('.').pop(),
+                                        thumbnailURL    = stepMediaArr[unique_id][i].url;
+
+                                    if(audioExtensions.includes(ext))
+                                    {
+                                      thumbnailURL = audioThumb;
+                                    }
+
                                     myDropzone.emit("addedfile", mockFile);
-                                    myDropzone.emit("thumbnail", mockFile, stepMediaArr[unique_id][i].url);
+                                    myDropzone.emit("thumbnail", mockFile, thumbnailURL);
                                     myDropzone.emit("complete", mockFile);
 
                                     $(mockFile._removeLink).attr("data-dz-media_id", stepMediaArr[unique_id][i].id);
@@ -655,43 +613,6 @@ function callRemoveImg(){
             });
         }
     });
-}
-
-function addMoreStep(){
-
-  stepCount++;
-
-  var ids = 'step_description'+stepCount;
-  var html = $("#step_hidden_html");
-
-  var ele = html.find('.step_description_cl').attr('id',ids);
-
-  $("#step_html").append(html.html());
-
- /* $('.remove_level').on('click', function() {
-
-    $(this).closest('.row').remove();
-  });*/
-
-  /*CKEDITOR.replace('step_description'+stepCount, {
-    extraPlugins:'justify,videodetector',
-    height : '300px',
-    allowedContent : true,
-    filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
-    filebrowserUploadMethod: 'form'
-  });*/
-
-  /*CKEDITOR.editorConfig = function (config) {
-
-    config.height = 300;
-    config.extraPlugins ='justify,videodetector';
-    config.height = '400px';
-    config.allowedContent = true;
-    config.filebrowserUploadUrl = "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}";
-    config.filebrowserUploadMethod = 'form';
-  };
-
-  CKEDITOR.replace(ids);*/
 }
 
 </script>
