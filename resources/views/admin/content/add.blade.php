@@ -165,7 +165,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <label class="form-control-label" for="example4cols3Input">Introduction (optional)</label>
+                    <label class="form-control-label" for="example4cols3Input">Summary</label>
                     <textarea name="introduction" id="introduction" class="form-control" rows="10">{{old('introduction', $content->introduction)}}</textarea>
                   </div>
                 </div>

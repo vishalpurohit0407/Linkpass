@@ -55,7 +55,7 @@
 
             <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.content.*') ? 'active' : '' }}" href="#navbar-forms-content" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-content">
-                <i class="ni ni-settings text-orange"></i>
+                <i class="ni ni-collection text-orange"></i>
                 <span class="nav-link-text">Content</span>
               </a>
               <div class="collapse {{ Request::routeIs('admin.content.*') ? 'show' : '' }}" id="navbar-forms-content" style="">
