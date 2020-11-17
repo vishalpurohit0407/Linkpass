@@ -21,7 +21,7 @@ class Content extends Authenticatable
 
     public function content_category()
     {
-        return $this->hasMany('App\ContentCategory', 'content_id','id');
+        return $this->belongsTo('App\Category', 'category_id');
     }
 
     public function content_user()

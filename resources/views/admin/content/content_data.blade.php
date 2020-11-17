@@ -9,11 +9,10 @@
                 <div class="card-body">
                     <h5 class="h2 card-title mb-0">{{ucfirst($selfdiagnos->main_title)}}</h5>
                     @php
-                    $category_id = $selfdiagnos->content_category->pluck('category_id')->toArray();
-                    $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
+                        $category_name = !empty($selfdiagnos->content_category->name) ? $selfdiagnos->content_category->name : '';
                     @endphp
                     <p class="card-text mt-4 text-uppercase text-muted h5">
-                        {{implode(', ',$category_name)}}
+                        {{$category_name}}
                     </p>
                     <p><a href="javascript:void(0);"><strong>{{$selfdiagnos->completion_content_count}} people viewed this content</strong></a></p>
                     <div class="footer-button">
@@ -36,13 +35,11 @@
         </div>
     @endforeach
 @else
-
-            <!-- Image-Text card -->
-            <div class="card">
-                <!-- Card body -->
-                <div class="card-body">
-                    <h5 class="h3 card-title mb-0 text-center">No records available.</h5>
-                </div>
-            </div>
-
+    <!-- Image-Text card -->
+    <div class="card">
+        <!-- Card body -->
+        <div class="card-body">
+            <h5 class="h3 card-title mb-0 text-center">No records available.</h5>
+        </div>
+    </div>
 @endif

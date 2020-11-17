@@ -80,10 +80,9 @@
                                 <span class="alert-icon"><i class="fas fa-tag"></i></span>
                                 <span class="alert-text">Category</span>
                                 @php
-                                    $category_id = $content->content_category->pluck('category_id')->toArray();
-                                    $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
+                                    $category_name = !empty($content->content_category->name) ? $content->content_category->name : '';
                                 @endphp
-                                <span class="alert-text-right"><strong>{{ !empty($category_name) ? implode(', ',$category_name) : ''}}</strong></span>
+                                <span class="alert-text-right"><strong>{{ $category_name }}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="ni ni-world"></i></span>
