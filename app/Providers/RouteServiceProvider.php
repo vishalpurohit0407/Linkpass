@@ -36,8 +36,12 @@ class RouteServiceProvider extends ServiceProvider
             return $this->getModel(\App\User::class, $value);
         });
 
-        Route::bind('cms_page', function ($value, $route) {
+        Route::bind('cms-page', function ($value, $route) {
             return $this->getModel(\App\CmsPage::class, $value);
+        });
+
+        Route::bind('content', function ($value, $route) {
+            return $this->getModel(\App\Content::class, $value);
         });
     }
 

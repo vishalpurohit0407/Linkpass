@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Guidecategory extends Authenticatable
+class ContentCategory extends Authenticatable
 {
-    protected $table = 'guide_category';
+    protected $table = 'content_category';
 
     protected $fillable = [
-        'guide_id', 'category_id'
+        'content_id', 'category_id'
     ];
 
     protected $casts = [

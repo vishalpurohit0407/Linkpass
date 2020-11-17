@@ -40,7 +40,7 @@
                                 <label class="form-control-label" for="title">Title&nbsp;<strong class="text-danger">*</strong></label>
                                 <input type="text" class="form-control  @if($errors->has('title')) is-invalid @endif maxlength" name="title" id="title" placeholder="Title" value="{{old('title',$page->title)}}">
                                 @if($errors->has('title'))
-                                    <span class="form-text text-danger">{{ $errors->first('title') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('title') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 <label class="form-control-label" for="content">Content&nbsp;<strong class="text-danger">*</strong></label>
                                 <textarea name="content" id="content" class="form-control" rows="10">{{old('content',$page->content)}}</textarea>
                                 @if($errors->has('content'))
-                                    <span class="form-text text-danger">{{ $errors->first('content') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('content') }}</span>
                                 @endif
                             </div>
                         </div>

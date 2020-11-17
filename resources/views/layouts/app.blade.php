@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="{{asset('assets/vendor/lightgallery/css/lightgallery.css')}}" type="text/css">
   <!-- Argon CSS -->
   <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.1.0')}}" type="text/css">
-  
+
   <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" type="text/css">
   @yield('pagewise_css')
 </head>
@@ -52,7 +52,7 @@
 
   <script src="{{asset('assets/vendor/dropzone/dist/min/dropzone.min.js')}}"></script>
   <!-- <script src="{{asset('assets/vendor/dropzone-1/dropzone.js')}}"></script> -->
-  
+
   <script src="{{asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
 
   <!-- Optional JS -->

@@ -15,6 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $table = 'users';
 
     protected $appends = [ 'user_image_url' ];
+
     /**
      * The attributes that are mass assignable.
      *

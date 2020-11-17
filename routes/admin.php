@@ -21,7 +21,7 @@ Route::post('/password/reset', 'Adminauth\ResetPasswordController@reset')->name(
 
 // Add new route for 'admin' middleware
 Route::group(['middleware' => ['admin']],function(){
-	
+
 	// Logout routes
 	//Route::get('/','admin\AdminController@index');
     Route::post('/logout','Adminauth\LoginController@logout');
@@ -66,29 +66,29 @@ Route::group(['middleware' => ['admin']],function(){
 	    ]
 	]);
 
-	// Self Diagnosis Module Routes
-	Route::get('/guide/search','admin\GuideController@search')->name('admin.selfdiagnosis.search');
-	Route::resource('/guide', 'admin\GuideController', [
+	// Content Module Routes
+	Route::get('/content/search','admin\ContentController@search')->name('admin.content.search');
+	Route::resource('/content', 'admin\ContentController', [
 	    'names' => [
-	        'index' => 'admin.selfdiagnosis.list',
-	        'create' => 'admin.selfdiagnosis.create',
-	        'store' => 'admin.selfdiagnosis.store',
-	        'edit' => 'admin.selfdiagnosis.edit',
-	        'update' => 'admin.selfdiagnosis.update',
-	        'destroy' => 'admin.selfdiagnosis.destroy',
-	        'show' => 'admin.selfdiagnosis.show'
+	        'index' => 'admin.content.list',
+	        'create' => 'admin.content.create',
+	        'store' => 'admin.content.store',
+	        'edit' => 'admin.content.edit',
+	        'update' => 'admin.content.update',
+	        'destroy' => 'admin.content.destroy',
+	        'show' => 'admin.content.show'
 	    ]
 	]);
-	Route::post('/selfdiagnosis/img-upload','admin\GuideController@img_upload')->name('admin.selfdiagnosis.upload');
-	Route::post('/selfdiagnosis/main-img-upload/{id}','admin\GuideController@mainImgUpload')->name('admin.selfdiagnosis.mainupload');
-	Route::post('/selfdiagnosis/remove/img-upload','admin\GuideController@removeImage')->name('admin.selfdiagnosis.remove.image');
-	Route::post('/selfdiagnosis/remove/step','admin\GuideController@removeStep')->name('admin.selfdiagnosis.remove.step');
-	Route::get('/selfdiagnosis/pdf/{id}','GuideController@createPDF')->name('selfdiagnosis.pdf.export');
+	Route::post('/content/img-upload','admin\ContentController@img_upload')->name('admin.content.upload');
+	Route::post('/content/main-img-upload/{id}','admin\ContentController@mainImgUpload')->name('admin.content.mainupload');
+	Route::post('/content/remove/img-upload','admin\ContentController@removeImage')->name('admin.content.remove.image');
+	Route::post('/content/remove/step','admin\ContentController@removeStep')->name('admin.content.remove.step');
+	Route::get('/content/pdf/{id}','ContentController@createPDF')->name('content.pdf.export');
 
 
 	//Maintenance Module Routes
 	Route::get('/maintenance/search','admin\MaintenanceController@search')->name('admin.maintenance.search');
-	Route::resource('/maintenance/guide', 'admin\MaintenanceController', [
+	Route::resource('/maintenance/content', 'admin\MaintenanceController', [
 	    'names' => [
 	        'index' => 'admin.maintenance.list',
 	        'create' => 'admin.maintenance.create',
@@ -140,8 +140,8 @@ Route::group(['middleware' => ['admin']],function(){
 
 
 	// CMS Page Module Routes
-	Route::post('/cms_page/list/data','admin\CmsPageController@listdata')->name('admin.cms.page.listdata');
-	Route::resource('/cms_page', 'admin\CmsPageController', [
+	Route::post('/cms-page/list/data','admin\CmsPageController@listdata')->name('admin.cms.page.listdata');
+	Route::resource('/cms-page', 'admin\CmsPageController', [
 	    'names' => [
 	        'index' => 'admin.cms.page.list',
 	        'create'=>'admin.cms.page.create',

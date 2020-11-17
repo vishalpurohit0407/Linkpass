@@ -57,7 +57,7 @@
                                 <label class="form-control-label" for="name">Name&nbsp;<strong class="text-danger">*</strong></label>
                                 <input type="text" class="form-control  @if($errors->has('name')) is-invalid @endif maxlength" name="name" id="name" placeholder="Name" value="{{old('name',$userdata->name)}}">
                                 @if($errors->has('name'))
-                                    <span class="form-text text-danger">{{ $errors->first('name') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 <label class="form-control-label" for="email">Email&nbsp;<strong class="text-danger">*</strong></label>
                                 <input type="text" class="form-control  @if($errors->has('email')) is-invalid @endif maxlength" name="email" id="email" placeholder="Email" value="{{old('email',$userdata->email)}}">
                                 @if($errors->has('email'))
-                                    <span class="form-text text-danger">{{ $errors->first('email') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                 <label class="form-control-label" for="password">Password&nbsp;<strong class="text-danger">*</strong></label>
                                 <input type="password" class="form-control  @if($errors->has('password')) is-invalid @endif maxlength" name="password" id="password" placeholder="Password">
                                 @if($errors->has('password'))
-                                    <span class="form-text text-danger">{{ $errors->first('password') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('password') }}</span>
                                 @endif
                             </div>
                         </div>

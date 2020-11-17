@@ -48,7 +48,7 @@
                         </div>
                         @if ($errors->has('username'))
                             <div class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('username') }}</strong>
+                                {{ $errors->first('username') }}
                             </div>
                         @endif
                     </div>
@@ -61,7 +61,7 @@
                         </div>
                         @if ($errors->has('password'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('password') }}</strong>
+                                {{ $errors->first('password') }}
                             </span>
                         @endif
                     </div>
@@ -81,7 +81,7 @@
             <div class="col-12 text-right">
               <a href="{{ route('admin.forgotpassword') }}" class="text-light"><small>{{ __('Forgot Password?') }}</small></a>
             </div>
-            
+
           </div>
         </div>
       </div>

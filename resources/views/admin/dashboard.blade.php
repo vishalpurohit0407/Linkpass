@@ -14,7 +14,7 @@
                     </nav>
                 </div>
             </div>
-          
+
             <div class="row">
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card card-stats">
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-sm">
-                                <!-- <a href="{{route('admin.selfdiagnosis.list')}}" class="text-nowrap font-weight-600">See Details</a> -->
+                                <!-- <a href="{{route('admin.content.list')}}" class="text-nowrap font-weight-600">See Details</a> -->
                                 <a href="javascript:void(0);" class="text-nowrap font-weight-600">See Details</a>
                             </p>
                         </div>
@@ -101,5 +101,5 @@
         bottom: 1rem;
     }
 </style>
-    
+
 @endsection

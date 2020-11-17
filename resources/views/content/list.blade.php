@@ -1,23 +1,21 @@
-@extends('layouts.adminapp')
-
+@extends('layouts.app')
 @section('content')
-    <div class="header bg-primary pb-6">
+    <div class="header bg-primary pb-7">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Self Diagnosis</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">Blogs</h6>
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{route('admin.selfdiagnosis.create')}}" class="btn btn-sm btn-neutral">Add New</a>
-                    </div>
 
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
@@ -30,11 +28,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3 col-md-3 col-lg-2">
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <select class="form-control" id="category">
-                                    <option value="">All</option>
+                                    <option value="">All Category</option>
                                     @if($categorys)
                                         @foreach($categorys as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
@@ -44,27 +42,22 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-1">
                         <a href="javascript:void(0);" class="btn btn-neutral" style="height: 45px;" onclick="return resetFilter();">Clear</a>
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="col-12 text-center pb-3">
-                        <div class="guide-listing-loader" style="display: none;">
-                            <i class="fa fa-spinner fa-pulse"></i>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--6" id="selfdiagnosis_data">
+    <div class="content-listing-loader" style="display: none;">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div class="container-fluid mt--6" id="content_data">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
             @if(Session::has('alert-' . $msg))
-                 <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">                           
+                 <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">
                     <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
                     <div class="alert-close">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -72,14 +65,14 @@
                         </button>
                     </div>
                 </div>
-            @endif 
+            @endif
         @endforeach
         <div class="row">
-            @include('admin.selfdiagnosis.selfdiagnosis_data')
+            @include('content.content_data')
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-                {!! $selfdiagnosis->links() !!}
+                {!! $content->links() !!}
             </ul>
         </nav>
     </div>
@@ -122,38 +115,20 @@ $(document).ready(function() {
 });
 
 function getData(){
-    $(".guide-listing-loader").show();
+    $(".content-listing-loader").show();
     $.ajax(
     {
-        url: '{{route("admin.selfdiagnosis.search")}}',
+        url: '{{route("user.content.search")}}',
         type: "get",
         datatype: "html",
         data:{page:pageno,search:$('#search').val(),category_id:$('#category').val()},
     }).done(function(data){
-        $("#selfdiagnosis_data").html(data);
-        $(".guide-listing-loader").hide();
+        $("#content_data").html(data);
+        $(".content-listing-loader").hide();
         //location.hash = page;
     }).fail(function(jqXHR, ajaxOptions, thrownError){
           //alert('No response from server');
-          $(".guide-listing-loader").hide();
-    });
-}
-
-function deleteConfirm(event){
-    var id = $(event).attr('id');
-    swal({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        type: "warning",
-        showCancelButton: !0,
-        buttonsStyling: !1,
-        confirmButtonClass: "btn btn-danger",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonClass: "btn btn-secondary"
-    }).then((result) => {
-      if (result.value) {
-        $("#frm_"+id).submit();
-      }
+          $(".content-listing-loader").hide();
     });
 }
 

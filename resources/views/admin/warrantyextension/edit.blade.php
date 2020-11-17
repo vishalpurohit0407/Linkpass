@@ -48,7 +48,7 @@
                                 <label class="form-control-label" for="warranty_valid_date">Warranty Valid Until&nbsp;<strong class="text-danger">*</strong></label>
                                 <input class="form-control" type="date" name="warranty_valid_date" value="{{old('warranty_valid_date',$warrantyExtension->warranty_valid_date)}}">
                                 @if($errors->has('warranty_valid_date'))
-                                    <span class="form-text text-danger">{{ $errors->first('warranty_valid_date') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('warranty_valid_date') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                 <label class="form-control-label" for="next_warranty_valid_date">Next Warranty Valid Until&nbsp;<strong class="text-danger">*</strong></label>
                                 <input class="form-control" type="date" name="next_warranty_valid_date" value="{{old('next_warranty_valid_date',$warrantyExtension->next_warranty_valid_date)}}">
                                 @if($errors->has('next_warranty_valid_date'))
-                                    <span class="form-text text-danger">{{ $errors->first('next_warranty_valid_date') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('next_warranty_valid_date') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                   </div>
                                 </div>
                                 @if($errors->has('warranty_main_image'))
-                                    <span class="form-text text-danger">{{ $errors->first('warranty_main_image') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('warranty_main_image') }}</span>
                                 @endif
                             </div>
                             <div class="form-group mb-1 video-or-img" id="Choosevideo">
@@ -146,7 +146,7 @@
                                     <label class="form-control-label" for="name">Measure the current over the terminals and enter the Voltage&nbsp;<strong class="text-danger">*</strong></label>
                                     <input class="form-control" type="text" name="voltage" value="{{old('voltage',$warrantyExtension->voltage)}}">
                                     @if($errors->has('voltage'))
-                                        <span class="form-text text-danger">{{ $errors->first('voltage') }}</span>
+                                        <span class="invalid-feedback">{{ $errors->first('voltage') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                     <label class="form-control-label" for="temperat">Measure the temperature here&nbsp;<strong class="text-danger">*</strong></label>
                                     <input class="form-control" type="text" name="temperat" value="{{old('temperat',$warrantyExtension->temperat)}}">
                                     @if($errors->has('temperat'))
-                                        <span class="form-text text-danger">{{ $errors->first('temperat') }}</span>
+                                        <span class="invalid-feedback">{{ $errors->first('temperat') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                             <label class="form-control-label">Status</label>
                             <div class="form-group">
                                 <label class="form-control-label">
-                                @if($warrantyExtension->status == '0') 
+                                @if($warrantyExtension->status == '0')
                                     <span class="badge badge-pill badge-warning">Initial</span>
                                 @elseif($warrantyExtension->status == '1')
                                     <span class="badge badge-pill badge-primary">Admin Reply</span>
@@ -236,7 +236,7 @@
 @section('pagewise_js')
 <script type="text/javascript">
 $(document).ready(function() {
-    @if($warrantyExtension->picture_by_admin) 
+    @if($warrantyExtension->picture_by_admin)
         $(".dz-preview.dz-preview-single").html('<div class="dz-preview-cover dz-processing dz-image-preview dz-success dz-complete"><img class="dz-preview-img" src="{{asset($warrantyExtension->image_by_admin)}}"></div>');
         $(".dropzone.dropzone-single").addClass('dz-clickable dz-max-files-reached');
     @endif

@@ -40,7 +40,7 @@
                                 <label class="form-control-label" for="name">Name&nbsp;<strong class="text-danger">*</strong></label>
                                 <input type="text" class="form-control  @if($errors->has('name')) is-invalid @endif maxlength" name="name" id="name" placeholder="Name">
                                 @if($errors->has('name'))
-                                    <span class="form-text text-danger">{{ $errors->first('name') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                   @endif
                                 </select>
                                 @if($errors->has('parent_id'))
-                                    <span class="form-text text-danger">{{ $errors->first('parent_id') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('parent_id') }}</span>
                                 @endif
                             </div>
                         </div>

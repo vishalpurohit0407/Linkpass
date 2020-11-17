@@ -12,7 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        '/admin/selfdiagnosis/main-img-upload/*',
+        '/admin/content/main-img-upload/*',
         '/admin/maintenance/main-img-upload/*',
         '/warranty_extension/user-img-upload/*',
         '/warranty_extension/list/data/*'

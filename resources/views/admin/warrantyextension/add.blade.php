@@ -32,7 +32,7 @@
             <!-- Card body -->
             <div class="card-body">
                 <!-- Form groups used in grid -->
-                <form method="post" action="{{route('admin.category.store')}}"> 
+                <form method="post" action="{{route('admin.category.store')}}">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -40,7 +40,7 @@
                                 <label class="form-control-label" for="name">Name&nbsp;<strong class="text-danger">*</strong></label>
                                 <input type="text" class="form-control  @if($errors->has('name')) is-invalid @endif maxlength" name="name" id="name" placeholder="Name">
                                 @if($errors->has('name'))
-                                    <span class="form-text text-danger">{{ $errors->first('name') }}</span>
+                                    <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -66,7 +66,7 @@
 @section('pagewise_js')
 <script type="text/javascript">
 $(document).ready(function() {
-    
+
 });
 </script>
 @endsection

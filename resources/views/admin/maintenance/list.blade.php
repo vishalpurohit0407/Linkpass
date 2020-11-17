@@ -6,7 +6,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Maintenance Guides</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">Maintenance Contents</h6>
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i></a></li>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 text-center pb-3">
-                        <div class="guide-listing-loader" style="display: none;">
+                        <div class="content-listing-loader" style="display: none;">
                             <i class="fa fa-spinner fa-pulse"></i>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
     <div class="container-fluid mt--6" id="maintenance_data">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
             @if(Session::has('alert-' . $msg))
-                 <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">                           
+                 <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">
                     <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
                     <div class="alert-close">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -72,11 +72,11 @@
                         </button>
                     </div>
                 </div>
-            @endif 
+            @endif
         @endforeach
-        
+
         @include('admin.maintenance.data')
-        
+
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 {!! $maintenance->links() !!}
@@ -122,7 +122,7 @@ $(document).ready(function() {
 });
 
 function getData(){
-    $(".guide-listing-loader").show();
+    $(".content-listing-loader").show();
     $.ajax(
     {
         url: '{{route("admin.maintenance.search")}}',
@@ -131,11 +131,11 @@ function getData(){
         data:{page:pageno,search:$('#search').val(),category_id:$('#category').val()},
     }).done(function(data){
         $("#maintenance_data").html(data);
-        $(".guide-listing-loader").hide();
+        $(".content-listing-loader").hide();
         //location.hash = page;
     }).fail(function(jqXHR, ajaxOptions, thrownError){
           //alert('No response from server');
-          $(".guide-listing-loader").hide();
+          $(".content-listing-loader").hide();
     });
 }
 

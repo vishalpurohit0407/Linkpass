@@ -41,7 +41,7 @@
                         </button>
                     </div>
                 </div>
-            @endif 
+            @endif
         @endforeach
 
         <div class="row card-wrapper">
@@ -60,7 +60,7 @@
 
                         <form class="form" id="flowchart_details" action="{{ route('admin.flowchart.update',[$flowchart->id,'flag'=>'flowchart_details']) }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            {{ method_field('PUT') }} 
+                            {{ method_field('PUT') }}
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header border-0">
@@ -77,16 +77,16 @@
                                                     <label class="form-control-label" for="title">Title</label>
                                                     <input type="text" class="form-control @if($errors->has('title')) is-invalid @endif" id="title" name="title" placeholder="Title" value="{{old('title',$flowchart->title)}}">
                                                     @if($errors->has('title'))
-                                                        <span class="form-text text-danger">{{ $errors->first('title') }}</span>
+                                                        <span class="invalid-feedback">{{ $errors->first('title') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-12">
                                                 <div class="form-group @if($errors->has('description')) has-danger @endif">
                                                     <label class="form-control-label" for="description">Description</label>
-                                                    <textarea rows="5" class="form-control @if($errors->has('description')) is-invalid @endif" id="description" name="description" placeholder="Description">{{old('description',$flowchart->description)}}</textarea> 
+                                                    <textarea rows="5" class="form-control @if($errors->has('description')) is-invalid @endif" id="description" name="description" placeholder="Description">{{old('description',$flowchart->description)}}</textarea>
                                                     @if($errors->has('description'))
-                                                        <span class="form-text text-danger">{{ $errors->first('description') }}</span>
+                                                        <span class="invalid-feedback">{{ $errors->first('description') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -94,28 +94,28 @@
                                         <div class="row align-items-center">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="guide_id[]">Choose Self Diagnosis for this flowchart</label>
-                                                    <select class="form-control" name="guide_id[]" data-toggle="select" multiple data-placeholder="Select Self Diagnosis" id="self_diagnosis">
-                                                        @foreach($self_diagnosis as $diagnosis)
-                                                            <option value="{{$diagnosis->id}}" {{ $diagnosis->id == in_array($diagnosis->id, $guide_id_array) ? 'selected' : '' }}>{{$diagnosis->main_title}}</option>
+                                                    <label class="form-control-label" for="content_id[]">Choose Content for this flowchart</label>
+                                                    <select class="form-control" name="content_id[]" data-toggle="select" multiple data-placeholder="Select Content" id="content">
+                                                        @foreach($content as $diagnosis)
+                                                            <option value="{{$diagnosis->id}}" {{ $diagnosis->id == in_array($diagnosis->id, $content_id_array) ? 'selected' : '' }}>{{$diagnosis->main_title}}</option>
                                                         @endforeach
                                                     </select>
-                                                    @if($errors->has('guide_id[]'))
-                                                        <span class="form-text text-danger">{{ $errors->first('guide_id[]') }}</span>
+                                                    @if($errors->has('content_id[]'))
+                                                        <span class="invalid-feedback">{{ $errors->first('content_id[]') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6" >
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="maintenance">Choose Maintenance Guide for this flowchart</label>
-                                                    <select class="form-control" id="maintenance" name="guide_id[]" data-toggle="select" multiple placeholder="Select Maintenance">
+                                                    <label class="form-control-label" for="maintenance">Choose Maintenance Content for this flowchart</label>
+                                                    <select class="form-control" id="maintenance" name="content_id[]" data-toggle="select" multiple placeholder="Select Maintenance">
                                                         @foreach($maintenance as $mainten)
-                                                            <option class="text-white" value="{{$mainten->id}}" {{ $mainten->id == in_array($mainten->id, $guide_id_array) ? 'selected' : '' }}>{{$mainten->main_title}}</option>
+                                                            <option class="text-white" value="{{$mainten->id}}" {{ $mainten->id == in_array($mainten->id, $content_id_array) ? 'selected' : '' }}>{{$mainten->main_title}}</option>
                                                         @endforeach
                                                     </select>
-                                                     @if($errors->has('guide_id[]'))
-                                                        <span class="form-text text-danger">{{ $errors->first('guide_id[]') }}</span>
+                                                     @if($errors->has('content_id[]'))
+                                                        <span class="invalid-feedback">{{ $errors->first('content_id[]') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -134,7 +134,7 @@
                         <form class="form" action="{{ route('admin.flowchart.update',[$flowchart->id,'flag'=>'flowchart_addnode']) }}" method="post" enctype="multipart/form-data" id="add_node_frm">
 
                             {{ csrf_field() }}
-                            {{ method_field('PUT') }}   
+                            {{ method_field('PUT') }}
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header border-0">
@@ -151,7 +151,7 @@
                                                     <label class="form-control-label" for="lable">Label <a href="javascript:void(0);" title="Label Instructions" data-toggle="popover" data-placement="top" data-content="Add unique label per flowchart"><i class="fas fa-question-circle" style="font-size: 16px;"></i></a></label>
                                                     <input type="text" class="form-control @if($errors->has('lable')) is-invalid @endif" id="lable" name="lable" placeholder="Lable" value="{{old('lable')}}">
                                                     @if($errors->has('lable'))
-                                                        <span class="form-text text-danger">{{ $errors->first('lable') }}</span>
+                                                        <span class="invalid-feedback">{{ $errors->first('lable') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -172,14 +172,14 @@
                                                     <label class="form-control-label" for="text">Text</label>
                                                     <input type="text" class="form-control @if($errors->has('text')) is-invalid @endif" id="text" name="text" placeholder="Descriptive text for node" value="{{old('text')}}">
                                                     @if($errors->has('text'))
-                                                        <span class="form-text text-danger">{{ $errors->first('text') }}</span>
+                                                        <span class="invalid-feedback">{{ $errors->first('text') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row align-items-center">
-                                            
+
                                             <div class="col-sm-4 col-md-4 dicision_section" @if(old('type') && old('type') != 'decision') style="display: none;" @endif>
                                                 <div class="form-group @if($errors->has('dicision_yes')) has-danger @endif">
                                                     <label class="form-control-label" for="dicision_yes">Yes (Choose Child)</label>
@@ -190,7 +190,7 @@
                                                         @endforeach
                                                     </select>
                                                     @if($errors->has('dicision_yes'))
-                                                        <span class="form-text text-danger">{{ $errors->first('dicision_yes') }}</span>
+                                                        <span class="invalid-feedback">{{ $errors->first('dicision_yes') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -205,11 +205,11 @@
                                                         @endforeach
                                                     </select>
                                                      @if($errors->has('dicision_no'))
-                                                        <span class="form-text text-danger">{{ $errors->first('dicision_no') }}</span>
+                                                        <span class="invalid-feedback">{{ $errors->first('dicision_no') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-sm-4 col-md-4 process_section" @if(old('type') == 'process') @else style="display: none;" @endif >
                                                 <div class="form-group @if($errors->has('process_next')) has-danger @endif">
                                                     <label class="form-control-label" for="process_next">Next (Choose Child)</label>
@@ -220,7 +220,7 @@
                                                         @endforeach
                                                     </select>
                                                     @if($errors->has('process_next'))
-                                                        <span class="form-text text-danger">{{ $errors->first('process_next') }}</span>
+                                                        <span class="invalid-feedback">{{ $errors->first('process_next') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -271,7 +271,7 @@
                                                         <label class="form-control-label" for="link_text">Text</label>
                                                         <input type="text" class="form-control @if($errors->has('link_text')) is-invalid @endif" name="link_text" id="link_text" placeholder="Link Text" value="{{old('link_text')}}">
                                                         @if($errors->has('link_text'))
-                                                            <span class="form-text text-danger">{{ $errors->first('link_text') }}</span>
+                                                            <span class="invalid-feedback">{{ $errors->first('link_text') }}</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -280,7 +280,7 @@
                                                         <label class="form-control-label" for="link_url">URL</label>
                                                         <input type="text" class="form-control @if($errors->has('link_url')) is-invalid @endif" id="link_url" name="link_url" placeholder="Link URL" value="{{old('link_url')}}">
                                                         @if($errors->has('link_url'))
-                                                            <span class="form-text text-danger">{{ $errors->first('link_url') }}</span>
+                                                            <span class="invalid-feedback">{{ $errors->first('link_url') }}</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -307,7 +307,7 @@
                                                         <label class="form-control-label" for="example4cols2Input">Title</label>
                                                         <input type="text" class="form-control @if($errors->has('tip_title')) is-invalid @endif" id="tip_title" name="tip_title" placeholder="Tip Title" value="{{old('tip_title')}}">
                                                         @if($errors->has('tip_title'))
-                                                            <span class="form-text text-danger">{{$errors->first('tip_title')}}</span>
+                                                            <span class="invalid-feedback">{{$errors->first('tip_title')}}</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -316,7 +316,7 @@
                                                         <label class="form-control-label" for="tip_text">Text</label>
                                                         <input type="text" class="form-control @if($errors->has('tip_text')) is-invalid @endif" id="tip_text" name="tip_text" placeholder="Tip Text" value="{{old('tip_text')}}">
                                                         @if($errors->has('tip_text'))
-                                                            <span class="form-text text-danger">{{$errors->first('tip_text')}}</span>
+                                                            <span class="invalid-feedback">{{$errors->first('tip_text')}}</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -341,7 +341,7 @@
                                                     <div class="form-group">
                                                         <label class="form-control-label" for="orient_no">No</label>
                                                         <select class="form-control" name="orient_no">
-                                                            
+
                                                             <option value="r" @if(old('orient_no') == 'r') selected @endif >Right</option>
                                                             <option value="l" @if(old('orient_no') == 'l') selected @endif>Left</option>
                                                             <option value="b" @if(old('orient_no') == 'b') selected @endif>Bottom</option>
@@ -369,7 +369,7 @@
                                   <div class="col-6">
                                     <h3 class="mb-0">Node Listing</h3>
                                   </div>
-                                  
+
                                 </div>
                               </div>
                               <!-- Light table -->
@@ -396,8 +396,8 @@
                                               <td class="table-actions">
                                                 <a href="javascript:void(0);" class="table-action" data-toggle="modal" data-target="#node-form-{{$nodeData->id}}" ><i class="fas fa-user-edit"></i>
                                                 </a>
-                                                
-                                                <form action="{{ route('admin.flowchart.remove.node',['id' => $nodeData->id]) }}" method="POST" style="display: contents;" id="frm_{{$nodeData->id}}"> 
+
+                                                <form action="{{ route('admin.flowchart.remove.node',['id' => $nodeData->id]) }}" method="POST" style="display: contents;" id="frm_{{$nodeData->id}}">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <a href="javascript:void(0);" class="table-action table-action-delete" data-toggle="tooltip" data-original-title="Delete Node" onclick="return deleteConfirm(this);" id='{{$nodeData->id}}'>
@@ -415,15 +415,15 @@
                                                                 <div class="card-body">
                                                                     <form class="form editNodeForm" action="{{ route('admin.flowchart.node.update',['flowchart_id' => $flowchart->id , 'id' => $nodeData->id]) }}" method="post" enctype="multipart/form-data" id="node_frm_{{$nodeData->id}}">
                                                                         {{ csrf_field() }}
-                                                                         
+
                                                                         <div class="col-lg-12">
-                                                                            
+
                                                                             <div class="row align-items-center">
                                                                                 <div class="col-sm-4 col-md-4">
                                                                                     <div class="form-group">
                                                                                         <label class="form-control-label" for="lable">Label <a href="javascript:void(0);" title="Label Instructions" data-toggle="popover" data-placement="top" data-content="Add unique label per flowchart"><i class="fas fa-question-circle" style="font-size: 16px;"></i></a></label>
                                                                                         <input type="text" class="form-control " id="lable" name="lable" placeholder="Lable" value="{{old('lable',$nodeData->label)}}">
-                                                                                        <span class="form-text text-danger" id="lable_error"></span>
+                                                                                        <span class="invalid-feedback" id="lable_error"></span>
                                                                                     </div>
                                                                                 </div>
 
@@ -442,13 +442,13 @@
                                                                                     <div class="form-group">
                                                                                         <label class="form-control-label" for="text">Text</label>
                                                                                         <input type="text" class="form-control" id="text" name="text" placeholder="Descriptive text for node" value="{{old('text',$nodeData->text)}}">
-                                                                                        <span class="form-text text-danger" id="text_error"></span>
+                                                                                        <span class="invalid-feedback" id="text_error"></span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="row align-items-center">
-                                                                                
+
                                                                                 <div class="col-sm-4 col-md-4 dicision_section" @if(old('type',$nodeData->type) && old('type',$nodeData->type) != 'decision') style="display: none;" @endif>
                                                                                     <div class="form-group @if($errors->has('dicision_yes')) has-danger @endif">
                                                                                         <label class="form-control-label" for="dicision_yes">Yes (Choose Child)</label>
@@ -459,7 +459,7 @@
                                                                                             @endforeach
                                                                                         </select>
                                                                                         @if($errors->has('dicision_yes'))
-                                                                                            <span class="form-text text-danger">{{ $errors->first('dicision_yes') }}</span>
+                                                                                            <span class="invalid-feedback">{{ $errors->first('dicision_yes') }}</span>
                                                                                         @endif
                                                                                     </div>
                                                                                 </div>
@@ -474,11 +474,11 @@
                                                                                             @endforeach
                                                                                         </select>
                                                                                          @if($errors->has('dicision_no'))
-                                                                                            <span class="form-text text-danger">{{ $errors->first('dicision_no') }}</span>
+                                                                                            <span class="invalid-feedback">{{ $errors->first('dicision_no') }}</span>
                                                                                         @endif
                                                                                     </div>
                                                                                 </div>
-                                                                                
+
                                                                                 <div class="col-sm-4 col-md-4 process_section" @if(old('type',$nodeData->type) == 'process') @else style="display: none;" @endif >
                                                                                     <div class="form-group @if($errors->has('process_next')) has-danger @endif">
                                                                                         <label class="form-control-label" for="process_next">Next (Choose Child)</label>
@@ -489,7 +489,7 @@
                                                                                             @endforeach
                                                                                         </select>
                                                                                         @if($errors->has('process_next'))
-                                                                                            <span class="form-text text-danger">{{ $errors->first('process_next') }}</span>
+                                                                                            <span class="invalid-feedback">{{ $errors->first('process_next') }}</span>
                                                                                         @endif
                                                                                     </div>
                                                                                 </div>
@@ -539,14 +539,14 @@
                                                                                         <div class="form-group">
                                                                                             <label class="form-control-label" for="link_text">Text</label>
                                                                                             <input type="text" class="form-control" name="link_text" id="link_text" placeholder="Link Text" value="{{old('link_text',$nodeData->link_text)}}">
-                                                                                            <span class="form-text text-danger" id="link_text_error"></span>
+                                                                                            <span class="invalid-feedback" id="link_text_error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-sm-4 col-md-4">
                                                                                         <div class="form-group">
                                                                                             <label class="form-control-label" for="link_url">URL</label>
                                                                                             <input type="text" class="form-control" id="link_url" name="link_url" placeholder="Link URL" value="{{old('link_url',$nodeData->link_url)}}">
-                                                                                            <span class="form-text text-danger" id="link_url_error"></span>
+                                                                                            <span class="invalid-feedback" id="link_url_error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-sm-4 col-md-4">
@@ -571,14 +571,14 @@
                                                                                         <div class="form-group">
                                                                                             <label class="form-control-label" for="example4cols2Input">Title</label>
                                                                                             <input type="text" class="form-control" id="tip_title" name="tip_title" placeholder="Tip Title" value="{{old('tip_title',$nodeData->tips_title)}}">
-                                                                                            <span class="form-text text-danger" id="tip_title_error"></span>
+                                                                                            <span class="invalid-feedback" id="tip_title_error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-sm-4 col-md-4">
                                                                                         <div class="form-group">
                                                                                             <label class="form-control-label" for="tip_text">Text</label>
                                                                                             <input type="text" class="form-control" id="tip_text" name="tip_text" placeholder="Tip Text" value="{{old('tip_text',$nodeData->tips_title)}}">
-                                                                                            <span class="form-text text-danger" id="tip_text_error"></span>
+                                                                                            <span class="invalid-feedback" id="tip_text_error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -602,7 +602,7 @@
                                                                                         <div class="form-group">
                                                                                             <label class="form-control-label" for="orient_no">No</label>
                                                                                             <select class="form-control" name="orient_no">
-                                                                                                
+
                                                                                                 <option value="r" @if(old('orient_no',$nodeData->orient_no) == 'r') selected @endif >Right</option>
                                                                                                 <option value="l" @if(old('orient_no',$nodeData->orient_no) == 'l') selected @endif>Left</option>
                                                                                                 <option value="b" @if(old('orient_no',$nodeData->orient_no) == 'b') selected @endif>Bottom</option>
@@ -614,9 +614,9 @@
 
                                                                             <hr class="hr-dotted">
                                                                             <input type="submit" class="btn btn-info" name="submit" value="Save">
-                                                                            <input  type="button" data-dismiss="modal" class="btn btn-success" name="submit" value="Cancel">    
+                                                                            <input  type="button" data-dismiss="modal" class="btn btn-success" name="submit" value="Cancel">
                                                                         </div>
-                                                                    </form>  
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -629,7 +629,7 @@
                                     @else
                                         <tr align="center"><td colspan="4">Record Not Found.</td></tr>
                                     @endif
-                                    
+
                                   </tbody>
                                 </table>
                               </div>
@@ -652,7 +652,7 @@
     </div>
 
 
-   
+
 <style type="text/css">
   .custom-toggle{
     width: 53px;
@@ -696,20 +696,20 @@
                             }
     @php
                         }
-    @endphp            
+    @endphp
                         var orientArr = {
                                 yes:'b',
                                 no:'r',
                         }
                         shapesArr.push({
-                            label: '{{$node->label}}', 
-                            type: '{{$node->type}}', 
+                            label: '{{$node->label}}',
+                            type: '{{$node->type}}',
                             text : decisionTextArr,
                             yes : yes_lable,
                             no : no_lable,
                             orient : orientArr,
                         });
-    @php            
+    @php
                     }else if($node->type == 'process') {
                     $next_process = \App\Flowchartnode::where('id',$node->next)->first();
                     $wordwrapProcess = explode("<br>",wordwrap($node->text,25,"<br>"));
@@ -719,8 +719,8 @@
                         var processTextTipsArr = <?php echo json_encode($wordwrapProcessTip); ?>;
                         var next_lable = '{{$next_process ? $next_process->label : ''}}';
                         shapesArr.push({
-                            label: '{{$node->label}}', 
-                            type: '{{$node->type}}', 
+                            label: '{{$node->label}}',
+                            type: '{{$node->type}}',
                             text : processTextArr,
                             links: [
                             {
@@ -745,8 +745,8 @@
                         var textArr = <?php echo json_encode($wordwrapData); ?>;
                         var tipsTextArr = <?php echo json_encode($wordwrapTipData); ?>;
                         shapesArr.push({
-                            label: '{{$node->label}}', 
-                            type: '{{$node->type}}', 
+                            label: '{{$node->label}}',
+                            type: '{{$node->type}}',
                             text : textArr,
                             links: [
                             {
@@ -762,7 +762,7 @@
 
     @php
                     }
-                } 
+                }
             }
         }
     @endphp
@@ -770,7 +770,7 @@
 ///////////////////// start flow chart ////////////////////////////////////////////////////////////
     flowSVG.draw(SVG('drawing').size(900, 200));
     flowSVG.config({
-       
+
         interactive: true,
         showButtons: true,
         connectorLength: 60,
@@ -782,7 +782,7 @@
 $(document).ready(function () {
 
     $('.editNodeForm').submit(function (e) {
-        
+
         e.preventDefault();
         var frm = $(this);
         var id = $(this).attr('id');
@@ -793,7 +793,7 @@ $(document).ready(function () {
             url: frm.attr('action'),
             data: frm.serialize(),
             success: function (data) {
-                
+
                 if(data.status){
                     location.reload();
                 }
@@ -805,7 +805,7 @@ $(document).ready(function () {
                     var errors = $.parseJSON(data.responseText);
                     console.log(errors);
                     $.each(errors.errors, function (key, val) {
-                        
+
                         frm.find("#" + key + "_error").text(val[0]);
                         frm.find("#" + key).addClass('is-invalid');
                     });
@@ -845,13 +845,13 @@ function changeNodeType(ele){
         $('.change_orient_block').hide();
         $('.add_link_block').show();
         $('.add_tip_block').show();
-    } 
+    }
 }
 
 function changeEditNodeType(ele,id){
 
     var ids = "#node-form-"+id
-   
+
     if(ele.value == 'decision'){
 
         $(ids+' .dicision_section').show();
@@ -876,7 +876,7 @@ function changeEditNodeType(ele,id){
         $(ids+' .change_orient_block').hide();
         $(ids+' .add_link_block').show();
         $(ids+' .add_tip_block').show();
-    } 
+    }
 }
 
 function showSection(ele){
@@ -922,7 +922,7 @@ function deleteConfirm(event){
 }
 
 function showEditForm(id){
-    
+
     $("#add_node_frm").hide();
     $(".node_edit_form").hide();
     $(".node_edit_form").show();
