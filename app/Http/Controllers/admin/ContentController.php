@@ -32,7 +32,7 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
-        $content = $this->content->with('content_category','content_category.category')->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
+        $content = $this->content->where('main_title','!=','')->where('status','!=','2')->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
         if($request->ajax()){
             return view('admin.content.ajaxlist',array('content'=>$content));
@@ -45,16 +45,13 @@ class ContentController extends Controller
 
     public function search(Request $request){
 
-        $content = $this->content->with('content_category','content_category.category')->where('main_title','!=','')->where('status','!=','2');
+        $content = $this->content->where('main_title','!=','')->where('status','!=','2');
 
         if(isset($request->search) && !empty($request->search)){
             $content = $content->where('main_title','LIKE','%'.$request->search.'%');
         }
         if(isset($request->category_id) && !empty($request->category_id)){
-            $category_id = $request->category_id;
-            $content=$content->whereHas('content_category', function ($query) use ($category_id) {
-                    $query->where('category_id', $category_id);
-            });
+            $content=$content->where('category_id', $request->category_id);
         }
         $content = $content->orderBy('created_at', 'desc')->paginate($this->getrecord);
 
