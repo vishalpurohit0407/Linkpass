@@ -70,7 +70,8 @@ class UserController extends Controller
 
         $data = array();
         if(!empty($posts))
-        {   $srnumber = 1;
+        {
+            $srnumber = $request->has('start') ? $request->get('start') * 1 + 1 : 1;
             foreach ($posts as $post)
             {
                 $destroy =  route('admin.user.destroy',$post->hashid);
