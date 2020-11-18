@@ -286,7 +286,7 @@ class WarrantyExtensionController extends Controller
 
             if(isset($request->approve)){
                 $warrantyExtension->status = '3';
-                $messageNoti = 'Your warranty extension request has been approved successfuly.';
+                $messageNoti = 'Your warranty extension request has been approved successfully.';
             }else{
                 $warrantyExtension->status = '4';
                  $messageNoti = 'Your warranty extension request has been Declined. Please contact to Administration.';
@@ -301,7 +301,7 @@ class WarrantyExtensionController extends Controller
                 if($user){
                     WarrantyExtension::sendWarrantyNotification($user->email, $user->name, $messageNoti, route('user.warranty_extension.list'));
                 }
-                $request->session()->flash('alert-success', 'Warranty Extension updated successfuly.');
+                $request->session()->flash('alert-success', 'Warranty Extension updated successfully.');
             }
             return redirect(route('admin.warrantyextension.list'));
         }
@@ -342,7 +342,7 @@ class WarrantyExtensionController extends Controller
 
         if($warrantyExtension->save())
         {
-            $request->session()->flash('alert-success', 'Warranty Extension updated successfuly.');
+            $request->session()->flash('alert-success', 'Warranty Extension updated successfully.');
         }
         return redirect(route('admin.warrantyextension.list'));
 

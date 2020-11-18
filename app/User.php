@@ -6,11 +6,12 @@ use App\Http\Traits\Hashidable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, Hashidable;
+    use Notifiable, Hashidable, SoftDeletes;
 
     protected $table = 'users';
 

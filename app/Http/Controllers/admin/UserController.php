@@ -155,7 +155,7 @@ class UserController extends Controller
                     $user->profile_img = $path;
                     $user->save();
                 }
-                $request->session()->flash('alert-success', 'User Created successfuly.');
+                $request->session()->flash('alert-success', 'User Created successfully.');
             }
             return redirect(route('admin.user.list'));
         }catch (ModelNotFoundException $exception) {
@@ -252,7 +252,7 @@ class UserController extends Controller
             }
             if($user->save())
             {
-                $request->session()->flash('alert-success', 'User updated successfuly.');
+                $request->session()->flash('alert-success', 'User updated successfully.');
             }
             return redirect(route('admin.user.list'));
         }catch (ModelNotFoundException $exception) {
@@ -273,9 +273,9 @@ class UserController extends Controller
             if(!$user){
                 return abort(404) ;
             }
-            $user->status = '3';
-            if ($user->save()) {
-                $request->session()->flash('alert-success', 'User deleted successfuly.');
+
+            if ($user->delete()) {
+                $request->session()->flash('alert-success', 'User deleted successfully.');
             }
             return redirect(route('admin.user.list'));
         }catch (ModelNotFoundException $exception) {
@@ -363,7 +363,7 @@ class UserController extends Controller
             $userdata->status = '1';
             if($userdata->save())
             {
-                $request->session()->flash('alert-success', 'User restored successfuly.');
+                $request->session()->flash('alert-success', 'User restored successfully.');
             }
             return redirect(route('user.deleted.list'));
         } catch (ModelNotFoundException $exception) {
@@ -386,9 +386,9 @@ class UserController extends Controller
             if($document->save())
             {
                 if ($document->scanit_verify == '1') {
-                    $request->session()->flash('alert-success', 'User document verified successfuly.');
+                    $request->session()->flash('alert-success', 'User document verified successfully.');
                 }else{
-                    $request->session()->flash('alert-success', 'User document unverified successfuly.');
+                    $request->session()->flash('alert-success', 'User document unverified successfully.');
                 }
 
             }

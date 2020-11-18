@@ -71,7 +71,7 @@ class ContentController extends Controller
             $completed_content->user_id = Auth::user()->id;
             if($completed_content->save())
             {
-                $request->session()->flash('alert-success', ($content->content_type == 'self-diagnosis' ? 'Content':'Maintenance').' Content completed successfuly.');
+                $request->session()->flash('alert-success', ($content->content_type == 'self-diagnosis' ? 'Content':'Maintenance').' Content completed successfully.');
             }
             if ($content->content_type == 'self-diagnosis') {
                 $route = 'user.content.show';

@@ -127,7 +127,7 @@ class CmsPageController extends Controller
             $input['status'] =(isset($input['status']))?$input['status']:'0';
             if(CmsPage::create($input))
             {
-                $request->session()->flash('alert-success', 'CMS Page created successfuly.');
+                $request->session()->flash('alert-success', 'CMS Page created successfully.');
             }
             return redirect(route('admin.cms.page.list'));
         }catch (ModelNotFoundException $exception) {
@@ -188,7 +188,7 @@ class CmsPageController extends Controller
             }
             if($cmsPage->save())
             {
-                $request->session()->flash('alert-success', 'CMS Page updated successfuly.');
+                $request->session()->flash('alert-success', 'CMS Page updated successfully.');
             }
             return redirect(route('admin.cms.page.list'));
         }catch (ModelNotFoundException $exception) {
@@ -209,9 +209,9 @@ class CmsPageController extends Controller
             if(!$cmsPage){
                 return abort(404) ;
             }
-            $cmsPage->status = '0';
-            if ($cmsPage->save()) {
-                $request->session()->flash('alert-success', 'CMS Page deleted successfuly.');
+
+            if ($cmsPage->delete()) {
+                $request->session()->flash('alert-success', 'CMS Page deleted successfully.');
             }
             return redirect(route('admin.cms.page.list'));
         }catch (ModelNotFoundException $exception) {

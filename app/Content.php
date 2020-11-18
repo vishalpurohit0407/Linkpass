@@ -4,12 +4,13 @@ namespace App;
 
 use App\Http\Traits\Hashidable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Config;
 use Storage;
 
 class Content extends Authenticatable
 {
-    use Hashidable;
+    use Hashidable, SoftDeletes;
 
     protected $table = 'content';
 

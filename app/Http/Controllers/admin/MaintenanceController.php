@@ -304,7 +304,7 @@ class MaintenanceController extends Controller
         }
 
         if ($content->save()) {
-            $request->session()->flash('alert-success', 'Maintenance Content updated successfuly.');
+            $request->session()->flash('alert-success', 'Maintenance Content updated successfully.');
         }
         return redirect(route('admin.maintenance.list'));
     }
@@ -323,7 +323,7 @@ class MaintenanceController extends Controller
             }
             $content->status = '2';
             if ($content->save()) {
-                $request->session()->flash('alert-success', 'Maintenance Content deleted successfuly.');
+                $request->session()->flash('alert-success', 'Maintenance Content deleted successfully.');
             }
             return redirect(route('admin.maintenance.list'));
         }catch (ModelNotFoundException $exception) {
