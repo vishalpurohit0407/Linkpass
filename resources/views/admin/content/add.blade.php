@@ -64,28 +64,9 @@
                     <p class="text-info mb-0"><strong>Recommended Size: 800 X 600 px</strong></p>
                   </div>
 
-                  <div class="form-group">
-                    <label class="form-control-label" for="category_id">Category <strong class="text-danger">*</strong></label><br>
-                    <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
-                      <option value="">Please Select Category</option>
-                        @if(count($categories) > 0)
-                          @foreach($categories as $category)
-                            <option value="{{$category['id']}}" @if($category['id'] == $content['category_id'])) selected @endif>{!! $category['name'] !!}</option>
-                          @endforeach
-                        @endif
-                    </select>
-                    @if($errors->has('category_id'))
-                        <span class="invalid-feedback">{{ $errors->first('category_id') }}</span>
-                    @endif
-                  </div>
 
-                  <div class="form-group">
-                      <label class="form-control-label" for="type">Website</label>
-                      <input type="url" class="form-control @if($errors->has('website')) is-invalid @endif" id="website" name="website" placeholder="Website" value="{{old('website', $content->website)}}">
-                      @if($errors->has('website'))
-                          <span class="invalid-feedback">{{ $errors->first('website') }}</span>
-                      @endif
-                  </div>
+
+
                 </div>
                 <div class="col-md-7">
                     <div class="form-group ">
@@ -122,24 +103,61 @@
 
                     <div class="row">
                       <div class="col-sm-6">
-                          <div class="form-group">
-                              <label class="form-control-label" for="type">Posted At <strong class="text-danger">*</strong></label>
-                              <input type="date" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posted At" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
-                              @if($errors->has('posted_at'))
-                                  <span class="invalid-feedback">{{ $errors->first('posted_at') }}</span>
-                              @endif
-                          </div>
+
                       </div>
                       <div class="col-sm-6">
-                          <div class="form-group">
-                              <label class="form-control-label" for="type">Published At <strong class="text-danger">*</strong></label>
-                              <input type="date" class="form-control @if($errors->has('published_at')) is-invalid @endif" id="published_at" name="published_at" placeholder="Published At" value="{{old('published_at', !empty($content->published_at) ? date('Y-m-d', strtotime($content->published_at)) : '')}}">
-                              @if($errors->has('published_at'))
-                                  <span class="invalid-feedback">{{ $errors->first('published_at') }}</span>
-                              @endif
-                          </div>
+
                       </div>
                     </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5">
+
+                  <div class="form-group">
+                    <label class="form-control-label" for="category_id">Category <strong class="text-danger">*</strong></label><br>
+                    <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
+                      <option value="">Please Select Category</option>
+                        @if(count($categories) > 0)
+                          @foreach($categories as $category)
+                            <option value="{{$category['id']}}" @if($category['id'] == $content['category_id'])) selected @endif>{!! $category['name'] !!}</option>
+                          @endforeach
+                        @endif
+                    </select>
+                    @if($errors->has('category_id'))
+                        <span class="invalid-feedback">{{ $errors->first('category_id') }}</span>
+                    @endif
+                  </div>
+
+                  <div class="form-group">
+                      <label class="form-control-label" for="type">Posted At <strong class="text-danger">*</strong></label>
+                      <input type="date" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posted At" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
+                      @if($errors->has('posted_at'))
+                          <span class="invalid-feedback">{{ $errors->first('posted_at') }}</span>
+                      @endif
+                  </div>
+
+
+                </div>
+                <div class="col-md-5">
+
+                  <div class="form-group">
+                      <label class="form-control-label" for="type">Website</label>
+                      <input type="url" class="form-control @if($errors->has('website')) is-invalid @endif" id="website" name="website" placeholder="Website" value="{{old('website', $content->website)}}">
+                      @if($errors->has('website'))
+                          <span class="invalid-feedback">{{ $errors->first('website') }}</span>
+                      @endif
+                  </div>
+
+                  <div class="form-group">
+                      <label class="form-control-label" for="type">Published At <strong class="text-danger">*</strong></label>
+                      <input type="date" class="form-control @if($errors->has('published_at')) is-invalid @endif" id="published_at" name="published_at" placeholder="Published At" value="{{old('published_at', !empty($content->published_at) ? date('Y-m-d', strtotime($content->published_at)) : '')}}">
+                      @if($errors->has('published_at'))
+                          <span class="invalid-feedback">{{ $errors->first('published_at') }}</span>
+                      @endif
+                  </div>
+
                 </div>
               </div>
 
