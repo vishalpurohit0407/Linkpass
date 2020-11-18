@@ -43,6 +43,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('content', function ($value, $route) {
             return $this->getModel(\App\Content::class, $value);
         });
+
+        Route::bind('category', function ($value, $route) {
+            return $this->getModel(\App\Category::class, $value);
+        });
     }
 
     /**

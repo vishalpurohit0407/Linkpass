@@ -82,8 +82,8 @@ class CategoryController extends Controller
             $srnumber = $request->has('start') ? $request->get('start') * 1 + 1 : 1;
             foreach ($posts as $post)
             {
-                $destroy =  route('admin.category.destroy',$post->id);
-                $edit =  route('admin.category.edit',$post->id);
+                $destroy =  route('admin.category.destroy',$post->hashid);
+                $edit =  route('admin.category.edit',$post->hashid);
                 $token =  $request->session()->token();
 
                 $nestedData['id'] = $post->id;
@@ -98,7 +98,7 @@ class CategoryController extends Controller
                 };
                 $nestedData['created_at'] = date('d-M-Y',strtotime($post->created_at));
                 $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-primary btn-sm mr-0' title='EDIT' >Edit</a>
-                                          &emsp;<form action='{$destroy}' method='POST' style='display: contents;' id='frm_{$post->id}'> <input type='hidden' name='_method' value='DELETE'> <input type='hidden' name='_token' value='{$token}'> <a type='submit' class='btn btn-danger btn-sm' style='color: white;' onclick='return deleteConfirm(this);' id='{$post->id}'>Delete</a></form>";
+                                          &emsp;<form action='{$destroy}' method='POST' style='display: contents;' id='frm_{$post->hashid}'> <input type='hidden' name='_method' value='DELETE'> <input type='hidden' name='_token' value='{$token}'> <a type='submit' class='btn btn-danger btn-sm' style='color: white;' onclick='return deleteConfirm(this);' id='{$post->hashid}'>Delete</a></form>";
 
                 $srnumber++;
                 $data[] = $nestedData;

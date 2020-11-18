@@ -32,7 +32,7 @@
             <!-- Card body -->
             <div class="card-body">
                 <!-- Form groups used in grid -->
-                <form class="form" action="{{ route('admin.category.update',$categorydata->id) }}" method="post" enctype="multipart/form-data">
+                <form class="form" action="{{ route('admin.category.update',$categorydata->hashid) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                     <div class="row">
