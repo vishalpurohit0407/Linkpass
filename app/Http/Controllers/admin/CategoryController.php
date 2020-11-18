@@ -145,7 +145,7 @@ class CategoryController extends Controller
         try {
             $category = $this->category->create($input);
             if($category){
-              $request->session()->flash('alert-success', 'Category Added successfuly.');
+              $request->session()->flash('alert-success', 'Category Added successfully.');
             }
         } catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
@@ -203,7 +203,7 @@ class CategoryController extends Controller
 
           if($category->save())
           {
-              $request->session()->flash('alert-success', 'Category updated successfuly.');
+              $request->session()->flash('alert-success', 'Category updated successfully.');
           }
           return redirect(route('admin.category.list'));
 
@@ -226,9 +226,9 @@ class CategoryController extends Controller
             if(!$category){
                 return abort(404) ;
             }
-            $category->status = '2';
-            if ($category->save()) {
-                $request->session()->flash('alert-success', 'Category deleted successfuly.');
+
+            if ($category->delete()) {
+                $request->session()->flash('alert-success', 'Category deleted successfully.');
             }
             return redirect(route('admin.category.list'));
         }catch (ModelNotFoundException $exception) {

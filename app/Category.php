@@ -2,10 +2,14 @@
 
 namespace App;
 
+use App\Http\Traits\Hashidable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Authenticatable
 {
+    use SoftDeletes, Hashidable;
+
     protected $table = 'category';
 
     protected $fillable = [

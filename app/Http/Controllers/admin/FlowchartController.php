@@ -140,7 +140,7 @@ class FlowchartController extends Controller
             $flowchart = Flowchart::create($input);
             if($flowchart)
             {
-                $request->session()->flash('alert-success', 'Flowchart created successfuly.');
+                $request->session()->flash('alert-success', 'Flowchart created successfully.');
             }
             return redirect(route('admin.flowchart.edit',$flowchart->id));
         }catch (ModelNotFoundException $exception) {
@@ -224,7 +224,7 @@ class FlowchartController extends Controller
 	            }
 	            if($flowchart->save())
 	            {
-	                $request->session()->flash('alert-success', 'Flowchart details updated successfuly.');
+	                $request->session()->flash('alert-success', 'Flowchart details updated successfully.');
 	            }
 
         	}
@@ -297,7 +297,7 @@ class FlowchartController extends Controller
 
 	            if(Flowchartnode::create($flowchartnodeArr))
 	            {
-	                $request->session()->flash('alert-success', 'Flowchart node added successfuly.');
+	                $request->session()->flash('alert-success', 'Flowchart node added successfully.');
 	            }
 
         	}
@@ -388,8 +388,8 @@ class FlowchartController extends Controller
 
             if($flowchartnode->save())
             {
-                $request->session()->flash('alert-success', 'Node updated successfuly.');
-                return Response::json(['status' => true, 'message' => 'Node updated successfuly.']);
+                $request->session()->flash('alert-success', 'Node updated successfully.');
+                return Response::json(['status' => true, 'message' => 'Node updated successfully.']);
             }
 
             return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -413,7 +413,7 @@ class FlowchartController extends Controller
             }
             $flowchart->status = '3';
             if ($flowchart->save()) {
-                $request->session()->flash('alert-success', 'Flowchart deleted successfuly.');
+                $request->session()->flash('alert-success', 'Flowchart deleted successfully.');
             }
             return redirect(route('admin.flowchart.list'));
         }catch (ModelNotFoundException $exception) {
@@ -439,7 +439,7 @@ class FlowchartController extends Controller
                 Flowchartnode::where('yes',$id)->update(['yes'=>NULL,]);
                 Flowchartnode::where('no',$id)->update(['no'=>NULL,]);
                 Flowchartnode::where('next',$id)->update(['next'=>NULL,]);
-                $request->session()->flash('alert-success', 'Flowchart node deleted successfuly.');
+                $request->session()->flash('alert-success', 'Flowchart node deleted successfully.');
             }
             return redirect(route('admin.flowchart.edit', $flowchartId));
         }catch (ModelNotFoundException $exception) {

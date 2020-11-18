@@ -315,7 +315,7 @@ class ContentController extends Controller
         }
 
         if ($content->save()) {
-            $request->session()->flash('alert-success', 'Content updated successfuly.');
+            $request->session()->flash('alert-success', 'Content updated successfully.');
         }
         return redirect(route('admin.content.list'));
     }
@@ -332,9 +332,9 @@ class ContentController extends Controller
             if(!$content){
                 return abort(404) ;
             }
-            $content->status = '2';
-            if ($content->save()) {
-                $request->session()->flash('alert-success', 'Content deleted successfuly.');
+
+            if ($content->delete()) {
+                $request->session()->flash('alert-success', 'Content deleted successfully.');
             }
             return redirect(route('admin.content.list'));
         }catch (ModelNotFoundException $exception) {
