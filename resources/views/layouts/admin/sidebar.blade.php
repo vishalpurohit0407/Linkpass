@@ -71,14 +71,14 @@
             </li>
 
 
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.category.*') ? 'active' : '' }}" href="{{route('admin.category.list')}}">
                 <i class="ni ni-ungroup text-info"></i>
                 <span class="nav-link-text">Categories</span>
               </a>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link {{ Request::routeIs('admin.user.*') ? 'active' : '' }}" href="#navbar-forms-user" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-user">
                 <i class="fas fa-users text-green"></i>
                 <span class="nav-link-text">Users</span>

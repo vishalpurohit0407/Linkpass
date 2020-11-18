@@ -62,7 +62,29 @@
                       </div>
                     </div>
                     <p class="text-info mb-0"><strong>Recommended Size: 800 X 600 px</strong></p>
+                  </div>
 
+                  <div class="form-group">
+                    <label class="form-control-label" for="category_id">Category <strong class="text-danger">*</strong></label><br>
+                    <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
+                      <option value="">Please Select Category</option>
+                        @if(count($categories) > 0)
+                          @foreach($categories as $category)
+                            <option value="{{$category['id']}}" @if($category['id'] == $content['category_id'])) selected @endif>{!! $category['name'] !!}</option>
+                          @endforeach
+                        @endif
+                    </select>
+                    @if($errors->has('category_id'))
+                        <span class="invalid-feedback">{{ $errors->first('category_id') }}</span>
+                    @endif
+                  </div>
+
+                  <div class="form-group">
+                      <label class="form-control-label" for="type">Website</label>
+                      <input type="url" class="form-control @if($errors->has('website')) is-invalid @endif" id="website" name="website" placeholder="Website" value="{{old('website', $content->website)}}">
+                      @if($errors->has('website'))
+                          <span class="invalid-feedback">{{ $errors->first('website') }}</span>
+                      @endif
                   </div>
                 </div>
                 <div class="col-md-7">
@@ -75,25 +97,12 @@
                     </div>
                     <div class="form-group">
                         <label class="form-control-label @if($errors->has('description')) has-danger @endif" for="description">Description <strong class="text-danger">*</strong></label>
-                        <textarea class="form-control @if($errors->has('description')) is-invalid @endif" id="description" name="description" rows="3">{{old('description', $content->description)}}</textarea>
+                        <textarea class="form-control @if($errors->has('description')) is-invalid @endif" id="description" name="description" rows="5">{{old('description', $content->description)}}</textarea>
                         @if($errors->has('description'))
                             <span class="invalid-feedback">{{ $errors->first('description') }}</span>
                         @endif
                     </div>
-                    <div class="form-group">
-                        <label class="form-control-label" for="category_id">Category <strong class="text-danger">*</strong></label><br>
-                        <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
-                          <option value="">Please Select Category</option>
-                            @if(count($categories) > 0)
-                              @foreach($categories as $category)
-                                <option value="{{$category['id']}}" @if($category['id'] == $content['category_id'])) selected @endif>{!! $category['name'] !!}</option>
-                              @endforeach
-                            @endif
-                        </select>
-                        @if($errors->has('category_id'))
-                            <span class="invalid-feedback">{{ $errors->first('category_id') }}</span>
-                        @endif
-                    </div>
+
                     <div class="form-group">
                         <label class="form-control-label" for="user_id">Author <strong class="text-danger">*</strong></label><br>
                         <select class="js-example-basic-single form-control @if($errors->has('user_id')) is-invalid @endif" id="user_id" name="user_id">
@@ -109,17 +118,7 @@
                         @endif
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="form-control-label" for="type">Website</label>
-                                <input type="url" class="form-control @if($errors->has('website')) is-invalid @endif" id="website" name="website" placeholder="Website" value="{{old('website', $content->website)}}">
-                                @if($errors->has('website'))
-                                    <span class="invalid-feedback">{{ $errors->first('website') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="row">
                       <div class="col-sm-6">
@@ -141,16 +140,19 @@
                           </div>
                       </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-control-label" for="tags">Tags</label><br>
-                        <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $content->tags)}}" data-toggle="tags" />
-                    </div>
-
                 </div>
               </div>
 
-                <hr class="hr-dotted mb-3 mt-0">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                      <label class="form-control-label" for="tags">Tags</label><br>
+                      <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $content->tags)}}" data-toggle="tags" />
+                  </div>
+                </div>
+              </div>
+
+              <hr class="hr-dotted mb-3 mt-0">
 
               <div class="row">
                 <div class="col-sm-12">
