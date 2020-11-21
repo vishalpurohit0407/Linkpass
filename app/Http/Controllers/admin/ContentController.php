@@ -49,6 +49,9 @@ class ContentController extends Controller
 
         if(isset($request->search) && !empty($request->search)){
             $content = $content->where('main_title','LIKE','%'.$request->search.'%');
+            $content = $content->orWhere('description','LIKE','%'.$request->search.'%');
+            $content = $content->orWhere('tags','LIKE','%'.$request->search.'%');
+            $content = $content->orWhere('introduction','LIKE','%'.$request->search.'%');
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $content=$content->where('category_id', $request->category_id);
