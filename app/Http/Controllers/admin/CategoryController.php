@@ -168,8 +168,8 @@ class CategoryController extends Controller
 
                     if($fileAdded){
                         $categoryData = $this->category->find($id);
-                        Storage::disk('public')->delete($categoryData->image);
-                        $media = $this->category->where('id',$id)->update(['image' => $path]);
+                        Storage::disk('public')->delete($categoryData->icon);
+                        $media = $this->category->where('id',$id)->update(['icon' => $path]);
                     }
                 }
 
