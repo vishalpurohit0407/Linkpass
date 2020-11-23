@@ -2,16 +2,9 @@
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav align-items-center ml-auto d-xl-none">
-            <li class="nav-item">
-              <!-- Sidenav toggler -->
-              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </div>
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item text-left text-white">
+              Linkpasser
             </li>
           </ul>
           <ul class="navbar-nav align-items-center ml-xl-auto">
@@ -19,11 +12,10 @@
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            
-                            <img src="{{auth()->user()->user_image_url}}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
+                            <img src="{{ isset(auth()->user()->id) ? auth()->user()->user_image_url : asset('assets/img/theme/defualt-user.png') }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
+                            <span class="mb-0 text-sm font-weight-bold">{{ isset(auth()->user()->id) ? auth()->user()->name : '' }}</span>
                         </div>
                     </div>
                 </a>
@@ -35,7 +27,7 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('My profile') }}</span>
                     </a>
-                    
+
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">

@@ -5,6 +5,7 @@ namespace App;
 use App\Http\Traits\Hashidable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Storage;
 
 class Category extends Authenticatable
 {
@@ -12,8 +13,10 @@ class Category extends Authenticatable
 
     protected $table = 'category';
 
+    protected $appends = ['icon_url'];
+
     protected $fillable = [
-        'name', 'parent_id', 'icon', 'status'
+        'name', 'parent_id', 'icon', 'status',
     ];
 
     protected $casts = [
@@ -46,6 +49,11 @@ class Category extends Authenticatable
         }
 
         return $category_tree_array;
+    }
+
+    public function getIconUrlAttribute()
+    {
+        return (isset($this->icon) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->icon) ? Config('filesystems.disks.public.url').'/'.$this->icon : asset('assets/img/no_img.png'));
     }
 
 }

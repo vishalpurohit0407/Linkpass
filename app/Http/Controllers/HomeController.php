@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\ContentCompletion;
-use Zendesk;
 use Auth;
-use App\WarrantyExtension;
 use App\Content;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -17,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         //$this->middleware('auth'); // Commented by Mayur for coming soon page
+        $this->content = new Content();
     }
 
     /**
@@ -26,32 +25,72 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // if(Auth::user()->zendesk_id != null){
-        //      //$tickets = Zendesk::users(Auth::user()->zendesk_id)->tickets()->requested();
-        //      $tickets = Zendesk::users(Auth::user()->zendesk_id)->tickets()->requested(['page' => 1, 'per_page' => 5, 'sort_by' => 'created_at', 'sort_order' => 'desc']);
-        //      $totalSupportTicket = $tickets->count;
-        // }else{
-        //     $totalSupportTicket = 0;
-        //     $tickets = [];
-        // }
-
-
-        // $extensions = WarrantyExtension::where('user_id', Auth::user()->id)
-        //    ->whereIn('warranty_extension.status',['0','1','2'])
-        //    ->limit(5)
-        //    ->groupBy('unique_key')
-        //    ->orderBy('created_at','desc')
-        //    ->get();
-
-
-
-        // $totalWarrantyRequest = WarrantyExtension::where('user_id',Auth::user()->id)->groupBy('unique_key')->count();
-        // $totalSelfDiagnosis = ContentCompletion::leftJoin('content', 'content_completion.content_id', '=', 'content.id')
-        // ->where('content_completion.user_id',Auth::user()->id)->where('content.content_type','self-diagnosis')->count();
-        // $totalMaintenance = ContentCompletion::leftJoin('content', 'content_completion.content_id', '=', 'content.id')
-        // ->where('content_completion.user_id',Auth::user()->id)->where('content.content_type','maintenance')->count();
-
-        // return view('dashboard',array('totalSupportTicket' => $totalSupportTicket, 'totalWarrantyRequest' => $totalWarrantyRequest, 'totalSelfDiagnosis' => $totalSelfDiagnosis, 'totalMaintenance' => $totalMaintenance, 'extensions' => $extensions, 'tickets' => $tickets));
         return view('coming_soon');
+
+        $latest   = $this->content->where('status', '1')->limit(4)->orderBy('published_at', 'desc')->get();
+        $trending = $this->content->where('status', '1')->limit(4)->orderBy('published_at', 'desc')->get();
+
+        return view('home', array('latest' => $latest, 'trending' => $trending));
     }
+
+    /**
+     * Get the latest contents.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getLatestResults()
+    {
+        $results = $this->content->where('status', '1')->orderBy('published_at', 'desc')->get();
+
+        return view('results', array('results' => $results));
+    }
+
+    /**
+     * Get the trending contents.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getTrendingResults()
+    {
+        $results = $this->content->where('status', '1')->orderBy('published_at', 'desc')->get();
+
+        return view('results', array('results' => $results));
+    }
+
+    /**
+     * Get the search results.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getResults(Request $request)
+    {
+        $keyword = trim($request->search);
+
+        $query = $this->content;
+        $query = $query->where('status', '1');
+
+        if(isset($keyword) && !empty($keyword)) {
+            $query = $query->where('main_title','LIKE','%'.$keyword.'%');
+            $query = $query->orWhere('description','LIKE','%'.$keyword.'%');
+            $query = $query->orWhere('tags','LIKE','%'.$keyword.'%');
+            $query = $query->orWhere('introduction','LIKE','%'.$keyword.'%');
+        }
+
+        $results = $query->orderBy('main_title', 'asc')->get();
+
+        return view('results', array('results' => $results));
+    }
+
+    /**
+     * Get content Details.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getContentDetails($id)
+    {
+        $content = $this->content->where('status', '1')->where('id', $id)->first();
+
+        return view('content_detail', array('content' => $content));
+    }
+
 }

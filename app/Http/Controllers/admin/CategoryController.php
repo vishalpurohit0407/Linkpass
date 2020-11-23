@@ -145,8 +145,35 @@ class CategoryController extends Controller
 
         try {
             $category = $this->category->create($input);
-            if($category){
-              $request->session()->flash('alert-success', 'Category Added successfully.');
+
+            if(isset($category->id)){
+
+                $id = $category->id;
+                // Image Upload
+                $file            = $request->file('categoryIcon');
+                $imageExtensions = implode(',', config('default.image_extensions'));
+
+                if($file){
+
+                    $request->validate([
+                        'file' => 'mimes:'.$imageExtensions.'|max:2048'
+                    ]);
+
+                    $file_name  = $file->getClientOriginalName();
+                    $fileslug   = pathinfo($file_name, PATHINFO_FILENAME);
+                    $imageName  = md5($fileslug.time());
+                    $imgext     = $file->getClientOriginalExtension();
+                    $path       = 'category/'.$id.'/'.$imageName.".".$imgext;
+                    $fileAdded  = Storage::disk('public')->putFileAs('category/'.$id.'/',$file,$imageName.".".$imgext);
+
+                    if($fileAdded){
+                        $categoryData = $this->category->find($id);
+                        Storage::disk('public')->delete($categoryData->image);
+                        $media = $this->category->where('id',$id)->update(['image' => $path]);
+                    }
+                }
+
+              $request->session()->flash('alert-success', 'Category added successfully.');
             }
         } catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
@@ -198,9 +225,33 @@ class CategoryController extends Controller
             return abort(404) ;
           }
 
-          $category->name = $request->name;
-          $category->parent_id = $request->parent_id;
-          $category->status = (isset($request->status))?'1':'0';
+          $id                   = $category->id;
+          $category->name       = $request->name;
+          $category->parent_id  = $request->parent_id;
+          $category->status     = (isset($request->status))?'1':'0';
+
+          $file                 = $request->file('categoryIcon');
+          $imageExtensions      = implode(',', config('default.image_extensions'));
+
+          if($file){
+
+            $request->validate([
+                'file' => 'mimes:'.$imageExtensions.'|max:2048'
+            ]);
+
+            if ($category->icon_url) {
+                Storage::disk('public')->delete($category->icon);
+            }
+
+            $file_name  = $file->getClientOriginalName();
+            $fileslug   = pathinfo($file_name, PATHINFO_FILENAME);
+            $imageName  = md5($fileslug.time());
+            $imgext     = $file->getClientOriginalExtension();
+            $path       = 'category/'.$id.'/'.$imageName.".".$imgext;
+            $fileAdded  = Storage::disk('public')->putFileAs('category/'.$id.'/',$file,$imageName.".".$imgext);
+
+            $category->icon = $path;
+        }
 
           if($category->save())
           {

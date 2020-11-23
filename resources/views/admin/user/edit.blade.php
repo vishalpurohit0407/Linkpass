@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label class="form-control-label" for="input-email">{{ __('Profile Picture') }}</label>
                                 <div class="custom-file">
-                                    <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" lang="en" onchange="loadFile(event)">
+                                    <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" accept="image/*" lang="en" onchange="loadFile(event)">
                                     <label class="custom-file-label" for="customFileLang">Select file</label>
                                 </div>
                             </div>
