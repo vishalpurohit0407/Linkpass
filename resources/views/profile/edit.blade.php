@@ -5,12 +5,12 @@
         'title' => __('Hello') . ' '. auth()->user()->name,
         'description' => __('This is your profile page. You can edit your name, email, profile picture, and change the password from here.'),
         'class' => 'col-lg-7'
-    ])   
+    ])
 
     <div class="container-fluid mt--7 pb-5">
         <div class="row">
             <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-                
+
                 <div class="card card-profile shadow">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
@@ -21,9 +21,9 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="card-body pt-0 pt-md-5">
-                        
+
                         <div class="text-center mt-md-6 mt-6">
                             <h3>
                                 {{ auth()->user()->name }}
@@ -31,7 +31,7 @@
                             <div class="h5 font-weight-300">
                                 <i class="ni location_pin mr-2"></i>{{ auth()->user()->email }}
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             @method('put')
 
                             <h6 class="heading-small text-muted mb-4">{{ __('User information') }}</h6>
-                            
+
                             @if (session('status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('status') }}
@@ -85,15 +85,14 @@
                                     </div>
                                 </div>
 
-                                
                                 <div class="row row-example">
                                     <div class="col-12 col-md-8">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-email">{{ __('Profile Picture') }}</label>
                                             <div class="custom-file">
-                                                <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" lang="en" onchange="loadFile(event)">
+                                                <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" accept="image/*" lang="en" onchange="loadFile(event)">
                                                 <label class="custom-file-label" for="customFileLang">Select file</label>
-                                            </div>   
+                                            </div>
                                         </div>
                                     </div>
 
@@ -130,7 +129,7 @@
                                     <label class="form-control-label" for="input-current-password">{{ __('Current Password') }}</label>
                                     <div class="{{ $errors->has('old_password') ? ' has-danger' : '' }}">
                                         <input type="password" name="old_password" id="input-current-password" class="form-control {{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Current Password') }}" value="" >
-                                        
+
                                         @if ($errors->has('old_password'))
                                             <span class="invalid-feedback"  role="alert">
                                                 <strong>{{ $errors->first('old_password') }}</strong>
@@ -142,7 +141,7 @@
                                     <label class="form-control-label" for="input-password">{{ __('New Password') }}</label>
                                     <div class="{{ $errors->has('password') ? ' has-danger' : '' }}">
                                         <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" value="" >
-                                        
+
                                         @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('password') }}</strong>
@@ -164,8 +163,8 @@
                 </div>
             </div>
         </div>
-        
-       
+
+
     </div>
 @endsection
 

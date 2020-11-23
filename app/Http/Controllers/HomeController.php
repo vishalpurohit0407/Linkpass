@@ -25,20 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('coming_soon');
+
         $latest   = $this->content->where('status', '1')->limit(4)->orderBy('published_at', 'desc')->get();
         $trending = $this->content->where('status', '1')->limit(4)->orderBy('published_at', 'desc')->get();
 
         return view('home', array('latest' => $latest, 'trending' => $trending));
-
-
-        // $totalWarrantyRequest = WarrantyExtension::where('user_id',Auth::user()->id)->groupBy('unique_key')->count();
-        // $totalSelfDiagnosis = ContentCompletion::leftJoin('content', 'content_completion.content_id', '=', 'content.id')
-        // ->where('content_completion.user_id',Auth::user()->id)->where('content.content_type','self-diagnosis')->count();
-        // $totalMaintenance = ContentCompletion::leftJoin('content', 'content_completion.content_id', '=', 'content.id')
-        // ->where('content_completion.user_id',Auth::user()->id)->where('content.content_type','maintenance')->count();
-
-        //return view('dashboard',array('totalSupportTicket' => $totalSupportTicket, 'totalWarrantyRequest' => $totalWarrantyRequest, 'totalSelfDiagnosis' => $totalSelfDiagnosis, 'totalMaintenance' => $totalMaintenance, 'extensions' => $extensions, 'tickets' => $tickets));
-        return view('coming_soon');
     }
 
     /**

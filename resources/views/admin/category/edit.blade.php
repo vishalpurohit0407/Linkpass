@@ -35,34 +35,51 @@
                 <form class="form" action="{{ route('admin.category.update',$categorydata->hashid) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-                    <div class="row">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="form-group @if($errors->has('name')) has-danger @endif ">
+                                  <label class="form-control-label" for="name">Name&nbsp;<strong class="text-danger">*</strong></label>
+                                  <input type="text" class="form-control  @if($errors->has('name')) is-invalid @endif maxlength" name="name" id="name" placeholder="Name" value="{{old('name',$categorydata->name)}}">
+                                  @if($errors->has('name'))
+                                      <span class="invalid-feedback">{{ $errors->first('name') }}</span>
+                                  @endif
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group @if($errors->has('name')) has-danger @endif ">
-                                <label class="form-control-label" for="name">Name&nbsp;<strong class="text-danger">*</strong></label>
-                                <input type="text" class="form-control  @if($errors->has('name')) is-invalid @endif maxlength" name="name" id="name" placeholder="Name" value="{{old('name',$categorydata->name)}}">
-                                @if($errors->has('name'))
-                                    <span class="invalid-feedback">{{ $errors->first('name') }}</span>
+                            <div class="form-group @if($errors->has('parent_id')) has-danger @endif ">
+                                <label class="form-control-label" for="parent_id">Parent Category</label>
+                                <select class="form-control @if($errors->has('parent_id')) is-invalid @endif" name="parent_id" id="parent_id">
+                                  <option value="">Please Select Parent Category</option>
+                                  @if($categories)
+                                      @foreach($categories as $category)
+                                        <option {!! $categorydata['parent_id'] == $category['id'] ? 'selected' : '' !!} value="{{$category['id']}}">{!! $category['name'] !!}</option>
+                                      @endforeach
+                                  @endif
+                                </select>
+                                @if($errors->has('parent_id'))
+                                    <span class="invalid-feedback">{{ $errors->first('parent_id') }}</span>
                                 @endif
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                      <div class="col-md-12">
-                          <div class="form-group @if($errors->has('parent_id')) has-danger @endif ">
-                              <label class="form-control-label" for="parent_id">Parent Category</label>
-                              <select class="form-control @if($errors->has('parent_id')) is-invalid @endif" name="parent_id" id="parent_id">
-                                <option value="">Please Select Parent Category</option>
-                                @if($categories)
-                                    @foreach($categories as $category)
-                                      <option {!! $categorydata['parent_id'] == $category['id'] ? 'selected' : '' !!} value="{{$category['id']}}">{!! $category['name'] !!}</option>
-                                    @endforeach
-                                @endif
-                              </select>
-                              @if($errors->has('parent_id'))
-                                  <span class="invalid-feedback">{{ $errors->first('parent_id') }}</span>
-                              @endif
+                      <div class="col-md-9">
+                          <div class="form-group">
+                              <label class="form-control-label" for="input-email">{{ __('Icon') }}</label>
+                              <div class="custom-file">
+                                  <input type="file" name="categoryIcon" class="custom-file-input" id="categoryIcon" accept="image/*" lang="en" onchange="loadFile(event)">
+                                  <label class="custom-file-label" for="categoryIcon">Select file</label>
+                              </div>
                           </div>
+                      </div>
+                      <div class="col-md-3">
+                          <a href="javascript:void(0);">
+                              <img id="output" src="{{$categorydata->icon_url}}" class="img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
+                          </a>
                       </div>
                   </div>
 
@@ -89,5 +106,10 @@
 $(document).ready(function() {
 
 });
+
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+};
 </script>
 @endsection

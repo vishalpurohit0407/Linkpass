@@ -32,8 +32,8 @@
             <!-- Card body -->
             <div class="card-body">
                 <!-- Form groups used in grid -->
-                <form method="post" action="{{route('admin.category.store')}}">
-                    @csrf
+                <form method="post" action="{{route('admin.category.store')}}" enctype="multipart/form-data">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group @if($errors->has('name')) has-danger @endif ">
@@ -66,6 +66,23 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-email">{{ __('Icon') }}</label>
+                                <div class="custom-file">
+                                    <input type="file" name="categoryIcon" class="custom-file-input" id="categoryIcon" accept="image/*" lang="en" onchange="loadFile(event)">
+                                    <label class="custom-file-label" for="categoryIcon">Select file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="javascript:void(0);">
+                                <img id="output" src="{{asset('assets/img/no_img.png')}}" class="img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-12">
                             <label class="form-control-label" for="name">Status</label>
                             <div class="form-group">
@@ -88,5 +105,10 @@
 $(document).ready(function() {
 
 });
+
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+};
 </script>
 @endsection

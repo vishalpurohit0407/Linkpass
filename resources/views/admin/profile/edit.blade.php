@@ -5,12 +5,12 @@
         'title' => __('Hello') . ' '. Auth::guard('admin')->user()->name,
         'description' => __('This is your profile page. You can edit your name, email, profile picture, and change the password from here.'),
         'class' => 'col-lg-7'
-    ])   
+    ])
 
     <div class="container-fluid mt--7 pb-5">
         <div class="row">
             <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-                
+
                 <div class="card card-profile shadow">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
@@ -21,9 +21,9 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="card-body pt-0 pt-md-5">
-                        
+
                         <div class="text-center mt-md-6">
                             <h3>
                                 {{ Auth::guard('admin')->user()->name }}
@@ -31,7 +31,7 @@
                             <div class="h5 font-weight-300">
                                 <i class="ni location_pin mr-2"></i>{{ Auth::guard('admin')->user()->email }}
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
             <div class="col-xl-8 order-xl-1">
             @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                 @if(Session::has('alert-' . $msg))
-                    <div class="alert alert-custom alert-{{ $msg }} fade show mb-2" role="alert">                           
+                    <div class="alert alert-custom alert-{{ $msg }} fade show mb-2" role="alert">
                         <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
                         <div class="alert-close">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -49,7 +49,7 @@
                             </button>
                         </div>
                     </div>
-                @endif 
+                @endif
             @endforeach
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
@@ -62,7 +62,7 @@
                             @csrf
 
                             <h6 class="heading-small text-muted mb-4">{{ __('User information') }}</h6>
-                            
+
                             @if (session('status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('status') }}
@@ -110,15 +110,15 @@
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="row row-example">
                                     <div class="col-12 col-md-8">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-email">{{ __('Profile Picture') }}</label>
                                             <div class="custom-file">
-                                                <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" lang="en" onchange="loadFile(event)">
+                                                <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" accept="image/*" lang="en" onchange="loadFile(event)">
                                                 <label class="custom-file-label" for="customFileLang">Select file</label>
-                                            </div>   
+                                            </div>
                                         </div>
                                     </div>
 
@@ -154,7 +154,7 @@
                                     <label class="form-control-label" for="input-current-password">{{ __('Current Password') }}&nbsp;<strong class="text-danger">*</strong></label>
                                     <div class="{{ $errors->has('currentpass') ? ' has-danger' : '' }}">
                                         <input type="password" name="currentpass" id="input-current-password" class="form-control {{ $errors->has('currentpass') ? ' is-invalid' : '' }}" placeholder="{{ __('Current Password') }}" >
-                                        
+
                                         @if ($errors->has('currentpass'))
                                             <span class="invalid-feedback"  role="alert">
                                                 <strong>{{ $errors->first('currentpass') }}</strong>
@@ -166,7 +166,7 @@
                                     <label class="form-control-label" for="input-password">{{ __('New Password') }}&nbsp;<strong class="text-danger">*</strong></label>
                                     <div class="{{ $errors->has('newpass') ? ' has-danger' : '' }}">
                                         <input type="password" name="newpass" id="input-password" class="form-control {{ $errors->has('newpass') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}">
-                                        
+
                                         @if ($errors->has('newpass'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('newpass') }}</strong>
@@ -195,8 +195,8 @@
                 </div>
             </div>
         </div>
-        
-       
+
+
     </div>
 @endsection
 
