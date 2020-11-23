@@ -24,7 +24,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary border-0 mb-0">
-           
+
             <div class="card-body px-lg-5 py-lg-5">
                 @if(Session::has('alert-success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -33,7 +33,7 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
                 @endif
-                
+
                 <div class="text-center text-muted mb-4">
                     <small>Sign In</small>
                 </div>
@@ -49,7 +49,7 @@
                         </div>
                         @if ($errors->has('email'))
                             <div class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('email') }}</strong>
+                                {{ $errors->first('email') }}
                             </div>
                         @endif
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                         @if ($errors->has('password'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('password') }}</strong>
+                                {{ $errors->first('password') }}
                             </span>
                         @endif
                     </div>

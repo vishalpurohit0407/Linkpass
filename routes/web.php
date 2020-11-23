@@ -17,9 +17,14 @@ Route::get('/', 'HomeController@index');
 Auth::routes(['verify' => true]);
 
 
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/latest', 'HomeController@getLatestResults')->name('latest');
+Route::get('/trending', 'HomeController@getTrendingResults')->name('trending');
+Route::get('/results', 'HomeController@getResults')->name('results');
+Route::get('/results/{id}', 'HomeController@getContentDetails')->name('result.get-details');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/home', 'HomeController@index')->name('home');
+
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
