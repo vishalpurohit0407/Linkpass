@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
 use Storage;
+use App\Category;
 
 class ProfileController extends Controller
 {
@@ -16,7 +17,9 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit');
+        $category = new Category();
+        $categories = $category->categoryList();
+        return view('profile.edit', array('categories'=> $categories));
     }
 
     /**
@@ -28,16 +31,17 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request)
     {
         $user = auth()->user();
-    
+
         $file=$request->file('profile_img');
         $userArr = array();
         $userArr['name'] = $request->name;
-        $userArr['email '] = $request->email ;
+        $userArr['email'] = $request->email;
+        $userArr['category_id'] = $request->category;
 
         if($file){
-          
-            if (is_file(public_path($user->profile_img))) { 
-                 
+
+            if (is_file(public_path($user->profile_img))) {
+
                 unlink(public_path($user->profile_img));
             }
             $file_name =$file->getClientOriginalName();
@@ -46,7 +50,7 @@ class ProfileController extends Controller
             $imgext =$file->getClientOriginalExtension();
             $path = 'userprofile/'.$user->id.'/'.$imageName.".".$imgext;
             Storage::disk('public')->putFileAs('userprofile/'.$user->id,$file,$imageName.".".$imgext);
-            
+
            $userArr['profile_img'] = $path;
         }
 

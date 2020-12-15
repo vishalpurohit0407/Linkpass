@@ -213,7 +213,7 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        $categories   = $this->category->categoryParentChildTree();
+        $categories   = $this->category->categoryList();
         $users        = $this->user->get();
         $content_step = $this->contentSteps->where('content_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
 

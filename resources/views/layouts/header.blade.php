@@ -47,7 +47,7 @@
   <section class="site-header">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
-        <aside class="logo"> <a class="navbar-brand" href="{{url('')}}"><img src="{{asset('assets/images/logo.svg')}}" alt=""></a> </aside>
+        <aside class="logo"> <a class="navbar-brand" href="{{url('')}}"><img src="{{asset('assets/img/logo.svg')}}" alt=""></a> </aside>
         <div class="menu">
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="stellarnav">

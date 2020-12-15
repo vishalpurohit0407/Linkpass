@@ -28,7 +28,7 @@
 <footer class="footer">
   <article class="container">
     <div class="row d-flex align-items-center">
-      <aside class="col-sm-2"> <a href="{{url('')}}"><img src="{{asset('assets/images/logo.svg')}}" alt="" class="footer-logo"></a> </aside>
+      <aside class="col-sm-2"> <a href="{{url('')}}"><img src="{{asset('assets/img/logo.svg')}}" alt="" class="footer-logo"></a> </aside>
       <aside class="col-sm-10">
         <ul class="footer-mennu">
           @php
@@ -46,9 +46,9 @@
     </div>
     <ul class="FooterSocial">
       <span>Follow us on</span>
-      <li><a href="#"><img src="{{asset('assets/images/fb.png')}}" alt=""></a></li>
-      <li><a href="#"><img src="{{asset('assets/images/tw.png')}}" alt=""></a></li>
-      <li><a href="#"><img src="{{asset('assets/images/yt.png')}}" alt=""></a></li>
+      <li><a href="#"><img src="{{asset('assets/img/fb.png')}}" alt=""></a></li>
+      <li><a href="#"><img src="{{asset('assets/img/tw.png')}}" alt=""></a></li>
+      <li><a href="#"><img src="{{asset('assets/img/yt.png')}}" alt=""></a></li>
     </ul>
   </article>
   <!--Start Footer copyright Section-->
