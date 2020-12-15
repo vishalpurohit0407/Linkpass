@@ -4,7 +4,7 @@
     @include('users.partials.header', [
         'title' => __('Hello') . ' '. auth()->user()->name,
         'description' => __('This is your profile page. You can edit your name, email, profile picture, and change the password from here.'),
-        'class' => 'col-lg-7'
+        'class' => 'col-lg-12'
     ])
 
     <div class="container-fluid mt--7 pb-5">
@@ -37,10 +37,10 @@
                 </div>
             </div>
             <div class="col-xl-8 order-xl-1">
-                <div class="card bg-secondary shadow">
+                <div class="card shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="col-12 mb-0">{{ __('Edit Profile') }}</h3>
+                            <h4 class="Small-Title">{{ __('Edit Profile') }}</h4>
                         </div>
                     </div>
                     <div class="card-body">
