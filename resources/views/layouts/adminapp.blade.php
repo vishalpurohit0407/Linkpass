@@ -51,6 +51,7 @@
   <script src="{{asset('assets/vendor/js-cookie/js.cookie.js')}}"></script>
   <script src="{{asset('assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js')}}"></script>
   <script src="{{asset('assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
 
   <script src="{{asset('assets/vendor/dropzone/dist/min/dropzone.min.js')}}"></script>
   <!-- <script src="{{asset('assets/vendor/dropzone-1/dropzone.js')}}"></script> -->

@@ -56,12 +56,12 @@
               <li class="bg hover-bg"><a href="{{url('about-us')}}">About</a></li>
               <li class="bg hover-bg"><a href="#" class="down">Category</a>
                 <ul>
-                  <li><a href="#">Category 1</a></li>
-                  <li><a href="#">Category 2</a></li>
-                  <li><a href="#">Category 3</a></li>
-                  <li><a href="#">Category 4</a></li>
-                  <li><a href="#">Category 5</a></li>
-                  <li><a href="#">Category 6</a></li>
+
+                  @if(isset($menuCategories) && $menuCategories->count() > 0)
+                    @foreach ($menuCategories as $k => $v)
+                      <li><a href="#">{{$v}}</a></li>
+                    @endforeach
+                  @endif
                 </ul>
               </li>
               <li class="bg hover-bg"><a href="#">F&amp;Q</a></li>

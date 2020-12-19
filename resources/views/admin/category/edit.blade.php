@@ -47,25 +47,6 @@
                           </div>
                       </div>
 
-                      <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group @if($errors->has('parent_id')) has-danger @endif ">
-                                <label class="form-control-label" for="parent_id">Parent Category</label>
-                                <select class="form-control @if($errors->has('parent_id')) is-invalid @endif" name="parent_id" id="parent_id">
-                                  <option value="">Please Select Parent Category</option>
-                                  @if($categories)
-                                      @foreach($categories as $category)
-                                        <option {!! $categorydata['parent_id'] == $category['id'] ? 'selected' : '' !!} value="{{$category['id']}}">{!! $category['name'] !!}</option>
-                                      @endforeach
-                                  @endif
-                                </select>
-                                @if($errors->has('parent_id'))
-                                    <span class="invalid-feedback">{{ $errors->first('parent_id') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                       <div class="col-md-9">
                           <div class="form-group">

@@ -15,7 +15,7 @@
   <link href="{{asset('assets/img/webclip.png')}}" rel="apple-touch-icon">
 </head>
 <body>
-  <div class="div-block"><img src="{{asset('assets/img/Linkpasser-Logo.svg')}}" loading="lazy" style="opacity:0" data-w-id="3bc05e0e-4188-23e2-dff8-4c1c191552bd" alt="" class="logo">
+  <div class="div-block"><img src="{{asset('assets/img/logo.svg')}}" loading="lazy" style="opacity:0" data-w-id="3bc05e0e-4188-23e2-dff8-4c1c191552bd" alt="" class="logo">
     <h1 data-w-id="41018d8f-0e7a-3775-4f98-e5308b2349bb" style="opacity:0" class="heading">LinkPasser | Coming Soon</h1>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=5faa83a3e6504b749fd44a2e" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>

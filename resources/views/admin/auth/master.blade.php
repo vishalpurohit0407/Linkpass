@@ -21,7 +21,7 @@
   <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container justify-content-center">
       <a class="navbar-brand" >
-        <img src="{{asset('assets/img/Linkpasser-Logo.svg')}}">
+        <img src="{{asset('assets/img/logo.svg')}}">
       </a>
     </div>
   </nav>
@@ -38,8 +38,8 @@
         </div>
         <div class="col-xl-6">
           <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            
-            
+
+
           </ul>
         </div>
       </div>

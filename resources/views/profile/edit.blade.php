@@ -105,7 +105,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="tags">{{ __('Tags') }}</label>
                                     <div class="{{ $errors->has('tags') ? ' has-danger' : '' }}">
-                                        <input type="text" class="form-control" id="tags" name="tags" value="" data-role="tagsinput" />
+                                        <input type="text" name="tags" class="form-control" id="tags" value="" data-role="tagsinput" />
                                         @if ($errors->has('tags'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('tags') }}</strong>

@@ -30,7 +30,7 @@
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/slick-theme.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/owl.carousel.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/owl.theme.default.css')}}">
-
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}">
   <!-- Fonts Fontawesome -->
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/fontawesome-all.css')}}">
 
@@ -116,6 +116,7 @@
   <!-- Setup of Slider JS -->
   <script src="{{asset('assets/js/slick.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('assets/js/owl.carousel.js')}}" type="text/javascript"></script>
+  <script src="{{asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
   <!-- Setup of Menu JS -->
   <script type="text/javascript" src="{{asset('assets/js/stellarnav.js')}}"></script>
   <!-- Setup of Custom JS -->
