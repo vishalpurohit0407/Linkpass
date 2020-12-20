@@ -54,6 +54,20 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/content/img-upload','ContentController@img_upload')->name('user.content.upload');
 	Route::post('/content/main-img-upload/{id}','ContentController@mainImgUpload')->name('user.content.mainupload');
 	Route::post('/content/remove/img-upload','ContentController@removeImage')->name('user.content.remove.image');
+
+	// Social Accounts
+	Route::post('/social-account/list/data','SocialAccountController@listdata')->name('user.social-account.listdata');
+	Route::resource('/social-account', 'SocialAccountController', [
+	    'names' => [
+	        'index'   => 'user.social-account.list',
+	        'create'  => 'user.social-account.create',
+	        'store'   => 'user.social-account.store',
+	        'edit'    => 'user.social-account.edit',
+	        'update'  => 'user.social-account.update',
+	        'destroy' => 'user.social-account.destroy'
+	    ]
+	]);
+
 });
 
 Route::get('/{url_slug}','PagepreviewController@pagepreview')->name('cms.pagepreview');

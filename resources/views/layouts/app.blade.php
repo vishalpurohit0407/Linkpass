@@ -39,6 +39,13 @@
   <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/dropzone/dist/min/dropzone.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/select2/dist/css/select2.min.css')}}">
 
+  <!-- datatables CSS -->
+  <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net/css/responsive.dataTables.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net/css/responsive.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+
   <!-- Fonts Fontawesome -->
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/fontawesome-all.css')}}">
 
@@ -131,10 +138,23 @@
   <!-- Setup of Slider JS -->
   <script src="{{asset('assets/js/slick.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('assets/js/owl.carousel.js')}}" type="text/javascript"></script>
+
+  <!-- datatables JS -->
+  <script src="{{asset('assets/vendor/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net/js/dataTables.responsive.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js')}}"></script>
+
   <script src="{{asset('assets/vendor/dropzone/dist/min/dropzone.min.js')}}"></script>
   <script src="{{asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
   <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
   <script src="{{asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+
 
   <!-- Setup of Menu JS -->
   <script type="text/javascript" src="{{asset('assets/js/stellarnav.js')}}"></script>

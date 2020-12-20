@@ -453,6 +453,15 @@ section {
     border-radius: 3px;
     font-family: 'Helvetica LT Std';
 }
+.btn-xs {
+    padding: 1px 10px;
+    margin-bottom: 0;
+    font-size: 10px;
+    line-height: 20px;
+    border: none;
+    border-radius: 3px;
+	font-family: 'Helvetica LT Std';
+}
 button:focus {
 	outline: inherit;
 	outline: inherit;
@@ -474,6 +483,7 @@ button:focus {
 .btn-warning {
 	color: #fff;
 	background: #16408a;
+	border-radius: 30px;
 }
 .btn-warning:hover, .btn-warning.active.focus, .btn-warning.active:focus, .btn-warning.active:hover, .btn-warning:active.focus, .btn-warning:active:focus, .btn-warning:active:hover, .open>.dropdown-toggle.btn-warning.focus, .open>.dropdown-toggle.btn-warning:focus, .open>.dropdown-toggle.btn-warning:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-warning.active, .btn-warning:active, .open>.dropdown-toggle.btn-warning {
 	background: #ca082a;

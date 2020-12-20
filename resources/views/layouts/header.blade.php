@@ -84,7 +84,7 @@
               </li>
             @endif
 
-            @if(isset(auth()->user()->id))
+            @if(isset(auth()->user()->id) && auth()->user()->is_creator)
             <li>
                 <a href="{{route('user.content.list')}}">My Contents</a>
             </li>

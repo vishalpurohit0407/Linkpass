@@ -27,11 +27,13 @@
             <li>
                 <a class="{{Route::currentRouteName() == 'change-password' ? 'active' : ''}}" href="{{url('change-password')}}">Change Password</a>
             </li>
+            @if(isset(auth()->user()->id) && auth()->user()->is_creator)
             <li>
-                <a href="{{route('user.content.list')}}">Manage Contents</a>
+                <a href="{{route('user.content.list')}}" >Manage Contents</a>
             </li>
+            @endif
             <li>
-                <a href="#">Social Accounts</a>
+                <a class="{{in_array(Route::currentRouteName(), ['user.social-account.list', 'user.social-account.edit', 'user.social-account.create']) ? 'active' : ''}}" href="{{url('social-account')}}">Social Accounts</a>
             </li>
         </ul>
     </div>
