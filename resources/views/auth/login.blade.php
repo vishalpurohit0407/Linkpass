@@ -29,9 +29,18 @@
                     </div>
                 @endif
 
+                @php
+                    $isCreator = isset($isCreator) ? 1 : 0;
+                @endphp
+
                 <div class="text-center text-muted mb-4">
+                  @if($isCreator)
+                    <span>Creator Sign In</span>
+                  @else
                     <span>Sign In</span>
+                  @endif
                 </div>
+
                 <form role="form" method="POST" action="{{ route('login') }}">
                     @csrf
 

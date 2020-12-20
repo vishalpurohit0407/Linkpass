@@ -443,6 +443,16 @@ section {
 	border-radius: 3px;
 	font-family: 'Helvetica LT Std';
 }
+.btn-sm
+{
+	padding: 5px 15px;
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: 20px;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Helvetica LT Std';
+}
 button:focus {
 	outline: inherit;
 	outline: inherit;
@@ -703,7 +713,7 @@ button:focus {
 }
 .btn-menu ul li a {
 	text-transform: uppercase;
-	font-size: 14px;
+	font-size: 11px;
 	color: #FFF;
 	background: #16408a;
 	border-radius: 30px;

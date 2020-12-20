@@ -1,18 +1,15 @@
 @extends('layouts.app')
 @section('pagewise_css')
-<style type="text/css">
+        <style type="text/css">
 
-    #printable { display: none; }
+            #printable { display: none; }
 
-    @media print
-    {
-        #non-printable { display: none; }
-        #printable { display: block; }
-    }
-    .ckeditimg img{
-        float: none !important;
-    }
-</style>
+            @media print
+            {
+                #non-printable { display: none; }
+                #printable { display: block; }
+            }
+        </style>
 @endsection
 @section('content')
 <div class="header bg-primary pb-6">
@@ -23,8 +20,8 @@
                     <h6 class="h2 text-white d-inline-block mb-0">{{$title}}</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('user.content.list')}}">Content</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('admin.content.list')}}">Content</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                         </ol>
                     </nav>
@@ -56,16 +53,8 @@
                 <div class="col-8">
                     <h5 class="h3 mb-0">{{$content->main_title}}</h5>
                 </div>
-
                 <div class="col-4 text-right">
-                	<a href="{{route('content.pdf.export',$content->id)}}" class="btn btn-default btn-sm">Export PDF</a>
-                	@php
-                        $content_flowchart = \App\ContentFlowchart::where('content_id',$content->id)->first();
-                    @endphp
-                    @if($content_flowchart)
-                        <a class="btn btn-primary btn-sm" href="{{route('user.flowchart',[$content_flowchart->flowchart_id,$content->id])}}">View Flowchart</a>
-                    @endif
-                    <!-- <button class="btn btn-sm btn-neutral" onclick="printDiv('printableArea')">Print</button> -->
+                    <a href="{!! url('admin/content') !!}" class="btn btn-sm btn-neutral">Back</a>
                 </div>
             </div>
         </div>
@@ -83,85 +72,54 @@
                         <p class="mt-0">{{$content->description}}</p>
                         <div class="tuto-items-container">
                             <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="ni ni-app"></i></span>
-                                <span class="alert-text">Type</span>
-                                <span class="alert-text-right"><strong>{{$content->type}}</strong></span>
-                            </div>
-                            <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-tachometer-alt"></i></span>
-                                <span class="alert-text">Difficulty</span>
-                                <span class="alert-text-right"><strong>{{$content->difficulty}}</strong></span>
-                            </div>
-                            <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-clock"></i></span>
-                                <span class="alert-text">Duration</span>
-                                <span class="alert-text-right"><strong>{{$content->duration}}&nbsp;{{$content->duration_type}}</strong></span>
+                                <span class="alert-icon"><i class="fas fa-user"></i></span>
+                                <span class="alert-text">Author</span>
+                                <span class="alert-text-right"><strong>{{ isset($content->content_user->name) ? $content->content_user->name : ''}}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="fas fa-tag"></i></span>
-                                <span class="alert-text">Categories</span>
+                                <span class="alert-text">Category</span>
                                 @php
-                                    $category_id = $content->content_category->pluck('category_id')->toArray();
-                                    $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
+                                    $category_name = !empty($content->content_category->name) ? $content->content_category->name : '';
                                 @endphp
-                                <span class="alert-text-right"><strong>{{implode(', ',$category_name)}}</strong></span>
+                                <span class="alert-text-right"><strong>{{ $category_name }}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-money-bill-alt"></i></span>
-                                <span class="alert-text">Cost</span>
-                                <span class="alert-text-right"><strong><div class="tuto-items-details-container-right">{{$content->cost}} USD ($)</div></strong></span>
+                                <span class="alert-icon"><i class="ni ni-world"></i></span>
+                                <span class="alert-text">Link</span>
+                                <span class="alert-text-right"><strong>{{$content->external_link}}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-list-ol"></i></span>
-                                <span class="alert-text">Contents</span>
-                                <span class="alert-text-right">&nbsp;[
-                                    <a href="#content-sr" role="button" tabindex="0" class="togglelink">hide</a>]&nbsp;
-                                </span>
-                                <ul id="content-sr">
-                                    @if($content->content_step)
-                                    @php $step = 1; @endphp
-                                    @php $srno = 2; @endphp
-                                        <li class="toclevel-1">
-                                            <a href="#Introduction">
-                                                <span class="tocnumber">1</span>
-                                                <span class="toctext">Introduction</span>
-                                            </a>
-                                        </li>
-                                        @foreach($content->content_step as $stepdata)
-                                            <li class="toclevel-1">
-                                                <a href="#Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}">
-                                                    <span class="tocnumber">{{$srno}}</span>
-                                                    <span class="toctext">Step {{$step}} - {{$stepdata->title}}</span>
-                                                </a>
-                                            </li>
-                                            @php $step++; @endphp
-                                            @php $srno++; @endphp
-                                        @endforeach
-                                    @endif
-                                </ul>
+                                <span class="alert-icon"><i class="fas fa-calendar"></i></span>
+                                <span class="alert-text">Posted At</span>
+                                <span class="alert-text-right"><strong>{{!empty($content->posted_at) ? date('j F, Y', strtotime($content->posted_at)) : ''}}</strong></span>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
             <hr>
-            @if($content->introduction)
-                <div id="Introduction" class="mt-4 ckeditimg" s>
-                    <h2 class="display-3 mb-0">Introduction</h2>
+            <div id="Introduction" class="mt-4">
+                @if($content->introduction)
+                    <h2 class="display-3 mb-0">Summary</h2>
                     <p>{!!$content->introduction!!}</p>
                     <hr>
-                </div>
-            @endif
-            @if($content->introduction_video_link)
-                <div id="Introduction" class="mt-4">
+                @endif
+                @if($content->introduction_video_link)
                     <h2 class="display-3 mb-0">Video overview</h2>
+                    @php
+                        $videoUrl = $content->introduction_video_link;
+                        $videoUrl = getYoutubeOrVimeoFromURL($videoUrl);
+                    @endphp
+
                     <div class="embed-responsive embed-responsive-16by9" id="non-printable">
-                        <iframe class="embed-responsive-item" class="text-center" src="{{$content->introduction_video_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="embed-responsive-item" class="text-center" src="{{$videoUrl}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <hr>
-                </div>
-            @endif
-            <br>
+                @endif
+            </div>
+
             @if($content->content_step)
             @php $step = 1; @endphp
                 @foreach($content->content_step as $stepkey => $stepdata)
@@ -173,15 +131,37 @@
                                       <div class="carousel-inner lightgallery" style="cursor: pointer;" data-id="{{$stepdata->id}}" title="Show Image">
                                         @if($stepdata->media)
                                             @foreach($stepdata->media as $media)
-                                                <div class="carousel-item @if($loop->first) active @endif">
-                                                  <img class="d-block" src="{{asset($media->media_url)}}" alt="First slide">
-                                                </div>
+
+                                            @php
+                                                $extension       = pathinfo(storage_path($media->media_url), PATHINFO_EXTENSION);
+                                                $audioExtensions = config('default.audio_extensions');
+                                                $mediaUrl        = asset($media->media_url);
+                                            @endphp
+
+                                                @if(!empty($audioExtensions) && !empty($extension) && in_array($extension, $audioExtensions))
+                                                {
+                                                    <div class="carousel-item @if($loop->first) active @endif">
+                                                        <div class="d-block">
+                                                            <audio controls>
+                                                                <source src="{!! $mediaUrl !!}" type="audio/mpeg">
+                                                                Your browser does not support the audio element.
+                                                            </audio>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @else
+                                                    <div class="carousel-item @if($loop->first) active @endif">
+                                                        <img class="d-block" src="{!! $mediaUrl !!}" alt="First slide">
+                                                    </div>
+                                                @endif
+
                                             @endforeach
                                         @endif
 
                                         @if($stepdata->video_media)
                                             <div class="carousel-item @if(count($stepdata->media) == 0) active @endif step-item-video">
-                                                <iframe class="embed-responsive-item" class="text-center" src="{{$stepdata->video_media}}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                @php $videoUrl = getYoutubeOrVimeoFromURL($stepdata->video_media); @endphp
+                                                <iframe class="embed-responsive-item" class="text-center" src="{{$videoUrl}}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             </div>
                                         @endif
                                       </div>
@@ -191,10 +171,22 @@
                                         @if($stepdata->media)
                                         @php $dataslide = 0; @endphp
                                             @foreach($stepdata->media as $media)
-                                                <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'image')" data-slide-to="{{$dataslide}}" @if($loop->first) class="active" @endif >
-                                                    <img class="d-block" src="{{asset($media->media_url)}}" class="img-fluid">
+                                                @php
+                                                    $extension       = pathinfo(storage_path($media->media_url), PATHINFO_EXTENSION);
+                                                    $audioExtensions = config('default.audio_extensions');
+                                                    $thumbUrl        = asset($media->media_url);
+
+                                                    if(!empty($audioExtensions) && !empty($extension) && in_array($extension, $audioExtensions))
+                                                    {
+                                                        $thumbUrl = asset('assets/img/icons/audio.png');
+                                                    }
+                                                @endphp
+
+                                                <li data-target="#carousel-step{!! $step !!}" onmouseover="bigImg(this,'image')" data-slide-to="{{$dataslide}}" @if($loop->first) class="active" @endif >
+                                                    <img class="d-block" src="{!! $thumbUrl !!}" class="img-fluid">
                                                 </li>
-                                            @php $dataslide++; @endphp
+
+                                                @php $dataslide++; @endphp
                                             @endforeach
                                         @endif
 
@@ -207,10 +199,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-{{(count($stepdata->media) > 0 || $stepdata->video_media != '') ? '6' : '12'}} step-instructions">
-                                <h3 class="display-4">Step {{$step}} - {{$stepdata->title}}</h3>
-                                <div>
-                                    {!!$stepdata->description!!}
-                                </div>
+                                <h3 class="display-4">Media {{$step}} - {{$stepdata->title}}</h3>
                             </div>
                         </div>
                     </div>
@@ -218,36 +207,6 @@
                 @php $step++; @endphp
                 @endforeach
             @endif
-        </div>
-    </div>
-    <div class="card" style="background-color: #edf6ff;
-    border: 1px solid #bddcff;">
-        <!-- Card body -->
-        <div class="card-body">
-            <div class="text-center">
-                <h5 class="h1 title">
-                  <span class="d-block mb-1 text-muted"> <i class="fa fa-flag-checkered text-info"></i>&nbsp;FINISH LINE</span>
-                </h5>
-                <div class="mt-5 mb-4">
-                    @php
-                        $completed_content = \App\ContentCompletion::where('content_id',$content->id)->where('user_id',\Auth::user()->id)->first();
-                        $completed_content_count = \App\ContentCompletion::where('content_id',$content->id)->count();
-
-                    @endphp
-                    @if($completed_content)
-                        <a class="btn btn-icon btn-primary text-white">
-                            <span class="btn-inner--icon"><i class="fa fa-check"></i></span>
-                            <span class="btn-inner--text">Already Completed</span>
-                        </a>
-                    @else
-                        <a href="{{route('user.complete.content',$content->id)}}" class="btn btn-icon btn-primary">
-                            <span class="btn-inner--icon"><i class="fa fa-check"></i></span>
-                            <span class="btn-inner--text">Complete Content</span>
-                        </a>
-                    @endif
-                </div>
-                <small class="h4 font-weight-light text-primary">{{$completed_content_count}} other people viewed this content.</small>
-            </div>
         </div>
     </div>
 </div>
@@ -332,7 +291,7 @@ jQuery(document).ready(function($){
     });
 });
 
-function bigImg(x) {
+function bigImg(x,type) {
     x.click();
 
 }

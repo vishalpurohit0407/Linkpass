@@ -1,20 +1,19 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Closure;
 
 class VerifyCsrfToken extends Middleware
 {
-    /**
-     * The URIs that should be excluded from CSRF verification.
-     *
-     * @var array
-     */
-    protected $except = [
-        '/admin/content/main-img-upload/*',
-        '/admin/maintenance/main-img-upload/*',
-        '/warranty_extension/user-img-upload/*',
-        '/warranty_extension/list/data/*'
-    ];
+    //modify this function
+    public function handle($request, Closure $next)
+    {
+        //add this condition
+        if($request->ajax()){
+            return $next($request);
+        }
+
+        return parent::handle($request, $next);
+    }
 }

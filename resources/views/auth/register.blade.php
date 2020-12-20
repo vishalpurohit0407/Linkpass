@@ -28,13 +28,16 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
                 @endif
+                @php
+                    $isCreator = isset($isCreator) ? 1 : 0;
+                @endphp
 
                 <div class="text-center text-muted mb-4">
-                    <span>{{ __('Sign Up') }}</span>
+                    <span>{{ $isCreator ? __('Creator Sign Up') : __('Sign Up') }}</span>
                 </div>
                 <form role="form" method="POST" action="{{ route('register') }}">
                     @csrf
-
+                <input type="hidden" name="is_creator" value="{{ $isCreator }}">
                     <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                         <div class="input-group input-group-alternative">
                             <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" value="{{ old('name') }}" autofocus>

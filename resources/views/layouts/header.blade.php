@@ -72,21 +72,35 @@
         </div>
         <div class="btn-menu">
           <ul>
-            <li>
-              @if(isset(auth()->user()->id))
+
+            @if(isset(auth()->user()->id))
+              <li>
                 <a href="{{route('profile.edit')}}">My Profile</a>
-              @else
+              </li>
+            @else
+              <li>
                 <a href="{{url('register')}}">Sign Up</a>
-              @endif
-            </li>
+                <a href="{{url('creator-register')}}">Creator Sign <i class="fas fa-user"></i></a>
+              </li>
+            @endif
+
+            @if(isset(auth()->user()->id))
             <li>
-              @if(isset(auth()->user()->id))
-                <a href="{{url('logout')}}">Logout</a>
-              @else
-                <a href="{{url('login')}}">Login</a>
-              @endif
+                <a href="{{route('user.content.list')}}">My Contents</a>
             </li>
-            <li><a href="{{url('login')}}">Creator Login <i class="fas fa-user"></i></a></li>
+            @endif
+
+            @if(isset(auth()->user()->id))
+              <li>
+                  <a href="{{route('logout')}}">Logout</a>
+              </li>
+            @else
+              <li>
+                  <a href="{{url('login')}}">Login</a>
+                  <a href="{{url('creator-login')}}">Creator Login <i class="fas fa-user"></i></a>
+              </li>
+            @endif
+
           </ul>
         </div>
       </div>

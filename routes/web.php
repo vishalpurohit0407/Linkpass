@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 Auth::routes(['verify' => true]);
 
+Route::get('/creator-register', 'Auth\RegisterController@creatorRegister')->name('creator-register');
+Route::get('/creator-login', 'Auth\LoginController@creatorLogin')->name('creator-login');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/latest', 'HomeController@getLatestResults')->name('latest');
@@ -25,21 +28,32 @@ Route::get('/results/{id}', 'HomeController@getContentDetails')->name('result.ge
 
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::resource('user', 'UserController', ['except' => ['show']]);
+	// Profile Routes
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+
+	// Change Password Routes
+	Route::get('change-password', ['as' => 'change-password', 'uses' => 'ProfileController@changePassword']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 	// Content Module Routes
-	Route::get('/content/pdf/{id}','ContentController@createPDF')->name('content.pdf.export');
-	Route::get('/content/complete/{id}','ContentController@completedContent')->name('user.complete.content');
 	Route::get('/content/search','ContentController@search')->name('user.content.search');
+	Route::post('/content/delete','ContentController@deleteContent')->name('user.content.delete');
 	Route::resource('/content', 'ContentController', [
 	    'names' => [
-	        'index' => 'user.content.list',
-	        'show' => 'user.content.show'
+			'index'   => 'user.content.list',
+	        'create'  => 'user.content.create',
+	        'store'   => 'user.content.store',
+	        'edit'    => 'user.content.edit',
+	        'update'  => 'user.content.update',
+	        'destroy' => 'user.content.destroy',
+	        'show'    => 'user.content.show'
 	    ]
 	]);
 
+	Route::post('/content/img-upload','ContentController@img_upload')->name('user.content.upload');
+	Route::post('/content/main-img-upload/{id}','ContentController@mainImgUpload')->name('user.content.mainupload');
+	Route::post('/content/remove/img-upload','ContentController@removeImage')->name('user.content.remove.image');
 });
+
 Route::get('/{url_slug}','PagepreviewController@pagepreview')->name('cms.pagepreview');

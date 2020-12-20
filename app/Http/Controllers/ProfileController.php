@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use App\UserTags;
 use Storage;
 use App\Category;
 
@@ -17,9 +18,29 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $category = new Category();
-        $categories = $category->categoryList();
-        return view('profile.edit', array('categories'=> $categories));
+        $user        = auth()->user();
+        $category    = new Category();
+        $categories  = $category->categoryList();
+        $userTags    = UserTags::where('user_id', $user->id)->orderBy('name','asc')->pluck('name');
+        $userTags    = $userTags->count() > 0 ? implode(',', $userTags->toArray()) :  '';
+
+        return view('profile.edit', array('categories'=> $categories, 'userTags' => $userTags));
+    }
+
+    /**
+     * Show the form for change password
+     *
+     * @return \Illuminate\View\View
+     */
+    public function changePassword()
+    {
+        $user        = auth()->user();
+        $category    = new Category();
+        $categories  = $category->categoryList();
+        $userTags    = UserTags::where('user_id', $user->id)->orderBy('name','asc')->pluck('name');
+        $userTags    = $userTags->count() > 0 ? implode(',', $userTags->toArray()) :  '';
+
+        return view('profile.change-password', array('categories'=> $categories, 'userTags' => $userTags));
     }
 
     /**
@@ -37,6 +58,19 @@ class ProfileController extends Controller
         $userArr['name'] = $request->name;
         $userArr['email'] = $request->email;
         $userArr['category_id'] = $request->category;
+
+        if(!empty($request->tags))
+        {
+            $tags = explode(',', $request->tags);
+
+            foreach($tags as $tag)
+            {
+                $params   = array('user_id' => $user->id, 'name' => $tag);
+                $userTags = UserTags::updateOrCreate($params);
+            }
+
+            UserTags::whereNotIn('name', $tags)->delete();
+        }
 
         if($file){
 

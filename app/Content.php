@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Http\Traits\Hashidable;
-use App\Model\Relations\HasManySyncable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Config;
@@ -39,24 +38,6 @@ class Content extends Authenticatable
     public function getCompletionContentCountAttribute()
     {
         return \App\ContentCompletion::where('content_id', $this->id)->count();
-    }
-
-    /**
-     * Overrides the default Eloquent hasMany relationship to return a HasManySyncable.
-     *
-     * {@inheritDoc}
-     */
-    public function hasMany($related, $foreignKey = null, $localKey = null)
-    {
-        $instance = $this->newRelatedInstance($related);
-
-        $foreignKey = $foreignKey ?: $this->getForeignKey();
-
-        $localKey = $localKey ?: $this->getKeyName();
-
-        return new HasManySyncable(
-            $instance->newQuery(), $this, $instance->getTable().'.'.$foreignKey, $localKey
-        );
     }
 
     public function content_tags()

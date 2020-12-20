@@ -46,10 +46,21 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->create($request->all())));
-        $request->session()->flash('alert-success', 'Your account has been successfully created. Please verify your accout from register email.'); 
+        $request->session()->flash('alert-success', 'Your account has been successfully created. Please verify your accout from register email.');
         return $this->registered($request, $user)
             ?: redirect(route('login'));
     }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function creatorRegister()
+    {
+        return view('auth.register', array('isCreator' => 1));
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -74,9 +85,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name'       => $data['name'],
+            'email'      => $data['email'],
+            'is_creator' => $data['is_creator'],
+            'password'   => Hash::make($data['password']),
         ]);
     }
 }

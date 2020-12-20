@@ -4,13 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Content;
 use App\Category;
-use Illuminate\Http\Request;
-use Storage;
-use App\ContentCategory;
 use App\SocialAccount;
 use App\ContentTags;
 use App\User;
 use Response;
+use Illuminate\Http\Request;
+use Storage;
 
 class ContentController extends Controller
 {
@@ -20,9 +19,8 @@ class ContentController extends Controller
         $this->getrecord        = '12';
         $this->category         = new Category();
         $this->socialAccount    = new SocialAccount();
-        $this->contentCategory  = new ContentCategory();
         $this->content          = new Content();
-        $this->contentSteps     = new ContentTags();
+        $this->contentTags      = new ContentTags();
         $this->user             = new User();
     }
     /**
@@ -161,7 +159,7 @@ class ContentController extends Controller
         $categories     = $this->category->categoryList();
         $socialAccounts = $this->socialAccount->get();
         $users          = $this->user->get();
-        $contentTags    = $this->contentSteps->where('content_id', $content->id)->orderBy('name','asc')->pluck('name');
+        $contentTags    = $this->contentTags->where('content_id', $content->id)->orderBy('name','asc')->pluck('name');
         $contentTags    = $contentTags->count() > 0 ? implode(',', $contentTags->toArray()) :  '';
 
         if($content->type == 2)
@@ -213,8 +211,8 @@ class ContentController extends Controller
 
             foreach($tags as $tag)
             {
-                $params     = array('content_id' => $content->id, 'name' => $tag);
-                $contentTag = ContentTags::updateOrCreate($params);
+                $params      = array('content_id' => $content->id, 'name' => $tag);
+                $contentTags = ContentTags::updateOrCreate($params);
             }
 
             ContentTags::whereNotIn('name', $tags)->delete();
@@ -226,7 +224,7 @@ class ContentController extends Controller
 
         if(!isset($socialAccount->id))
         {
-            $socialAccount = $this->socialAccount->create(array('name' => $social_account_id));
+            $socialAccount = $this->socialAccount->create(array('user_id' => $request->user_id, 'name' => $social_account_id));
         }
 
         $videoLength   = $request->get('type') == 2 ? ($request->video_length_h > 0 ? sprintf("%02d", $request->video_length_h).':' : '00:').($request->video_length_m > 0 ? sprintf("%02d", $request->video_length_m).':' : '00:').($request->video_length_s > 0 ? sprintf("%02d", $request->video_length_s) : '00') : '';
@@ -247,7 +245,7 @@ class ContentController extends Controller
         $content->status                  = '1';
 
         if ($content->save()) {
-            $request->session()->flash('alert-success', 'Content updated successfully.');
+            $request->session()->flash('alert-success', 'Content has beeen updated successfully.');
         }
         return redirect(route('admin.content.list'));
     }
