@@ -75,8 +75,10 @@ class HomeController extends Controller
         if(isset($keyword) && !empty($keyword)) {
             $query = $query->where('main_title','LIKE','%'.$keyword.'%');
             $query = $query->orWhere('description','LIKE','%'.$keyword.'%');
-            $query = $query->orWhere('tags','LIKE','%'.$keyword.'%');
-            $query = $query->orWhere('introduction','LIKE','%'.$keyword.'%');
+            $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
+            {
+                $query->where('name', 'LIKE', '%'.$keyword.'%');
+            });
         }
 
         $results = $query->orderBy('main_title', 'asc')->get();
