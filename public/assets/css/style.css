@@ -1182,6 +1182,11 @@ footer {
     color: #ca082a;
 }
 
+.form-control-label
+{
+    font-weight: bold !important;
+}
+
 .label {
 	display: inline;
 	padding: .2em .6em .3em;
