@@ -12,56 +12,17 @@
             <div class="row d-flex justify-content-center">
               <aside class="col-lg-8 col-md-10">
                 <div class="BannerText">
-                  <h2>Lorem ipsum dolor <strong>Aconsectetur adipiscing elit</strong></h2>
-                  <a href="#" class="btn btn-primary rounded-30">More About</a>
                   <div class="input-group">
                     <input class="form-control" name="search" type="search" placeholder="Type Something here..">
                     <span class="input-group-append">
-                      <button class="btn" type="submit"> <i class="fas fa-mouse-pointer"></i> </button>
+                      {{-- <button class="btn" type="submit"> <i class="fas fa-mouse-pointer"></i> </button> --}}
+                      <button class="btn" type="button"> <i class="fas fa-mouse-pointer"></i> </button>
                     </span>
                   </div>
                 </div>
               </aside>
             </div>
           </form>
-          </article>
-        </div>
-      </div>
-      <div class="item"> <img src="{{asset('assets/img/banner1.jpg')}}" class="thumb" alt="">
-        <div class="carousel-text d-flex align-items-center">
-          <article class="container">
-            <div class="row d-flex justify-content-center">
-              <aside class="col-lg-8 col-md-10">
-                <div class="BannerText">
-                  <h2>Lorem ipsum dolor <strong>Aconsectetur adipiscing elit</strong></h2>
-                  <a href="#" class="btn btn-primary rounded-30">More About</a>
-                  <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Type Something here..">
-                    <span class="input-group-append">
-                    <button class="btn" type="button"> <i class="fas fa-mouse-pointer"></i> </button>
-                    </span> </div>
-                </div>
-              </aside>
-            </div>
-          </article>
-        </div>
-      </div>
-      <div class="item"> <img src="{{asset('assets/img/banner1.jpg')}}" class="thumb" alt="">
-        <div class="carousel-text d-flex align-items-center">
-          <article class="container">
-            <div class="row d-flex justify-content-center">
-              <aside class="col-lg-8 col-md-10">
-                <div class="BannerText">
-                  <h2>Lorem ipsum dolor <strong>Aconsectetur adipiscing elit</strong></h2>
-                  <a href="#" class="btn btn-primary rounded-30">More About</a>
-                  <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Type Something here..">
-                    <span class="input-group-append">
-                    <button class="btn" type="button"> <i class="fas fa-mouse-pointer"></i> </button>
-                    </span> </div>
-                </div>
-              </aside>
-            </div>
           </article>
         </div>
       </div>
@@ -82,7 +43,8 @@
                   <div class="SliderBox">
                     <div class="boximg"> <img src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.png')}}" alt="" class="w-100"> </div>
                     <div class="description">
-                      <h3><a href="{!! route('result.get-details', $item->id) !!}">{!! $item->main_title !!}</a></h3>
+                      {{-- <h3><a href="{!! route('result.get-details', $item->id) !!}">{!! $item->main_title !!}</a></h3> --}}
+                      <h3><a href="javascript:void(0);">{!! $item->main_title !!}</a></h3>
                       <div class="d-flex align-items-center">
                         <div class="avtar"><img src="{{$item->content_user->user_image_url}}" class="rounded-circle"></div>
                       <div> <a href="#">{{$item->content_user->name}}</a>
@@ -101,7 +63,8 @@
           </div>
         @endif
         <!--End Slider-->
-        <div class="sepline d-flex align-items-center"> <span></span> <a href="{{ url('latest') }}" class="btn btn-primary rounded-30">VIEW ALL</a> </div>
+        {{-- <div class="sepline d-flex align-items-center"> <span></span> <a href="{{ url('latest') }}" class="btn btn-primary rounded-30">VIEW ALL</a> </div> --}}
+        <div class="sepline d-flex align-items-center"> <span></span> <a href="javascript:void(0);" class="btn btn-primary rounded-30">VIEW ALL</a> </div>
       </section>
       <!--End Latest Section-->
 
@@ -117,7 +80,8 @@
                   <div class="SliderBox">
                     <div class="boximg"> <img src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.png')}}" alt="" class="w-100"> </div>
                     <div class="description">
-                      <h3><a href="{!! route('result.get-details', $item->id) !!}">{!! $item->main_title !!}</a></h3>
+                      {{-- <h3><a href="{!! route('result.get-details', $item->id) !!}">{!! $item->main_title !!}</a></h3> --}}
+                      <h3><a href="javascript:void(0);">{!! $item->main_title !!}</a></h3>
                       <div class="d-flex align-items-center">
                         <div class="avtar"><img src="{{$item->content_user->user_image_url}}" class="rounded-circle"></div>
                       <div> <a href="#">{{$item->content_user->name}}</a>
@@ -136,7 +100,9 @@
           </div>
         @endif
         <!--End Slider-->
-        <div class="sepline d-flex align-items-center"> <span></span> <a href="{{ url('trending') }}" class="btn btn-secondary rounded-30">VIEW ALL</a> </div>
+        {{-- <div class="sepline d-flex align-items-center"> <span></span> <a href="{{ url('trending') }}" class="btn btn-secondary rounded-30">VIEW ALL</a> </div> --}}
+        <div class="sepline d-flex align-items-center"> <span></span> <a href="javascript:void(0);" class="btn btn-secondary rounded-30">VIEW ALL</a> </div>
+
       </section>
       <!--End Trending Section-->
 

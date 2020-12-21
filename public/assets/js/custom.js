@@ -36,7 +36,7 @@ $(document).ready(function () {
 			}
 		}
 	});
-	
+
 	$('.owl-two').owlCarousel({
 		loop: false,
 		margin: 15,
@@ -92,7 +92,7 @@ jQuery(document).ready(function ($) {
 $('.slider').slick({
 	draggable: true,
 	arrows: false,
-	dots: true,
+	dots: false,
 	fade: true,
 	autoplay: true,
 	autoplaySpeed: 5000,
