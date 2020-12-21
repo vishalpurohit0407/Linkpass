@@ -126,6 +126,7 @@ class SocialAccountController extends Controller
         $paramsArr['name']        = $request->name;
         $paramsArr['url']         = $request->url;
         $paramsArr['account_url'] = $request->account_url;
+        $paramsArr['user_id']     = Auth::user()->id;
 
         $socialAccount = SocialAccount::create($paramsArr);
 
