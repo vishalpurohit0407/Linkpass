@@ -8,7 +8,8 @@
       <div class="item"> <img src="{{asset('assets/img/banner1.jpg')}}" class="thumb" alt="">
         <div class="carousel-text d-flex align-items-center">
           <article class="container">
-            <form method="get" action="{{route('results')}}">
+            {{-- <form method="get" action="{{route('results')}}"> --}}
+            <form method="get" action="">
             <div class="row d-flex justify-content-center">
               <aside class="col-lg-8 col-md-10">
                 <div class="BannerText">
