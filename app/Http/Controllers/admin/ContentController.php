@@ -4,13 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Content;
 use App\Category;
-use Illuminate\Http\Request;
-use Storage;
-use App\ContentStepMedia;
-use App\ContentCategory;
-use App\ContentSteps;
+use App\SocialAccount;
+use App\ContentTags;
 use App\User;
 use Response;
+use Illuminate\Http\Request;
+use Storage;
 
 class ContentController extends Controller
 {
@@ -19,10 +18,9 @@ class ContentController extends Controller
     {
         $this->getrecord        = '12';
         $this->category         = new Category();
-        $this->contentCategory  = new ContentCategory();
+        $this->socialAccount    = new SocialAccount();
         $this->content          = new Content();
-        $this->contentStepMedia = new ContentStepMedia();
-        $this->contentSteps     = new ContentSteps();
+        $this->contentTags      = new ContentTags();
         $this->user             = new User();
     }
     /**
@@ -37,7 +35,7 @@ class ContentController extends Controller
         if($request->ajax()){
             return view('admin.content.ajaxlist',array('content'=>$content));
         }else{
-            $categories = $this->category->categoryParentChildTree();
+            $categories = $this->category->categoryList();
             //print_r($categories);
             return view('admin.content.list',array('title' => 'Content List','categories'=>$categories,'content'=>$content));
         }
@@ -46,12 +44,15 @@ class ContentController extends Controller
     public function search(Request $request){
 
         $content = $this->content->where('main_title','!=','')->where('status','!=','2');
+        $keyword = $request->search;
 
-        if(isset($request->search) && !empty($request->search)){
-            $content = $content->where('main_title','LIKE','%'.$request->search.'%');
-            $content = $content->orWhere('description','LIKE','%'.$request->search.'%');
-            $content = $content->orWhere('tags','LIKE','%'.$request->search.'%');
-            $content = $content->orWhere('introduction','LIKE','%'.$request->search.'%');
+        if($keyword && !empty($keyword)){
+            $content = $content->where('main_title','LIKE','%'.$keyword.'%');
+            $content = $content->orWhere('description','LIKE','%'.$keyword.'%');
+            $content = $content->orWhereHas('content_tags', function ($query) use ($keyword)
+            {
+                $query->where('name', 'LIKE', '%'.$keyword.'%');
+            });
         }
         if(isset($request->category_id) && !empty($request->category_id)){
             $content=$content->where('category_id', $request->category_id);
@@ -82,52 +83,12 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-            'content_step.*.step_title.required' => 'The title field is required.'
-        ];
-        $request->validate([
-            'content_step.*.step_title' => 'required'
-        ],$messages);
-
         try {
             return redirect(route('organization.list'));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('organization.list'));
         }
-    }
-
-    public function img_upload(Request $request)
-    {
-        $allowedExtensions = implode(',', array_merge(config('default.image_extensions'), config('default.audio_extensions')));
-        //dd($request->all());
-        if($request->unique_id && $request->file('file_image')){
-            $file=$request->file('file_image');
-
-            $request->validate([
-                'file_image' => 'mimes:'.$allowedExtensions.'|max:2048'
-            ]);
-
-            $file_name = $file->getClientOriginalName();
-            $fileslug = pathinfo($file_name, PATHINFO_FILENAME);
-            $imageName = md5($fileslug.time());
-            $imgext = $file->getClientOriginalExtension();
-            $path = 'content/'.$request->content_id.'/step_media/'.$imageName.".".$imgext;
-            $fileAdded = Storage::disk('public')->putFileAs('content/'.$request->content_id.'/step_media/',$file,$imageName.".".$imgext);
-
-            if($fileAdded){
-                $getStepId = $this->contentSteps->where('step_key',$request->unique_id)->first();
-                $guidMediaArr = array();
-                $guidMediaArr['step_key'] = $request->unique_id;
-                $guidMediaArr['step_id'] = ($getStepId)? $getStepId->id : NULL;
-                $guidMediaArr['media'] =  $path;
-                $media = $this->contentStepMedia->create($guidMediaArr);
-                return Response::json(['status' => true, 'message' => 'Media uploaded.', 'id' => $media->id]);
-            }
-            return Response::json(['status' => false, 'message' => 'Something went wrong.']);
-        }
-
-        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
     }
 
     public function mainImgUpload(Request $request, $id)
@@ -176,24 +137,6 @@ class ContentController extends Controller
         return Response::json(['status' => false, 'message' => 'Something went wrong.']);
     }
 
-    public function removeStep(Request $request)
-    {
-
-        $steps = $this->contentSteps->where('step_key',$request->step_key)->first();
-
-        if($steps){
-
-            $medias = $this->contentStepMedia->where('step_id', $steps->id)->get();
-            foreach ($medias as $media) {
-                Storage::deleteDirectory($media->media);
-            }
-            $this->contentStepMedia->where('step_id', $steps->id)->delete();
-            $steps->delete();
-            return Response::json(['status' => true, 'message' => 'Step deleted.']);
-        }
-        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -213,11 +156,29 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        $categories   = $this->category->categoryParentChildTree();
-        $users        = $this->user->get();
-        $content_step = $this->contentSteps->where('content_id',$content->id)->with('media')->orderBy('step_no','asc')->get();
+        $categories     = $this->category->categoryList();
+        $socialAccounts = $this->socialAccount->get();
+        $users          = $this->user->get();
+        $contentTags    = $this->contentTags->where('content_id', $content->id)->orderBy('name','asc')->pluck('name');
+        $contentTags    = $contentTags->count() > 0 ? implode(',', $contentTags->toArray()) :  '';
 
-        return view('admin.content.add',array('title' => 'Add Content','categories'=> $categories, 'content' => $content, 'users' => $users, 'content_step' => $content_step));
+        if($content->type == 2)
+        {
+            $videoLength = explode(':', $content->video_length);
+            $content->video_length_h = isset($videoLength[0]) ? $videoLength[0] : 0;
+            $content->video_length_m = isset($videoLength[1]) ? $videoLength[1] : 0;
+            $content->video_length_s = isset($videoLength[2]) ? $videoLength[2] : 0;
+        }
+
+        if($content->type == 3)
+        {
+            $podcastLength = explode(':', $content->podcast_length);
+            $content->podcast_length_h = isset($podcastLength[0]) ? $podcastLength[0] : 0;
+            $content->podcast_length_m = isset($podcastLength[1]) ? $podcastLength[1] : 0;
+            $content->podcast_length_s = isset($podcastLength[2]) ? $podcastLength[2] : 0;
+        }
+
+        return view('admin.content.add',array('title' => 'Add Content','categories'=> $categories, 'content' => $content, 'users' => $users, 'contentTags' => $contentTags, 'socialAccounts' => $socialAccounts));
     }
 
     /**
@@ -229,96 +190,62 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
-        //dd($request->all());
         if(!$content){
             abort(404);
         }
 
-        $messages = [
-            'content_step.*.step_title.required' => 'The title field is required.'
-        ];
+        $messages = array();
 
-        if($request->submit == 'Save As Draft'){
+        $request->validate([
+            'main_title'        => 'required',
+            'description'       => 'required',
+            'category_id'       => 'required',
+            'user_id'           => 'required',
+            'social_account_id' => 'required',
+            'posted_at'         => 'required',
+        ], $messages);
 
-            $request->validate([
-                'main_title' => 'required'
-            ]);
+        if(!empty($request->tags))
+        {
+            $tags = explode(',', $request->tags);
 
-        }else{
+            foreach($tags as $tag)
+            {
+                $params      = array('content_id' => $content->id, 'name' => $tag);
+                $contentTags = ContentTags::updateOrCreate($params);
+            }
 
-            $request->validate([
-                'main_title'   => 'required',
-                'description'  => 'required',
-                'category_id'  => 'required',
-                'user_id'      => 'required',
-                'posted_at'    => 'required',
-                'published_at' => 'required',
-                'content_step.*.step_title' => 'required'
-                //'content_step.*.step_description' => 'required',
-                //'content_step.*.stepfilupload.*' => 'mimes:jpg,jpeg,png,bmp'
-            ], $messages);
+            ContentTags::whereNotIn('name', $tags)->delete();
         }
 
+        $social_account_id = $request->social_account_id;
+
+        $socialAccount = $this->socialAccount->find($social_account_id);
+
+        if(!isset($socialAccount->id))
+        {
+            $socialAccount = $this->socialAccount->create(array('user_id' => $request->user_id, 'name' => $social_account_id));
+        }
+
+        $videoLength   = $request->get('type') == 2 ? ($request->video_length_h > 0 ? sprintf("%02d", $request->video_length_h).':' : '00:').($request->video_length_m > 0 ? sprintf("%02d", $request->video_length_m).':' : '00:').($request->video_length_s > 0 ? sprintf("%02d", $request->video_length_s) : '00') : '';
+        $podcastLength = $request->get('type') == 3 ? ($request->podcast_length_h > 0 ? sprintf("%02d", $request->podcast_length_h).':' : '00:').($request->podcast_length_m > 0 ? sprintf("%02d", $request->podcast_length_m).':' : '00:').($request->podcast_length_s > 0 ? sprintf("%02d", $request->podcast_length_s) : '00') : '';
+
+        $content->type                    = $request->type;
         $content->main_title              = $request->main_title;
         $content->category_id             = $request->category_id;
         $content->user_id                 = $request->user_id;
+        $content->social_account_id       = $socialAccount->id;
         $content->description             = $request->description;
-        $content->website                 = $request->has('website') ? $request->website : '';
+        $content->number_of_images        = $request->get('type') == 1 ? $request->number_of_images : 0;
+        $content->video_length            = $request->get('type') == 2 ? $videoLength : '';
+        $content->podcast_length          = $request->get('type') == 3 ? $podcastLength : '';
+        $content->number_of_words         = $request->get('type') == 4 ? $request->number_of_words : 0;
         $content->posted_at               = $request->has('posted_at') ? date("Y-m-d H:i:s", strtotime($request->posted_at)) : '';
-        $content->published_at            = $request->has('published_at') ? date("Y-m-d H:i:s", strtotime($request->published_at)) : '';
-        $content->tags                    = $request->tags;
-        $content->introduction            = $request->introduction;
-        $content->introduction_video_type = $request->vid_link_type;
-        $content->introduction_video_link = $request->vid_link_url;
-        $content->status = ($request->submit == 'Save As Draft')? '3' : '1';
-
-        // if(isset($request->category) && is_array($request->category)){
-        //     $this->contentCategory->where('content_id', $content->id)->whereNotIn('category_id', $request->category)->delete();
-        //     foreach ($request->category as $key => $cate) {
-
-        //         $checkCat = $this->contentCategory->where('content_id', $content->id)->where('category_id', $cate)->count();
-        //         if($checkCat == 0){
-        //             $cateArr = array();
-        //             $cateArr['content_id'] = $content->id;
-        //             $cateArr['category_id'] = $cate;
-        //             $this->contentCategory->create($cateArr);
-        //         }
-        //     }
-        // }
-
-        if(isset($request->content_step) && is_array($request->content_step)){
-
-            foreach ($request->content_step as $key1 => $step) {
-
-                $stepArr = array();
-                $stepArr['title'] = $step['step_title'];
-
-                if($step['step_video_media'] != ''){
-                    $stepArr['video_type'] = $step['step_video_type'];
-                    $stepArr['video_media'] = $step['step_video_media'];
-                }
-
-                $checkstep = $this->contentSteps->where('step_key', $step['step_key'])->where('content_id',  $content->id)->first();
-
-                if($checkstep){
-
-                    //$stepData = $this->contentSteps->where('step_key', $step['step_key'])->where('content_id',  $content->id)->update($stepArr);
-                    $checkstep->update($stepArr);
-                    $this->contentStepMedia->where('step_key',$checkstep->step_key)->update(['step_id' => $checkstep->id]);
-                }else{
-
-                    $stepArr['step_key'] = $step['step_key'];
-                    $stepArr['content_id'] = $content->id;
-                    //dd($stepArr);
-                    $stepData = $this->contentSteps->create($stepArr);
-                    $this->contentStepMedia->where('step_key',$step['step_key'])->update(['step_id' => $stepData->id]);
-                }
-
-            }
-        }
+        $content->external_link           = $request->external_link;
+        $content->status                  = '1';
 
         if ($content->save()) {
-            $request->session()->flash('alert-success', 'Content updated successfully.');
+            $request->session()->flash('alert-success', 'Content has beeen updated successfully.');
         }
         return redirect(route('admin.content.list'));
     }

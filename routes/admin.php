@@ -121,24 +121,6 @@ Route::group(['middleware' => ['admin']],function(){
 	]);
 
 
-	//Flowchart
-
-	Route::delete('/flowchart/remove-node/{id}','admin\FlowchartController@removeNode')->name('admin.flowchart.remove.node');
-	Route::post('/flowchart/list/data','admin\FlowchartController@listdata')->name('admin.flowchart.listdata');
-	Route::post('/flowchart/node/update','admin\FlowchartController@nodeUpdate')->name('admin.flowchart.node.update');
-	Route::resource('/flowchart', 'admin\FlowchartController', [
-	    'names' => [
-	        'index' => 'admin.flowchart.list',
-	        'create' => 'admin.flowchart.create',
-	        'store' => 'admin.flowchart.store',
-	        'edit' => 'admin.flowchart.edit',
-	        'update' => 'admin.flowchart.update',
-	        'show' => 'admin.flowchart.show',
-	        'destroy' => 'admin.flowchart.destroy',
-	    ]
-	]);
-
-
 	// CMS Page Module Routes
 	Route::post('/cms-page/list/data','admin\CmsPageController@listdata')->name('admin.cms.page.listdata');
 	Route::resource('/cms-page', 'admin\CmsPageController', [

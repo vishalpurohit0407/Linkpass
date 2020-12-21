@@ -1,4 +1,4 @@
-<!-- Topnav -->
+{{-- <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,4 +39,71 @@
         </ul>
         </div>
       </div>
-    </nav>
+    </nav> --}}
+
+<header id="header">
+
+  <!-- Start Site Header -->
+  <section class="site-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <aside class="logo"> <a class="navbar-brand" href="{{url('')}}"><img src="{{asset('assets/img/logo.svg')}}" alt=""></a> </aside>
+        <div class="menu">
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="stellarnav">
+            <ul class="main-menu">
+              <li class="bg hover-bg active"><a href="{{url('')}}">Home</a></li>
+              <li class="bg hover-bg"><a href="{{url('about-us')}}">About</a></li>
+              <li class="bg hover-bg"><a href="#" class="down">Category</a>
+                <ul>
+
+                  @if(isset($menuCategories) && $menuCategories->count() > 0)
+                    @foreach ($menuCategories as $k => $v)
+                      <li><a href="#">{{$v}}</a></li>
+                    @endforeach
+                  @endif
+                </ul>
+              </li>
+              <li class="bg hover-bg"><a href="#">F&amp;Q</a></li>
+              <li class="bg hover-bg"><a href="{{url('contact')}}">Contact US</a></li>
+            </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <div class="btn-menu">
+          <ul>
+
+            @if(isset(auth()->user()->id))
+              <li>
+                <a href="{{route('profile.edit')}}">My Profile</a>
+              </li>
+            @else
+              <li>
+                <a href="{{url('register')}}">Sign Up</a>
+                <a href="{{url('creator-register')}}">Creator Sign <i class="fas fa-user"></i></a>
+              </li>
+            @endif
+
+            @if(isset(auth()->user()->id) && auth()->user()->is_creator)
+            <li>
+                <a href="{{route('user.content.list')}}">My Contents</a>
+            </li>
+            @endif
+
+            @if(isset(auth()->user()->id))
+              <li>
+                  <a href="{{route('logout')}}">Logout</a>
+              </li>
+            @else
+              <li>
+                  <a href="{{url('login')}}">Login</a>
+                  <a href="{{url('creator-login')}}">Creator Login <i class="fas fa-user"></i></a>
+              </li>
+            @endif
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>

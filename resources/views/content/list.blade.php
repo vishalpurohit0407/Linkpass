@@ -1,29 +1,21 @@
 @extends('layouts.app')
 @section('content')
-    <div class="header bg-primary pb-7">
+    <div class="header pb-7">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Blogs</h6>
-                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
-                            </ol>
-                        </nav>
+                        <span class="Small-Title mb-0">Contents</span>
+                        <p class="text-muted">You can manage your content from here.</p>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-
+                    <a href="{{route('user.content.create')}}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add New</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-group">
                             <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                </div>
                                 <input class="form-control" placeholder="Search..." type="text" id="search">
                             </div>
                         </div>
@@ -33,8 +25,8 @@
                             <div class="col-md-12">
                                 <select class="form-control" id="category">
                                     <option value="">All Category</option>
-                                    @if($categorys)
-                                        @foreach($categorys as $category)
+                                    @if($categories)
+                                        @foreach($categories as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
                                     @endif
@@ -43,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col-sm-1">
-                        <a href="javascript:void(0);" class="btn btn-neutral" style="height: 45px;" onclick="return resetFilter();">Clear</a>
+                        <a href="javascript:void(0);" class="default-btn pull-left" onclick="return resetFilter();">Clear</a>
                     </div>
 
                 </div>
@@ -92,6 +84,27 @@
 */
 var pageno=1;
 $(document).ready(function() {
+
+    $(document).on('click','.delete-content',function(event) {
+
+        var contentId = $(this).attr('data-id');
+
+
+        swal({
+            title: "Are you sure?",
+            text: "Would you like to delete this content!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes, Delete it!',
+            cancelButtonText: "No, Cancel it!"
+        }).then((result) => {
+            if (result.value) {
+                deleteContent(contentId);
+            }
+        });
+    });
+
     $(document).on('click', '.pagination a',function(event){
         event.preventDefault();
 
@@ -126,6 +139,31 @@ function getData(){
         $("#content_data").html(data);
         $(".content-listing-loader").hide();
         //location.hash = page;
+    }).fail(function(jqXHR, ajaxOptions, thrownError){
+          //alert('No response from server');
+          $(".content-listing-loader").hide();
+    });
+}
+
+function deleteContent(id){
+    $(".content-listing-loader").show();
+    $.ajax(
+    {
+        url: '{{route("user.content.delete")}}',
+        type: "post",
+        datatype: "json",
+        data:{content_id:id},
+    }).done(function(data){
+
+        $(".content-listing-loader").hide();
+
+        if(data.status)
+        {
+            swal('Succes!!', data.message, 'success');
+            pageno=1;
+            getData();
+            return false;
+        }
     }).fail(function(jqXHR, ajaxOptions, thrownError){
           //alert('No response from server');
           $(".content-listing-loader").hide();

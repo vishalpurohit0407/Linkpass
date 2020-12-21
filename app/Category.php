@@ -51,6 +51,13 @@ class Category extends Authenticatable
         return $category_tree_array;
     }
 
+    public function categoryList()
+    {
+        $categories = $this->where('status' , '1')->orderBy('id', 'asc')->get();
+
+        return $categories;
+    }
+
     public function getIconUrlAttribute()
     {
         return (isset($this->icon) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->icon) ? Config('filesystems.disks.public.url').'/'.$this->icon : asset('assets/img/no_img.png'));

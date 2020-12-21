@@ -2,23 +2,28 @@
     @foreach($content as $item)
         <div class="col-lg-4 pb-5">
             <!-- Image-Text card -->
-            <a href="{{route('user.content.show',$item->id)}}">
+
                 <div class="card custom_card_front">
                     <!-- Card image -->
-                    <img class="card-img-top" src="{{asset($item->main_image_url)}}" alt="Image placeholder">
+                    <img class="card-img-top" src="{{asset($item->main_image_url)}}" alt="Image placeholder" height="250">
                     <!-- Card body -->
                     <div class="card-body">
-                        <h5 class="h2 card-title mb-0">{{ucfirst($item->main_title)}}</h5>
+                        <a href="{{route('user.content.show',$item->id)}}">
+                            <span class="content-title mb-0">{{ucfirst($item->main_title)}}</span>
+                        </a>
                         @php
-                        $category_id = $item->content_category->pluck('category_id')->toArray();
-                        $category_name = App\Category::whereIn('id',$category_id)->pluck('name')->toArray();
+                            $category_name = isset($item->content_category->name) ? $item->content_category->name : '';
                         @endphp
-                        <p class="card-text mt-4 text-uppercase text-muted h5">
-                            {{implode(', ',$category_name)}}
+                        <p class="card-text mt-2 text-uppercase text-muted font-12">
+                            {{$category_name}}
                         </p>
                     </div>
+                    <div class="card-footer text-center">
+                        <a href="{{route('user.content.edit', $item->hashid)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="javascript:void(0);" data-id={{$item->id}} class="btn btn-sm btn-danger delete-content"><i class="fa fa-trash"></i> Delete</a>
+                    </div>
                 </div>
-            </a>
+
         </div>
     @endforeach
 @else

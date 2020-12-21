@@ -86,19 +86,15 @@
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="ni ni-world"></i></span>
-                                <span class="alert-text">Website</span>
-                                <span class="alert-text-right"><strong>{{$content->website}}</strong></span>
+                                <span class="alert-text">Link</span>
+                                <span class="alert-text-right"><strong>{{$content->external_link}}</strong></span>
                             </div>
                             <div class="alert alert-secondary fade show" role="alert">
                                 <span class="alert-icon"><i class="fas fa-calendar"></i></span>
                                 <span class="alert-text">Posted At</span>
                                 <span class="alert-text-right"><strong>{{!empty($content->posted_at) ? date('j F, Y', strtotime($content->posted_at)) : ''}}</strong></span>
                             </div>
-                            <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-calendar"></i></span>
-                                <span class="alert-text">Published At</span>
-                                <span class="alert-text-right"><strong>{{!empty($content->posted_at) ? date('j F, Y', strtotime($content->published_at)) : ''}}</strong></span>
-                            </div>
+
                         </div>
                     </div>
                 </div>

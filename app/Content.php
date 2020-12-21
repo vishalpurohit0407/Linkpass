@@ -15,10 +15,10 @@ class Content extends Authenticatable
     protected $table = 'content';
 
     protected $fillable = [
-        'category_id', 'user_id', 'main_title', 'main_image', 'description', 'website', 'tags','introduction','introduction_video_type','introduction_video_link', 'status', 'posted_at', 'published_at'
+        'type', 'category_id', 'user_id', 'social_account_id', 'main_title', 'main_image', 'description', 'external_link', 'number_of_images', 'number_of_words', 'video_length', 'podcast_length', 'status', 'posted_at'
     ];
 
-    protected $appends = [ 'main_image_url', 'completion_content_count' ];
+    protected $appends = [ 'main_image_url' ];
 
     public function content_category()
     {
@@ -40,12 +40,8 @@ class Content extends Authenticatable
         return \App\ContentCompletion::where('content_id', $this->id)->count();
     }
 
-    public function content_step()
+    public function content_tags()
     {
-        return $this->hasMany('App\ContentSteps', 'content_id','id')->orderBy('step_no', 'asc');
-    }
-    public function content_flowchart()
-    {
-        return $this->hasOne('App\ContentFlowchart', 'content_id','id');
+        return $this->hasMany('App\ContentTags', 'content_id','id');
     }
 }

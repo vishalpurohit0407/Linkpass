@@ -122,9 +122,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->categoryParentChildTree();
-
-        return view('admin.category.add',array('title' => 'Category Add', 'categories' => $categories));
+        return view('admin.category.add',array('title' => 'Category Add'));
     }
 
 
@@ -201,9 +199,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $categories = $this->category->categoryParentChildTree();
-
-        return view('admin.category.edit',array('title' => 'Category Edit','categorydata'=>$category, 'categories' => $categories));
+        return view('admin.category.edit',array('title' => 'Category Edit','categorydata'=>$category));
     }
 
     /**

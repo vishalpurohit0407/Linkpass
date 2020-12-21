@@ -47,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('category', function ($value, $route) {
             return $this->getModel(\App\Category::class, $value);
         });
+
+        Route::bind('social-account', function ($value, $route) {
+            return $this->getModel(\App\SocialAccount::class, $value);
+        });
     }
 
     /**

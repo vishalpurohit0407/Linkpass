@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $menuCategories = Category::pluck('name', 'id');
+
+        view()->composer('layouts.header', function ($view) use($menuCategories) {
+            $view->with('menuCategories', $menuCategories);
+        });
     }
 }

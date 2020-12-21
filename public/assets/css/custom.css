@@ -342,6 +342,7 @@
 .drawing_wrapper {
     overflow: auto;
 }
+
 @media (min-width: 1200px) {
     .sidenav {
         max-width: 260px !important;

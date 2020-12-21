@@ -45,4 +45,14 @@ class LoginController extends Controller
     {
         return array_merge($request->only($this->username(), 'password'), ['status' => '1']);
     }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function creatorLogin()
+    {
+        return view('auth.login', array('isCreator' => 1));
+    }
 }
