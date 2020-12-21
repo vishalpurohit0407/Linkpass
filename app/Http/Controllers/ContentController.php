@@ -163,7 +163,7 @@ class ContentController extends Controller
     public function edit(Content $content)
     {
         $categories     = $this->category->categoryList();
-        $socialAccounts = $this->socialAccount->get();
+        $socialAccounts = $this->socialAccount->where('user_id', Auth::user()->id)->get();
         $contentTags    = $this->contentTags->where('content_id', $content->id)->orderBy('name','asc')->pluck('name');
         $contentTags    = $contentTags->count() > 0 ? implode(',', $contentTags->toArray()) :  '';
 

@@ -80,7 +80,7 @@
             @else
               <li>
                 <a href="{{url('register')}}">Sign Up</a>
-                <a href="{{url('creator-register')}}">Creator Sign <i class="fas fa-user"></i></a>
+                <a href="{{url('creator-register')}}">Creator Sign Up <i class="fas fa-user"></i></a>
               </li>
             @endif
 
