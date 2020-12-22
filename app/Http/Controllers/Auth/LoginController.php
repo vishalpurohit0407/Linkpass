@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -28,6 +30,13 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
+    /**
+     * Where to redirect users to profile page on first login.
+     *
+     * @var string
+     */
+    protected $redirectToProfile = '/profile';
 
     /**
      * Create a new controller instance.
@@ -54,5 +63,37 @@ class LoginController extends Controller
     public function creatorLogin()
     {
         return view('auth.login', array('isCreator' => 1));
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+
+        if(empty($this->guard()->user()->last_login_at) && $this->guard()->user()->is_creator)
+        {
+            $redirectUrl = $this->redirectToProfile;
+        }
+        else
+        {
+            $redirectUrl = $this->redirectPath();
+        }
+
+        User::where('id', $this->guard()->user()->id)->update(array('last_login_at' => Carbon::now()));
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect()->intended($redirectUrl);
     }
 }
