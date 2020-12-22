@@ -52,7 +52,7 @@ Route::group(['middleware' => ['admin']],function(){
 	]);
 
 	// User Module Routes
-	Route::get('/user/restore/{uuid?}','admin\UserController@userRestore')->name('admin.user.restore');
+	Route::get('/user/restore/{id?}','admin\UserController@userRestore')->name('admin.user.restore');
 	Route::post('/user/list/data/{status?}','admin\UserController@listdata')->name('admin.user.listdata');
 	Route::resource('/user', 'admin\UserController', [
 	    'names' => [
@@ -63,6 +63,21 @@ Route::group(['middleware' => ['admin']],function(){
 	        'update' => 'admin.user.update',
 	        'destroy' => 'admin.user.destroy',
 	        'show' => 'admin.user.show'
+	    ]
+	]);
+
+	// Creator Module Routes
+	Route::get('/creator/restore/{id?}','admin\CreatorController@creatorRestore')->name('admin.creator.restore');
+	Route::post('/creator/list/data/{status?}','admin\CreatorController@listdata')->name('admin.creator.listdata');
+	Route::resource('/creator', 'admin\CreatorController', [
+	    'names' => [
+	        'index' => 'admin.creator.list',
+	        'create' => 'admin.creator.create',
+	        'store' => 'admin.creator.store',
+	        'edit' => 'admin.creator.edit',
+	        'update' => 'admin.creator.update',
+	        'destroy' => 'admin.creator.destroy',
+	        'show' => 'admin.creator.show'
 	    ]
 	]);
 
