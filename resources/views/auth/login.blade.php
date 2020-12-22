@@ -81,7 +81,11 @@
               <a href="{{ route('password.request') }}" class=""><small>{{ __('Forgot Password?') }}</small></a>
             </div>
             <div class="col-6 text-right">
-                <a href="{{ route('register') }}" class=""><small>{{ __('Create New Account') }}</small></a>
+              @if($isCreator)
+              <a href="{{ route('creator-register') }}" class=""><small>{{ __('Create New Creator Account') }}</small></a>
+              @else
+              <a href="{{ route('register') }}" class=""><small>{{ __('Create New Account') }}</small></a>
+              @endif
             </div>
           </div>
         </div>
