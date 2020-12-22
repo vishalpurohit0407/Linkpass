@@ -9,7 +9,7 @@ use Hash;
 use Storage;
 use App\Common;
 
-class UserController extends Controller
+class CreatorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        return view('admin.user.list',array('title' => 'Users List','status'=>$request->status));
+        return view('admin.creator.list',array('title' => 'Creators List','status'=>$request->status));
     }
 
     public function listdata(Request $request)
@@ -31,7 +31,7 @@ class UserController extends Controller
                         4 => 'created_at',
                     );
 
-        $totalData = User::where('status','!=','3')->where('is_creator','0')->count();
+        $totalData = User::where('status','!=','3')->where('is_creator','1')->count();
 
         $totalFiltered = $totalData;
 
@@ -46,13 +46,13 @@ class UserController extends Controller
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->where('status','!=','3')
-                         ->where('is_creator','0')
+                         ->where('is_creator','1')
                          ->get();
         }
         else {
             $search = $request->input('search.value');
             $posts =  User::where('status','!=','3')
-                            ->where('is_creator','0')
+                            ->where('is_creator','1')
                             ->where(function ($query)  use ($search) {
                                 $query->where('email','LIKE',"%{$search}%")
                                     ->orWhere('name', 'LIKE',"%{$search}%");
@@ -63,7 +63,7 @@ class UserController extends Controller
                             ->get();
 
             $totalFiltered = User::where('status','!=','3')
-                            ->where('is_creator','0')
+                            ->where('is_creator','1')
                             ->where(function ($query) use ($search){
                                 $query->where('email','LIKE',"%{$search}%")
                                     ->orWhere('name', 'LIKE',"%{$search}%");
@@ -77,8 +77,8 @@ class UserController extends Controller
             $srnumber = $request->has('start') ? $request->get('start') * 1 + 1 : 1;
             foreach ($posts as $post)
             {
-                $destroy =  route('admin.user.destroy',$post->hashid);
-                $edit =  route('admin.user.edit',$post->hashid);
+                $destroy =  route('admin.creator.destroy',$post->hashid);
+                $edit =  route('admin.creator.edit',$post->hashid);
                 $token =  $request->session()->token();
 
                 $nestedData['id'] = $post->hashid;
@@ -120,7 +120,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.add',array('title' => 'Create User'));
+        return view('admin.creator.add',array('title' => 'Create Creator'));
     }
 
     /**
@@ -139,10 +139,11 @@ class UserController extends Controller
         ]);
         try {
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'status' => $request->status ? '1' : '0',
-                'password' => Hash::make($request->password),
+                'name'       => $request->name,
+                'email'      => $request->email,
+                'status'     => $request->status ? '1' : '0',
+                'is_creator' => '1',
+                'password'   => Hash::make($request->password)
             ]);
             if($user){
                 $file=$request->file('profile_img');
@@ -159,12 +160,12 @@ class UserController extends Controller
                     $user->profile_img = $path;
                     $user->save();
                 }
-                $request->session()->flash('alert-success', 'User Created successfully.');
+                $request->session()->flash('alert-success', 'Creator created successfully.');
             }
-            return redirect(route('admin.user.list'));
+            return redirect(route('admin.creator.list'));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('admin.user.list'));
+            return redirect(route('admin.creator.list'));
         }
     }
 
@@ -192,7 +193,7 @@ class UserController extends Controller
         ->select('users.email','dibil_requests.*','documents.document_name')
         ->where('recipient_id',$user->id)
         ->where('dibil_requests.status','1')->count();
-        return view('admin.user.detail',array('title' => 'User Detail','userdata'=>$user,'documents'=>$document,'shereNo'=>$shereNo,'receivedDoc'=>$receivedDoc));
+        return view('admin.creator.detail',array('title' => 'Creator Detail','userdata'=>$user,'documents'=>$document,'shereNo'=>$shereNo,'receivedDoc'=>$receivedDoc));
     }
 
     /**
@@ -207,7 +208,7 @@ class UserController extends Controller
         if (!$user) {
           return abort(404);
         }
-        return view('admin.user.edit',array('title' => 'Edit User','userdata'=>$user));
+        return view('admin.creator.edit',array('title' => 'Edit Creator','userdata'=>$user));
     }
 
 
@@ -256,12 +257,12 @@ class UserController extends Controller
             }
             if($user->save())
             {
-                $request->session()->flash('alert-success', 'User updated successfully.');
+                $request->session()->flash('alert-success', 'Creator updated successfully.');
             }
-            return redirect(route('admin.user.list'));
+            return redirect(route('admin.creator.list'));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('admin.user.list'));
+            return redirect(route('admin.creator.list'));
         }
     }
 
@@ -279,19 +280,19 @@ class UserController extends Controller
             }
 
             if ($user->delete()) {
-                $request->session()->flash('alert-success', 'User deleted successfully.');
+                $request->session()->flash('alert-success', 'Creator deleted successfully.');
             }
-            return redirect(route('admin.user.list'));
+            return redirect(route('admin.creator.list'));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('admin.user.list'));
+            return redirect(route('admin.creator.list'));
         }
     }
 
 
 
     public function deletedUser(){
-        return view('admin.user.deletedlist',array('title' => 'Deleted User List'));
+        return view('admin.creator.deletedlist',array('title' => 'Deleted Creator List'));
     }
 
     public function deletedUserlistdata(Request $request){
@@ -369,10 +370,10 @@ class UserController extends Controller
             {
                 $request->session()->flash('alert-success', 'User restored successfully.');
             }
-            return redirect(route('user.deleted.list'));
+            return redirect(route('creator.deleted.list'));
         } catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('user.deleted.list'));
+            return redirect(route('creator.deleted.list'));
         }
     }
 
@@ -412,7 +413,7 @@ class UserController extends Controller
         // echo "<pre>";print_r($dibilrequest->pluck('recipient_id'));exit();
 
         $shereuser = UserDetail::whereIn('user_id',$dibilrequest->pluck('recipient_id'))->get();
-       return view('admin.user.documentdetail',array('title' => 'User Document Details','document'=>$document,'shereuser'=>$shereuser, 'dibilrequest'=>$dibilrequest));
+       return view('admin.creator.documentdetail',array('title' => 'User Document Details','document'=>$document,'shereuser'=>$shereuser, 'dibilrequest'=>$dibilrequest));
     }
 
     public function userDocumentDelete(Request $request, $document_id){
@@ -428,12 +429,11 @@ class UserController extends Controller
                     Common::deleteImage($media_value->document_path);
                     $media_value->delete();
                 }
-
             }
-            return redirect(route('user.show',$user_id));
+            return redirect(route('creator.show',$user_id));
         } catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('user.show',$user_id));
+            return redirect(route('creator.show',$user_id));
         }
     }
 }
