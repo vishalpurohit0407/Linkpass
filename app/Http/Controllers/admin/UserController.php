@@ -8,6 +8,7 @@ use Response;
 use Hash;
 use Storage;
 use App\Common;
+use App\SocialAccount;
 
 class UserController extends Controller
 {
@@ -373,6 +374,25 @@ class UserController extends Controller
         } catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('user.deleted.list'));
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getAccountsByUserId($userId)
+    {
+        try {
+
+            $accounts = SocialAccount::where('user_id', $userId)->get();
+
+            return Response::json(['status' => true, 'accounts' => json_encode($accounts)]);
+
+        }catch (ModelNotFoundException $exception) {
+            return Response::json(['status' => false]);
         }
     }
 

@@ -47,11 +47,11 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link {{ Request::routeIs('admin.creator.*') ? 'active' : '' }}" href="#navbar-forms-user" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-user">
+              <a class="nav-link {{ Request::routeIs('admin.creator.*') ? 'active' : '' }}" href="#navbar-forms-creator" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms-user">
                 <i class="fas fa-users text-green"></i>
                 <span class="nav-link-text">Creators</span>
               </a>
-              <div class="collapse {{ Request::routeIs('admin.creator.*') ? 'show' : '' }}" id="navbar-forms-user" style="">
+              <div class="collapse {{ Request::routeIs('admin.creator.*') ? 'show' : '' }}" id="navbar-forms-creator" style="">
                 <ul class="nav nav-sm flex-column">
                   <li class="nav-item">
                     <a href="{{route('admin.creator.list')}}" class="nav-link {{ Request::routeIs('admin.creator.list') ? 'active' : '' }}">All Creators</a>
