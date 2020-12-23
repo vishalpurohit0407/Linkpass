@@ -81,6 +81,30 @@ class LoginController extends Controller
             return $response;
         }
 
+        // Validate Creator
+        if($request->get('is_creator') && $this->guard()->user()->is_creator == '0')
+        {
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            $this->incrementLoginAttempts($request);
+
+            return $this->sendFailedLoginResponse($request);
+        }
+
+        // Validate User
+        if(!$request->get('is_creator') && $this->guard()->user()->is_creator == '1')
+        {
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            $this->incrementLoginAttempts($request);
+
+            return $this->sendFailedLoginResponse($request);
+        }
+
         if(empty($this->guard()->user()->last_login_at) && $this->guard()->user()->is_creator)
         {
             $redirectUrl = $this->redirectToProfile;
