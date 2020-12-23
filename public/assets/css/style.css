@@ -1051,12 +1051,28 @@ main.main {
 	border-radius: 50%;
 	color: #FFF;
 }
-.owl-carousel .owl-nav button.owl-prev {
+/* .owl-carousel .owl-nav button.owl-prev {
 	top: 40%;
 	left: -15px;
 }
 .owl-carousel .owl-nav button.owl-next {
 	top: 40%;
+	right: -15px;
+} */
+.owl-category-carousel .owl-nav button.owl-prev {
+	top: 40%;
+	left: -15px;
+}
+.owl-category-carousel .owl-nav button.owl-next {
+	top: 40%;
+	right: -15px;
+}
+.owl-content-carousel .owl-nav button.owl-prev {
+	top: 28%;
+	left: -15px;
+}
+.owl-content-carousel .owl-nav button.owl-next {
+	top: 28%;
 	right: -15px;
 }
 .owl-theme .owl-nav {

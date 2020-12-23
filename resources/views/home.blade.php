@@ -37,7 +37,7 @@
         <h2 class="sec-title text-uppercase"><span>Latest</span></h2>
         <!--Start Slider-->
         @if($latest->count() > 0)
-        <div class="owl-one owl-carousel owl-theme">
+        <div class="owl-one owl-content-carousel owl-carousel owl-theme">
           <!--start carousel item-->
               @foreach ($latest as $item)
                 <div class="item">
@@ -74,7 +74,7 @@
         <h2 class="sec-title text-uppercase"><span>Trending</span></h2>
         <!--Start Slider-->
         @if($trending->count() > 0)
-        <div class="owl-one owl-carousel owl-theme">
+        <div class="owl-one owl-carousel owl-content-carousel owl-theme">
           <!--start carousel item-->
               @foreach ($trending as $item)
                 <div class="item">
@@ -112,7 +112,7 @@
         <h2 class="sec-title text-uppercase"><span>Category</span></h2>
         <!--Start Slider-->
         @if($categories->count() > 0)
-          <div class="owl-two owl-carousel owl-theme">
+          <div class="owl-two owl-carousel owl-category-carousel owl-theme">
             @foreach ($categories as $item)
             <!--start carousel item-->
             <div class="item">
