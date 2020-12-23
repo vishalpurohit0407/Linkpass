@@ -68,19 +68,19 @@
                                 </div>
 
                                 <div class="form-group @if($errors->has('user_id')) has-danger @endif">
-                                  <label class="form-control-label" for="user_id">Creator <strong class="text-danger">*</strong></label><br>
-                                  <select class="js-example-basic-single form-control @if($errors->has('user_id')) is-invalid @endif" id="user_id" name="user_id">
-                                    <option value="">Please Select Creator</option>
-                                    @if(count($users) > 0)
-                                      @foreach($users as $user)
-                                        <option value="{{$user['id']}}" @if($user['id'] == $content['user_id'])) selected @endif>{!! $user['name'] !!}</option>
-                                      @endforeach
+                                    <label class="form-control-label" for="user_id">Creator <strong class="text-danger">*</strong></label><br>
+                                    <select class="js-example-basic-single form-control @if($errors->has('user_id')) is-invalid @endif" id="user_id" name="user_id">
+                                      <option value="">Please Select Creator</option>
+                                      @if(count($users) > 0)
+                                        @foreach($users as $user)
+                                          <option value="{{$user['id']}}" @if($user['id'] == $content['user_id'])) selected @endif>{!! $user['name'] !!}</option>
+                                        @endforeach
+                                      @endif
+                                    </select>
+                                    @if($errors->has('user_id'))
+                                      <span class="invalid-feedback">{{ $errors->first('user_id') }}</span>
                                     @endif
-                                  </select>
-                                  @if($errors->has('user_id'))
-                                    <span class="invalid-feedback">{{ $errors->first('user_id') }}</span>
-                                  @endif
-                              </div>
+                                </div>
 
                                 <div class="form-group @if($errors->has('social_account_id')) has-danger @endif">
                                   <label class="form-control-label" for="social_account_id">Account <strong class="text-danger">*</strong></label><br>
@@ -92,7 +92,7 @@
                                       @endforeach
                                     @endif
                                   </select>
-                                  <span class="text-primary mb-0 text-right float-right small"><a id="add_new_account" href="javascript:void(0);">Add Account</a></span>
+                                  {{-- <span class="text-primary mb-0 text-right float-right small"><a id="add_new_account" href="javascript:void(0);">Add Account</a></span> --}}
                                   @if($errors->has('social_account_id'))
                                       <span class="invalid-feedback">{{ $errors->first('social_account_id') }}</span>
                                   @endif
@@ -332,6 +332,52 @@
 <script type="text/javascript">
 var content_id= '{{$content->id}}';
 $(document).ready(function() {
+
+    $( "#user_id" ).change(function() {
+      var user_id = $(this).val();
+
+      if(user_id != '')
+      {
+          var url = '{{route('admin.user.get-account', ':id')}}';
+
+            url = url.replace(":id", user_id);
+
+            $.ajax(
+            {
+                url: url,
+                type: "get",
+                datatype: "json",
+            }).done(function(data){
+
+              if(data.status)
+              {
+                var accounts = JSON.parse(data.accounts);
+
+                $('#social_account_id').empty().trigger('change');
+
+                var newOption = new Option('Please select account', '', false, false);
+                $('#social_account_id').append(newOption).trigger('change');
+
+                if(accounts.length > 0)
+                {
+                  for (i in accounts) {
+
+                    var newOption = new Option(accounts[i].name, accounts[i].id, false, false);
+                    $('#social_account_id').append(newOption).trigger('change');
+                  }
+                }
+
+              }
+
+            }).fail(function(jqXHR, ajaxOptions, thrownError){
+
+
+            });
+      }
+
+
+    });
+
 
     $( "#add_new_account" ).click(function() {
 

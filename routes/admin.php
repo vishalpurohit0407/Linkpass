@@ -53,6 +53,7 @@ Route::group(['middleware' => ['admin']],function(){
 
 	// User Module Routes
 	Route::get('/user/restore/{id?}','admin\UserController@userRestore')->name('admin.user.restore');
+	Route::get('/user/get-account/{id}','admin\UserController@getAccountsByUserId')->name('admin.user.get-account');
 	Route::post('/user/list/data/{status?}','admin\UserController@listdata')->name('admin.user.listdata');
 	Route::resource('/user', 'admin\UserController', [
 	    'names' => [
