@@ -29,7 +29,7 @@
       </div>
     </div>
   </section>
-  <!--Start main Part-->
+   <!--Start main Part-->
   <main class="main">
     <article class="container">
       <!--start Latest Section-->
@@ -81,11 +81,11 @@
                   <div class="SliderBox">
                     <div class="boximg"> <img src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.png')}}" alt="" class="w-100"> </div>
                     <div class="description">
-                      {{-- <h3><a href="{!! route('result.get-details', $item->id) !!}">{!! $item->main_title !!}</a></h3> --}}
-                      <h3><a href="javascript:void(0);">{!! $item->main_title !!}</a></h3>
+                      <h3><a href="{!! route('result.get-details', $item->id) !!}">{!! $item->main_title !!}</a></h3>
+                      {{-- <h3><a href="javascript:void(0);">{!! $item->main_title !!}</a></h3> --}}
                       <div class="d-flex align-items-center">
                         <div class="avtar"><img src="{{$item->content_user->user_image_url}}" class="rounded-circle"></div>
-                      <div> <a href="#">{{$item->content_user->name}}</a>
+                        <div> <a href="#">{{$item->content_user->name}}</a>
                           <p>{{$item->content_category->name}}</p>
                         </div>
                       </div>
@@ -139,5 +139,19 @@
     </article>
   </main>
   <!--End main Part-->
+@endsection
 
+@section('pagewise_js')
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var alertMsg = "{!! Session::has('alert-danger') ? Session::get('alert-danger') : '' !!}";
+
+    if(alertMsg != '')
+    {
+      swal('Error!', alertMsg, 'error');
+      return false;
+    }
+});
+</script>
 @endsection

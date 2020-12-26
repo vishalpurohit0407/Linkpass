@@ -390,7 +390,7 @@ $(document).ready(function() {
           var acc_name = $('#acc_name').val();
           var newOption = new Option(acc_name, acc_name, false, false);
           $('#social_account_id').append(newOption).trigger('change');
-      });;
+      });
 
     });
 

@@ -4,6 +4,21 @@
 
             #printable { display: none; }
 
+            #more {display: none;}
+
+            /* HIDE RADIO */
+            [type=radio] {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            /* IMAGE STYLES */
+            [type=radio] + img {
+                cursor: pointer;
+            }
+
             @media print
             {
                 #non-printable { display: none; }
@@ -12,261 +27,261 @@
         </style>
 @endsection
 @section('content')
-<div class="header bg-primary pb-6">
-    <div class="container-fluid">
-        <div class="header-body">
-            <div class="row align-items-center py-4">
-                <div class="col-lg-8 col-10">
-                    <h6 class="h2 text-white d-inline-block mb-0">Content Details</h6>
-                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{route('results')}}">Content</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{!! $content->main_title !!}</li>
-                        </ol>
-                    </nav>
-                </div>
-                <div class="col-lg-3 col-2 text-right">
 
-                </div>
-            </div>
+<div class="container-fluid mt--6">
+
+    <div class="row mt20">
+        <div class="col-md-6"><span class="normal-title">{!! isset($content->content_account->name) ? $content->content_account->name : ''!!}</span></div>
+        <div class="col-md-6 text-right">
+            <div class="avtar"><img src="{{$content->content_user->user_image_url}}" width="50" class="rounded-circle"></div>
         </div>
     </div>
-</div>
-<div class="container-fluid mt--6">
-    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-        @if(Session::has('alert-' . $msg))
-             <div class="alert alert-custom alert-{{ $msg }} alert-dismissible alert-dismissible fade show mb-2" role="alert">
-                <div class="alert-text">{{ Session::get('alert-' . $msg) }}</div>
-                <div class="alert-close">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-            </div>
-        @endif
-    @endforeach
-    <!-- Card stats -->
-    <div class="card">
-        <div class="card-header">
-            <div class="row align-items-center">
-                <div class="col-8">
-                    <h5 class="h3 mb-0">{{$content->main_title}}</h5>
-                </div>
-                <div class="col-4 text-right">
-                    <a href="{!! route('results') !!}" class="btn btn-sm btn-neutral">Back</a>
-                </div>
-            </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{!! $content->main_title !!}</h4>
         </div>
-        <div class="p-4 " id="printableArea">
-            <div class="row">
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                    <div class="tuto-main-image noprint">
-                        <a class="image" href="" id="lightgallery" data-image="{{asset($content->main_image_url)}}" data-maintitle="{{$content->main_title}}" >
-                            <img class="img-fluid" style="filter: blur(0px);" src="{{asset($content->main_image_url)}}">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-7 col-sm-7 col-xs-12">
-                    <div class="tuto-details-box">
-                        <p class="mt-0">{{$content->description}}</p>
-                        <div class="tuto-items-container">
-                            <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-user"></i></span>
-                                <span class="alert-text">Author</span>
-                                <span class="alert-text-right"><strong>{{ isset($content->content_user->name) ? $content->content_user->name : ''}}</strong></span>
-                            </div>
-                            <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-tag"></i></span>
-                                <span class="alert-text">Category</span>
-                                @php
-                                    $category_name = !empty($content->content_category->name) ? $content->content_category->name : '';
-                                @endphp
-                                <span class="alert-text-right"><strong>{{ $category_name }}</strong></span>
-                            </div>
-                            <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="ni ni-world"></i></span>
-                                <span class="alert-text">Link</span>
-                                <span class="alert-text-right"><strong>{{$content->external_link}}</strong></span>
-                            </div>
-                            <div class="alert alert-secondary fade show" role="alert">
-                                <span class="alert-icon"><i class="fas fa-calendar"></i></span>
-                                <span class="alert-text">Posted At</span>
-                                <span class="alert-text-right"><strong>{{!empty($content->posted_at) ? date('j F, Y', strtotime($content->posted_at)) : ''}}</strong></span>
-                            </div>
+    </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div id="Introduction" class="mt-4">
-                @if($content->introduction)
-                    <h2 class="display-3 mb-0">Summary</h2>
-                    <p>{!!$content->introduction!!}</p>
-                    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{{asset($content->main_image_url)}}" height="500" width="100%" />
+        </div>
+    </div>
+
+    <div class="row mt20">
+        <div class="col-md-4">
+            <span class="posted-date w100p pull-left mb10">{{date('d M Y', strtotime($content->created_at))}}</span>
+
+            <label>
+                @php
+                    $image1 = $avgRating >= 1 ? asset('assets/img/sad-red.png') : asset('assets/img/sad.png');
+                @endphp
+                <img class="rating-img1" src="{{$image1}}">
+            </label>
+
+            <label>
+                @php
+                    $image2 = $avgRating >= 2 ? asset('assets/img/neutral-red.png') : asset('assets/img/neutral.png');
+                @endphp
+                <img class="rating-img1" src="{{$image2}}">
+            </label>
+
+            <label>
+                @php
+                    $image3 = $avgRating >= 3 ? asset('assets/img/neutral-red.png') : asset('assets/img/neutral.png');
+                @endphp
+                <img class="rating-img1" src="{{$image3}}">
+            </label>
+
+            <label>
+                @php
+                    $image4 = $avgRating >= 4 ? asset('assets/img/happy-red.png') : asset('assets/img/happy.png');
+                @endphp
+                <img class="rating-img1" src="{{$image4}}">
+            </label>
+
+            <label>
+                @php
+                    $image5 = $avgRating >= 5 ? asset('assets/img/happy-red.png') : asset('assets/img/happy.png');
+                @endphp
+                <img class="rating-img1" src="{{$image5}}">
+            </label>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <div class="disabled-wrap content-actions">
+                @if(!isset($content->content_user_like->id))
+                    <a href="javascript:void(0);" data-action="1" class="mr20 content-action"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></a>
                 @endif
-                @if($content->introduction_video_link)
-                    <h2 class="display-3 mb-0">Video overview</h2>
-                    @php
-                        $videoUrl = $content->introduction_video_link;
-                        $videoUrl = getYoutubeOrVimeoFromURL($videoUrl);
-                    @endphp
 
-                    <div class="embed-responsive embed-responsive-16by9" id="non-printable">
-                        <iframe class="embed-responsive-item" class="text-center" src="{{$videoUrl}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <hr>
+                @if(!isset($content->content_user_unlike->id))
+                    <a href="javascript:void(0);" data-action="2" class="mr20 content-action"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i></a>
+                @endif
+
+                @if(!isset($content->content_user_inappropriate->id))
+                <a href="javascript:void(0);" data-action="3" class="content-action"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></a>
                 @endif
             </div>
+            <span class="w100p content-actions-text">Like, Unlike, Mark as Inappropriate After</span>
+            <div id="viewTimer" class="viewTimer content-actions-timer">{{$timeToread}}:00</div>
+            {{-- <div id="viewTimer" class="viewTimer content-actions-timer">00:05</div> --}}
 
-            @if($content->content_step)
-            @php $step = 1; @endphp
-                @foreach($content->content_step as $stepkey => $stepdata)
-                    <div id="Step_{{$step}}_-_{{\Str::slug($stepdata->title, '_')}}" class="mt-4">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <div id="carousel-step{{$step}}" class="carousel slide carousel-fade carousel-thumbnails carousel-thumbnails-bottom" data-ride="carousel" data-interval="false">
-                                      <!--Slides-->
-                                      <div class="carousel-inner lightgallery" style="cursor: pointer;" data-id="{{$stepdata->id}}" title="Show Image">
-                                        @if($stepdata->media)
-                                            @foreach($stepdata->media as $media)
+        </div>
 
-                                            @php
-                                                $extension       = pathinfo(storage_path($media->media_url), PATHINFO_EXTENSION);
-                                                $audioExtensions = config('default.audio_extensions');
-                                                $mediaUrl        = asset($media->media_url);
-                                            @endphp
+        <div class="col-md-4 text-right">
+            @if(!isset($content->content_user_keep->id))
+                <a href="javascript:void(0);" data-action="4" class="mr20 content-action"><i class="fa fa-lightbulb fa-lg" aria-hidden="true"></i></a>
+            @endif
 
-                                                @if(!empty($audioExtensions) && !empty($extension) && in_array($extension, $audioExtensions))
-                                                {
-                                                    <div class="carousel-item @if($loop->first) active @endif">
-                                                        <div class="d-block">
-                                                            <audio controls>
-                                                                <source src="{!! $mediaUrl !!}" type="audio/mpeg">
-                                                                Your browser does not support the audio element.
-                                                            </audio>
-                                                        </div>
-                                                    </div>
-                                                }
-                                                @else
-                                                    <div class="carousel-item @if($loop->first) active @endif">
-                                                        <img class="d-block" src="{!! $mediaUrl !!}" alt="First slide">
-                                                    </div>
-                                                @endif
-
-                                            @endforeach
-                                        @endif
-
-                                        @if($stepdata->video_media)
-                                            <div class="carousel-item @if(count($stepdata->media) == 0) active @endif step-item-video">
-                                                @php $videoUrl = getYoutubeOrVimeoFromURL($stepdata->video_media); @endphp
-                                                <iframe class="embed-responsive-item" class="text-center" src="{{$videoUrl}}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                            </div>
-                                        @endif
-                                      </div>
-                                      <!--/.Slides-->
-                                      <!--/.Controls-->
-                                      <ol class="carousel-indicators">
-                                        @if($stepdata->media)
-                                        @php $dataslide = 0; @endphp
-                                            @foreach($stepdata->media as $media)
-                                                @php
-                                                    $extension       = pathinfo(storage_path($media->media_url), PATHINFO_EXTENSION);
-                                                    $audioExtensions = config('default.audio_extensions');
-                                                    $thumbUrl        = asset($media->media_url);
-
-                                                    if(!empty($audioExtensions) && !empty($extension) && in_array($extension, $audioExtensions))
-                                                    {
-                                                        $thumbUrl = asset('assets/img/icons/audio.png');
-                                                    }
-                                                @endphp
-
-                                                <li data-target="#carousel-step{!! $step !!}" onmouseover="bigImg(this,'image')" data-slide-to="{{$dataslide}}" @if($loop->first) class="active" @endif >
-                                                    <img class="d-block" src="{!! $thumbUrl !!}" class="img-fluid">
-                                                </li>
-
-                                                @php $dataslide++; @endphp
-                                            @endforeach
-                                        @endif
-
-                                        @if($stepdata->video_media)
-                                            <li data-target="#carousel-step{{$step}}" onmouseover="bigImg(this,'video')" data-slide-to="{{$dataslide}}" class="step-video-li">
-                                                <img class="d-block img-fluid step-video-icon" src="{{asset('assets/img/icons/'.$stepdata->video_type.'.png')}}" >
-                                            </li>
-                                        @endif
-                                      </ol>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-{{(count($stepdata->media) > 0 || $stepdata->video_media != '') ? '6' : '12'}} step-instructions">
-                                <h3 class="display-4">Media {{$step}} - {{$stepdata->title}}</h3>
-                            </div>
-                        </div>
-                    </div>
-                   @if($stepdata != $loop->last) <hr> @endif
-                @php $step++; @endphp
-                @endforeach
+            @if(!isset($content->content_user_remove->id))
+                <a href="javascript:void(0);" data-action="5" class="content-action"><i class="fa fa-ban fa-lg" aria-hidden="true"></i></a>
             @endif
         </div>
     </div>
-</div>
+
+    <div class="row mt20">
+        <div class="col-md-12">
+            <span class="posted-date">{{date('d M Y', strtotime($content->posted_at))}}</span>
+        </div>
+        <div class="col-md-12 mt10">
+            @if(strlen($content->description) > 500)
+            <p>
+                {!! Str::limit($content->description, 500,'<span id="dots">...</span>'); !!}
+                <span id="more">{!!substr($content->description, 502);!!}</span>
+            </p>
+            <p class="text-center">
+                <a href="javascript:void(0);" class="readMoreBtn" onclick="descriptionToggle()" id="readMoreBtn"><i class='fa fa-plus-circle fa-lg'></i></a>
+            </p>
+            @else
+                {!! $content->description !!}
+            @endif
+        </div>
+    </div>
+
+    <hr class="mt20 mb20" />
+
+    <div class="row">
+        <div class="col-md-12 mb10">
+            <span class="normal-title">Rating</span>
+        </div>
+        <div class="col-md-2">
+            <label>
+                <input type="radio" class="rating" name="rating" value="1">
+                <img class="rating-img" src="{{asset('assets/img/sad.png')}}">
+            </label>
+
+            <label>
+                <input type="radio" class="rating" name="rating" value="2">
+                <img class="rating-img" src="{{asset('assets/img/neutral.png')}}">
+            </label>
+
+            <label>
+                <input type="radio" class="rating" name="rating" value="3">
+                <img class="rating-img" src="{{asset('assets/img/neutral.png')}}">
+            </label>
+
+            <label>
+                <input type="radio" class="rating" name="rating" value="4">
+                <img class="rating-img" src="{{asset('assets/img/happy.png')}}">
+            </label>
+
+            <label>
+                <input type="radio" class="rating" name="rating" value="5">
+                <img class="rating-img" src="{{asset('assets/img/happy.png')}}">
+            </label>
+        </div>
+
+        <div class="col-md-6">
+            <input class="form-control" type="text" name="rating-text" id="rating-text" />
+        </div>
+        <div class="col-md-3">
+            <button name="saveRating" id="saveRating" class="default-btn">Give a Rate</button>
+        </div>
+    </div>
+
+    <hr class="mt20 mb20" />
+
+    <div class="row">
+        <div class="col-md-12">
+           <span class="normal-title"> <span class="ratingsCount">{{$totalRatings}}</span> Ratings </span>
+        </div>
+    </div>
+
+    <div id="ratings_data" class="ratings_data">
+        <div class="row">
+            @include('content.content_rating_data')
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                {!! $contentRatings->links() !!}
+            </ul>
+        </nav>
+    </div>
+ </div>
+
 @endsection
 
 @section('pagewise_js')
 <script type="text/javascript">
-var elementArr = new Array();
-    @php
-        if($content->content_step){
-            foreach($content->content_step as $stepdata){
-                if($stepdata->media){
-    @endphp
-                    var mediaArr = new Array();
-    @php
-                    foreach ($stepdata->media as $media){
-    @endphp
-                        mediaArr.push({src: '{{asset($media->media_url)}}', thumb: '{{asset($media->media_url)}}', subHtml : '{{$stepdata->title}}'});
-    @php
-                    }
-                }
-    @endphp
-                elementArr['{{$stepdata->id}}'] = mediaArr;
-    @php
-            }
-        }
-    @endphp
+var pageno=1;
+
 jQuery(document).ready(function($){
-    $('.lightgallery').on('click', function(e) {
-        e.preventDefault();
-        var ids = $(this).data('id');
 
-        $(this).lightGallery({
-            dynamic: true,
-            dynamicEl: elementArr[ids],
-            download:false,
-            fullScreen:false,
-            zoom:false,
-            share:false,
-            autoplay:false,
-            autoplayControls:false,
-        })
+    $(document).on('click', '.pagination a',function(event){
+        event.preventDefault();
+
+        $('li').removeClass('active');
+        $(this).parent('li').addClass('active');
+
+        var myurl = $(this).attr('href');
+        pageno=$(this).attr('href').split('page=')[1];
+        getRatingsData();
     });
 
-    $('#lightgallery').on('click', function(e) {
-        e.preventDefault();
-        var url = $(this).data('image');
-        var title = $(this).data('maintitle');
+    setTimeout(countDownTimer, 1000);
 
-        $(this).lightGallery({
-            dynamic: true,
-            dynamicEl: [{src: url, thumb: url, subHtml : title}],
-            download:false,
-            fullScreen:false,
-            zoom:false,
-            share:false,
-            autoplay:false,
-            autoplayControls:false,
-        })
+    $(".rating").click(function(e){
+        e.preventDefault();
+        $(".rating").removeClass('checked');
+        $(this).addClass('checked');
+        $('.rating-img').css('border', 'none');
+        $(this).next('.rating-img').css('border-bottom', '2px solid red');
     });
+
+    $(".content-action").click(function(e){
+        e.preventDefault();
+        var action = $(this).attr('data-action');
+
+        saveContentAction(this, action);
+    });
+
+
+
+    $( "#saveRating" ).click(function() {
+
+        var rating      =  $('.rating.checked');
+        var ratingText  =  $('#rating-text').val();
+        var content_id  = '{{ $content->id }}'
+
+        if(rating.length == 0)
+        {
+            swal('Error!', 'Please give a rating', 'error');
+            return false;
+        }
+
+        $.ajax(
+        {
+            url: '{{route("user.content.save-rating")}}',
+            type: "post",
+            datatype: "json",
+            data:{content_id : content_id, rating : rating.val(), ratingText : ratingText},
+        }).done(function(data){
+
+            if(data.status)
+            {
+                swal('Succes!!', data.message, 'success');
+
+                $('.ratingsCount').html(data.ratingsCount);
+
+                $(".rating").removeClass('checked');
+                $('.rating-img').css('border', 'none');
+                $('#rating-text').val('');
+                pageno=1;
+                getRatingsData();
+
+                return false;
+            }
+            else
+            {
+                swal('Error!!', data.message, 'error');
+                return false;
+            }
+        }).fail(function(jqXHR, ajaxOptions, thrownError){
+
+        });
+    });
+
 
     $(".togglelink").click(function(e){
         e.preventDefault();
@@ -291,6 +306,45 @@ jQuery(document).ready(function($){
     });
 });
 
+function countDownTimer() {
+
+    var $worked = $("#viewTimer");
+
+    var myTime = $worked.html();
+    var ss = myTime.split(":");
+
+    if(parseInt(ss[0]) == 0 && parseInt(ss[1]) == 0)
+    {
+        $('.content-actions').removeClass('disabled-wrap');
+        $('.content-actions-text').remove();
+        $('.content-actions-timer').remove();
+
+        return false;
+    }
+
+    var dt = new Date();
+    dt.setHours(0);
+    dt.setMinutes(ss[0]);
+    dt.setSeconds(ss[1]);
+
+    var dt2 = new Date(dt.valueOf() - 1000);
+    var temp = dt2.toTimeString().split(" ");
+    var ts = temp[0].split(":");
+
+    $worked.html(ts[1]+":"+ts[2]);
+
+    if(parseInt(ts[1]) == 0 && parseInt(ts[2]) == 0)
+    {
+        $('.content-actions').removeClass('disabled-wrap');
+        $('.content-actions-text').remove();
+        $('.content-actions-timer').remove();
+
+        return false;
+    }
+
+    setTimeout(countDownTimer, 1000);
+}
+
 function bigImg(x,type) {
     x.click();
 
@@ -305,6 +359,107 @@ function printDiv(divName) {
     window.print();
 
     document.body.innerHTML = originalContents;
+}
+
+function descriptionToggle() {
+  var dots      = document.getElementById("dots");
+  var moreText  = document.getElementById("more");
+  var btnText   = document.getElementById("readMoreBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display      = "inline";
+    btnText.innerHTML       = "<i class='fa fa-plus-circle fa-lg'></i>";
+    moreText.style.display  = "none";
+  } else {
+    dots.style.display      = "none";
+    btnText.innerHTML       = "<i class='fa fa-minus-circle fa-lg'></i>";
+    moreText.style.display  = "inline";
+  }
+}
+
+function getRatingsData()
+{
+    $.ajax(
+    {
+        url: '{{ route("user.content.get-ratings") }}',
+        type: "get",
+        datatype: "html",
+        data:{page:pageno},
+    }).done(function(data){
+        $("#ratings_data").html(data);
+
+        //location.hash = page;
+    }).fail(function(jqXHR, ajaxOptions, thrownError){
+        //alert('No response from server');
+
+    });
+}
+
+function saveContentAction(element, action){
+
+    var text       = '';
+    var content_id = '{{ $content->id }}'
+
+    switch(action) {
+    case '1':
+        text = "Would you like to marked as a 'Like' this content?";
+        break;
+    case '2':
+        text = "Would you like to marked as a 'Unlike' this content?";
+        break;
+    case '3':
+        text = "Would you like to marked as a 'InAppropriate' this content?";
+        break;
+    case '4':
+        text = "Would you like to Keep this content?";
+        break;
+    case '5':
+        text = "Would you like to Remove this content?";
+        break;
+
+    }
+
+    if(text.length > 0)
+    {
+        swal({
+            title: "Are you sure?",
+            text: text,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes',
+            cancelButtonText: "No, Cancel it!"
+        }).then((result) => {
+            if (result.value) {
+                $.ajax(
+                {
+                    url: '{{route("user.content.save-action")}}',
+                    type: "post",
+                    datatype: "json",
+                    data:{content_id : content_id, action : action},
+                }).done(function(data){
+
+                    if(data.status)
+                    {
+                        swal('Succes!!', data.message, 'success');
+
+                        $(element).remove();
+
+                        return false;
+                    }
+                    else
+                    {
+                        swal('Error!!', data.message, 'error');
+                        return false;
+                    }
+                }).fail(function(jqXHR, ajaxOptions, thrownError){
+
+                });
+            }
+        });
+    }
+
+
 }
 </script>
 @endsection

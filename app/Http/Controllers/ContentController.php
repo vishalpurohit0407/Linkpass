@@ -6,6 +6,8 @@ use App\Content;
 use App\Category;
 use App\SocialAccount;
 use App\ContentTags;
+use App\ContentRatings;
+use App\ContentAction;
 use App\User;
 use Illuminate\Http\Request;
 use Response;
@@ -24,6 +26,7 @@ class ContentController extends Controller
         $this->socialAccount    = new SocialAccount();
         $this->content          = new Content();
         $this->contentTags      = new ContentTags();
+        $this->contentRatings   = new ContentRatings();
         $this->user             = new User();
     }
 
@@ -289,5 +292,59 @@ class ContentController extends Controller
         }
 
         return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
+    }
+
+    public function saveRating(Request $request)
+    {
+       if(!isset(Auth::user()->id))
+       {
+            return Response::json(['status' => false, 'message' => 'Please login to give rating.']);
+       }
+
+       $rating = ContentRatings::create([
+           'content_id' => $request->get('content_id'),
+           'user_id'    => Auth::user()->id,
+           'rating'     => $request->get('rating'),
+           'title'      => $request->get('ratingText'),
+       ]);
+
+       if(isset($rating->id))
+       {
+            $ratingsCount = contentRatings::count();
+
+            return Response::json(['status' => true, 'message' => 'Rating has been saved successfully.', 'ratingsCount' => $ratingsCount]);
+       }
+
+       return Response::json(['status' => false, 'message' => 'Something went wrong.']);
+    }
+
+    public function saveAction(Request $request)
+    {
+       if(!isset(Auth::user()->id))
+       {
+            return Response::json(['status' => false, 'message' => 'Please login to save action.']);
+       }
+
+       $action = ContentAction::create([
+           'content_id' => $request->get('content_id'),
+           'user_id'    => Auth::user()->id,
+           'action'     => $request->get('action')
+       ]);
+
+       if(isset($action->id))
+       {
+            return Response::json(['status' => true, 'message' => 'The content action has been saved successfully.']);
+       }
+
+       return Response::json(['status' => false, 'message' => 'Something went wrong.']);
+    }
+
+    public function getRatings(Request $request){
+
+        $contentRatings = $this->contentRatings;
+
+        $contentRatings=$contentRatings->orderBy('created_at', 'desc')->paginate(5);
+
+        return view('content.ajax-rating-list',array('contentRatings' => $contentRatings));
     }
 }

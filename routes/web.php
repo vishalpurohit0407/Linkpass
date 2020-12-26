@@ -26,6 +26,10 @@ Route::get('/trending', 'HomeController@getTrendingResults')->name('trending');
 Route::get('/results', 'HomeController@getResults')->name('results');
 Route::get('/results/{id}', 'HomeController@getContentDetails')->name('result.get-details');
 
+Route::post('/content/save-rating','ContentController@saveRating')->name('user.content.save-rating');
+Route::get('/content/get-ratings','ContentController@getRatings')->name('user.content.get-ratings');
+Route::post('/content/save-action','ContentController@saveAction')->name('user.content.save-action');
+
 Route::group(['middleware' => 'auth'], function () {
 
 	// Profile Routes
