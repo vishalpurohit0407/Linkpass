@@ -131,7 +131,7 @@
           </div>
         @endif
         <!--End Slider-->
-        <div class="sepline d-flex align-items-center"> <span></span> <a href="javascript:void(0)" class="btn btn-secondary rounded-30">VIEW ALL</a> </div>
+        <div class="sepline d-flex align-items-center"> <span></span> <a href="{{route('categories')}}" class="btn btn-secondary rounded-30">VIEW ALL</a> </div>
       </section>
       <!--End Trending Section-->
     </article>

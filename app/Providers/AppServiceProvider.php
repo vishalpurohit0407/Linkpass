@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $menuCategories = Category::pluck('name', 'id');
+        $menuCategories = Category::where('status', '1')->orderBy('name', 'asc')->get();
 
         view()->composer('layouts.header', function ($view) use($menuCategories) {
             $view->with('menuCategories', $menuCategories);

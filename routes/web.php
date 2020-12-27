@@ -21,6 +21,8 @@ Route::get('/creator-login', 'Auth\LoginController@creatorLogin')->name('creator
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/categories', 'HomeController@getCategories')->name('categories');
+Route::get('/categories/{id}', 'HomeController@getContentsByCategory')->name('categories.get-items');
 Route::get('/latest', 'HomeController@getLatestResults')->name('latest');
 Route::get('/trending', 'HomeController@getTrendingResults')->name('trending');
 Route::get('/results', 'HomeController@getResults')->name('results');

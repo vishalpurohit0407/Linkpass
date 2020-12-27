@@ -54,12 +54,12 @@
             <ul class="main-menu">
               <li class="bg hover-bg active"><a href="{{url('')}}">Home</a></li>
               <li class="bg hover-bg"><a href="{{url('about-us')}}">About</a></li>
-              <li class="bg hover-bg"><a href="#" class="down">Category</a>
+              <li class="bg hover-bg"><a href="{{route('categories')}}" class="down">Category</a>
                 <ul>
 
                   @if(isset($menuCategories) && $menuCategories->count() > 0)
-                    @foreach ($menuCategories as $k => $v)
-                      <li><a href="#">{{$v}}</a></li>
+                    @foreach ($menuCategories as $item)
+                      <li><a href="{{route('categories.get-items', $item->hashid)}}">{{$item->name}}</a></li>
                     @endforeach
                   @endif
                 </ul>

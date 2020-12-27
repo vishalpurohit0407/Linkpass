@@ -33,8 +33,8 @@ class HomeController extends Controller
     {
         //return view('coming_soon');
 
-        $latest     = $this->content->where('status', '1')->limit(12)->orderBy('posted_at', 'desc')->get();
-        $trending   = $this->content->where('status', '1')->limit(12)->orderBy('posted_at', 'desc')->get();
+        $latest     = $this->content->where('status', '1')->doesntHave('content_user_remove')->limit(12)->orderBy('posted_at', 'desc')->get();
+        $trending   = $this->content->where('status', '1')->doesntHave('content_user_remove')->limit(12)->orderBy('posted_at', 'desc')->get();
         $categories = $this->category->limit(12)->orderBy('name', 'asc')->get();
 
         return view('home', array('latest' => $latest, 'trending' => $trending, 'categories' => $categories));
@@ -62,6 +62,39 @@ class HomeController extends Controller
         $results = $this->content->where('status', '1')->orderBy('posted_at', 'desc')->get();
 
         return view('results', array('results' => $results));
+    }
+
+    /**
+     * Get Catego.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getCategories()
+    {
+        $categories = $this->category->where('status', '1')->orderBy('name', 'asc')->get();
+
+        return view('categories', array('categories' => $categories));
+    }
+
+    /**
+     * Get the Contents By Category.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getContentsByCategory($id)
+    {
+        $id = Hashids::decode($id);
+
+        $category = $this->category->where('id' , $id)->first();
+        $categoryName = isset($category->id) ? $category->name : '';
+
+        $query = $this->content;
+        $query = $query->where('status', '1');
+        $query = $query->where('category_id', $id);
+
+        $results = $query->orderBy('main_title', 'asc')->get();
+
+        return view('category_contents', array('results' => $results, 'categoryName' => $categoryName));
     }
 
     /**

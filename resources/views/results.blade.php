@@ -8,9 +8,6 @@
             <div class="col-md-10 col-lg-8 mx-auto pr-0">
                 <div class="form-group">
                     <div class="input-group input-group-merge">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
                         <input class="form-control" name="search" placeholder="Search" type="text">
                     </div>
                 </div>
