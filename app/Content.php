@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Config;
 use Storage;
+use Auth;
 
 class Content extends Authenticatable
 {
@@ -43,5 +44,40 @@ class Content extends Authenticatable
     public function content_tags()
     {
         return $this->hasMany('App\ContentTags', 'content_id','id');
+    }
+
+    public function content_account()
+    {
+        return $this->belongsTo('App\SocialAccount', 'social_account_id');
+    }
+
+    public function content_ratings()
+    {
+        return $this->hasMany('App\ContentRatings', 'content_id','id')->orderBy('id', 'desc');
+    }
+
+    public function content_user_like()
+    {
+        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '1')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
+    }
+
+    public function content_user_unlike()
+    {
+        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '2')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
+    }
+
+    public function content_user_inappropriate()
+    {
+        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '3')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
+    }
+
+    public function content_user_keep()
+    {
+        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '4')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
+    }
+
+    public function content_user_remove()
+    {
+        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '5')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
     }
 }

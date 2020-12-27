@@ -415,11 +415,60 @@ hr {
 .mb60 {
 	margin-bottom: 60px;
 }
+.mt10 {
+	margin-top: 10px;
+}
+.mb10 {
+	margin-bottom: 10px;
+}
+.ml10 {
+	margin-left: 10px;
+}
+.mr10 {
+	margin-right: 10px;
+}
+.mt20 {
+	margin-top: 20px;
+}
+.mb20 {
+	margin-bottom: 20px;
+}
+.ml20 {
+	margin-left: 20px;
+}
+.mr20 {
+	margin-right: 20px;
+}
 .pt60 {
 	padding-top: 60px;
 }
 .pb60 {
 	padding-bottom: 60px;
+}
+.readMoreBtn{
+	color: #ca082a;
+}
+.ratings_data{
+	border: 1px solid #DDD;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.posted-date{
+	color: #28B0E6;
+	font-size: 14px;
+	font-weight: bold;
+}
+.w100p
+{
+	width: 100%;
+}
+.disabled-wrap{
+	pointer-events: none;
+    opacity: 0.4;
+}
+.viewTimer{
+	font-weight: bold;
 }
 .no-padding {
 	padding: 0 !important;
@@ -957,6 +1006,12 @@ main.main {
 	top: 0;
 	left: 0;
 }
+
+.font-14
+{
+    font-size: 14px;
+}
+
 /*============= End Titel =============*/
 
 .SliderBox {
@@ -1201,6 +1256,12 @@ footer {
 .form-control-label
 {
     font-weight: bold !important;
+}
+
+.normal-title
+{
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .label {
