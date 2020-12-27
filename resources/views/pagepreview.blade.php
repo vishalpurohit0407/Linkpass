@@ -17,7 +17,6 @@
         </div>
       </div>
     </div>
-
   </div>
   <!-- Page content -->
   <div class="container">
