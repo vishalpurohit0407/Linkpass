@@ -168,7 +168,7 @@
 
     <hr class="mt20 mb20" />
 
-    <div class="row">
+    <div class="row disabled-wrap">
         <div class="col-md-12 mb10">
             <span class="normal-title">Rating</span>
         </div>
