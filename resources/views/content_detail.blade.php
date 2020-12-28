@@ -4,7 +4,7 @@
 
             #printable { display: none; }
 
-            #more {display: none;}
+            #full_description {display: none;}
 
             /* HIDE RADIO */
             [type=radio] {
@@ -31,7 +31,7 @@
 <div class="container-fluid mt--6">
 
     <div class="row mt20">
-        <div class="col-md-6"><span class="normal-title">{!! isset($content->content_account->name) ? $content->content_account->name : ''!!}</span></div>
+        <div class="col-md-6"><span class="normal-title"> <a target="_blank" href="{!! isset($content->content_account->account_url) ? $content->content_account->account_url : 'havascript:void(0)' !!}">{!! isset($content->content_account->name) ? $content->content_account->name : ''!!}</a></span></div>
         <div class="col-md-6 text-right">
             <div class="avtar"><img src="{{$content->content_user->user_image_url}}" width="50" class="rounded-circle"></div>
         </div>
@@ -45,7 +45,34 @@
 
     <div class="row">
         <div class="col-md-12">
-            <img src="{{asset($content->main_image_url)}}" height="500" width="100%" />
+
+            @if($content->type == 1)
+                <div class="" id="non-printable">
+                    <iframe class="embed-responsive-item" height="500" width="100%" class="text-center" src="{{$content->external_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            @elseif($content->type == 2)
+                @php
+                    $videoUrl = $content->external_link;
+                    $videoUrl = getYoutubeOrVimeoFromURL($videoUrl);
+                @endphp
+
+                <div class="" id="non-printable">
+                    <iframe class="embed-responsive-item" height="500" width="100%" class="text-center" src="{{$videoUrl}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            @elseif($content->type == 3)
+                @php
+                    $mediaUrl = $content->external_link;
+                @endphp
+
+                <div class="d-block">
+                    <audio controls>
+                        <source src="{!! $mediaUrl !!}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            @elseif($content->type == 4)
+                <img src="{{asset($content->main_image_url)}}" height="500" width="100%" />
+            @endif
         </div>
     </div>
 
@@ -127,14 +154,14 @@
         <div class="col-md-12 mt10">
             @if(strlen($content->description) > 500)
             <p>
-                {!! Str::limit($content->description, 500,'<span id="dots">...</span>'); !!}
-                <span id="more">{!!substr($content->description, 502);!!}</span>
+                <span id="less_description">{!! nl2br(Str::limit($content->description, 500)); !!}</span>
+                <span id="full_description">{!!nl2br($content->description)!!}</span>
             </p>
             <p class="text-center">
                 <a href="javascript:void(0);" class="readMoreBtn" onclick="descriptionToggle()" id="readMoreBtn"><i class='fa fa-plus-circle fa-lg'></i></a>
             </p>
             @else
-                {!! $content->description !!}
+                {!! nl2br($content->description) !!}
             @endif
         </div>
     </div>
@@ -362,18 +389,18 @@ function printDiv(divName) {
 }
 
 function descriptionToggle() {
-  var dots      = document.getElementById("dots");
-  var moreText  = document.getElementById("more");
+  var moreText  = document.getElementById("full_description");
+  var lessText  = document.getElementById("less_description");
   var btnText   = document.getElementById("readMoreBtn");
 
-  if (dots.style.display === "none") {
-    dots.style.display      = "inline";
+  if($(moreText).is(':visible')){
     btnText.innerHTML       = "<i class='fa fa-plus-circle fa-lg'></i>";
     moreText.style.display  = "none";
+    lessText.style.display  = "inline";
   } else {
-    dots.style.display      = "none";
-    btnText.innerHTML       = "<i class='fa fa-minus-circle fa-lg'></i>";
     moreText.style.display  = "inline";
+    lessText.style.display  = "none";
+    btnText.innerHTML       = "<i class='fa fa-minus-circle fa-lg'></i>";
   }
 }
 
