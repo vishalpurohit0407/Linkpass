@@ -1,47 +1,4 @@
-{{-- <!-- Topnav -->
-    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav align-items-center">
-            <li class="nav-item text-left text-white">
-              Linkpasser
-            </li>
-          </ul>
-          <ul class="navbar-nav align-items-center ml-xl-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
-                            <img src="{{ isset(auth()->user()->id) ? auth()->user()->user_image_url : asset('assets/img/theme/defualt-user.png') }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
-                        </span>
-                        <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm font-weight-bold">{{ isset(auth()->user()->id) ? auth()->user()->name : '' }}</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                    <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
-                    </div>
-                    <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                        <i class="ni ni-single-02"></i>
-                        <span>{{ __('My profile') }}</span>
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                        <i class="ni ni-button-power"></i>
-                        <span>{{ __('Logout') }}</span>
-                    </a>
-                </div>
-            </li>
-        </ul>
-        </div>
-      </div>
-    </nav> --}}
-
-<header id="header">
+{{-- <header id="header">
 
   <!-- Start Site Header -->
   <section class="site-header">
@@ -84,7 +41,7 @@
               </li>
             @endif
 
-            @if(isset(auth()->user()->id) && auth()->user()->is_creator)
+            @if(isset(auth()->user()->id) && auth()->user()->user_type)
             <li>
                 <a href="{{route('user.content.list')}}">My Contents</a>
             </li>
@@ -106,4 +63,57 @@
       </div>
     </div>
   </section>
+</header> --}}
+
+<!--Start Header-->
+<header id="header">
+
+  <!-- Start Site Header -->
+  <section class="site-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <aside class="logo"> <a class="navbar-brand" href="{{url('home')}}"><img src="{{ asset('assets/img/logo.svg') }}" alt=""></a> </aside>
+        <div class="header-center">
+          <!-- Actual search box -->
+          <form method="GET" action="{{route('results')}}">
+            <div class="has-search"> <span class="fa fa-search form-control-feedback"></span>
+              <input name="search" type="text" class="form-control" placeholder="Search">
+            </div>
+          </form>
+        </div>
+        <div class="btn-menu">
+          <ul>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                @if(isset(Auth::user()->id))
+                <li class="nav-item"> <a class="nav-link" href="{{url('profile')}}"><img src="{{ asset('assets/img/settings.png') }}" alt=""></a> </li>
+                @endif
+                <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-square"></i></a> </li>
+                @if(isset(Auth::user()->id))
+                <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}"><i class="fal fa-sign-out"></i></a> </li>
+                @endif
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </header>
+
+@if(isset(Auth::user()->id))
+  <div class="header-sec-top">
+    <div class="container">
+      <div class="header-sec-top-part">
+        <p class="head-time">2021/01/16 <span>01:17PM</span></p>
+        <h4 class="m-0">Let your interest find you</h4>
+      </div>
+      <div class="header-sec-link btn-receita" id="btn-receitamob" data-clicked-times="0"> <span class="custom-scroll-link"><i class="fal fa-chevron-double-down" id="seta"></i></span> </div>
+      <div id="receita-div" style="display: none; height: 250px; border: 1px solid #ccc; border-top: 0;" class="receita-hidden">
+        <form>
+          <textarea class="form-control" id=""></textarea>
+        </form>
+      </div>
+    </div>
+  </div>
+@endif

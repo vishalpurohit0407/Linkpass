@@ -27,7 +27,7 @@
             <li>
                 <a class="{{Route::currentRouteName() == 'change-password' ? 'active' : ''}}" href="{{url('change-password')}}">Change Password</a>
             </li>
-            @if(isset(auth()->user()->id) && auth()->user()->is_creator)
+            @if(isset(auth()->user()->id) && auth()->user()->user_type)
             <li>
                 <a href="{{route('user.content.list')}}" >Manage Contents</a>
             </li>

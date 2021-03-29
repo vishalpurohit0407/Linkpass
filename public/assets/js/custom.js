@@ -3,10 +3,10 @@
 $(document).ready(function () {
 	$('.owl-one').owlCarousel({
 		loop: false,
-		margin: 30,
+		margin: 0,
 		nav: true,
 		dots: false,
-		autoplay: true,
+		autoplay: false,
 		slideSpeed: 6000,
 		autoplayTimeout: 5000,
 		autoplaySpeed: 6000,
@@ -20,23 +20,23 @@ $(document).ready(function () {
 				items: 1
 			},
 			480: {
-				items: 2
+				items: 1
 			},
 			690: {
-				items: 3
+				items: 1
 			},
 			768: {
-				items: 3
+				items: 1
 			},
 			960: {
-				items: 4
+				items: 1
 			},
 			1025: {
-				items: 4
+				items: 1
 			}
 		}
 	});
-
+	
 	$('.owl-two').owlCarousel({
 		loop: false,
 		margin: 15,
@@ -92,7 +92,7 @@ jQuery(document).ready(function ($) {
 $('.slider').slick({
 	draggable: true,
 	arrows: false,
-	dots: false,
+	dots: true,
 	fade: true,
 	autoplay: true,
 	autoplaySpeed: 5000,
@@ -130,3 +130,53 @@ $('.back').click(function(){
   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
 });
 
+$( document ).ready(function() {
+$('[data-toggle=search-form]').click(function() {
+    $('.search-form-wrapper').toggleClass('open');
+    $('.search-form-wrapper .search').focus();
+    //$('html').toggleClass('search-form-open');
+  });
+  $('[data-toggle=search-form-close]').click(function() {
+    $('.search-form-wrapper').removeClass('open');
+    //$('html').removeClass('search-form-open');
+  });
+$('.search-form-wrapper .search').keypress(function( event ) {
+  if($(this).val() == "Search") $(this).val("");
+});
+
+$('.search-close').click(function(event) {
+  $('.search-form-wrapper').removeClass('open');
+  //$('html').removeClass('search-form-open');
+});
+});
+
+
+    $(document).ready(function() {
+        $('.header-sec-link').click(function() {
+                $('.HeaderTextarea').slideToggle("fast");
+        });
+    });
+
+$( "#btn-receitamob" ).click(function() {
+  $("#receita-div").slideToggle(1500, function () {
+  });
+  $(this).find("i").toggleClass("fa-chevron-double-down fa-chevron-double-up");
+});
+
+$( "#btn-receitamob" ).click(function() {
+  $(this).find("span").toggleClass("custom-scroll-link custom-scroll-link-up");
+});
+
+$(document).ready(function() {
+        $('#showall').click(function() {
+                $('.allmenu').toggle("slide");
+        });
+    });
+
+$(document).ready(function() {
+    $('.radioshow').on('change', function() { 
+        var val = $(this).attr('data-class'); 
+        $('.allshow').hide();
+        $('.' + val).show();        
+    });
+});

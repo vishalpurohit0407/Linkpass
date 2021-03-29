@@ -39,11 +39,30 @@
 .btn-menu {
 	padding-left: 15px;
 }
+	.modal-lg {
+    max-width: 90%;
+}
 }
 
 @media (max-width: 1023px) {
 .site-header {
-	padding: 10px 0;
+}
+	.site-header .logo{width: inherit;}
+	#header .navbar-nav > li > a{margin-left: 0;}
+	.navbar .navbar-collapse, .navbar .navbar-collapse.show{position: absolute;    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    right: 0;
+    width: 300px;
+    text-align: left;
+    top: 44px;
+    padding: 5px 15px;
+}
+	.search-form-wrapper.open{
+    width: 100%;
+    top: 86px;
+    height: 36px;
 }
 #header .sticky .navbar-brand {
 	position: relative;
@@ -94,7 +113,6 @@
 .btn-menu {
 	padding-left: 0;
 	border: 0;
-	margin-right: 80px;
 }
 .footer-mennu li {
 	padding: 0 0 0 15px;
@@ -108,6 +126,9 @@
 }
 .sticky .stellarnav.mobile {
 	top: 12px;
+}
+.login-box {
+	margin-top: 20px;
 }
 }
 
@@ -155,13 +176,17 @@
 .sepline {
 	margin-top: 20px;
 }
+.avtarpart {
+	margin-top: 20px;
+}
 }
 
 @media (max-width: 576px) {
 .btn-menu ul li a {
-	font-size: 12px;
-	padding: 10px 14px;
+	/*font-size: 12px;*/
+	padding: 7px 14px;
 }
+	.header-center{width: auto;}
 .btn-menu ul li {
 	margin-left: 5px;
 }
@@ -170,8 +195,33 @@ footer {
 	padding: 30px 0 0;
 }
 .footer-mennu {
-	margin-top: 30px;
+	/*margin-top: 30px;*/
 }
+h3 {
+	font-size: 22px;
+}
+.h5, h5 {
+	font-size: 1rem;
+}
+.login-box {
+	padding: 20px 0;
+}
+	.bg-login{padding: 20px 15px;}
+.TabFilter ul {
+	margin: 9px 5px 0;
+}
+.TabFilter ul li a {
+	font-size: 14px;
+	height: 32px;
+	width: 32px;
+	line-height: 22px;
+}
+.TabFilter ul li a.AllTab {
+	width: auto;
+	padding: 5px 15px;
+}
+	.Trding ul.LinkVerb{margin: 0;}
+	.KeptPills.nav-pills .nav-link{padding: 0.5rem;}
 }
 
 @media (max-width: 567px) {
@@ -187,7 +237,7 @@ footer {
 	bottom: 10px;
 }
 .btn-menu ul li:last-child {
-	display: none;
+	/*display: none;*/
 }
 .footer-mennu li {
 	padding: 0 0 0 8px;
@@ -199,11 +249,19 @@ footer {
 #backtop {
 	bottom: 5px;
 }
+.CompanyList {
+	/*padding: 0px 20px 30px;*/
+}
+.TabFilter ul li {
+	margin: 0;
+}
+	.header-center h4{font-size: 13px;}
+	ul.LinkVerb li{display: block; text-align: center;}
 }
 
 @media (max-width: 376px) {
 .btn-menu {
-	margin-right: 57px;
+	/*margin-right: 57px;*/
 }
 .btn-menu ul li {
 	margin-left: 0px;
@@ -237,9 +295,20 @@ footer {
 	margin-top: 10px;
 }
 .site-header .logo img {
-	height: 60px;
 }
 .stellarnav.mobile {
 	top: 10px;
 }
+.TabFilter ul li {
+	margin-bottom: 5px;
+}
+	.KeptPills.nav-pills .nav-link{font-size: 12px;}
+	.SettingBoxHeadLast ul li a.btn-sm {
+    font-size: 12px;
+    top: 0;
+    padding: 3px 14px;
+}
+	.SettingBoxHeadLast ul li a{padding: 0 5px;}
+	p, body {
+		font-size: 14px;}
 }

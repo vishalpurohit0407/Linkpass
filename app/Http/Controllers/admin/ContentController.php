@@ -158,7 +158,7 @@ class ContentController extends Controller
     {
         $categories     = $this->category->categoryList();
         $socialAccounts = $this->socialAccount->where('user_id', $content->user_id)->get();
-        $users          = $this->user->where('is_creator', '1')->get();
+        $users          = $this->user->where('user_type', '1')->get();
         $contentTags    = $this->contentTags->where('content_id', $content->id)->orderBy('name','asc')->pluck('name');
         $contentTags    = $contentTags->count() > 0 ? implode(',', $contentTags->toArray()) :  '';
 
