@@ -74,6 +74,14 @@ Route::group(['middleware' => 'auth'], function () {
 	    ]
 	]);
 
+	// User Preferences
+	Route::post('/user/set-user-type','ProfileController@setUserType')->name('user.set-user-type');
+	Route::get('/user/get-preferences','ProfileController@getUserPreferences')->name('user.get-preferences');
+	Route::post('/user/save-preferences-group','ProfileController@saveUserPreferencesGroup')->name('user.save-preferences-group');
+	Route::post('/user/delete-preferences-group','ProfileController@deleteUserPreferencesGroup')->name('user.delete-preferences-group');
+	Route::post('/user/set-preferences-group-status','ProfileController@setUserPreferencesGroupStatus')->name('user.set-preferences-group-status');
+	Route::post('/user/save-preferences-group-tag','ProfileController@saveUserPreferencesGroupTag')->name('user.save-preferences-group-tag');
+
 });
 
 Route::get('/{url_slug}','PagepreviewController@pagepreview')->name('cms.pagepreview');

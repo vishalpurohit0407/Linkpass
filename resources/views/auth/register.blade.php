@@ -149,11 +149,11 @@
 
                 <div class="form-group radioeffect magic-radio-group text-left">
                     <span>
-                        <input name="radiog_lite" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
+                        <input name="is_company" value="0" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
                         <label for="radio1" class="css-label Individual">Individual</label>
                     </span>
                     <span>
-                        <input name="radiog_lite" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
+                        <input name="is_company" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
                         <label for="radio2" class="css-label Company">Company</label>
                     </span>
                 </div>
@@ -180,7 +180,7 @@
                 </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
-                        <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password">
+                        <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password" id="password">
                     </div>
                     @if ($errors->has('password'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -190,14 +190,15 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group input-group-alternative">
-                        <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation">
+                        <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" id="password_confirmation">
                     </div>
                 </div>
 
                 <div class="chiller_cb mb-3">
-                    <input id="checkbox1" type="checkbox">
-                    <label for="checkbox1" class="control-label">Show Password</label>
-                    <span></span> </div>
+                    <input id="show-password" type="checkbox">
+                    <label for="show-password" class="control-label">Show Password</label>
+                    <span></span>
+                </div>
                   <div class="form-group login-btn">
                     <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Continue</button>
                   </div>
@@ -211,4 +212,3 @@
   </main>
   <!--End main Part-->
 @endsection
-

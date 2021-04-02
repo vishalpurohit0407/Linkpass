@@ -75,7 +75,8 @@
         <aside class="logo"> <a class="navbar-brand" href="{{url('home')}}"><img src="{{ asset('assets/img/logo.svg') }}" alt=""></a> </aside>
         <div class="header-center">
           <!-- Actual search box -->
-          <form method="GET" action="{{route('results')}}">
+          {{-- <form method="GET" action="{{route('results')}}"> --}}
+            <form method="GET" action="#">
             <div class="has-search"> <span class="fa fa-search form-control-feedback"></span>
               <input name="search" type="text" class="form-control" placeholder="Search">
             </div>
@@ -88,7 +89,7 @@
                 @if(isset(Auth::user()->id))
                 <li class="nav-item"> <a class="nav-link" href="{{url('profile')}}"><img src="{{ asset('assets/img/settings.png') }}" alt=""></a> </li>
                 @endif
-                <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-square"></i></a> </li>
+                <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"><i class="fal fa-square"></i></a> </li>
                 @if(isset(Auth::user()->id))
                 <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}"><i class="fal fa-sign-out"></i></a> </li>
                 @endif

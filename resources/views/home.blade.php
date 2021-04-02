@@ -6,8 +6,8 @@
   <article class="container">
     <div class="Trding">
       <ul class="LinkVerb d-flex justify-content-center">
-        <li><a href="{{ url('trending') }}">Trading</a></li>
-        <li><a href="{{ url('latest') }}">Latest</a></li>
+        <li><a href="#">Trading</a></li>
+        <li><a href="#">Latest</a></li>
       </ul>
     </div>
     <div class="row d-flex align-items-stretch">
@@ -43,10 +43,6 @@
                     <input name="user_type" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
                     <label for="radio2" class="css-label radGroup1">Creator</label>
                   </span>
-                  <span>
-                    <input name="user_type" value="2" id="radio3" class="css-checkbox radioshow magic-radio" type="radio" data-class="div3">
-                    <label for="radio3" class="css-label radGroup1">Hybrid</label>
-                  </span>
                 </div>
                 <div class="form-group login-btn">
                   <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Login</button>
@@ -73,6 +69,7 @@
             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
+
         </div>
       </aside>
     </div>

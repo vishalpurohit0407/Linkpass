@@ -122,7 +122,6 @@
   <div id="wrapper">
     @include('layouts.header')
     <!-- Header -->
-    <!-- Header -->
     @yield('content')
 
     @include('layouts.footer')

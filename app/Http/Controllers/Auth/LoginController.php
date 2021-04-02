@@ -105,18 +105,6 @@ class LoginController extends Controller
             return $this->sendFailedLoginResponse($request);
         }
 
-        // Validate HyBrid
-        if($request->get('user_type') == '2' && in_array($this->guard()->user()->user_type, ['0', '1']))
-        {
-            $request->session()->invalidate();
-
-            $request->session()->regenerateToken();
-
-            $this->incrementLoginAttempts($request);
-
-            return $this->sendFailedLoginResponse($request);
-        }
-
         if(empty($this->guard()->user()->last_login_at) && $this->guard()->user()->user_type)
         {
             $redirectUrl = $this->redirectToProfile;

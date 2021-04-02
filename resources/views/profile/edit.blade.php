@@ -116,113 +116,20 @@
 
     <main class="main">
         <article class="container">
+
+          <div class="custom-control custom-switch">
+            @php $status = $user->user_type == 2 ? 'checked' : ''; @endphp
+            <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger userTypeToggle" id="customSwitchHybrid" {{$status}}>
+            <label class="custom-control-label" for="customSwitchHybrid"></label>
+            <span class="text-primary" id="valueOfSwitch">Hybrid</span>
+         </div>
+
           <ul class="LinkVerb">
-            <li class="active"><a href="#">New # Group</a></li>
-            <li><a href="#"># Group : 2</a></li>
-            <li><a href="#"># Group : 3</a></li>
-            <li><a href="#"># Total : 22</a></li>
+            <li class="active"><a id="addNewUserPreferencesGroup" href="javascript:void(0);">New # Group</a></li>
+            <li><a href="javascript:void(0);"># Total : <span id="userPreferencesCount"></span></a></li>
           </ul>
-          <div class="row">
-            <aside class="col-md-6">
-              <article class="SettingBox">
-                <div class="d-flex justify-content-between align-items-center SettingBoxHead">
-                  <h5><a href="#"># Location 1 :</a></h5>
-                  <div class="custom-control custom-switch">
-                    <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger" id="customSwitch1">
-                    <label class="custom-control-label" for="customSwitch1"></label>
-                    <span class="text-primary" id="valueOfSwitch1">Off</span> </div>
-                  <div class="SettingBoxHeadLast">
-                    <ul>
-                      <li><a href="#" class="btn btn-dark btn-sm rounded-30">Add #</a></li>
-                      <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-edit"></i> Edit</a> </li>
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-trash-alt"></i> Delete</a> </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="card mt-2 py-2 px-3 rounded-lg">
-                  <div class="detail-tag"> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># test</span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># test</span> <span class="label-info-tag"><a href="#"># test</a></span> </div>
-                </div>
-              </article>
-            </aside>
-            <aside class="col-md-6">
-              <article class="SettingBox">
-                <div class="d-flex justify-content-between align-items-center SettingBoxHead">
-                  <h5><a href="#"># Location 1 :</a></h5>
-                  <div class="custom-control custom-switch">
-                    <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger" id="customSwitch2">
-                    <label class="custom-control-label" for="customSwitch2"></label>
-                    <span class="text-primary" id="valueOfSwitch2">Off</span> </div>
-                  <div class="SettingBoxHeadLast">
-                    <ul>
-                      <li><a href="#" class="btn btn-dark btn-sm rounded-30">Add #</a></li>
-                      <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-edit"></i> Edit</a> </li>
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-trash-alt"></i> Delete</a> </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="card mt-2 py-2 px-3 rounded-lg">
-                  <div class="detail-tag"> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># test</span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># test</span> </div>
-                </div>
-              </article>
-            </aside>
-            <aside class="col-md-6">
-              <article class="SettingBox">
-                <div class="d-flex justify-content-between align-items-center SettingBoxHead">
-                  <h5><a href="#"># Location 1 :</a></h5>
-                  <div class="custom-control custom-switch">
-                    <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger" id="customSwitch3">
-                    <label class="custom-control-label" for="customSwitch3"></label>
-                    <span class="text-primary" id="valueOfSwitch3">Off</span> </div>
-                  <div class="SettingBoxHeadLast">
-                    <ul>
-                      <li><a href="#" class="btn btn-dark btn-sm rounded-30">Add #</a></li>
-                      <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-edit"></i> Edit</a> </li>
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-trash-alt"></i> Delete</a> </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="card mt-2 py-2 px-3 rounded-lg">
-                  <div class="detail-tag"> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># test</span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># test</span> <span class="label-info-tag"><a href="#"># test</a></span> </div>
-                </div>
-              </article>
-            </aside>
-            <aside class="col-md-6">
-              <article class="SettingBox">
-                <div class="d-flex justify-content-between align-items-center SettingBoxHead">
-                  <h5><a href="#"># Location 1 :</a></h5>
-                  <div class="custom-control custom-switch">
-                    <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger" id="customSwitch4">
-                    <label class="custom-control-label" for="customSwitch4"></label>
-                    <span class="text-primary" id="valueOfSwitch4">Off</span> </div>
-                  <div class="SettingBoxHeadLast">
-                    <ul>
-                      <li><a href="#" class="btn btn-dark btn-sm rounded-30">Add #</a></li>
-                      <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-edit"></i> Edit</a> </li>
-                          <li class="nav-item"> <a class="nav-link" href="#"><i class="fal fa-trash-alt"></i> Delete</a> </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="card mt-2 py-2 px-3 rounded-lg">
-                  <div class="detail-tag"> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># test</span> <span class="label-info-tag"><a href="#"># Example</a></span> <span class="label-info-tag"># Example</span> <span class="label-info-tag"><a href="#"># test</a></span> <span class="label-info-tag"># test</span> </div>
-                </div>
-              </article>
-            </aside>
+          <div id="userPreferencesWrap">
+
           </div>
           <hr class="mb-3">
           <div class="row d-flex justify-content-center">
@@ -252,7 +159,6 @@
 
                         <div class="pl-lg-4">
                             <div class="form-group text-left">
-                                <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
                                 <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}">
 
@@ -264,7 +170,6 @@
                                 </div>
                             </div>
                             <div class="form-group text-left">
-                                <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
                                 <div class="{{ $errors->has('email') ? ' has-danger' : '' }}">
                                     <input type="email" name="email" id="input-email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}">
 
@@ -277,7 +182,6 @@
                             </div>
 
                             <div class="form-group text-left">
-                                <label class="form-control-label" for="category">{{ __('Category') }}</label>
                                 <div class="select-wrapper {{ $errors->has('category') ? ' has-danger' : '' }}">
                                     <select name="category" class="form-control {{ $errors->has('category') ? ' is-invalid' : '' }}">
                                         <option value="">Please Select Category</option>
@@ -295,7 +199,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group text-left">
+                            {{-- <div class="form-group text-left">
                                 <label class="form-control-label" for="tags">{{ __('Tags') }}</label>
                                 <div class="{{ $errors->has('tags') ? ' has-danger' : '' }}">
                                     <input type="text" name="tags" class="form-control" id="tags" value="{{old('tags', $userTags)}}" data-role="tagsinput" />
@@ -305,12 +209,11 @@
                                         </span>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row row-example">
                                 <div class="col-12 col-md-8">
                                     <div class="form-group text-left">
-                                        <label class="form-control-label" for="input-file">{{ __('Profile Picture') }}</label>
                                         <div class="custom-file">
                                             <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" accept="image/*" lang="en" onchange="loadFile(event)">
                                             <label class="custom-file-label" for="customFileLang">Select file</label>
@@ -353,7 +256,6 @@
 
                         <div class="pl-lg-4">
                             <div class="form-group text-left">
-                                <label class="form-control-label" for="input-current-password">{{ __('Current Password') }}</label>
                                 <div class="{{ $errors->has('old_password') ? ' has-danger' : '' }}">
                                     <input type="password" name="old_password" id="input-current-password" class="form-control {{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Current Password') }}" value="" >
 
@@ -365,7 +267,6 @@
                                 </div>
                             </div>
                             <div class="form-group text-left">
-                                <label class="form-control-label" for="input-password">{{ __('New Password') }}</label>
                                 <div class="{{ $errors->has('password') ? ' has-danger' : '' }}">
                                     <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" value="" >
 
@@ -377,7 +278,6 @@
                                 </div>
                             </div>
                             <div class="form-group text-left">
-                                <label class="form-control-label" for="input-password-confirmation">{{ __('Confirm New Password') }}</label>
                                 <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm New Password') }}" value="" >
                             </div>
 
@@ -402,5 +302,271 @@ var loadFile = function(event) {
 var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
 };
+
+jQuery(document).ready(function($) {
+    $(document).on('click', '#addNewUserPreferencesGroup', function(event) {
+        event.preventDefault();
+
+        var totalGroup = $('.userPreferencesBox').length;
+
+        if (totalGroup == 4) {
+            swal('Error!!', 'You can add maximum 3 groups', 'error');
+            return false;
+        }
+
+        saveUserPreferencesGroup(this);
+    });
+
+    $(document).on('click', '.editNewUserPreferencesGroup', function(event) {
+        event.preventDefault();
+        saveUserPreferencesGroup(this);
+    });
+
+    $(document).on('click', '.deleteUserPreferencesGroup', function(event) {
+        event.preventDefault();
+        deleteUserPreferencesGroup(this);
+    });
+
+    $(document).on('change', '.groupStatusToggle', function(event) {
+        event.preventDefault();
+
+        var status   = this.checked ? 1 : 0,
+            group_id = $(this).attr('data-group-id')
+
+        $.ajax({
+            url: '{{ route("user.set-preferences-group-status") }}',
+            type: "post",
+            data : {status : status, group_id : group_id},
+            datatype: "json"
+        }).done(function(data) {
+              getUserPreferences();
+              swal('Succes!!', data.message, 'success');
+              return false;
+        })
+    });
+
+    $(document).on('change', '#customSwitchHybrid', function(event) {
+        event.preventDefault();
+
+        var status = this.checked ? 2 : 0;
+
+        $.ajax({
+            url: '{{ route("user.set-user-type") }}',
+            type: "post",
+            data : {status : status},
+            datatype: "json"
+        }).done(function(data) {
+              swal('Succes!!', data.message, 'success');
+              return false;
+        })
+    });
+
+
+
+    $(document).on('click', '.addNewTag', function(event) {
+        event.preventDefault();
+
+        saveUserPreferencesGroupTag(this);
+    });
+});
+
+// Load User Preferences
+getUserPreferences();
+
+function getUserPreferences() {
+    $.ajax({
+        url: '{{ route("user.get-preferences") }}',
+        type: "get",
+        datatype: "json",
+    }).done(function(data) {
+
+        if (data.success) {
+            $('#userPreferencesWrap').html(data.html);
+            $('#userPreferencesCount').html(data.userPreferencesCount);
+        }
+    }).fail(function(jqXHR, ajaxOptions, thrownError) {
+        //alert('No response from server');
+
+    });
+}
+
+function saveUserPreferencesGroup(element) {
+
+    var htmlStr    = '',
+        group_id   = $(element).attr('data-group-id') ? $(element).attr('data-group-id') : '',
+        group_name = $(element).attr('data-group-name') ? $(element).attr('data-group-name') : '';
+
+    htmlStr = '<input type="text" class="form-control" value="'+group_name+'" name="group_name" id="group_name">';
+
+    if (htmlStr.length > 0) {
+        swal({
+            title: "Group Name",
+            html: htmlStr,
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: group_id != '' ? 'Update' : 'Create',
+            cancelButtonText: "No, Cancel it!"
+        }).then((result) => {
+            if (result.value) {
+                var group_name = $('#group_name').val();
+
+                if (group_name == '') {
+                    swal({
+                        title: "Error!!",
+                        text: 'Please enter group name',
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Ok',
+                    }).then((result) => {
+                        $('#addNewUserPreferencesGroup').trigger('click');
+                    });
+
+                    return false;
+                }
+
+                $.ajax({
+                    url: '{{route("user.save-preferences-group")}}',
+                    type: "post",
+                    datatype: "json",
+                    data: {
+                        name: group_name,
+                        id  : group_id
+                    },
+                }).done(function(data) {
+                    if (data.success) {
+                        getUserPreferences();
+                        swal('Succes!!', data.message, 'success');
+                        return false;
+                    } else {
+                        swal({
+                            title: "Error!!",
+                            text: data.message,
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: 'Ok',
+                        }).then((result) => {
+                            $('#addNewUserPreferencesGroup').trigger('click');
+                        });
+
+                        return false;
+                    }
+                }).fail(function(jqXHR, ajaxOptions, thrownError) {
+
+                });
+            }
+        });
+    }
+}
+
+function deleteUserPreferencesGroup(element) {
+
+  var group_id = $(element).attr('data-group-id');
+
+    swal({
+        title: "Please Confirm",
+        text: "Would you like to delete selected group?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes',
+        cancelButtonText: "No, Cancel it!"
+    }).then((result) => {
+        if (result.value) {
+
+            $.ajax({
+                url: '{{route("user.delete-preferences-group")}}',
+                type: "post",
+                datatype: "json",
+                data: {
+                    id  : group_id
+                },
+            }).done(function(data) {
+                if (data.success) {
+                    getUserPreferences();
+                    swal('Succes!!', data.message, 'success');
+                    return false;
+                } else {
+                    swal('Error!!', data.message, 'error');
+                    return false;
+                }
+            }).fail(function(jqXHR, ajaxOptions, thrownError) {
+
+            });
+        }
+    });
+}
+
+function saveUserPreferencesGroupTag(element) {
+
+  var htmlStr = '';
+
+  htmlStr = '<input type="text" class="form-control" name="tag_name" id="tag_name">';
+
+  if (htmlStr.length > 0) {
+      swal({
+          title: "Tag Name",
+          html: htmlStr,
+          type: "info",
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Create',
+          cancelButtonText: "No, Cancel it!"
+      }).then((result) => {
+          if (result.value) {
+              var group_id = $(element).attr('data-group-id');
+              var tag_name = $('#tag_name').val();
+
+              if (tag_name == '') {
+                  swal({
+                      title: "Error!!",
+                      text: 'Please enter tag name',
+                      type: "error",
+                      showCancelButton: false,
+                      confirmButtonColor: '#DD6B55',
+                      confirmButtonText: 'Ok',
+                  }).then((result) => {
+                      $('#addNewTag'+group_id).trigger('click');
+                  });
+
+                  return false;
+              }
+
+              $.ajax({
+                  url: '{{route("user.save-preferences-group-tag")}}',
+                  type: "post",
+                  datatype: "json",
+                  data: {
+                      name: tag_name,
+                      group_id: group_id
+                  },
+              }).done(function(data) {
+                  if (data.success) {
+                      getUserPreferences();
+                      swal('Succes!!', data.message, 'success');
+                      return false;
+                  } else {
+                      swal({
+                          title: "Error!!",
+                          text: data.message,
+                          type: "error",
+                          showCancelButton: false,
+                          confirmButtonColor: '#DD6B55',
+                          confirmButtonText: 'Ok',
+                      }).then((result) => {
+                          $('#addNewTag'+group_id).trigger('click');
+                      });
+
+                      return false;
+                  }
+              }).fail(function(jqXHR, ajaxOptions, thrownError) {
+
+              });
+          }
+      });
+  }
+}
 </script>
 @endsection
