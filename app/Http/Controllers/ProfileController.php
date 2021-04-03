@@ -12,6 +12,7 @@ use App\User;
 use App\Category;
 use App\UserPreferencesGroups;
 use App\UserPreferencesGroupTags;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -105,9 +106,11 @@ class ProfileController extends Controller
 
         $userPreferencesCount  = $userPreferencesGroups->count();
 
+        $userPreferencesTagsCount = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->count();
+
         $html = view('profile.ajax-user-preferences-list', array('userPreferencesGroups' => $userPreferencesGroups))->render();
 
-        return response()->json(['success' => true, 'userPreferencesCount' => $userPreferencesCount, 'html' => $html]);
+        return response()->json(['success' => true, 'userPreferencesCount' => $userPreferencesCount, 'userPreferencesTagsCount' => $userPreferencesTagsCount, 'html' => $html]);
     }
 
     public function saveUserPreferencesGroup(Request $request){
@@ -183,12 +186,31 @@ class ProfileController extends Controller
 
         $name     = $request->get('name');
         $group_id = $request->get('group_id');
+        $type     = $request->get('type');
 
         if(!empty($name))
         {
-            UserPreferencesGroupTags::create(['name' => $name, 'group_id' => $group_id]);
+            if($type == 'add')
+            {
+                $isExist = UserPreferencesGroupTags::where('name', $name)->where('group_id', $group_id)->first();
 
-            return response()->json(['success' => true, 'message' => 'The tag has been saved to group successfully.']);
+                if(!isset($isExist->id))
+                {
+                    UserPreferencesGroupTags::create(['name' => $name, 'group_id' => $group_id]);
+                }
+            }
+
+            if($type == 'remove')
+            {
+                UserPreferencesGroupTags::where('name', $name)->where('group_id', $group_id)->delete();
+            }
+
+            $userPreferencesTagsCount = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->count();
+
+            $group = UserPreferencesGroups::find($group_id);
+            $tagsHtml = view('profile.ajax-user-tags', array('item' => $group))->render();
+
+            return response()->json(['success' => true, 'userPreferencesTagsCount' => $userPreferencesTagsCount, 'tagsHtml' =>$tagsHtml]);
         }
         else
         {
@@ -213,4 +235,28 @@ class ProfileController extends Controller
             return response()->json(['success' => false, 'message' => 'Cound not found the user']);
         }
     }
+
+    public function saveUserInterest(Request $request){
+
+        $title       = $request->get('title');
+        $description = $request->get('description');
+
+        $user = Auth::user();
+
+        if(isset($user->id))
+        {
+            $user->interest_title = $title;
+            $user->interest_description = $description;
+            $user->interest_last_updated_at = Carbon::now();
+            $user->save();
+
+            return response()->json(['success' => true, 'title' => $title, 'updated_at' => date('Y/m/d h:i A', strtotime($user->interest_last_updated_at)), 'message' => 'The user interest has been saved successfully.']);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Cound not found the user']);
+        }
+    }
+
+
 }

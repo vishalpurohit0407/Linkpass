@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'user_type', 'is_company', 'category_id', 'password','profile_img','status'
+        'name', 'email', 'user_type', 'is_company', 'category_id', 'password','profile_img','status', 'interest_title', 'interest_description', 'interest_last_updated_at'
     ];
 
     /**
@@ -47,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getUserImageUrlAttribute()
     {
-        return (isset($this->profile_img) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->profile_img) ? Config('filesystems.disks.public.url').'/'.$this->profile_img : asset('assets/img/theme/defualt-user.png'));
+        return (isset($this->profile_img) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->profile_img) ? Config('filesystems.disks.public.url').'/'.$this->profile_img : asset('assets/img/theme/unnamed.jpg'));
     }
 
     public function user_tags()

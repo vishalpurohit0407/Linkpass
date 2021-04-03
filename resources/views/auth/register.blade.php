@@ -147,16 +147,18 @@
                 @csrf
                 <input type="hidden" name="user_type" value="{{ $isCreator }}">
 
-                <div class="form-group radioeffect magic-radio-group text-left">
-                    <span>
-                        <input name="is_company" value="0" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
-                        <label for="radio1" class="css-label Individual">Individual</label>
-                    </span>
-                    <span>
-                        <input name="is_company" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
-                        <label for="radio2" class="css-label Company">Company</label>
-                    </span>
-                </div>
+                @if($isCreator)
+                  <div class="form-group radioeffect magic-radio-group text-left">
+                      <span>
+                          <input name="is_company" value="0" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
+                          <label for="radio1" class="css-label Individual">Individual</label>
+                      </span>
+                      <span>
+                          <input name="is_company" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
+                          <label for="radio2" class="css-label Company">Company</label>
+                      </span>
+                  </div>
+                @endif
 
                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">

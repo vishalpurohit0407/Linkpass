@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
 	]);
 
 	// User Preferences
+	Route::post('/user/save-user-interest','ProfileController@saveUserInterest')->name('user.save-user-interest');
 	Route::post('/user/set-user-type','ProfileController@setUserType')->name('user.set-user-type');
 	Route::get('/user/get-preferences','ProfileController@getUserPreferences')->name('user.get-preferences');
 	Route::post('/user/save-preferences-group','ProfileController@saveUserPreferencesGroup')->name('user.save-preferences-group');

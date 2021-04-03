@@ -27,14 +27,17 @@
             </div>
             <div class="card mt-2 py-2 px-3 rounded-lg">
                 <div class="detail-tag">
-                    @if($item->tags()->count())
-                        @foreach ($item->tags as $tag)
-
-                            <span class="label-info-tag"><a href="javascript:void(0);"># {{$tag->name}}</a></span>
-                        @endforeach
-                    @else
-                        <span class="label-info-tag">No tags found</span>
-                    @endif
+                    <span id="user-tags-box-{{$item->id}}">
+                        @if($item->tags()->count())
+                            @foreach ($item->tags as $tag)
+                                <span class="label-info-tag label-tag-{{base64_encode($tag->name)}}"><a href="javascript:void(0);"># {{$tag->name}}</a></span>
+                            @endforeach
+                        @else
+                            <span class="label-info-tag no-tags">No tags found</span>
+                        @endif
+                    </span>
+                    @php $tags = $item->tags()->get()->pluck('name')->toArray(); @endphp
+                    <input style="display:none;" type="text" name="tags" class="user-tags-input" id="user-tags-input-{{$item->id}}" value="{{implode(',', $tags)}}" />
                 </div>
             </div>
         </article>
