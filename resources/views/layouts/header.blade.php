@@ -1,47 +1,4 @@
-{{-- <!-- Topnav -->
-    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav align-items-center">
-            <li class="nav-item text-left text-white">
-              Linkpasser
-            </li>
-          </ul>
-          <ul class="navbar-nav align-items-center ml-xl-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
-                            <img src="{{ isset(auth()->user()->id) ? auth()->user()->user_image_url : asset('assets/img/theme/defualt-user.png') }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
-                        </span>
-                        <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm font-weight-bold">{{ isset(auth()->user()->id) ? auth()->user()->name : '' }}</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                    <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
-                    </div>
-                    <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                        <i class="ni ni-single-02"></i>
-                        <span>{{ __('My profile') }}</span>
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                        <i class="ni ni-button-power"></i>
-                        <span>{{ __('Logout') }}</span>
-                    </a>
-                </div>
-            </li>
-        </ul>
-        </div>
-      </div>
-    </nav> --}}
-
-<header id="header">
+{{-- <header id="header">
 
   <!-- Start Site Header -->
   <section class="site-header">
@@ -84,7 +41,7 @@
               </li>
             @endif
 
-            @if(isset(auth()->user()->id) && auth()->user()->is_creator)
+            @if(isset(auth()->user()->id) && auth()->user()->user_type)
             <li>
                 <a href="{{route('user.content.list')}}">My Contents</a>
             </li>
@@ -106,4 +63,92 @@
       </div>
     </div>
   </section>
+</header> --}}
+
+<!--Start Header-->
+<header id="header">
+
+  <!-- Start Site Header -->
+  <section class="site-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <aside class="logo"> <a class="navbar-brand" href="{{url('home')}}"><img src="{{ asset('assets/img/logo.svg') }}" alt=""></a> </aside>
+        <div class="header-center">
+          <!-- Actual search box -->
+          {{-- <form method="GET" action="{{route('results')}}"> --}}
+            <form method="GET" action="#">
+            <div class="has-search"> <span class="fa fa-search form-control-feedback"></span>
+              <input name="search" type="text" class="form-control" placeholder="Search">
+            </div>
+          </form>
+        </div>
+        <div class="btn-menu">
+          <ul>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                @if(isset(Auth::user()->id))
+                  <li class="nav-item"> <a class="nav-link" href="{{url('profile')}}"> <span class="font-16"><i class="fal fa-cog"></i> Setting</span></a> </li>
+                @endif
+                <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-square"></i> Footer</span></a> </li>
+                @if(isset(Auth::user()->id))
+                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-align-justify"></i> Trending</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-align-justify"></i> Latest</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}">  <span class="font-16"><i class="fal fa-sign-out"></i> Logout</span></a> </li>
+                @endif
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </header>
+
+@if(isset(Auth::user()->id))
+  <div class="header-sec-top">
+    <div class="container">
+      <div class="header-sec-top-part">
+        <p class="head-time user-interest-head-time">{{ date('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at))}}</p>
+        <h4 class="m-0 user-interest-head-title">{{Auth::user()->interest_title}}</h4>
+      </div>
+      <div class="header-sec-link btn-receita" id="btn-receitamob" data-clicked-times="0"> <span class="custom-scroll-link"><i class="fal fa-chevron-double-down" id="seta"></i></span> </div>
+      <div id="receita-div" style="display: none; height: 250px; border: 1px solid #ccc; border-top: 0;" class="{{Route::currentRouteName() != 'profile.edit' ? 'receita-hidden' : 'user-ineresest-wrap'}}">
+
+          @if(Route::currentRouteName() == 'profile.edit')
+
+            <form role="form" method="POST" action="" class="">
+                @csrf
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group{{ $errors->has('interest_title') ? ' has-danger' : '' }} text-left">
+                        <div class="input-group input-group-alternative">
+                            <input class="form-control" placeholder="{{ __('Interest Title') }}" type="text" name="interest_title" id="interest_title" value="{{ Auth::user()->interest_title }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('interest_description') ? ' has-danger' : '' }} text-left">
+                        <div class="input-group input-group-alternative">
+                            <textarea class="form-control" placeholder="{{ __('Interest Description') }}" name="interest_description" id="interest_description" >{{ Auth::user()->interest_description }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group login-btn">
+                      <button type="button" class="btn btn-primary rounded-30 text-uppercase w-100 save-user-interest">Save</button>
+                    </div>
+                  </div>
+                </div>
+
+            </form>
+          @else
+            <div class="row">
+              <div class="col-md-12 user-ineresest-head-dec-wrap">
+                {{ Auth::user()->interest_description }}
+              </div>
+            </div>
+          @endif
+
+      </div>
+    </div>
+  </div>
+@endif

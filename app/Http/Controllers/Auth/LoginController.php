@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/profile';
 
     /**
      * Where to redirect users to profile page on first login.
@@ -82,7 +82,7 @@ class LoginController extends Controller
         }
 
         // Validate Creator
-        if($request->get('is_creator') && $this->guard()->user()->is_creator == '0')
+        if($request->get('user_type') == '1' && in_array($this->guard()->user()->user_type, ['0', '2']))
         {
             $request->session()->invalidate();
 
@@ -94,7 +94,7 @@ class LoginController extends Controller
         }
 
         // Validate User
-        if(!$request->get('is_creator') && $this->guard()->user()->is_creator == '1')
+        if($request->get('user_type') == '0' && in_array($this->guard()->user()->user_type, ['1', '2']))
         {
             $request->session()->invalidate();
 
@@ -105,7 +105,7 @@ class LoginController extends Controller
             return $this->sendFailedLoginResponse($request);
         }
 
-        if(empty($this->guard()->user()->last_login_at) && $this->guard()->user()->is_creator)
+        if(empty($this->guard()->user()->last_login_at) && $this->guard()->user()->user_type)
         {
             $redirectUrl = $this->redirectToProfile;
         }

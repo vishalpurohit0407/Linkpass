@@ -43,7 +43,7 @@
 
                 <form role="form" method="POST" action="{{ route('login') }}">
                     @csrf
-                    <input type="hidden" name="is_creator" value="{!! $isCreator ? 1 : 0 !!}" >
+                    <input type="hidden" name="user_type" value="{!! $isCreator ? 1 : 0 !!}" >
                     <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
                         <div class="input-group input-group-alternative">
                             <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" autofocus>

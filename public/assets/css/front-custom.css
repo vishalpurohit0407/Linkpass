@@ -411,9 +411,9 @@
 /** Custom Css **/
 .bootstrap-tagsinput{
 	width: 100%!important;
-	height: 45px !important;
+	height: auto !important;
 	box-shadow: inherit!important;
-	border-radius: 30px!important;
+	/* border-radius: 30px!important; */
 	border: 1px solid #dbdbdb!important;
 	background: #fafafa!important;
 	font-size: 16px!important;
@@ -423,6 +423,31 @@
 	letter-spacing: 0.2px!important;
   }
 
+  .bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    color: white;
+    padding: 2px 5px 5px 5px;
+  }
+
+  .user-ineresest-wrap{
+      padding: 15px;
+  }
+
+  .user-ineresest-head-dec-wrap{
+    margin: 15px;
+  }
+
+  .user-profile-bg{
+    border: 1px solid #E74C3C;
+  }
+
+  .creator-profile-bg{
+    border: 1px solid #007fff;
+  }
+
+  .hybrid-profile-bg{
+    border: 1px solid #32c20e;
+  }
 /*============= Dashboard - Side Menu : START =============*/
 
 .dashboard-side-menu {

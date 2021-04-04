@@ -32,7 +32,7 @@ class UserController extends Controller
                         4 => 'created_at',
                     );
 
-        $totalData = User::where('status','!=','3')->where('is_creator','0')->count();
+        $totalData = User::where('status','!=','3')->where('user_type','0')->count();
 
         $totalFiltered = $totalData;
 
@@ -47,13 +47,13 @@ class UserController extends Controller
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->where('status','!=','3')
-                         ->where('is_creator','0')
+                         ->where('user_type','0')
                          ->get();
         }
         else {
             $search = $request->input('search.value');
             $posts =  User::where('status','!=','3')
-                            ->where('is_creator','0')
+                            ->where('user_type','0')
                             ->where(function ($query)  use ($search) {
                                 $query->where('email','LIKE',"%{$search}%")
                                     ->orWhere('name', 'LIKE',"%{$search}%");
@@ -64,7 +64,7 @@ class UserController extends Controller
                             ->get();
 
             $totalFiltered = User::where('status','!=','3')
-                            ->where('is_creator','0')
+                            ->where('user_type','0')
                             ->where(function ($query) use ($search){
                                 $query->where('email','LIKE',"%{$search}%")
                                     ->orWhere('name', 'LIKE',"%{$search}%");

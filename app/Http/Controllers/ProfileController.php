@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
-use App\UserTags;
 use Storage;
+use Auth;
+use App\User;
 use App\Category;
+use App\UserPreferencesGroups;
+use App\UserPreferencesGroupTags;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -18,13 +23,17 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $user        = auth()->user();
-        $category    = new Category();
-        $categories  = $category->categoryList();
-        $userTags    = UserTags::where('user_id', $user->id)->orderBy('name','asc')->pluck('name');
-        $userTags    = $userTags->count() > 0 ? implode(',', $userTags->toArray()) :  '';
+        $user                  = auth()->user();
+        $category              = new Category();
+        $categories            = $category->categoryList();
+        $userPreferencesGroups = UserPreferencesGroups::where('user_id', $user->id)->where('name', 'default')->first();
 
-        return view('profile.edit', array('categories'=> $categories, 'userTags' => $userTags));
+        if(!isset($userPreferencesGroups->id))
+        {
+            UserPreferencesGroups::create(['name' => 'default', 'user_id' => Auth::user()->id]);
+        }
+
+        return view('profile.edit', array('categories'=> $categories, 'user' => $user));
     }
 
     /**
@@ -37,10 +46,9 @@ class ProfileController extends Controller
         $user        = auth()->user();
         $category    = new Category();
         $categories  = $category->categoryList();
-        $userTags    = UserTags::where('user_id', $user->id)->orderBy('name','asc')->pluck('name');
-        $userTags    = $userTags->count() > 0 ? implode(',', $userTags->toArray()) :  '';
+        $toalUserPreferencesGroups = UserPreferencesGroups::where('user_id', $user->id)->count();
 
-        return view('profile.change-password', array('categories'=> $categories, 'userTags' => $userTags));
+        return view('profile.change-password', array('categories'=> $categories));
     }
 
     /**
@@ -58,19 +66,6 @@ class ProfileController extends Controller
         $userArr['name'] = $request->name;
         $userArr['email'] = $request->email;
         $userArr['category_id'] = $request->category;
-
-        if(!empty($request->tags))
-        {
-            $tags = explode(',', $request->tags);
-
-            foreach($tags as $tag)
-            {
-                $params   = array('user_id' => $user->id, 'name' => $tag);
-                $userTags = UserTags::updateOrCreate($params);
-            }
-
-            UserTags::whereNotIn('name', $tags)->delete();
-        }
 
         if($file){
 
@@ -104,4 +99,164 @@ class ProfileController extends Controller
 
         return back()->withPasswordStatus(__('Password successfully updated.'));
     }
+
+    public function getUserPreferences(Request $request){
+
+        $userPreferencesGroups = UserPreferencesGroups::with('tags')->where('user_id', Auth::user()->id)->orderBy('id','asc')->get();
+
+        $userPreferencesCount  = $userPreferencesGroups->count();
+
+        $userPreferencesTagsCount = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->count();
+
+        $html = view('profile.ajax-user-preferences-list', array('userPreferencesGroups' => $userPreferencesGroups))->render();
+
+        return response()->json(['success' => true, 'userPreferencesCount' => $userPreferencesCount, 'userPreferencesTagsCount' => $userPreferencesTagsCount, 'html' => $html]);
+    }
+
+    public function saveUserPreferencesGroup(Request $request){
+
+        $name = $request->get('name');
+        $id   = $request->get('id');
+
+        if(!empty($name))
+        {
+            if(!empty($id))
+            {
+                $group = UserPreferencesGroups::find($id);
+                $group->name = $name;
+                $group->save();
+            }
+            else
+            {
+                UserPreferencesGroups::create(['name' => $name, 'user_id' => Auth::user()->id]);
+            }
+
+            return response()->json(['success' => true, 'message' => 'The user group has been saved successfully.']);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Please enter group name']);
+        }
+    }
+
+    public function deleteUserPreferencesGroup(Request $request){
+
+        $id = $request->get('id');
+
+        if(!empty($id))
+        {
+            $group = UserPreferencesGroups::find($id);
+
+            if(isset($group->id))
+            {
+                UserPreferencesGroupTags::where('group_id', $group->id)->delete();
+            }
+
+            $group->delete();
+
+            return response()->json(['success' => true, 'message' => 'The user group has been saved successfully.']);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Cound not found the group']);
+        }
+    }
+
+    public function setUserPreferencesGroupStatus(Request $request){
+
+        $status = $request->get('status');
+        $id     = $request->get('group_id');
+
+        $group  = UserPreferencesGroups::find($id);
+
+        if(isset($group->id))
+        {
+            $group->status = $status;
+            $group->save();
+
+            return response()->json(['success' => true, 'message' => 'The user group status has been saved successfully.']);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Cound not found the group']);
+        }
+    }
+
+    public function saveUserPreferencesGroupTag(Request $request){
+
+        $name     = $request->get('name');
+        $group_id = $request->get('group_id');
+        $type     = $request->get('type');
+
+        if(!empty($name))
+        {
+            if($type == 'add')
+            {
+                $isExist = UserPreferencesGroupTags::where('name', $name)->where('group_id', $group_id)->first();
+
+                if(!isset($isExist->id))
+                {
+                    UserPreferencesGroupTags::create(['name' => $name, 'group_id' => $group_id]);
+                }
+            }
+
+            if($type == 'remove')
+            {
+                UserPreferencesGroupTags::where('name', $name)->where('group_id', $group_id)->delete();
+            }
+
+            $userPreferencesTagsCount = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->count();
+
+            $group = UserPreferencesGroups::find($group_id);
+            $tagsHtml = view('profile.ajax-user-tags', array('item' => $group))->render();
+
+            return response()->json(['success' => true, 'userPreferencesTagsCount' => $userPreferencesTagsCount, 'tagsHtml' =>$tagsHtml]);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Please enter tag name']);
+        }
+    }
+
+    public function setUserType(Request $request){
+
+        $status = $request->get('status');
+        $user   = Auth::user();
+
+        if(isset($user->id))
+        {
+            $user->user_type = $status;
+            $user->save();
+
+            return response()->json(['success' => true, 'message' => 'The user type has been saved successfully.']);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Cound not found the user']);
+        }
+    }
+
+    public function saveUserInterest(Request $request){
+
+        $title       = $request->get('title');
+        $description = $request->get('description');
+
+        $user = Auth::user();
+
+        if(isset($user->id))
+        {
+            $user->interest_title = $title;
+            $user->interest_description = $description;
+            $user->interest_last_updated_at = Carbon::now();
+            $user->save();
+
+            return response()->json(['success' => true, 'title' => $title, 'updated_at' => date('Y/m/d h:i A', strtotime($user->interest_last_updated_at)), 'message' => 'The user interest has been saved successfully.']);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Cound not found the user']);
+        }
+    }
+
+
 }

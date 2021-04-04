@@ -31,7 +31,7 @@ class CreatorController extends Controller
                         4 => 'created_at',
                     );
 
-        $totalData = User::where('status','!=','3')->where('is_creator','1')->count();
+        $totalData = User::where('status','!=','3')->where('user_type','1')->count();
 
         $totalFiltered = $totalData;
 
@@ -46,13 +46,13 @@ class CreatorController extends Controller
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->where('status','!=','3')
-                         ->where('is_creator','1')
+                         ->where('user_type','1')
                          ->get();
         }
         else {
             $search = $request->input('search.value');
             $posts =  User::where('status','!=','3')
-                            ->where('is_creator','1')
+                            ->where('user_type','1')
                             ->where(function ($query)  use ($search) {
                                 $query->where('email','LIKE',"%{$search}%")
                                     ->orWhere('name', 'LIKE',"%{$search}%");
@@ -63,7 +63,7 @@ class CreatorController extends Controller
                             ->get();
 
             $totalFiltered = User::where('status','!=','3')
-                            ->where('is_creator','1')
+                            ->where('user_type','1')
                             ->where(function ($query) use ($search){
                                 $query->where('email','LIKE',"%{$search}%")
                                     ->orWhere('name', 'LIKE',"%{$search}%");
@@ -142,7 +142,7 @@ class CreatorController extends Controller
                 'name'       => $request->name,
                 'email'      => $request->email,
                 'status'     => $request->status ? '1' : '0',
-                'is_creator' => '1',
+                'user_type' => '1',
                 'password'   => Hash::make($request->password)
             ]);
             if($user){

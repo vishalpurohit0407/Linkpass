@@ -31,13 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //return view('coming_soon');
+        if(isset(Auth::user()->id))
+        {
+            return redirect(route('profile.edit'));
+        }
 
-        $latest     = $this->content->where('status', '1')->doesntHave('content_user_remove')->limit(12)->orderBy('posted_at', 'desc')->get();
-        $trending   = $this->content->where('status', '1')->doesntHave('content_user_remove')->limit(12)->orderBy('posted_at', 'desc')->get();
-        $categories = $this->category->limit(12)->orderBy('name', 'asc')->get();
-
-        return view('home', array('latest' => $latest, 'trending' => $trending, 'categories' => $categories));
+        return view('home');
     }
 
     /**
