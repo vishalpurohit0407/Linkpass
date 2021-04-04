@@ -108,8 +108,8 @@
   <div class="header-sec-top">
     <div class="container">
       <div class="header-sec-top-part">
-        <p class="head-time user-interest-head-time">{{ date('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at))}}</p>
-        <h4 class="m-0 user-interest-head-title">{{Auth::user()->interest_title}}</h4>
+        <p class="head-time user-interest-head-time">{{ !empty(Auth::user()->interest_last_updated_at) ? date('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at))}} : ''</p>
+        <h4 class="m-0 user-interest-head-title">{{ !empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Let your interest find you'}}</h4>
       </div>
       <div class="header-sec-link btn-receita" id="btn-receitamob" data-clicked-times="0"> <span class="custom-scroll-link"><i class="fal fa-chevron-double-down" id="seta"></i></span> </div>
       <div id="receita-div" style="display: none; height: 250px; border: 1px solid #ccc; border-top: 0;" class="{{Route::currentRouteName() != 'profile.edit' ? 'receita-hidden' : 'user-ineresest-wrap'}}">
