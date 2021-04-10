@@ -1,4 +1,5 @@
 <?php
+use App\Http\Traits\Hashidable;
 
 if (! function_exists('getYoutubeOrVimeoFromURL')) {
     function getYoutubeOrVimeoFromURL($videoUrl)
@@ -25,5 +26,20 @@ if (! function_exists('getYoutubeOrVimeoFromURL')) {
         }
 
         return $videoUrl;
+    }
+}
+
+
+if (! function_exists('decodeHashId')) {
+    function decodeHashId($str)
+    {
+        $decoded = \Hashids::decode($str);
+
+        if(isset($decoded[0]))
+        {
+            return $decoded[0];
+        }
+
+        return $str;
     }
 }

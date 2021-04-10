@@ -6,6 +6,7 @@ use App\Content;
 use App\Category;
 use App\SocialAccount;
 use App\ContentTags;
+use App\ContentCategoryTags;
 use App\ContentRatings;
 use App\ContentAction;
 use App\User;
@@ -26,6 +27,7 @@ class ContentController extends Controller
         $this->socialAccount    = new SocialAccount();
         $this->content          = new Content();
         $this->contentTags      = new ContentTags();
+        $this->contentCategoryTags = new ContentCategoryTags();
         $this->contentRatings   = new ContentRatings();
         $this->user             = new User();
     }
@@ -76,9 +78,15 @@ class ContentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $guidArr = array();
+
+        if($request->has('saId'))
+        {
+            $guidArr['social_account_id'] = decodeHashId($request->get('saId'));
+        }
+
         $guidArr['status'] = '3';
         $content = $this->content->create($guidArr);
         return redirect(route('user.content.edit',['content' => $content]));
@@ -93,10 +101,10 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         try {
-            return redirect(route('user.content.list'));
+            return redirect(route('user.account.contents', $content->social_account_id));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('user.content.list'));
+            return redirect(route('user.account.contents', $content->social_account_id));
         }
     }
 
@@ -167,8 +175,13 @@ class ContentController extends Controller
     {
         $categories     = $this->category->categoryList();
         $socialAccounts = $this->socialAccount->where('user_id', Auth::user()->id)->get();
+
         $contentTags    = $this->contentTags->where('content_id', $content->id)->orderBy('name','asc')->pluck('name');
         $contentTags    = $contentTags->count() > 0 ? implode(',', $contentTags->toArray()) :  '';
+
+
+        $contentCategoryTags = $this->contentCategoryTags->where('content_id', $content->id)->orderBy('name','asc')->pluck('name');
+        $contentCategoryTags = $contentCategoryTags->count() > 0 ? implode(',', $contentCategoryTags->toArray()) :  '';
 
         if($content->type == 2)
         {
@@ -186,7 +199,7 @@ class ContentController extends Controller
             $content->podcast_length_s = isset($podcastLength[2]) ? $podcastLength[2] : 0;
         }
 
-        return view('content.add',array('title' => 'Add Content','categories'=> $categories, 'content' => $content, 'contentTags' => $contentTags, 'socialAccounts' => $socialAccounts));
+        return view('content.add',array('title' => 'Add Content','categories'=> $categories, 'content' => $content, 'contentTags' => $contentTags, 'contentCategoryTags' => $contentCategoryTags));
     }
 
     /**
@@ -208,7 +221,6 @@ class ContentController extends Controller
             'main_title'        => 'required',
             'description'       => 'required',
             'category_id'       => 'required',
-            'social_account_id' => 'required',
             'posted_at'         => 'required',
         ], $messages);
 
@@ -225,23 +237,35 @@ class ContentController extends Controller
             ContentTags::whereNotIn('name', $tags)->delete();
         }
 
-        $social_account_id = $request->social_account_id;
-
-        $socialAccount = $this->socialAccount->find($social_account_id);
-
-        if(!isset($socialAccount->id))
+        if(!empty($request->category_tags))
         {
-            $socialAccount = $this->socialAccount->create(array('user_id' => Auth::user()->id, 'name' => $social_account_id));
+            $categoryTags = explode(',', $request->category_tags);
+
+            foreach($categoryTags as $ctag)
+            {
+                $cparams      = array('content_id' => $content->id, 'name' => $ctag);
+                $contentCategoryTags = ContentCategoryTags::updateOrCreate($cparams);
+            }
+
+            ContentCategoryTags::whereNotIn('name', $categoryTags)->delete();
         }
+
+        // $social_account_id = $request->social_account_id;
+
+        // $socialAccount = $this->socialAccount->find($social_account_id);
+
+        // if(!isset($socialAccount->id))
+        // {
+        //     $socialAccount = $this->socialAccount->create(array('user_id' => Auth::user()->id, 'name' => $social_account_id));
+        // }
 
         $videoLength   = $request->get('type') == 2 ? ($request->video_length_h > 0 ? sprintf("%02d", $request->video_length_h).':' : '00:').($request->video_length_m > 0 ? sprintf("%02d", $request->video_length_m).':' : '00:').($request->video_length_s > 0 ? sprintf("%02d", $request->video_length_s) : '00') : '';
         $podcastLength = $request->get('type') == 3 ? ($request->podcast_length_h > 0 ? sprintf("%02d", $request->podcast_length_h).':' : '00:').($request->podcast_length_m > 0 ? sprintf("%02d", $request->podcast_length_m).':' : '00:').($request->podcast_length_s > 0 ? sprintf("%02d", $request->podcast_length_s) : '00') : '';
 
-        $content->type                    = $request->type;
+        //$content->type                    = $request->type;
         $content->main_title              = $request->main_title;
         $content->category_id             = $request->category_id;
         $content->user_id                 = Auth::user()->id;
-        $content->social_account_id       = $socialAccount->id;
         $content->description             = $request->description;
         $content->number_of_images        = $request->get('type') == 1 ? $request->number_of_images : 0;
         $content->video_length            = $request->get('type') == 2 ? $videoLength : '';
@@ -254,7 +278,7 @@ class ContentController extends Controller
         if ($content->save()) {
             $request->session()->flash('alert-success', 'Content has been updated successfully.');
         }
-        return redirect(route('user.content.list'));
+        return redirect(route('user.account.contents', $content->social_account_id));
     }
 
     /**
@@ -273,10 +297,10 @@ class ContentController extends Controller
             if ($content->delete()) {
                 $request->session()->flash('alert-success', 'Content deleted successfully.');
             }
-            return redirect(route('user.content.list'));
+            return redirect(route('user.account.contents', $content->social_account_id));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('user.content.list'));
+            return redirect(route('user.account.contents', $content->social_account_id));
         }
     }
 
@@ -289,6 +313,20 @@ class ContentController extends Controller
             $content->delete();
 
             return Response::json(['status' => true, 'message' => 'Content has been deleted successfully.']);
+        }
+
+        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
+    }
+
+    public function getContentDetails(Request $request)
+    {
+        $content = $this->content->find($request->content_id);
+
+        if(isset($content->id)){
+
+            $html = view('content.ajax-content-data',array('content'=>$content))->render();
+
+            return Response::json(['status' => true, 'html' => $html]);
         }
 
         return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);

@@ -16,7 +16,7 @@ class Content extends Authenticatable
     protected $table = 'content';
 
     protected $fillable = [
-        'type', 'category_id', 'user_id', 'social_account_id', 'main_title', 'main_image', 'description', 'external_link', 'number_of_images', 'number_of_words', 'video_length', 'podcast_length', 'status', 'posted_at'
+        'category_id', 'user_id', 'social_account_id', 'main_title', 'main_image', 'description', 'external_link', 'number_of_images', 'number_of_words', 'video_length', 'podcast_length', 'status', 'posted_at'
     ];
 
     protected $appends = [ 'main_image_url' ];
@@ -33,7 +33,7 @@ class Content extends Authenticatable
 
     public function getMainImageUrlAttribute()
     {
-        return (isset($this->main_image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->main_image) ? Config('filesystems.disks.public.url').'/'.$this->main_image : asset('assets/img/theme/no-image.jpg'));
+        return (isset($this->main_image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->main_image) ? Config('filesystems.disks.public.url').'/'.$this->main_image : asset('assets/img/no_img.png'));
     }
 
     public function getCompletionContentCountAttribute()
@@ -44,6 +44,11 @@ class Content extends Authenticatable
     public function content_tags()
     {
         return $this->hasMany('App\ContentTags', 'content_id','id');
+    }
+
+    public function content_category_tags()
+    {
+        return $this->hasMany('App\ContentCategoryTags', 'content_id','id');
     }
 
     public function content_account()

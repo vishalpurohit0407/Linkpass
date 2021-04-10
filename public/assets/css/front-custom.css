@@ -509,6 +509,28 @@
 .pull-left{
 	float: left!important;
 }
+.pull-right{
+	float: right!important;
+}
+.height-32{
+    height:32px!important;
+}
+.width-32{
+    width:32px!important;
+}
+.height-64{
+    height:64px!important;
+}
+.width-64{
+    width:64px!important;
+}
+.user-profile-avatar {
+	width: 64px;
+	height: 64px;
+}
+.user-profile-avatar img {
+	padding: 2px;
+}
 .content-title
 {
 	color: #000;
@@ -521,6 +543,159 @@
 .font-12
 {
 	font-size: 12px;
+}
+
+.TabFilter ul li a.filter-btn-disabled
+{
+    background: #CCC !important;
+    color: #FFF !important;
+    cursor: auto !important;
+}
+.TabFilter ul li a.filter-btn-disabled:hover
+{
+    background: #CCC !important;
+    color: #FFF !important;
+    cursor: auto !important;
+}
+
+.TabFilter ul li.disabled-li:hover a:before {
+	display: none;
+}
+
+.g-recaptcha
+{
+    margin: 0px 0px 10px 0px;
+    float: left;
+}
+#registerForm #generateAccountName
+{
+    color:#74af5c;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.mt-1 {
+	margin-top: 1px !important;
+}
+.mt-2 {
+	margin-top: 2px !important;
+}
+.mt-3 {
+	margin-top: 3px !important;
+}
+.mt-4 {
+	margin-top: 4px !important;
+}
+.mt-5 {
+	margin-top: 5px !important;
+}
+.mt-6 {
+	margin-top: 6px !important;
+}
+.mt-7 {
+	margin-top: 7px !important;
+}
+.mt-8 {
+	margin-top: 8px !important;
+}
+.mt-9{
+	margin-top: 9px !important;
+}
+.mt-10 {
+	margin-top: 10px !important;
+}
+
+.mb-1 {
+	margin-bottom: 1px !important;
+}
+.mb-2 {
+	margin-bottom: 2px !important;
+}
+.mb-3 {
+	margin-bottom: 3px !important;
+}
+.mb-4 {
+	margin-bottom: 4px !important;
+}
+.mb-5 {
+	margin-bottom: 5px !important;
+}
+.mb-6 {
+	margin-bottom: 6px !important;
+}
+.mb-7 {
+	margin-bottom: 7px !important;
+}
+.mb-8 {
+	margin-bottom: 8px !important;
+}
+.mb-9{
+	margin-bottom: 9px !important;
+}
+.mb-10 {
+	margin-bottom: 10px !important;
+}
+
+.ml-1 {
+	margin-left: 1px !important;
+}
+.ml-2 {
+	margin-left: 2px !important;
+}
+.ml-3 {
+	margin-left: 3px !important;
+}
+.ml-4 {
+	margin-left: 4px !important;
+}
+.ml-5 {
+	margin-left: 5px !important;
+}
+.ml-6 {
+	margin-left: 6px !important;
+}
+.ml-7 {
+	margin-left: 7px !important;
+}
+.ml-8 {
+	margin-left: 8px !important;
+}
+.ml-9{
+	margin-left: 9px !important;
+}
+.ml-10 {
+	margin-left: 10px !important;
+}
+
+.mr-1 {
+	margin-right: 1px !important;
+}
+.mr-2 {
+	margin-right: 2px !important;
+}
+.mr-3 {
+	margin-right: 3px !important;
+}
+.mr-4 {
+	margin-right: 4px !important;
+}
+.mr-5 {
+	margin-right: 5px !important;
+}
+.mr-6 {
+	margin-right: 6px !important;
+}
+.mr-7 {
+	margin-right: 7px !important;
+}
+.mr-8 {
+	margin-right: 8px !important;
+}
+.mr-9{
+	margin-right: 9px !important;
+}
+.mr-10 {
+	margin-right: 10px !important;
 }
 /*============= Dashboard - Side Menu : END =============*/
 

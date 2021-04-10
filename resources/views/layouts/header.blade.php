@@ -73,6 +73,7 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
         <aside class="logo"> <a class="navbar-brand" href="{{url('home')}}"><img src="{{ asset('assets/img/logo.svg') }}" alt=""></a> </aside>
+        @if(!isset(Auth::user()->user_type) || Auth::user()->user_type != 1)
         <div class="header-center">
           <!-- Actual search box -->
           {{-- <form method="GET" action="{{route('results')}}"> --}}
@@ -82,12 +83,14 @@
             </div>
           </form>
         </div>
+        @endif
         <div class="btn-menu">
           <ul>
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
               <ul class="dropdown-menu dropdown-menu-right">
                 @if(isset(Auth::user()->id))
                   <li class="nav-item"> <a class="nav-link" href="{{url('profile')}}"> <span class="font-16"><i class="fal fa-cog"></i> Setting</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" href="{{url('account')}}"> <span class="font-16"><i class="fal fa-user"></i> My Account</span></a> </li>
                 @endif
                 <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-square"></i> Footer</span></a> </li>
                 @if(isset(Auth::user()->id))

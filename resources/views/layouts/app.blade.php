@@ -66,16 +66,18 @@
   <meta name="author" content="">
   <meta name="description" content="">
   <title>{{ config('app.name', 'Linkpasser') }}</title>
+  <!-- Favicon -->
+  <link rel="icon" href="{{asset('assets/img/favicon.png')}}" type="image/png">
 
   <!-- Owl Stylesheets -->
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/slick.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/slick-theme.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.theme.default.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/dropzone/dist/min/dropzone.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/select2/dist/css/select2.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/dropzone/dist/min/dropzone.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/select2/dist/css/select2.min.css') }}">
 
   <!-- datatables CSS -->
   <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -225,11 +227,17 @@
   <script src="{{asset('assets/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
   <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
   <script src="{{asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
 
   <!-- Setup of Menu JS -->
   <script type="text/javascript" src="{{asset('assets/js/stellarnav.js')}}"></script>
   <!-- Setup of Custom JS -->
   <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
+
+  <script src="{{asset('assets/vendor/js-cookie/js.cookie.js')}}"></script>
+  <script src="{{asset('assets/js/argon.js?v=1.1.0')}}"></script>
+  <!-- Google recaptcha-->
+  <script src="https://www.google.com/recaptcha/api.js"></script>
 
   <script>
     var btn = $('#backtop');

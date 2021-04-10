@@ -124,6 +124,7 @@ class SocialAccountController extends Controller
 
         $paramsArr = array();
         $paramsArr['name']        = $request->name;
+        $paramsArr['type']        = $request->type;
         $paramsArr['url']         = $request->url;
         $paramsArr['account_url'] = $request->account_url;
         $paramsArr['user_id']     = Auth::user()->id;
@@ -143,7 +144,7 @@ class SocialAccountController extends Controller
             $socialAccount->update(['image' => $path]);
         }
 
-        return redirect(route('user.social-account.list'))->withStatus(__('Social account details has been created successfully.'));
+        return redirect(route('user.account'))->withStatus(__('Social account details has been created successfully.'));
     }
 
 
@@ -183,6 +184,7 @@ class SocialAccountController extends Controller
 
         $paramsArr = array();
         $paramsArr['name']        = $request->name;
+        $paramsArr['type']        = $request->type;
         $paramsArr['url']         = $request->url;
         $paramsArr['account_url'] = $request->account_url;
 
@@ -232,5 +234,19 @@ class SocialAccountController extends Controller
             $request->session()->flash('alert-danger', $exception->getMessage());
             return redirect(route('user.social-account.list'));
         }
+    }
+
+    public function deleteSocialAccount(Request $request)
+    {
+        $socialAccount = SocialAccount::find($request->social_account_id);
+
+        if($socialAccount){
+
+            $socialAccount->delete();
+
+            return Response::json(['status' => true, 'message' => 'Social Account has been deleted successfully.']);
+        }
+
+        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting Social Account.']);
     }
 }

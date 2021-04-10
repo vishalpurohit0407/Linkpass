@@ -163,7 +163,7 @@
                             <div class="pl-lg-4">
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}">
+                                        <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}">
 
                                         @if($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
@@ -172,6 +172,31 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <div class="form-group text-left">
+                                    <div class="{{ $errors->has('surname') ? ' has-danger' : '' }}">
+                                        <input type="text" name="surname" id="surname" class="form-control {{ $errors->has('surname') ? ' is-invalid' : '' }}" placeholder="{{ __('Surname') }}" value="{{ old('surname', auth()->user()->surname) }}">
+
+                                        @if($errors->has('surname'))
+                                            <span class="invalid-feedback" role="alert">
+                                                {{ $errors->first('surname') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group text-left">
+                                    <div class="{{ $errors->has('account_name') ? ' has-danger' : '' }}">
+                                        <input type="text" name="account_name" id="account_name" class="form-control {{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('account_name', auth()->user()->account_name) }}">
+                                        (only 0-9a-zA-Z-_@ allowed)
+                                        @if($errors->has('account_name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                {{ $errors->first('account_name') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('email') ? ' has-danger' : '' }}">
                                         <input type="email" name="email" id="input-email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}">
@@ -179,6 +204,28 @@
                                         @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('email') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group text-left">
+                                    <div class="{{ $errors->has('location') ? ' has-danger' : '' }}">
+                                        <input type="text" name="location" id="location" class="form-control {{ $errors->has('location') ? ' is-invalid' : '' }}" placeholder="{{ __('Location') }}" value="{{ old('location', auth()->user()->location) }}">
+                                        @if($errors->has('location'))
+                                            <span class="invalid-feedback" role="alert">
+                                                {{ $errors->first('location') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group text-left">
+                                    <div class="{{ $errors->has('date_of_birth') ? ' has-danger' : '' }}">
+                                        <input type="date" name="date_of_birth" id="date_of_birth" class="form-control {{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" placeholder="{{ __('Date of Birth') }}" value="{{ old('date_of_birth', !empty(auth()->user()->date_of_birth) ? date('Y-m-d', strtotime(auth()->user()->date_of_birth)) : '') }}">
+                                        @if($errors->has('date_of_birth'))
+                                            <span class="invalid-feedback" role="alert">
+                                                {{ $errors->first('date_of_birth') }}
                                             </span>
                                         @endif
                                     </div>
@@ -227,22 +274,23 @@
                                     <div class="col-6 col-md-4">
                                         <a href="javascript:void(0);">
                                             @php
-
-                                            $userProfileClass = '';
-                                            if(Auth::user()->user_type == '0')
-                                            {
-                                                $userProfileClass = 'user-profile-bg';
-                                            }
-                                            if(Auth::user()->user_type == '1')
-                                            {
-                                                $userProfileClass = 'creator-profile-bg';
-                                            }
-                                            if(Auth::user()->user_type == '2')
-                                            {
-                                                $userProfileClass = 'hybrid-profile-bg';
-                                            }
+                                                $userProfileClass = '';
+                                                if(Auth::user()->user_type == '0')
+                                                {
+                                                    $userProfileClass = 'user-profile-bg';
+                                                }
+                                                if(Auth::user()->user_type == '1')
+                                                {
+                                                    $userProfileClass = 'creator-profile-bg';
+                                                }
+                                                if(Auth::user()->user_type == '2')
+                                                {
+                                                    $userProfileClass = 'hybrid-profile-bg';
+                                                }
                                             @endphp
-                                            <img id="output" src="{{auth()->user()->user_image_url}}" class="img-center img-fluid shadow shadow-lg--hover rounded-circle {{$userProfileClass}}" style="width: 140px;">
+                                            <div class="user-profile-avatar">
+                                                <img id="output" src="{{Auth::user()->user_image_url}}" alt="" class="rounded-circle height-64 width-64 {{$userProfileClass}}">
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
@@ -323,6 +371,37 @@ var output = document.getElementById('output');
 };
 
 jQuery(document).ready(function($) {
+
+    $('#account_name').keypress(function( e ) {
+      if(!/[0-9a-zA-Z-_@]/.test(String.fromCharCode(e.which)))
+        return false;
+    });
+
+    $(document).on('blur','#account_name',function(event) {
+
+        var account_name = $('#account_name').val();
+
+        if(account_name != '')
+        {
+            $.ajax(
+            {
+                url: '{{route("user.validate-account-name")}}',
+                type: "post",
+                datatype: "json",
+                data:{account_name:account_name},
+            }).done(function(data){
+            if(data.success)
+            {
+                $.notify({
+                message: 'Account name is not available'
+                },{
+                type: 'alert alert-danger'
+                });
+            }
+            });
+        }
+    });
+
     $(document).on('click', '#addNewUserPreferencesGroup', function(event) {
         event.preventDefault();
 

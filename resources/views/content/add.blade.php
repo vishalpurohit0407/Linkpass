@@ -19,64 +19,12 @@
                   @csrf
                   {{ method_field('PUT') }}
 
-                        {{-- Tabs : Start --}}
-                        <div class="nav-wrapper">
-                          <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                              <li class="nav-item">
-                                  <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">Step 1</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">Step 2</a>
-                              </li>
-                          </ul>
-                      </div>
+
                       <div class="card shadow mt-3">
                           <div class="card-body">
-                              <div class="tab-content" id="myTabContent">
-                                  <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                              <div class="" id="myTabContent">
 
-                                    <div class="row">
-                                      <div class="col-md-12">
-                                        <div class="form-group @if($errors->has('type')) has-danger @endif">
-                                          <label class="form-control-label" for="type">Type <strong class="text-danger">*</strong></label><br>
-                                          <select class="js-example-basic-single form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type">
-                                            <option value="">Please Select Type</option>
-                                            <option @if($content->type ==1) selected @endif value="1">Images</option>
-                                            <option @if($content->type ==2) selected @endif value="2">Video</option>
-                                            <option @if($content->type ==3) selected @endif value="3">Podcast</option>
-                                            <option @if($content->type ==4) selected @endif value="4">Text/Blog</option>
-                                          </select>
-                                          <span class="invalid-feedback">{{ $errors->first('type') }}</span>
-                                        </div>
-
-                                        <div class="form-group @if($errors->has('social_account_id')) has-danger @endif">
-                                          <label class="form-control-label" for="social_account_id">Account <strong class="text-danger">*</strong></label><br>
-                                          <select class="js-example-basic-single form-control @if($errors->has('social_account_id')) is-invalid @endif" id="social_account_id" name="social_account_id">
-                                            <option value="">Please Select Account</option>
-                                            @if(count($socialAccounts) > 0)
-                                              @foreach($socialAccounts as $account)
-                                                <option value="{{$account['id']}}" @if($account['id'] == $content->social_account_id) selected @endif>{!! $account['name'] !!}</option>
-                                              @endforeach
-                                            @endif
-                                          </select>
-                                          <span class="text-primary mb-0 text-right float-right small"><a id="add_new_account" href="javascript:void(0);">Add Account</a></span>
-                                          @if($errors->has('social_account_id'))
-                                              <span class="invalid-feedback">{{ $errors->first('social_account_id') }}</span>
-                                          @endif
-                                        </div>
-                                      </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                      <div class="col-md-12 text-center">
-                                          <a href="javascript:void(0);" class="btn btn-success" id="go-to-next-step">Next</a>
-                                          <a href="{{route('user.content.list')}}" class="btn btn-primary">Cancel</a>
-                                      </div>
-                                    </div>
-
-                                  </div>
-                                  <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                                  <div class="" id="tabs-icons-text-2" >
 
                                     <div class="row">
                                       <div class="col-md-5 main-img">
@@ -133,6 +81,15 @@
                                               @endif
                                           </div>
 
+                                      </div>
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="category_tags">Category Tags</label><br>
+                                            <input type="text" class="form-control" id="category_tags" name="category_tags" value="{{old('category_tags', $contentCategoryTags)}}" data-role="tagsinput" />
+                                        </div>
                                       </div>
                                     </div>
 
@@ -260,11 +217,11 @@
 
                                     <div class="row">
                                       <div class="col-md-12 text-center">
-                                          <a href="javascript:void(0);" class="btn btn-info" id="go-to-previous-step">Previous</a>
-                                          <input type="submit" class="btn btn-success" name="submit" value="Save">
-                                          <a href="{{route('user.content.list')}}" class="btn btn-primary">Cancel</a>
+                                          <input type="submit" class="btn btn-primary rounded-30 text-uppercase float-left " name="submit" value="Save">
+                                          <a href="{{route('user.account.contents', $content->content_account->hashid)}}" class="btn btn-default rounded-30 text-uppercase float-left ml-2 ">Cancel</a>
                                       </div>
                                     </div>
+
                                   </div>
                               </div>
                           </div>
@@ -302,46 +259,7 @@
 var content_id= '{{$content->id}}';
 $(document).ready(function() {
 
-    $( "#add_new_account" ).click(function() {
-
-      swal({
-          title: "Account Name",
-          html: '<input class="form-control" type="text" name="acc_name" id="acc_name" />',
-          confirmButtonText: "Save",
-          showCancelButton: true
-      }).then((value) => {
-          var acc_name = $('#acc_name').val();
-          var newOption = new Option(acc_name, acc_name, false, false);
-          $('#social_account_id').append(newOption).trigger('change');
-      });;
-
-    });
-
-    $( "#go-to-next-step" ).click(function() {
-      $('#tabs-icons-text-2-tab').trigger('click');
-    });
-
-    $( "#go-to-previous-step" ).click(function() {
-        $('#tabs-icons-text-1-tab').trigger('click');
-    });
-
-    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-        var id = $(this).attr('id');
-
-        if(id == 'tabs-icons-text-2-tab')
-        {
-          var validate = validateStep1();
-
-          if(validate)
-          {
-            initSecondTab();
-          }
-          else
-          {
-            return false;
-          }
-        }
-    });
+  initSecondTab();
 
     @if($content->main_image)
         $(".dz-preview.dz-preview-single").html('<div class="dz-preview-cover dz-processing dz-image-preview dz-success dz-complete"><img class="dz-preview-img" src="{{asset($content->main_image_url)}}"></div>');
@@ -375,47 +293,6 @@ function initSecondTab()
   }
 }
 
-function validateStep1()
-{
-    var type              = $('#type').val();
-    var user_id           = $('#user_id').val();
-    var social_account_id = $('#social_account_id').val();
-    var errCount          = 0;
-    var errorStr          = '<div class="pull-left offset-4">';
-
-    if(type == '')
-    {
-      errorStr += '<p class="text-left">Please select content type.</p>';
-      errCount++;
-    }
-
-    if(user_id == '')
-    {
-      errorStr += '<p class="text-left">Please select creator.</p>';
-      errCount++;
-    }
-
-    if(social_account_id == '')
-    {
-      errorStr += '<p class="text-left">Please select account.</p>';
-      errCount++;
-    }
-
-    errorStr += '</div>';
-
-    if(errCount > 0)
-    {
-      swal({
-          type  : 'error',
-          title : 'Error!',
-          html  : errorStr,
-      });
-
-      return false;
-    }
-
-    return true;
-}
 
 function validateStep2()
 {

@@ -33,6 +33,7 @@ class HomeController extends Controller
     {
         if(isset(Auth::user()->id))
         {
+            // Write logic for dashboard and profile page redirect
             return redirect(route('profile.edit'));
         }
 

@@ -143,7 +143,7 @@
               <h5 class="text-light mt-4">Already have an account? <a href="#">Login</a></h5>
             </form> --}}
 
-            <form role="form" method="POST" action="{{ route('register') }}">
+            <form role="form" method="POST" action="{{ route('register') }}" id="registerForm">
                 @csrf
                 <input type="hidden" name="user_type" value="{{ $isCreator }}">
 
@@ -162,7 +162,7 @@
 
                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
-                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" value="{{ old('name') }}" autofocus>
+                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" id="name" value="{{ old('name') }}" autofocus>
                     </div>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -180,6 +180,17 @@
                         </span>
                     @endif
                 </div>
+                <div class="form-group{{ $errors->has('account_name') ? ' has-danger' : '' }} text-left">
+                  <div class="input-group input-group-alternative">
+                      <input class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" type="text" name="account_name" id="account_name" value="{{ old('account_name') }}">
+                    </div>
+                    (only 0-9a-zA-Z-_@ allowed)
+                  {{-- <a href="javascript:void(0);" id="generateAccountName">Generate</a> --}}
+
+                  <span class="invalid-feedback" style="{{ $errors->has('account_name') ? 'display: block;' : 'display: none;' }}" role="alert">
+                      {{ $errors->first('account_name') }}
+                  </span>
+              </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
                         <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password" id="password">
@@ -201,6 +212,9 @@
                     <label for="show-password" class="control-label">Show Password</label>
                     <span></span>
                 </div>
+
+                 <div class="g-recaptcha" data-sitekey="6LeoP6MaAAAAAF8YZYET3TcBRt9fL_wO0zBcv_Vh"></div>
+
                   <div class="form-group login-btn">
                     <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Continue</button>
                   </div>
@@ -213,4 +227,66 @@
     </article>
   </main>
   <!--End main Part-->
+@endsection
+
+@section('pagewise_js')
+<script type="text/javascript">
+
+$(document).ready(function() {
+    document.getElementById("registerForm").addEventListener("submit",function(evt)
+    {
+      var response = grecaptcha.getResponse();
+
+      if(response.length == 0)
+      {
+        //reCaptcha not verified
+        $.notify({
+          message: 'Please verify you are humann!'
+        },{
+          type: 'alert alert-danger'
+        });
+
+        evt.preventDefault();
+        return false;
+      }
+      //captcha verified
+    });
+
+    $('#account_name').keypress(function( e ) {
+      if(!/[0-9a-zA-Z-_@]/.test(String.fromCharCode(e.which)))
+        return false;
+    });
+
+    // Generate Account Name
+
+    $(document).on('blur','#account_name',function(event) {
+
+        var account_name = $('#account_name').val();
+
+        if(account_name != '')
+        {
+            $.ajax(
+            {
+                url: '{{route("user.validate-account-name")}}',
+                type: "post",
+                datatype: "json",
+                data:{account_name:account_name},
+            }).done(function(data){
+              if(data.success)
+              {
+                $.notify({
+                  message: 'Account name is not available'
+                },{
+                  type: 'alert alert-danger'
+                });
+              }
+            });
+        }
+    });
+});
+
+
+
+
+</script>
 @endsection

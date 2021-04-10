@@ -32,6 +32,9 @@ Route::post('/content/save-rating','ContentController@saveRating')->name('user.c
 Route::get('/content/get-ratings','ContentController@getRatings')->name('user.content.get-ratings');
 Route::post('/content/save-action','ContentController@saveAction')->name('user.content.save-action');
 
+//  Verify Account Name
+Route::post('validate-account-name', ['as' => 'user.validate-account-name', 'uses' => 'ProfileController@validateAccountName']);
+
 Route::group(['middleware' => 'auth'], function () {
 
 	// Profile Routes
@@ -45,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Content Module Routes
 	Route::get('/content/search','ContentController@search')->name('user.content.search');
 	Route::post('/content/delete','ContentController@deleteContent')->name('user.content.delete');
+	Route::post('/content/get-details','ContentController@getContentDetails')->name('user.content.get-details');
 	Route::resource('/content', 'ContentController', [
 	    'names' => [
 			'index'   => 'user.content.list',
@@ -63,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// Social Accounts
 	Route::post('/social-account/list/data','SocialAccountController@listdata')->name('user.social-account.listdata');
+	Route::post('/social-account/delete','SocialAccountController@deleteSocialAccount')->name('user.social-account.delete');
 	Route::resource('/social-account', 'SocialAccountController', [
 	    'names' => [
 	        'index'   => 'user.social-account.list',
@@ -73,6 +78,10 @@ Route::group(['middleware' => 'auth'], function () {
 	        'destroy' => 'user.social-account.destroy'
 	    ]
 	]);
+
+	// User Account
+	Route::get('account','UserAccountController@getLoggedInUserAccount')->name('user.account');
+	Route::get('account/{id}/contents','UserAccountController@getContentsByAccountId')->name('user.account.contents');
 
 	// User Preferences
 	Route::post('/user/save-user-interest','ProfileController@saveUserInterest')->name('user.save-user-interest');

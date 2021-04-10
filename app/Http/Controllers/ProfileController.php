@@ -65,6 +65,10 @@ class ProfileController extends Controller
         $userArr = array();
         $userArr['name'] = $request->name;
         $userArr['email'] = $request->email;
+        $userArr['surname'] = $request->surname;
+        $userArr['account_name'] = $request->account_name;
+        $userArr['location'] = $request->location;
+        $userArr['date_of_birth'] = $request->has('date_of_birth') ? date("Y-m-d H:i:s", strtotime($request->date_of_birth)) : '';
         $userArr['category_id'] = $request->category;
 
         if($file){
@@ -255,6 +259,26 @@ class ProfileController extends Controller
         else
         {
             return response()->json(['success' => false, 'message' => 'Cound not found the user']);
+        }
+    }
+
+    public function validateAccountName(Request $request){
+
+        $account_name = $request->get('account_name');
+
+        $user = Auth::user();
+
+        if(isset($user->id))
+        {
+            $isExist = User::where('account_name', $account_name)->where('id', '!=', $user->id)->first();
+
+            return response()->json(['success' => isset($isExist->id) ? true : false]);
+        }
+        else
+        {
+            $isExist = User::where('account_name', $account_name)->first();
+
+            return response()->json(['success' => isset($isExist->id) ? true : false]);
         }
     }
 

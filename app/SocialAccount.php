@@ -15,15 +15,19 @@ class SocialAccount extends Authenticatable
     protected $table = 'social_accounts';
 
     protected $fillable = [
-     'user_id', 'name', 'image', 'url', 'account_url', 'status'
+        'user_id', 'name', 'type', 'image', 'url', 'account_url', 'status'
     ];
 
     protected $appends = [ 'image_url' ];
 
-
     public function social_account_user()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function contents()
+    {
+        return $this->hasMany('App\Content', 'social_account_id', 'id');
     }
 
     public function getImageUrlAttribute()
