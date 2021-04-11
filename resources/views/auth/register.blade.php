@@ -184,7 +184,8 @@
                   <div class="input-group input-group-alternative">
                       <input class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" type="text" name="account_name" id="account_name" value="{{ old('account_name') }}">
                     </div>
-                    (only 0-9a-zA-Z-_@ allowed)
+                    <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_@ allowed</small>
+
                   {{-- <a href="javascript:void(0);" id="generateAccountName">Generate</a> --}}
 
                   <span class="invalid-feedback" style="{{ $errors->has('account_name') ? 'display: block;' : 'display: none;' }}" role="alert">
@@ -239,11 +240,12 @@ $(document).ready(function() {
 
       if(response.length == 0)
       {
+        $('.notifyAlert').remove();
         //reCaptcha not verified
         $.notify({
           message: 'Please verify you are humann!'
         },{
-          type: 'alert alert-danger'
+          type: 'alert alert-danger notifyAlert'
         });
 
         evt.preventDefault();

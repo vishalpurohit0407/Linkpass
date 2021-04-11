@@ -28,6 +28,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => ['required', 'min:3'],
             'email' => ['required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())],
+            'account_name' => ['required', 'min:10', 'max:100', Rule::unique((new User)->getTable())->ignore(auth()->id())],
             'profile_img' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }

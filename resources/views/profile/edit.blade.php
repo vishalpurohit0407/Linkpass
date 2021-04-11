@@ -188,7 +188,7 @@
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('account_name') ? ' has-danger' : '' }}">
                                         <input type="text" name="account_name" id="account_name" class="form-control {{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('account_name', auth()->user()->account_name) }}">
-                                        (only 0-9a-zA-Z-_@ allowed)
+                                        <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_@ allowed</small>
                                         @if($errors->has('account_name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('account_name') }}

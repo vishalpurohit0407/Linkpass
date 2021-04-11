@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/profile';
+    protected $redirectTo = '/account';
 
     /**
      * Where to redirect users to profile page on first login.
@@ -105,7 +105,7 @@ class LoginController extends Controller
             return $this->sendFailedLoginResponse($request);
         }
 
-        if(empty($this->guard()->user()->last_login_at) && $this->guard()->user()->user_type)
+        if(empty($this->guard()->user()->last_login_at))
         {
             $redirectUrl = $this->redirectToProfile;
         }
