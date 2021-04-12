@@ -337,7 +337,7 @@
                           <img src="{{auth()->user()->user_image_url}}" alt="" class="rounded-circle  {{$userProfileClass}}">
                         </div>
                       </div>
-                      <div class="owl-carousel owl-theme owl-one">
+                      <div class="">
                         <div class="item">
                           <div class="imgvid">
                             <img src="{{ $creatorContent->main_image_url}}">
