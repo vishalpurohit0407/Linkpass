@@ -30,7 +30,7 @@
         <p><a href="javascript:void(0);" class="text-secondary">{{Auth::user()->account_name}}</a></p>
         <p><a href="javascript:void(0);" class="text-secondary">{{Auth::user()->name}} {{Auth::user()->surname}}</a></p>
         <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">Here Since: <span>{{date('d M Y', strtotime(Auth::user()->created_at))}}</span></a></strong></p>
-        <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">Frome: Your <span>{{ !empty(Auth::user()->location) ? Auth::user()->location : 'N/A'}}</span></a></strong></p>
+        <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">From: Your <span>{{ !empty(Auth::user()->location) ? Auth::user()->location : 'N/A'}}</span></a></strong></p>
     </aside>
 </div>
 <ul class="ListingList font-12">
