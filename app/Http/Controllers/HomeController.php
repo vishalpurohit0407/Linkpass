@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Content;
 use App\Category;
-use App\ContentRatings;
+use App\ContentRating;
 use Illuminate\Http\Request;
+use Response;
 use Carbon\Carbon;
 use Hashids;
 
@@ -21,7 +22,7 @@ class HomeController extends Controller
         //$this->middleware('auth'); // Commented by Mayur for coming soon page
         $this->content        = new Content();
         $this->category       = new Category();
-        $this->contentRatings = new ContentRatings();
+        $this->contentRatings = new ContentRating();
     }
 
     /**
@@ -47,9 +48,9 @@ class HomeController extends Controller
      */
     public function getLatestResults()
     {
-        $results = $this->content->where('status', '1')->orderBy('posted_at', 'desc')->get();
+        $items = $this->content->where('status', '1')->orderBy('posted_at', 'desc')->limit(10)->get();
 
-        return view('results', array('results' => $results));
+        return view('results', array('items' => $items));
     }
 
     /**
@@ -59,9 +60,9 @@ class HomeController extends Controller
      */
     public function getTrendingResults()
     {
-        $results = $this->content->where('status', '1')->orderBy('posted_at', 'desc')->get();
+        $items = $this->content->where('status', '1')->orderBy('posted_at', 'desc')->limit(10)->get();
 
-        return view('results', array('results' => $results));
+        return view('results', array('items' => $items));
     }
 
     /**
@@ -116,11 +117,15 @@ class HomeController extends Controller
             {
                 $query->where('name', 'LIKE', '%'.$keyword.'%');
             });
+            $query = $query->orWhereHas('content_category_tags', function ($query) use ($keyword)
+            {
+                $query->where('name', 'LIKE', '%'.$keyword.'%');
+            });
         }
 
-        $results = $query->orderBy('main_title', 'asc')->get();
+        $items = $query->orderBy('main_title', 'asc')->get();
 
-        return view('results', array('results' => $results));
+        return view('results', array('items' => $items));
     }
 
     /**
@@ -128,11 +133,28 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function getContentDetails($id, Request $request)
+    public function getContentDetails(Request $request)
     {
-        $id = Hashids::decode($id);
+        $content = $this->content->find($request->content_id);
 
-        $content = $this->content->where('status', '1')->where('id', $id)->first();
+        if(isset($content->id)){
+
+            $html = view('content.ajax-result-content-data', array('content'=>$content))->render();
+
+            return Response::json(['status' => true, 'html' => $html]);
+        }
+
+        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
+    }
+
+    /**
+     * Get content Details.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getContentDetailsOld($id)
+    {
+        $content = $this->content->find($id);
 
         if(isset(Auth::user()->id) && isset($content->content_user_remove->id))
         {
@@ -140,11 +162,11 @@ class HomeController extends Controller
             return redirect(route('home'));
         }
 
-        $avgRating   = contentRatings::avg('rating');
+        $avgRating   = ContentRating::avg('rating');
         $avgRating   = round($avgRating);
 
-        $totalRatings   = contentRatings::count();
-        $contentRatings = contentRatings::orderBy('created_at', 'desc')->paginate(5);
+        $totalRatings   = ContentRating::count();
+        $contentRatings = ContentRating::orderBy('created_at', 'desc')->paginate(5);
 
         $totalWords = str_word_count($content->description)/60;
         $timeToread = sprintf("%02d", round($totalWords));

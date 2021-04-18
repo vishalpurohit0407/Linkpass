@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Storage;
 
-class ContentCompletion extends Authenticatable
+class ContentView extends Authenticatable
 {
-    protected $table = 'content_completion';
+    protected $table = 'content_views';
 
     protected $fillable = [
         'content_id', 'user_id',

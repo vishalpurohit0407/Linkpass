@@ -76,10 +76,10 @@
         @if(!isset(Auth::user()->user_type) || Auth::user()->user_type != 1)
         <div class="header-center">
           <!-- Actual search box -->
-          {{-- <form method="GET" action="{{route('results')}}"> --}}
-            <form method="GET" action="#">
+          <form method="GET" action="{{route('results')}}">
+            {{-- <form method="GET" action="#"> --}}
             <div class="has-search"> <span class="fa fa-search form-control-feedback"></span>
-              <input name="search" type="text" class="form-control" placeholder="Search">
+              <input name="search" type="text" class="form-control" placeholder="Search" value="{{ request()->get('search')}}">
             </div>
           </form>
         </div>
@@ -94,8 +94,8 @@
                 @endif
                 <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-square"></i> Footer</span></a> </li>
                 @if(isset(Auth::user()->id))
-                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-align-justify"></i> Trending</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-align-justify"></i> Latest</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('trending')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Trending</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('latest')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Latest</span></a> </li>
                   <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}">  <span class="font-16"><i class="fal fa-sign-out"></i> Logout</span></a> </li>
                 @endif
               </ul>

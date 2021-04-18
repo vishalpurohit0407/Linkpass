@@ -128,7 +128,7 @@
 
     @include('layouts.footer')
     <!-- Modal -->
-      <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal fade bd-example-modal-md" id="loginModalPrompt" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
           <div class="modal-content">
             <div class="modal-header py-3">
@@ -136,24 +136,38 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
             </div>
             <div class="modal-body">
-              <form action="#" method="get">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="UserNameLogin" placeholder="Username">
+              <form role="form" method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="form-group {{ $errors->has('email') ? ' has-danger' : '' }}">
+                  <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" autofocus>
+                  @if ($errors->has('email'))
+                      <div class="invalid-feedback text-left" style="display: block;" role="alert">
+                          {{ $errors->first('email') }}
+                      </div>
+                  @endif
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" id="passwordLogin" placeholder="Password">
+                  <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password" >
+                  @if ($errors->has('password'))
+                      <span class="invalid-feedback text-left" style="display: block;" role="alert">
+                          {{ $errors->first('password') }}
+                      </span>
+                  @endif
                 </div>
-                <div class="form-group radioeffect magic-radio-group text-left"> <span>
-                  <input name="radiog_lite" id="Login1" class="css-checkbox magic-radio" type="radio" checked="">
-                  <label for="Login1" class="css-label radGroup1">Login as a User</label>
-                  </span> <span>
-                  <input name="radiog_lite" id="Login2" class="css-checkbox magic-radio" type="radio">
-                  <label for="Login2" class="css-label radGroup1">Login as a Creator</label>
-                  </span> </div>
+                <div class="form-group radioeffect magic-radio-group text-left">
+                  <span>
+                    <input name="user_type" value="0" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
+                    <label for="radio1" class="css-label radGroup1">User</label>
+                  </span>
+                  <span>
+                    <input name="user_type" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
+                    <label for="radio2" class="css-label radGroup1">Creator</label>
+                  </span>
+                </div>
                 <div class="form-group login-btn">
                   <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Login</button>
                 </div>
-                <div class="text-center"> <a href="#">Forgot Password?</a> </div>
+                <div class="text-center"> <a href="{{ route('password.request') }}">Forgot Password?</a> </div>
               </form>
             </div>
           </div>
@@ -228,6 +242,7 @@
   <script src="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
   <script src="{{asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
   <script src="{{asset('assets/vendor/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/emoji/emoji.min.js')}}"></script>
 
   <!-- Setup of Menu JS -->
   <script type="text/javascript" src="{{asset('assets/js/stellarnav.js')}}"></script>
@@ -256,6 +271,15 @@
     });
   </script>
   @yield('pagewise_js')
+  @if($errors->has('email') || $errors->has('password'))
+      <script>
+      $(function() {
+          $('#loginModalPrompt').modal({
+              show: true
+          });
+      });
+      </script>
+  @endif
 </body>
 
 </html>

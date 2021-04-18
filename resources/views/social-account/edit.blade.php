@@ -42,24 +42,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="{{ $errors->has('type') ? ' has-danger' : '' }}">
-                                        <select class="js-example-basic-single form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type">
-                                            <option value="">Please Select Type</option>
-                                            <option @if($socialAccount->type == '1') selected @endif value="1">Images</option>
-                                            <option @if($socialAccount->type == '2') selected @endif value="2">Video</option>
-                                            <option @if($socialAccount->type == '3') selected @endif value="3">Podcast</option>
-                                            <option @if($socialAccount->type == '4') selected @endif value="4">Text/Blog</option>
-                                        </select>
-
-                                        @if($errors->has('type'))
-                                            <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('type') }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     <div class="{{ $errors->has('url') ? ' has-danger' : '' }}">
                                         <input type="url" name="url" id="url" class="form-control {{ $errors->has('url') ? ' is-invalid' : '' }}" placeholder="{{ __('Enter URL') }}" value="{{ old('url', $socialAccount->url) }}">
 

@@ -43,3 +43,12 @@ if (! function_exists('decodeHashId')) {
         return $str;
     }
 }
+
+if (! function_exists('encodeHashId')) {
+    function encodeHashId($str)
+    {
+        $encoded = \Hashids::encode($str);
+
+        return $encoded;
+    }
+}

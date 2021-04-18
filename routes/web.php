@@ -26,9 +26,11 @@ Route::get('/categories/{id}', 'HomeController@getContentsByCategory')->name('ca
 Route::get('/latest', 'HomeController@getLatestResults')->name('latest');
 Route::get('/trending', 'HomeController@getTrendingResults')->name('trending');
 Route::get('/results', 'HomeController@getResults')->name('results');
-Route::get('/results/{id}', 'HomeController@getContentDetails')->name('result.get-details');
+Route::post('/results/details', 'HomeController@getContentDetails')->name('result.get-details');
+Route::get('/results/{id}', 'HomeController@getContentDetailsOld')->name('result.get-details-old');
 
 Route::post('/content/save-rating','ContentController@saveRating')->name('user.content.save-rating');
+Route::post('/content/save-rating-vote','ContentController@saveRatingVote')->name('user.content.save-rating-vote');
 Route::get('/content/get-ratings','ContentController@getRatings')->name('user.content.get-ratings');
 Route::post('/content/save-action','ContentController@saveAction')->name('user.content.save-action');
 
@@ -79,9 +81,13 @@ Route::group(['middleware' => 'auth'], function () {
 	    ]
 	]);
 
+	// Search Page Routes
+	Route::post('/content/goto-content-details','ContentController@goToContentDetails')->name('user.content.goto-content-details');
+
 	// User Account
 	Route::get('account','UserAccountController@getLoggedInUserAccount')->name('user.account');
-	Route::get('account/{id}/contents','UserAccountController@getContentsByAccountId')->name('user.account.contents');
+	Route::get('user-account/{id}','UserAccountController@getOtherUserAccount')->name('other-user.account');
+	Route::get('account/{id}/contents/{userId}','UserAccountController@getContentsByAccountId')->name('user.account.contents');
 
 	// User Preferences
 	Route::post('/user/save-user-interest','ProfileController@saveUserInterest')->name('user.save-user-interest');

@@ -58,6 +58,18 @@
                                               @endif
                                           </div>
 
+                                          <div class="form-group @if($errors->has('type')) has-danger @endif">
+                                            <label class="form-control-label" for="type">Type <strong class="text-danger">*</strong></label><br>
+                                            <select class="js-example-basic-single form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type" onchange="bindType()">
+                                              <option value="">Please Select Type</option>
+                                              <option @if($content->type ==1) selected @endif value="1">Images</option>
+                                              <option @if($content->type ==2) selected @endif value="2">Video</option>
+                                              <option @if($content->type ==3) selected @endif value="3">Podcast</option>
+                                              <option @if($content->type ==4) selected @endif value="4">Text/Blog</option>
+                                            </select>
+                                            <span class="invalid-feedback">{{ $errors->first('type') }}</span>
+                                          </div>
+
                                           <div class="form-group">
                                             <label class="form-control-label" for="category_id">Category <strong class="text-danger">*</strong></label><br>
                                             <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
@@ -201,7 +213,6 @@
                                           </div>
                                         </div>
                                       </div>
-
                                     </div>
 
                                     <div class="row">
@@ -218,7 +229,7 @@
                                     <div class="row">
                                       <div class="col-md-12 text-center">
                                           <input type="submit" class="btn btn-primary rounded-30 text-uppercase float-left " name="submit" value="Save">
-                                          <a href="{{route('user.account.contents', $content->content_account->hashid)}}" class="btn btn-default rounded-30 text-uppercase float-left ml-2 ">Cancel</a>
+                                          <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-default rounded-30 text-uppercase float-left ml-2 ">Cancel</a>
                                       </div>
                                     </div>
 
@@ -259,7 +270,7 @@
 var content_id= '{{$content->id}}';
 $(document).ready(function() {
 
-  initSecondTab();
+    bindType();
 
     @if($content->main_image)
         $(".dz-preview.dz-preview-single").html('<div class="dz-preview-cover dz-processing dz-image-preview dz-success dz-complete"><img class="dz-preview-img" src="{{asset($content->main_image_url)}}"></div>');
@@ -271,7 +282,7 @@ $(document).ready(function() {
     });
 });
 
-function initSecondTab()
+function bindType()
 {
   var type = $('#type').val();
 

@@ -287,7 +287,7 @@
                 <div class="mt-5 mb-4">
                     @php
 
-                        $completed_content_count = \App\ContentCompletion::where('content_id',$maintenance->id)->count();
+                        $completed_content_count = \App\ContentView::where('content_id',$maintenance->id)->count();
 
                     @endphp
 

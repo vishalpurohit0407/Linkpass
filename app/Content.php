@@ -16,10 +16,10 @@ class Content extends Authenticatable
     protected $table = 'content';
 
     protected $fillable = [
-        'category_id', 'user_id', 'social_account_id', 'main_title', 'main_image', 'description', 'external_link', 'number_of_images', 'number_of_words', 'video_length', 'podcast_length', 'status', 'posted_at'
+        'category_id', 'user_id', 'type', 'social_account_id', 'main_title', 'main_image', 'description', 'external_link', 'number_of_images', 'number_of_words', 'video_length', 'podcast_length', 'status', 'posted_at'
     ];
 
-    protected $appends = [ 'main_image_url' ];
+    protected $appends = ['main_image_url', 'views_count', 'ratings_count', 'like_count', 'unlike_count'];
 
     public function content_category()
     {
@@ -36,9 +36,24 @@ class Content extends Authenticatable
         return (isset($this->main_image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->main_image) ? Config('filesystems.disks.public.url').'/'.$this->main_image : asset('assets/img/no_img.png'));
     }
 
-    public function getCompletionContentCountAttribute()
+    public function getViewsCountAttribute()
     {
-        return \App\ContentCompletion::where('content_id', $this->id)->count();
+        return \App\ContentView::where('content_id', $this->id)->count();
+    }
+
+    public function getRatingsCountAttribute()
+    {
+        return \App\ContentRating::where('content_id', $this->id)->count();
+    }
+
+    public function getLikeCountAttribute()
+    {
+        return \App\ContentAction::where('content_id', $this->id)->where('action' , '1')->count();
+    }
+
+    public function getUnlikeCountAttribute()
+    {
+        return \App\ContentAction::where('content_id', $this->id)->where('action' , '2')->count();
     }
 
     public function content_tags()
@@ -58,7 +73,7 @@ class Content extends Authenticatable
 
     public function content_ratings()
     {
-        return $this->hasMany('App\ContentRatings', 'content_id','id')->orderBy('id', 'desc');
+        return $this->hasMany('App\ContentRating', 'content_id','id')->orderBy('id', 'desc');
     }
 
     public function content_user_like()

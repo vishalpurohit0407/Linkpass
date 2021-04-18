@@ -42,25 +42,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
-                                    <div class="{{ $errors->has('type') ? ' has-danger' : '' }}">
-                                        <select class="js-example-basic-single form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type">
-                                            <option value="">Please Select Type</option>
-                                            <option value="1">Images</option>
-                                            <option value="2">Video</option>
-                                            <option value="3">Podcast</option>
-                                            <option value="4">Text/Blog</option>
-                                        </select>
-
-                                        @if($errors->has('type'))
-                                            <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('type') }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     {{-- <label class="form-control-label" for="url">{{ __('URL') }}</label> --}}
                                     <div class="{{ $errors->has('url') ? ' has-danger' : '' }}">
                                         <input type="url" name="url" id="url" class="form-control {{ $errors->has('url') ? ' is-invalid' : '' }}" placeholder="{{ __('Enter URL') }}" value="{{ old('url') }}">

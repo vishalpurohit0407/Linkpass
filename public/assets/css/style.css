@@ -1630,6 +1630,10 @@ ul.ListingList li a:hover {
 	border: 1px solid rgb(204, 204, 204);
 	color: rgb(204, 204, 204);
 }
+.AddVideo ul li a.action-disabled {
+	border: 1px solid rgb(204, 204, 204);
+	color: rgb(204, 204, 204);
+}
 .AddVideo p {
 	font-size: 13px;
 	line-height: 20px;
@@ -1802,6 +1806,9 @@ ul.ListingList li a:hover {
 	padding: 0;
 	color: #c7092a;
 }
+.w100p{
+	width: 100%!important;
+}
 
 .label-success {background-color: #4CAF50;} /* Green */
 .label-info {background-color: #2196F3;} /* Blue */
@@ -1843,20 +1850,20 @@ ul.ListingList li a:hover {
 	padding: 0.8rem;
 }
 .scrollbar {
-	height: 518px;
-	overflow-y: scroll;
+	/* height: 518px; */
+	overflow-y: hidden;
 	margin-top: 15px;
 }
 .force-overflow {
 	min-height: 518px;
 }
 .scrollbar-250 {
-	height: 250px;
+	height: 270px;
 	overflow-y: scroll;
 	margin-top: 15px;
 }
 .force-overflow-250 {
-	min-height: 250px;
+	min-height: 270px;
 }
 #style-1::-webkit-scrollbar {
  width: 3px;

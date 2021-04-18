@@ -7,8 +7,10 @@ use App\Category;
 use App\SocialAccount;
 use App\ContentTags;
 use App\ContentCategoryTags;
-use App\ContentRatings;
+use App\ContentRating;
+use App\ContentRatingVote;
 use App\ContentAction;
+use App\ContentView;
 use App\User;
 use Illuminate\Http\Request;
 use Response;
@@ -28,7 +30,7 @@ class ContentController extends Controller
         $this->content          = new Content();
         $this->contentTags      = new ContentTags();
         $this->contentCategoryTags = new ContentCategoryTags();
-        $this->contentRatings   = new ContentRatings();
+        $this->contentRatings   = new ContentRating();
         $this->user             = new User();
     }
 
@@ -101,10 +103,14 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         try {
-            return redirect(route('user.account.contents', $content->social_account_id));
+            $encodedUserId = encodeHashId($content->user_id);
+            $encodedSocialAccountId = encodeHashId($content->social_account_id);
+            return redirect(route('user.account.contents', [$encodedSocialAccountId, $encodedUserId]));
         }catch (ModelNotFoundException $exception) {
+            $encodedUserId = encodeHashId($content->user_id);
+            $encodedSocialAccountId = encodeHashId($content->social_account_id);
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('user.account.contents', $content->social_account_id));
+            return redirect(route('user.account.contents', [$encodedSocialAccountId, $encodedUserId]));
         }
     }
 
@@ -262,7 +268,7 @@ class ContentController extends Controller
         $videoLength   = $request->get('type') == 2 ? ($request->video_length_h > 0 ? sprintf("%02d", $request->video_length_h).':' : '00:').($request->video_length_m > 0 ? sprintf("%02d", $request->video_length_m).':' : '00:').($request->video_length_s > 0 ? sprintf("%02d", $request->video_length_s) : '00') : '';
         $podcastLength = $request->get('type') == 3 ? ($request->podcast_length_h > 0 ? sprintf("%02d", $request->podcast_length_h).':' : '00:').($request->podcast_length_m > 0 ? sprintf("%02d", $request->podcast_length_m).':' : '00:').($request->podcast_length_s > 0 ? sprintf("%02d", $request->podcast_length_s) : '00') : '';
 
-        //$content->type                    = $request->type;
+        $content->type                    = $request->type;
         $content->main_title              = $request->main_title;
         $content->category_id             = $request->category_id;
         $content->user_id                 = Auth::user()->id;
@@ -275,10 +281,13 @@ class ContentController extends Controller
         $content->external_link           = $request->external_link;
         $content->status                  = '1';
 
+        $encodedUserId = encodeHashId($content->user_id);
+        $encodedSocialAccountId = encodeHashId($content->social_account_id);
+
         if ($content->save()) {
             $request->session()->flash('alert-success', 'Content has been updated successfully.');
         }
-        return redirect(route('user.account.contents', $content->social_account_id));
+        return redirect(route('user.account.contents', [$encodedSocialAccountId, $encodedUserId]));
     }
 
     /**
@@ -297,10 +306,18 @@ class ContentController extends Controller
             if ($content->delete()) {
                 $request->session()->flash('alert-success', 'Content deleted successfully.');
             }
-            return redirect(route('user.account.contents', $content->social_account_id));
+
+            $encodedUserId = encodeHashId($content->user_id);
+            $encodedSocialAccountId = encodeHashId($content->social_account_id);
+
+            return redirect(route('user.account.contents', [$encodedSocialAccountId, $encodedUserId]));
         }catch (ModelNotFoundException $exception) {
             $request->session()->flash('alert-danger', $exception->getMessage());
-            return redirect(route('user.account.contents', $content->social_account_id));
+
+            $encodedUserId = encodeHashId($content->user_id);
+            $encodedSocialAccountId = encodeHashId($content->social_account_id);
+
+            return redirect(route('user.account.contents', [$encodedSocialAccountId, $encodedUserId]));
         }
     }
 
@@ -332,6 +349,22 @@ class ContentController extends Controller
         return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
     }
 
+    public function goToContentDetails(Request $request)
+    {
+        $content = $this->content->find($request->content_id);
+
+        if(isset($content->id)){
+
+            ContentView::create(array('user_id' => Auth::user()->id, 'content_id' => $request->content_id));
+
+            $count = $content->views_count;
+
+            return Response::json(['status' => true, 'count' => $count, 'url' => $content->external_link]);
+        }
+
+        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
+    }
+
     public function saveRating(Request $request)
     {
        if(!isset(Auth::user()->id))
@@ -339,7 +372,7 @@ class ContentController extends Controller
             return Response::json(['status' => false, 'message' => 'Please login to give rating.']);
        }
 
-       $rating = ContentRatings::create([
+       $rating = ContentRating::create([
            'content_id' => $request->get('content_id'),
            'user_id'    => Auth::user()->id,
            'rating'     => $request->get('rating'),
@@ -348,9 +381,30 @@ class ContentController extends Controller
 
        if(isset($rating->id))
        {
-            $ratingsCount = contentRatings::count();
+            $ratingsCount = ContentRating::where('content_id', $request->get('content_id'))->count();
 
             return Response::json(['status' => true, 'message' => 'Rating has been saved successfully.', 'ratingsCount' => $ratingsCount]);
+       }
+
+       return Response::json(['status' => false, 'message' => 'Something went wrong.']);
+    }
+
+    public function saveRatingVote(Request $request)
+    {
+       if(!isset(Auth::user()->id))
+       {
+            return Response::json(['status' => false, 'message' => 'Please login to vote rating.']);
+       }
+
+       $ratingVote = ContentRatingVote::create([
+           'rating_id' => $request->get('rating_id'),
+           'user_id'   => Auth::user()->id,
+           'vote'      => $request->get('type')
+       ]);
+
+       if(isset($ratingVote->id))
+       {
+            return Response::json(['status' => true, 'message' => 'Rating vote has been saved successfully.']);
        }
 
        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -371,7 +425,9 @@ class ContentController extends Controller
 
        if(isset($action->id))
        {
-            return Response::json(['status' => true, 'message' => 'The content action has been saved successfully.']);
+            $actionCount = ContentAction::where('content_id', $request->get('content_id'))->where('action', $request->get('action'))->count();
+
+            return Response::json(['status' => true, 'message' => 'The content action has been saved successfully.', 'actionCount' => $actionCount]);
        }
 
        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -380,8 +436,9 @@ class ContentController extends Controller
     public function getRatings(Request $request){
 
         $contentRatings = $this->contentRatings;
+        $contentId = $request->get('content_id');
 
-        $contentRatings=$contentRatings->orderBy('created_at', 'desc')->paginate(5);
+        $contentRatings=$contentRatings->where('content_id', $contentId)->orderBy('created_at', 'desc')->paginate(5);
 
         return view('content.ajax-rating-list',array('contentRatings' => $contentRatings));
     }

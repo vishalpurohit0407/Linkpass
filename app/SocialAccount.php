@@ -15,7 +15,7 @@ class SocialAccount extends Authenticatable
     protected $table = 'social_accounts';
 
     protected $fillable = [
-        'user_id', 'name', 'type', 'image', 'url', 'account_url', 'status'
+        'user_id', 'name', 'image', 'url', 'account_url', 'status'
     ];
 
     protected $appends = [ 'image_url' ];
