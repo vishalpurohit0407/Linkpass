@@ -1,8 +1,8 @@
-@if($contentRatings && count($contentRatings)>0)
-    @include('content.content_rating_data')
+@if($items && count($items)>0)
+    @include('content-rows')
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end pt-2 ratings-pagination">
-            {!! $contentRatings->links() !!}
+        <ul class="pagination justify-content-end pt-2 content-pagination">
+            {!! $items->links() !!}
         </ul>
     </nav>
 @else

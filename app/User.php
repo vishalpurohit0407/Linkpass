@@ -64,8 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return (isset($this->profile_img) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->profile_img) ? Config('filesystems.disks.public.url').'/'.$this->profile_img : asset('assets/img/theme/unnamed.jpg'));
     }
 
-    public function user_tags()
+    public function user_groups()
     {
-        return $this->hasMany('App\UserTags', 'user_id','id');
+        return $this->hasMany('App\UserPreferencesGroups', 'user_id','id');
     }
+
 }

@@ -24,7 +24,11 @@
         <h4>{{$content->main_title}}</h4>
         <div class="VideoUser">
             <div class="mr-2 height-32 width-32 user-profile-avatar">
-            <img src="{{$content->content_user->user_image_url}}" alt="" class="rounded-circle  {{$userProfileClass}}">
+              @if(isset($content->content_account->image_url))
+                <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle ">
+              @else
+                <img src="{{asset('assets/img/theme/unnamed.jpg')}}" alt="" class="rounded-circle ">
+              @endif
             </div>
         </div>
         <div class="">
@@ -37,13 +41,13 @@
         <ul class="d-flex justify-content-between">
           <li>
             @php
-              $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id)) ? 'action-disabled' : 'content-action';
+              $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
             @endphp
             <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 {{$likeClass}}"><i class="fal fa-check"></i> <span class="actionCount">{{$content->like_count}}</span></a>
           </li>
           <li>
             @php
-              $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id)) ? 'action-disabled' : 'content-action';
+              $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
             @endphp
             <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}}"><i class="fal fa-times"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
           </li>
@@ -54,7 +58,7 @@
 
           <li>
             @php
-              $inappropriateClass = isset($content->content_user_inappropriate->id) ? 'action-disabled' : 'content-action';
+              $inappropriateClass = (isset($content->content_user_inappropriate->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
             @endphp
             <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-exclamation-triangle"></i> </a>
           </li>
@@ -112,17 +116,19 @@
                 <option>5</option>
               </select>
             </aside> --}}
-              <aside class="col-md-4">
-                <div id="emoji-div"></div>
-              </aside>
+              @if(Auth::user()->user_type != '1')
+                <aside class="col-md-4">
+                  <div id="emoji-div"></div>
+                </aside>
 
-              <aside class="col-md-6 pr-1">
-                  <input class="form-control" type="text" name="rating-text" id="rating-text" placeholder="Enter Rating Word(s) here" />
-              </aside>
+                <aside class="col-md-6 pr-1">
+                    <input class="form-control" type="text" name="rating-text" id="rating-text" placeholder="Enter Rating Word(s) here" />
+                </aside>
 
-              <aside class="col-md-2 pl-0">
-                  <button name="saveRating" data-id="{{$content->id}}" id="saveRating" class="default-btn-sm">Rate</button>
-              </aside>
+                <aside class="col-md-2 pl-0">
+                    <button name="saveRating" data-id="{{$content->id}}" id="saveRating" class="default-btn-sm">Rate</button>
+                </aside>
+              @endif
           </div>
 
           <div class="scrollbar" id="style-1">

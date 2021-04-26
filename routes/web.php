@@ -32,6 +32,7 @@ Route::get('/results/{id}', 'HomeController@getContentDetailsOld')->name('result
 Route::post('/content/save-rating','ContentController@saveRating')->name('user.content.save-rating');
 Route::post('/content/save-rating-vote','ContentController@saveRatingVote')->name('user.content.save-rating-vote');
 Route::get('/content/get-ratings','ContentController@getRatings')->name('user.content.get-ratings');
+Route::get('/content/get-tabs-contents','ContentController@getTabsContent')->name('user.content.get-tabs-contents');
 Route::post('/content/save-action','ContentController@saveAction')->name('user.content.save-action');
 
 //  Verify Account Name
@@ -50,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Content Module Routes
 	Route::get('/content/search','ContentController@search')->name('user.content.search');
 	Route::post('/content/delete','ContentController@deleteContent')->name('user.content.delete');
-	Route::post('/content/get-details','ContentController@getContentDetails')->name('user.content.get-details');
+	//Route::post('/content/get-details','ContentController@getContentDetails')->name('user.content.get-details');
 	Route::resource('/content', 'ContentController', [
 	    'names' => [
 			'index'   => 'user.content.list',

@@ -26,7 +26,7 @@
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
         </ul>
       </div>
-      <div class="CompanyList">
+      <div class="CompanyList keptContent">
         <div class="row">
           @if(false)
             @for($i=0; $i<=5;$i++)
@@ -105,7 +105,7 @@
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
         </ul>
       </div>
-      <div class="CompanyList">
+      <div class="CompanyList matchesContent">
         <div class="row">
           @if(false)
             @for($i=0; $i<=5;$i++)
@@ -184,7 +184,7 @@
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
         </ul>
       </div>
-      <div class="CompanyList">
+      <div class="CompanyList ratedContent">
         <div class="row">
           @if(false)
             @for($i=0; $i<=5;$i++)
@@ -273,7 +273,7 @@
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
         </ul>
       </div>
-      <div class="CompanyList">
+      <div class="CompanyList creatorsContent">
         <div class="content-listing-loader" style="display: none;">
           <i class="fa fa-spinner fa-pulse"></i>
         </div>

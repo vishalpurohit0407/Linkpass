@@ -7,6 +7,7 @@ use App\Category;
 use App\SocialAccount;
 use App\ContentTags;
 use App\ContentCategoryTags;
+use App\UserPreferencesGroupTags;
 use App\ContentRating;
 use App\ContentRatingVote;
 use App\ContentAction;
@@ -335,19 +336,19 @@ class ContentController extends Controller
         return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
     }
 
-    public function getContentDetails(Request $request)
-    {
-        $content = $this->content->find($request->content_id);
+    // public function getContentDetails(Request $request)
+    // {
+    //     $content = $this->content->find($request->content_id);
 
-        if(isset($content->id)){
+    //     if(isset($content->id)){
 
-            $html = view('content.ajax-content-data',array('content'=>$content))->render();
+    //         $html = view('content.ajax-content-data',array('content'=>$content))->render();
 
-            return Response::json(['status' => true, 'html' => $html]);
-        }
+    //         return Response::json(['status' => true, 'html' => $html]);
+    //     }
 
-        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
-    }
+    //     return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
+    // }
 
     public function goToContentDetails(Request $request)
     {
@@ -441,5 +442,49 @@ class ContentController extends Controller
         $contentRatings=$contentRatings->where('content_id', $contentId)->orderBy('created_at', 'desc')->paginate(5);
 
         return view('content.ajax-rating-list',array('contentRatings' => $contentRatings));
+    }
+
+    public function getTabsContent(Request $request){
+
+        $items = [];
+        $contentId = $request->get('content_id');
+
+        $tab = $request->get('tab');
+
+        if($tab == 'rated')
+        {
+            if(Auth::user()->user_type == '1')
+            {
+                $items = $this->content->where('user_id', Auth::user()->id)
+                ->whereExists(function ($query) {
+                    $query->select("content_ratings.id")
+                          ->from('content_ratings')
+                          ->whereRaw('content_ratings.content_id = content.id');
+                })
+                ->paginate(6);
+            }
+            else
+            {
+                $items = $this->content->with('content_ratings')->whereHas('content_ratings', function ($query)
+                {
+                $query->where('user_id', Auth::user()->id);
+                // $query->orderBy('rating', 'asc');
+                })->paginate(6);
+            }
+
+        }
+
+        if($tab == 'matched')
+        {
+            $loggedInUserGroupIds = Auth::user()->user_groups()->pluck('id')->toArray();
+            $loggedInUserTags     = UserPreferencesGroupTags::whereIn('group_id', $loggedInUserGroupIds)->pluck('name')->toArray();
+
+            $items = $this->content->whereHas('content_tags', function ($query) use ($loggedInUserTags)
+            {
+              $query->whereIn('name', $loggedInUserTags);
+            })->orderBy('created_at', 'desc')->paginate(6);
+        }
+
+        return view('content.ajax-tabs-content-list',array('items' => $items));
     }
 }

@@ -274,9 +274,13 @@
   @if($errors->has('email') || $errors->has('password'))
       <script>
       $(function() {
-          $('#loginModalPrompt').modal({
-              show: true
-          });
+        var currentUrl = '{{Route::currentRouteName()}}';
+        if(currentUrl != '' && currentUrl != 'home')
+        {
+            $('#loginModalPrompt').modal({
+                show: true
+            });
+        }
       });
       </script>
   @endif
