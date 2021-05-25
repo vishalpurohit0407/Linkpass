@@ -93,7 +93,7 @@
             </div>
           </div>
             <div>
-                @if($item->is_up_voted_ratings || $item->is_down_voted_ratings|| Auth::user()->user_type == '1')
+                @if($item->is_up_voted_ratings || $item->is_down_voted_ratings|| (isset(Auth::user()->user_type) && Auth::user()->user_type == '1'))
                     <a href="javascript:void(0);" data-id="{{$item->id}}" data-type="1" class="arrowud text-muted "> <i class="far fa-arrow-up"></i> </a>
                     <a href="javascript:void(0);" data-id="{{$item->id}}" data-type="0" class="arrowud text-muted "> <i class="far fa-arrow-down"></i> </a>
                 @else

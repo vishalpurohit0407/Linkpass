@@ -27,7 +27,7 @@
           <div class="card bg-secondary border-0 mb-0">
             <div class="card-body px-lg-5 py-lg-5">
                 <div class="text-center text-muted mb-4">
-                    <small>Sign In</small>
+                    <small>Login</small>
                 </div>
                 @if(Session::has('status'))
                     <div class="alert alert-success alert-dismissible fade show mb-2" role="alert">
@@ -72,7 +72,7 @@
                         </label>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
+                        <button type="submit" class="btn btn-primary my-4">{{ __('Login') }}</button>
                     </div>
                 </form>
             </div>

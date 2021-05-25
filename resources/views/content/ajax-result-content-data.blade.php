@@ -41,13 +41,13 @@
         <ul class="d-flex justify-content-between">
           <li>
             @php
-              $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
+              $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
             @endphp
             <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 {{$likeClass}}"><i class="fal fa-check"></i> <span class="actionCount">{{$content->like_count}}</span></a>
           </li>
           <li>
             @php
-              $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
+              $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
             @endphp
             <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}}"><i class="fal fa-times"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
           </li>
@@ -58,7 +58,7 @@
 
           <li>
             @php
-              $inappropriateClass = (isset($content->content_user_inappropriate->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
+              $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
             @endphp
             <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-exclamation-triangle"></i> </a>
           </li>

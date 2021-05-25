@@ -131,7 +131,12 @@ function deleteSocialAccount(id){
 
   jQuery(document).ready(function($) {
 
-      $(document).on('click','.rateListingContent',function(event) {
+    if($('#pills-Kept-tab').length > 0)
+    {
+        setTimeout(function(){ $('#pills-Kept-tab').click(); }, 1000);
+    }
+
+    $(document).on('click','.rateListingContent',function(event) {
 
         var contentId = $(this).attr('data-id');
 
@@ -406,6 +411,12 @@ function deleteSocialAccount(id){
             {
                 $('.matchesContent').html(data);
             }
+
+            if(tab == 'saved')
+            {
+                $('.savedContent').html(data);
+            }
+
             if(tab == 'rated')
             {
                 $('.ratedContent').html(data);

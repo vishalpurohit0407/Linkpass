@@ -315,6 +315,14 @@
                       {
                           swal('Succes!!', data.message, 'success');
 
+                            if(action == '4' || action == '5')
+                            {
+                                setTimeout(function()
+                                {
+                                    location.reload();
+                                }, 3000);
+                            }
+
                           $(element).removeClass('content-action');
                           $(element).addClass('action-disabled');
                           $(element).find('.actionCount').html(data.actionCount);

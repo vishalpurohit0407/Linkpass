@@ -12,7 +12,7 @@
                 </div>
               </div>
             </div>
-        </div>  
+        </div>
       <div class="separator separator-bottom separator-skew zindex-100">
         <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
@@ -59,11 +59,11 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        
+
                     </div>
                     <div class="col-6 text-right">
                         <a href="{{ route('admin.login') }}" class="text-light">
-                            <small>{{ __('Sign In') }}</small>
+                            <small>{{ __('Login') }}</small>
                         </a>
                     </div>
                 </div>

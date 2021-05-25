@@ -453,7 +453,7 @@ class ContentController extends Controller
 
         if($tab == 'rated')
         {
-            if(Auth::user()->user_type == '1')
+            if((isset(Auth::user()->user_type) && Auth::user()->user_type == '1'))
             {
                 $items = $this->content->where('user_id', Auth::user()->id)
                 ->whereExists(function ($query) {
@@ -467,7 +467,7 @@ class ContentController extends Controller
             {
                 $items = $this->content->with('content_ratings')->whereHas('content_ratings', function ($query)
                 {
-                $query->where('user_id', Auth::user()->id);
+                    $query->where('user_id', Auth::user()->id);
                 // $query->orderBy('rating', 'asc');
                 })->paginate(6);
             }
@@ -482,6 +482,14 @@ class ContentController extends Controller
             $items = $this->content->whereHas('content_tags', function ($query) use ($loggedInUserTags)
             {
               $query->whereIn('name', $loggedInUserTags);
+            })->orderBy('created_at', 'desc')->paginate(6);
+        }
+
+        if($tab == 'saved')
+        {
+            $items = $this->content->whereHas('content_user_keep', function ($query)
+            {
+              $query->where('user_id', Auth::user()->id);
             })->orderBy('created_at', 'desc')->paginate(6);
         }
 

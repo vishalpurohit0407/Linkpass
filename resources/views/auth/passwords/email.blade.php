@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-6 text-right">
                         <a href="{{ route('home') }}" class="">
-                            <small>{{ __('Sign In') }}</small>
+                            <small>{{ __('Login') }}</small>
                         </a>
                     </div>
                 </div>

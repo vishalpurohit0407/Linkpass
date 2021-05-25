@@ -275,7 +275,7 @@
       <script>
       $(function() {
         var currentUrl = '{{Route::currentRouteName()}}';
-        if(currentUrl != '' && currentUrl != 'home')
+        if(currentUrl != '' && currentUrl != 'home' && currentUrl != 'register' && currentUrl != 'creator-register' && currentUrl != 'profile.edit')
         {
             $('#loginModalPrompt').modal({
                 show: true

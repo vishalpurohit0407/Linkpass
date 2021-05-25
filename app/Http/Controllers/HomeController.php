@@ -109,17 +109,21 @@ class HomeController extends Controller
 
         $query = $this->content;
         $query = $query->where('status', '1');
+        $query = $query->whereDoesntHave('content_user_remove');
 
         if(isset($keyword) && !empty($keyword)) {
-            $query = $query->where('main_title','LIKE','%'.$keyword.'%');
-            $query = $query->orWhere('description','LIKE','%'.$keyword.'%');
-            $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
+            $query = $query->where(function ($query) use ($keyword)
             {
-                $query->where('name', 'LIKE', '%'.$keyword.'%');
-            });
-            $query = $query->orWhereHas('content_category_tags', function ($query) use ($keyword)
-            {
-                $query->where('name', 'LIKE', '%'.$keyword.'%');
+                $query = $query->where('main_title','LIKE','%'.$keyword.'%');
+                $query = $query->orWhere('description','LIKE','%'.$keyword.'%');
+                $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
+                {
+                    $query->where('name', 'LIKE', '%'.$keyword.'%');
+                });
+                $query = $query->orWhereHas('content_category_tags', function ($query) use ($keyword)
+                {
+                    $query->where('name', 'LIKE', '%'.$keyword.'%');
+                });
             });
         }
 

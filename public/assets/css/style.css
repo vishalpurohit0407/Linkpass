@@ -415,7 +415,9 @@ hr {
 	clear: both;
 	width: 100%;
 }
-
+.mt60 {
+	margin-top: 60px;
+}
 .mb60 {
 	margin-bottom: 60px;
 }
@@ -1320,7 +1322,7 @@ footer {
 }
 .login-box {
 	height: 100%;/*background: #ccc;
-	padding: 50px;
+	padding: 50px; 
 	border-radius: 20px;*/
 }
 .login-btn a {
@@ -1398,13 +1400,6 @@ ul.LinkVerb li a {
 	display: block;
 	border-radius: 20px;
 	font-size: 15px;
-}
-ul.LinkVerb li a.sm {
-	padding: 3px 25px;
-	color: #666;
-	display: block;
-	border-radius: 20px;
-	font-size: 11px;
 }
 ul.LinkVerb li a:hover, ul.LinkVerb li.active a {
 	background: #666;
@@ -1531,7 +1526,6 @@ ul.ListingList li a:hover {
 	color: rgba(255,255,255,0.60);
 }
 .AddVideo {
-	height:500px;
 	margin-top: 30px;
 	border: 1px solid #CCC;
 	padding: 10px 10px 20px;
@@ -1566,6 +1560,7 @@ ul.ListingList li a:hover {
 	height: 160px;
 	width: 100%;
 	overflow: hidden;
+	position: relative;
 }
 .AddVideo iframe {
 	width: 100%;
@@ -1627,10 +1622,6 @@ ul.ListingList li a:hover {
 	font-size: 13px;
 }
 .AddVideo ul li a:hover {
-	border: 1px solid rgb(204, 204, 204);
-	color: rgb(204, 204, 204);
-}
-.AddVideo ul li a.action-disabled {
 	border: 1px solid rgb(204, 204, 204);
 	color: rgb(204, 204, 204);
 }
@@ -1796,26 +1787,6 @@ ul.ListingList li a:hover {
 	padding: 0;
 	color: #666;
 }
-.VideoPopup .btn-info {
-	background: none;
-	padding: 0;
-	color: #007fff;
-}
-.VideoPopup .btn-danger {
-	background: none;
-	padding: 0;
-	color: #c7092a;
-}
-.w100p{
-	width: 100%!important;
-}
-
-.label-success {background-color: #4CAF50;} /* Green */
-.label-info {background-color: #2196F3;} /* Blue */
-.label-warning {background-color: #ff9800;} /* Orange */
-.label-danger {background-color: #f44336;} /* Red */
-.label-other {background-color: #e7e7e7; color: black;} /* Gray */
-
 .btn-primary.focus, .btn-primary:focus {
 	box-shadow: inherit;
 }
@@ -1850,20 +1821,12 @@ ul.ListingList li a:hover {
 	padding: 0.8rem;
 }
 .scrollbar {
-	/* height: 518px; */
-	overflow-y: hidden;
+	height: 518px;
+	overflow-y: scroll;
 	margin-top: 15px;
 }
 .force-overflow {
 	min-height: 518px;
-}
-.scrollbar-250 {
-	height: 270px;
-	overflow-y: scroll;
-	margin-top: 15px;
-}
-.force-overflow-250 {
-	min-height: 270px;
 }
 #style-1::-webkit-scrollbar {
  width: 3px;
@@ -2072,3 +2035,7 @@ ul.ListingList li a:hover {
 .label-info-tag {
 	margin: 2px 4px;
 }
+.Remove, .Keep{ position: absolute; top: 47%;}
+.Remove{left: 0;}
+.Keep{right: 0;}
+.Remove .badge-info, .Keep .badge-info{font-weight: 500; padding: 5px 8px 8px; font-size: 12px;}

@@ -75,7 +75,7 @@
             </div>
             <div class="col-6 text-right">
                 <a href="{{ route('login') }}" class="">
-                    <small>{{ __('Sign In') }}</small>
+                    <small>{{ __('Login') }}</small>
                 </a>
             </div>
           </div>
@@ -155,15 +155,17 @@
                       </span>
                       <span>
                           <input name="is_company" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
-                          <label for="radio2" class="css-label Company">Company</label>
+                          <label for="radio2" class="css-label Company">Group</label>
                       </span>
                   </div>
                 @endif
 
                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
-                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" id="name" value="{{ old('name') }}" autofocus>
+                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" id="name" value="{{ old('name') }}" maxlength="50" autofocus>
                     </div>
+                    <small id="nameHelp" class="form-text text-muted">Maximum 50 characters are allowed</small>
+
                     @if ($errors->has('name'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
                             {{ $errors->first('name') }}
@@ -181,10 +183,10 @@
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('account_name') ? ' has-danger' : '' }} text-left">
-                  <div class="input-group input-group-alternative">
-                      <input class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" type="text" name="account_name" id="account_name" value="{{ old('account_name') }}">
+                    <div class="input-group input-group-alternative">
+                      <input class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" type="text" name="account_name" id="account_name" value="{{ old('account_name') }}" maxlength="50">
                     </div>
-                    <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_@ allowed</small>
+                    <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 50 characters allowed</small>
 
                   {{-- <a href="javascript:void(0);" id="generateAccountName">Generate</a> --}}
 
@@ -196,6 +198,8 @@
                     <div class="input-group input-group-alternative">
                         <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password" id="password">
                     </div>
+                    <small id="passwordHelp" class="form-text text-muted">Password must contain atleast one number and special character</small>
+
                     @if ($errors->has('password'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
                             {{ $errors->first('password') }}
@@ -255,7 +259,7 @@ $(document).ready(function() {
     });
 
     $('#account_name').keypress(function( e ) {
-      if(!/[0-9a-zA-Z-_@]/.test(String.fromCharCode(e.which)))
+      if(!/[0-9a-zA-Z-_]/.test(String.fromCharCode(e.which)))
         return false;
     });
 

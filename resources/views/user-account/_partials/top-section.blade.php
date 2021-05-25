@@ -4,7 +4,7 @@
     {
         $userProfileClass = 'user-profile-bg';
     }
-    if(Auth::user()->user_type == '1')
+    if((isset(Auth::user()->user_type) && Auth::user()->user_type == '1'))
     {
         $userProfileClass = 'creator-profile-bg';
     }

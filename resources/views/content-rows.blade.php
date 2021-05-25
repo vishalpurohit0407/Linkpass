@@ -37,19 +37,31 @@
             <div class="item">
               <div class="imgvid">
                 <img src="{{ $content->main_image_url}}">
+
+                  @if(!isset($content->content_user_remove->id))
+                    <div class="Remove">
+                      <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action"><span class="badge badge-info">Remove</span></a>
+                    </div>
+                  @endif
+
+                  @if(!isset($content->content_user_keep->id))
+                    <div class="Keep">
+                      <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action"><span class="badge badge-info">Keep</span></a>
+                    </div>
+                  @endif
               </div>
             </div>
           </div>
           <ul class="d-flex justify-content-between">
             <li>
               @php
-                $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
+                $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
               <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 {{$likeClass}}"><i class="fal fa-check"></i> <span class="actionCount">{{$content->like_count}}</span></a>
             </li>
             <li>
               @php
-                $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
+                $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
               <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}}"><i class="fal fa-times"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
             </li>
@@ -60,7 +72,7 @@
 
             <li>
               @php
-                $inappropriateClass = (isset($content->content_user_inappropriate->id) || Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
+                $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
               <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-exclamation-triangle"></i> </a>
             </li>
@@ -86,11 +98,16 @@
             </span>
           </div>
           <hr class="my-3">
-          <p>{{  Str::limit($content->description, 150)}}</p>
+          <p>{{  Str::limit($content->description, 100)}}</p>
           <!-- Button trigger modal -->
           <div class="VideoPopup">
             <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary pull-right view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-expand"></i></a>
+
+            @if(isset($content->content_user_keep->id))
+            <span class="text-danger text-uppercase mr-5">SAVED</span>
+            @endif
             <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary pull-right goto-content-details mr-2">VISIT</a>
+
             @if(isset($editable) && $editable == true)
               <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary mr-3 pull-right"><i class="far fa-edit"></i></a>
               <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>

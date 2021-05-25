@@ -26,7 +26,7 @@
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
         </ul>
       </div>
-      <div class="CompanyList keptContent">
+      <div class="CompanyList savedContent">
         <div class="row">
           @if(false)
             @for($i=0; $i<=5;$i++)

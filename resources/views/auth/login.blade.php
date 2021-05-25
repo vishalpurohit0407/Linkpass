@@ -35,9 +35,9 @@
 
                 <div class="text-center text-muted mb-4">
                   @if($isCreator)
-                    <span>Creator Sign In</span>
+                    <span>Creator Login</span>
                   @else
-                    <span>Sign In</span>
+                    <span>Login</span>
                   @endif
                 </div>
 
@@ -71,7 +71,7 @@
                         </label>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
+                        <button type="submit" class="btn btn-primary my-4">{{ __('Login') }}</button>
                     </div>
                 </form>
             </div>

@@ -163,8 +163,8 @@
                             <div class="pl-lg-4">
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}">
-
+                                        <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" maxlength="50">
+                                        <small id="nameHelp" class="form-text text-muted">Maximum 50 characters are allowed</small>
                                         @if($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('name') }}
@@ -187,8 +187,8 @@
 
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('account_name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="account_name" id="account_name" class="form-control {{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('account_name', auth()->user()->account_name) }}">
-                                        <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_@ allowed</small>
+                                        <input type="text" name="account_name" id="account_name" class="form-control {{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('account_name', auth()->user()->account_name) }}" maxlength="50">
+                                        <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 50 characters allowed</small>
                                         @if($errors->has('account_name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('account_name') }}
@@ -279,7 +279,7 @@
                                                 {
                                                     $userProfileClass = 'user-profile-bg';
                                                 }
-                                                if(Auth::user()->user_type == '1')
+                                                if((isset(Auth::user()->user_type) && Auth::user()->user_type == '1'))
                                                 {
                                                     $userProfileClass = 'creator-profile-bg';
                                                 }
@@ -336,7 +336,7 @@
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('password') ? ' has-danger' : '' }}">
                                         <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" value="" >
-
+                                        <small id="passwordHelp" class="form-text text-muted">Password must contain atleast one number and special character</small>
                                         @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('password') }}
@@ -373,7 +373,7 @@ var output = document.getElementById('output');
 jQuery(document).ready(function($) {
 
     $('#account_name').keypress(function( e ) {
-      if(!/[0-9a-zA-Z-_@]/.test(String.fromCharCode(e.which)))
+      if(!/[0-9a-zA-Z-_]/.test(String.fromCharCode(e.which)))
         return false;
     });
 
