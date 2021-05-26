@@ -100,13 +100,22 @@
           <hr class="my-3">
           <p>{{  Str::limit($content->description, 100)}}</p>
           <!-- Button trigger modal -->
-          <div class="VideoPopup">
-            <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary pull-right view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-expand"></i></a>
+          <div class="row">
 
-            @if(isset($content->content_user_keep->id))
-            <span class="text-danger text-uppercase mr-5">SAVED</span>
-            @endif
-            <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary pull-right goto-content-details mr-2">VISIT</a>
+            <div class="col-md-4 text-left">
+              @if(isset($content->content_user_keep->id))
+              <span class="text-danger text-uppercase mr-5" style="font-weight: bold;">SAVED</span>
+              @endif
+            </div>
+
+            <div class="col-md-4 text-center">
+              <a href="javascript:void(0);" style="background-color: #3498DB; color:#FFF; padding:5px 15px 5px 15px;" data-id="{{ $content->id }}" class="btn btn-primary goto-content-details mr-2">VISIT</a>
+            </div>
+
+            <div class="col-md-4 text-right">
+              <a href="javascript:void(0);" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-expand"></i></a>
+            </div>
+
 
             @if(isset($editable) && $editable == true)
               <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary mr-3 pull-right"><i class="far fa-edit"></i></a>
