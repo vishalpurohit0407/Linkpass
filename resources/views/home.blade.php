@@ -27,7 +27,7 @@
                   @endif
                 </div>
                 <div class="form-group">
-                  <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password" >
+                  <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="{{ __('Password') }}" type="password" >
                   @if ($errors->has('password'))
                       <span class="invalid-feedback text-left" style="display: block;" role="alert">
                           {{ $errors->first('password') }}
@@ -44,6 +44,11 @@
                     <label for="radio2" class="css-label radGroup1">Creator</label>
                   </span>
                 </div>
+                <div class="chiller_cb mb-3">
+                  <input id="show-password" type="checkbox">
+                  <label for="show-password" class="control-label">Show Password</label>
+                  <span></span>
+              </div>
                 <div class="form-group login-btn">
                   <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Login</button>
                 </div>

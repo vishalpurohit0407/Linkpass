@@ -5,12 +5,14 @@
         <article class="SettingBox">
             <div class="d-flex justify-content-between align-items-center SettingBoxHead">
             <h5 class="user-preferences-group"><a href="javascript:void(0);"># {{$item->name}} {{$i+1}} :</a></h5>
-            <div class="custom-control custom-switch">
-                @php $status = $item->status == 1 ? 'checked' : ''; @endphp
-                <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger groupStatusToggle" data-group-id="{{$item->id}}" id="customSwitch{{$item->id}}" {{$status}}>
-                <label class="custom-control-label" for="customSwitch{{$item->id}}"></label>
-                {{-- <span class="text-primary" id="valueOfSwitch{{$item->id}}"> {{$item->status ? 'On' : 'Off'}}</span> --}}
-             </div>
+            @if($i != 0)
+                <div class="custom-control custom-switch">
+                    @php $status = $item->status == 1 ? 'checked' : ''; @endphp
+                    <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger groupStatusToggle" data-group-id="{{$item->id}}" id="customSwitch{{$item->id}}" {{$status}}>
+                    <label class="custom-control-label" for="customSwitch{{$item->id}}"></label>
+                    {{-- <span class="text-primary" id="valueOfSwitch{{$item->id}}"> {{$item->status ? 'On' : 'Off'}}</span> --}}
+                </div>
+            @endif
             <div class="SettingBoxHeadLast">
                 <ul>
                 <li><a href="javascript:void(0);" data-group-id="{{$item->id}}" class="btn btn-dark btn-sm rounded-30 addNewTag" id="addNewTag{{$item->id}}">Add #</a></li>

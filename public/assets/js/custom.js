@@ -198,4 +198,13 @@ $(document).ready(function() {
             $(this).css('color', '#007fff');
         }
     });
+
+    $(function(){
+        $(document.body).on('show.bs.modal', function () {
+            $(window.document).find('html').addClass('modal-open');
+        });
+        $(document.body).on('hide.bs.modal', function () {
+            $(window.document).find('html').removeClass('modal-open');
+        });
+    });
 });

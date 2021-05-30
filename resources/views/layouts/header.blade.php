@@ -89,7 +89,7 @@
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
               <ul class="dropdown-menu dropdown-menu-right">
                 @if(isset(Auth::user()->id))
-                  <li class="nav-item"> <a class="nav-link" href="{{url('profile')}}"> <span class="font-16"><i class="fal fa-cog"></i> Setting</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" href="{{url('profile_settings')}}"> <span class="font-16"><i class="fal fa-cog"></i> Setting</span></a> </li>
                   <li class="nav-item"> <a class="nav-link" href="{{url('account')}}"> <span class="font-16"><i class="fal fa-user"></i> My Account</span></a> </li>
                 @endif
                 <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-square"></i> Footer</span></a> </li>

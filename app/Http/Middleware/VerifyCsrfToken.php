@@ -6,6 +6,10 @@ use Closure;
 
 class VerifyCsrfToken extends Middleware
 {
+    protected $except = [
+        '/login'
+    ];
+
     //modify this function
     public function handle($request, Closure $next)
     {

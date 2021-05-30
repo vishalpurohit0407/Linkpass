@@ -22,7 +22,7 @@
     <div class="dashboard-side-menu">
         <ul>
             <li>
-                <a class="{{Route::currentRouteName() == 'profile.edit' ? 'active' : ''}}" href="{{url('profile')}}">Profile</a>
+                <a class="{{Route::currentRouteName() == 'profile.edit' ? 'active' : ''}}" href="{{url('profile_settings')}}">Profile</a>
             </li>
             <li>
                 <a class="{{Route::currentRouteName() == 'change-password' ? 'active' : ''}}" href="{{url('change-password')}}">Change Password</a>

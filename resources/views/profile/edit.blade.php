@@ -173,7 +173,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group text-left">
+                                {{-- <div class="form-group text-left">
                                     <div class="{{ $errors->has('surname') ? ' has-danger' : '' }}">
                                         <input type="text" name="surname" id="surname" class="form-control {{ $errors->has('surname') ? ' is-invalid' : '' }}" placeholder="{{ __('Surname') }}" value="{{ old('surname', auth()->user()->surname) }}">
 
@@ -183,7 +183,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('account_name') ? ' has-danger' : '' }}">
@@ -231,7 +231,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group text-left">
+                                {{-- <div class="form-group text-left">
                                     <div class="select-wrapper {{ $errors->has('category') ? ' has-danger' : '' }}">
                                         <select name="category" class="form-control {{ $errors->has('category') ? ' is-invalid' : '' }}">
                                             <option value="">Please Select Category</option>
@@ -247,7 +247,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 {{-- <div class="form-group text-left">
                                     <label class="form-control-label" for="tags">{{ __('Tags') }}</label>
@@ -454,7 +454,7 @@ jQuery(document).ready(function($) {
             data : {status : status},
             datatype: "json"
         }).done(function(data) {
-              swal('Succes!!', data.message, 'success');
+              //swal('Succes!!', data.message, 'success');
               return false;
         })
     });

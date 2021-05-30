@@ -28,7 +28,7 @@
     </aside>
     <aside class="col-md-4 head-link">
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->account_name}}</a></p>
-        <p><a href="javascript:void(0);" class="text-secondary">{{$user->name}} {{$user->surname}}</a></p>
+        <p><a href="javascript:void(0);" class="text-secondary">{{$user->name}}</a></p>
         <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">Here Since: <span>{{date('d M Y', strtotime($user->created_at))}}</span></a></strong></p>
         <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">From: Your <span>{{ !empty($user->location) ? $user->location : 'N/A'}}</span></a></strong></p>
     </aside>

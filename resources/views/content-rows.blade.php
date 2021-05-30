@@ -78,11 +78,11 @@
             </li>
           </ul>
           <p class="date">
-            @if($content->ratings_count)
+            {{-- @if($content->ratings_count)
                 <span class="text-danger text-uppercase">Rated</span>
             @else
                 <a href="javascript:void(0);" data-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateListingContent">Rate</a>
-            @endif
+            @endif --}}
             <span id="view-count-{{$content->id}}">{{$content->views_count}} views</span>
           </p>
           <div class="d-flex justify-content-between align-items-center">
@@ -131,7 +131,7 @@
 </div>
   <!-- Start Modal -->
   <div class="modal fade user-modal" id="content-details-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
       <div class="modal-body" id="content-details-wrap">

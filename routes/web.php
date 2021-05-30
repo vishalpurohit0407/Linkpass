@@ -41,12 +41,12 @@ Route::post('validate-account-name', ['as' => 'user.validate-account-name', 'use
 Route::group(['middleware' => 'auth'], function () {
 
 	// Profile Routes
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+	Route::get('profile_settings', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+	Route::put('profile_settings', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
 	// Change Password Routes
 	Route::get('change-password', ['as' => 'change-password', 'uses' => 'ProfileController@changePassword']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+	Route::put('profile_settings/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 	// Content Module Routes
 	Route::get('/content/search','ContentController@search')->name('user.content.search');

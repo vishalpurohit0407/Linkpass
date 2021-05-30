@@ -65,11 +65,14 @@ class ProfileController extends Controller
         $userArr = array();
         $userArr['name'] = $request->name;
         $userArr['email'] = $request->email;
-        $userArr['surname'] = $request->surname;
+        //$userArr['surname'] = $request->surname;
         $userArr['account_name'] = $request->account_name;
         $userArr['location'] = $request->location;
-        $userArr['date_of_birth'] = $request->has('date_of_birth') ? date("Y-m-d H:i:s", strtotime($request->date_of_birth)) : '';
-        $userArr['category_id'] = $request->category;
+        if($request->has('date_of_birth'))
+        {
+            $userArr['date_of_birth'] = $request->has('date_of_birth') ? date("Y-m-d H:i:s", strtotime($request->date_of_birth)) : '';
+        }
+       // $userArr['category_id'] = $request->category;
 
         if($file){
 
@@ -88,7 +91,7 @@ class ProfileController extends Controller
         }
 
         auth()->user()->update($userArr);
-        return back()->withStatus(__('Profile successfully updated.'));
+        return back()->withStatus(__('Profile has been updated successfully.'));
     }
 
     /**
@@ -101,7 +104,7 @@ class ProfileController extends Controller
     {
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 
-        return back()->withPasswordStatus(__('Password successfully updated.'));
+        return back()->withPasswordStatus(__('Password has been updated successfully.'));
     }
 
     public function getUserPreferences(Request $request){

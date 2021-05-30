@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,7 +37,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectToProfile = '/profile';
+    protected $redirectToProfile = '/profile_settings';
 
     /**
      * Create a new controller instance.

@@ -1322,7 +1322,7 @@ footer {
 }
 .login-box {
 	height: 100%;/*background: #ccc;
-	padding: 50px; 
+	padding: 50px;
 	border-radius: 20px;*/
 }
 .login-btn a {
@@ -2039,3 +2039,42 @@ ul.ListingList li a:hover {
 .Remove{left: 0;}
 .Keep{right: 0;}
 .Remove .badge-info, .Keep .badge-info{font-weight: 500; padding: 5px 8px 8px; font-size: 12px;}
+
+/* Password strength : Start */
+.Short {
+    width: 100%;
+    background-color: #dc3545;
+    margin-top: 5px;
+    height: 3px;
+    color: #dc3545;
+    font-weight: 500;
+    font-size: 12px;
+}
+.Weak {
+    width: 100%;
+    background-color: #ffc107;
+    margin-top: 5px;
+    height: 3px;
+    color: #ffc107;
+    font-weight: 500;
+    font-size: 12px;
+}
+.Good {
+    width: 100%;
+    background-color: #28a745;
+    margin-top: 5px;
+    height: 3px;
+    color: #28a745;
+    font-weight: 500;
+    font-size: 12px;
+}
+.Strong {
+    width: 100%;
+    background-color: #d39e00;
+    margin-top: 5px;
+    height: 3px;
+    color: #d39e00;
+    font-weight: 500;
+    font-size: 12px;
+}
+/* Password strength : End */

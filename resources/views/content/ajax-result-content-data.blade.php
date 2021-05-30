@@ -14,7 +14,7 @@
     }
 @endphp
 <div class="row d-flex align-items-stretch">
-    <aside class="col-lg-7">
+    <aside class="col-lg-12">
       <div class="AddVideo mt-0 h-100">
         <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
         @php
@@ -64,11 +64,11 @@
           </li>
         </ul>
         <p class="date">
-           @if($content->ratings_count)
+           {{-- @if($content->ratings_count)
               <span class="text-danger text-uppercase">Rated</span>
            @else
               <a href="javascript:void(0);" data-content-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateContent">Rate</a>
-           @endif
+           @endif --}}
 
            <span>{{$content->views_count}} views</span>
         </p>
@@ -94,28 +94,16 @@
 
       </div>
     </aside>
-    <aside class="col-lg-5">
+    {{-- <aside class="col-lg-5">
       <div class="card bg-light h-100 PopupCard">
         <div class="card-body">
           <ul class="RatingList d-flex justify-content-between">
             <li><span class="ratingsCount">{{$content->ratings_count}}</span> Total Ratings</li>
-            {{-- <li class="sepreter">|</li>
-            <li>0 Linked Account Ratings </li> --}}
+
           </ul>
 
           <div class="row content-actions">
-            {{-- <aside class="col-8">
-              <input type="email" class="form-control" id="RatingsWords" placeholder="Enter Rating Word(s) here">
-            </aside>
-            <aside class="col-4">
-              <select class="form-control" id="Score">
-                <option>Score</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </aside> --}}
+
               @if(Auth::user()->user_type != '1')
                 <aside class="col-md-4">
                   <div id="emoji-div"></div>
@@ -137,5 +125,5 @@
           </div>
         </div>
       </div>
-    </aside>
+    </aside> --}}
   </div>
