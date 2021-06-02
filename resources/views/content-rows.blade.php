@@ -16,7 +16,7 @@
               $userProfileClass = 'hybrid-profile-bg';
           }
       @endphp
-      <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6" id="content-box-{{$content->id}}">
+      <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-3" id="content-box-{{$content->id}}">
         <div class="AddVideo">
           <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
           @php
@@ -25,11 +25,11 @@
           <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}}</a>
           <h4>{{$content->main_title}}</h4>
           <div class="VideoUser">
-            <div class="mr-2 height-32 width-32 user-profile-avatar">
+            <div class="mr-2 height-64 width-64 user-profile-avatar">
               @if(isset($content->content_account->image_url))
-                <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle ">
+                <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle height-64 width-64 ">
               @else
-                <img src="{{asset('assets/img/theme/unnamed.jpg')}}" alt="" class="rounded-circle ">
+                <img src="{{asset('assets/img/no_img.png')}}" alt="" class="rounded-circle height-64 width-64 ">
               @endif
             </div>
           </div>
@@ -52,6 +52,16 @@
               </div>
             </div>
           </div>
+
+          <p class="date">
+            {{-- @if($content->ratings_count)
+                <span class="text-danger text-uppercase">Rated</span>
+            @else
+                <a href="javascript:void(0);" data-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateListingContent">Rate</a>
+            @endif --}}
+            <span>{{ date("M d, 'y", strtotime($content->created_at)) }}</span>
+            <span id="view-count-{{$content->id}}">{{$content->views_count}} Visits</span>
+          </p>
           <ul class="d-flex justify-content-between">
             <li>
               @php
@@ -77,16 +87,9 @@
               <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-exclamation-triangle"></i> </a>
             </li>
           </ul>
-          <p class="date">
-            {{-- @if($content->ratings_count)
-                <span class="text-danger text-uppercase">Rated</span>
-            @else
-                <a href="javascript:void(0);" data-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateListingContent">Rate</a>
-            @endif --}}
-            <span id="view-count-{{$content->id}}">{{$content->views_count}} views</span>
-          </p>
+
           <div class="d-flex justify-content-between align-items-center">
-            <span>{{ date("d M Y", strtotime($content->created_at)) }}</span>
+
             <span class="d-flex align-items-center">
               @php
                 $creatorName = isset($content->content_user->name) ? $content->content_user->name : '';
@@ -96,6 +99,11 @@
               </div>
               <strong><a href="{{route('other-user.account', $content->content_user->hashid)}}">{{$creatorName}}</a></strong>
             </span>
+
+            <span class="d-flex align-items-center">
+              Linked
+            </span>
+
           </div>
           <hr class="my-3">
           <p>{{  Str::limit($content->description, 100)}}</p>
@@ -104,7 +112,7 @@
 
             <div class="col-md-4 text-left">
               @if(isset($content->content_user_keep->id))
-              <span class="text-danger text-uppercase mr-5" style="font-weight: bold;">SAVED</span>
+                <span class="text-danger text-uppercase mr-5" style="font-weight: bold;">SAVED</span>
               @endif
             </div>
 
@@ -113,9 +121,8 @@
             </div>
 
             <div class="col-md-4 text-right">
-              <a href="javascript:void(0);" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-expand"></i></a>
+              <a href="javascript:void(0);" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-2x fa-expand"></i></a>
             </div>
-
 
             @if(isset($editable) && $editable == true)
               <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary mr-3 pull-right"><i class="far fa-edit"></i></a>
