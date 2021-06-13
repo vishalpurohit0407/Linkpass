@@ -21,10 +21,7 @@
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
         </ul>
-        <ul>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="fas fa-star"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
-        </ul>
+
       </div>
       <div class="CompanyList savedContent">
         <div class="row">
@@ -100,10 +97,7 @@
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
         </ul>
-        <ul>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="fas fa-star"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
-        </ul>
+
       </div>
       <div class="CompanyList matchesContent">
         <div class="row">
@@ -179,10 +173,7 @@
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
         </ul>
-        <ul>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="fas fa-star"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
-        </ul>
+
       </div>
       <div class="CompanyList ratedContent">
         <div class="row">
@@ -268,10 +259,7 @@
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-eye"></i></a></li>
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-eye-slash"></i></a></li>
         </ul>
-        <ul>
-          <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-star"></i></a></li>
-          <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-star"></i><span class="starslash"><i class="fal fa-slash"></i></span></a></li>
-        </ul>
+
       </div>
       <div class="CompanyList creatorsContent">
         <div class="content-listing-loader" style="display: none;">
@@ -287,8 +275,11 @@
                     <div class="AddListing">
                       <h4>{{$socialAccount->name}}</h4>
                       <p class="ListingList">{{$socialAccount->contents()->count()}} Listing</p>
-                      <a href="{{route('user.account.contents', [$socialAccount->hashid, $user->hashid])}}" class="ListingLogo"><img width="233" height="146" src="{{$socialAccount->image_url}}" alt=""></a>
-
+                      <div class="social-account-avatar">
+                        <a href="{{route('user.account.contents', [$socialAccount->hashid, $user->hashid])}}" class="ListingLogo">
+                          <img class="rounded-circle height-75 width-75 creator-profile-bg" src="{{$socialAccount->image_url}}" alt="">
+                        </a>
+                      </div>
                       @if($editable)
                       <div class="VideoPopup text-center">
                         <a href="{{route('user.social-account.edit', $socialAccount->hashid)}}" class="btn btn-primary pull-right"><i class="far fa-edit"></i></a>

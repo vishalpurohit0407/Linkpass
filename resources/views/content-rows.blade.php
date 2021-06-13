@@ -25,11 +25,11 @@
           <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}}</a>
           <h4>{{$content->main_title}}</h4>
           <div class="VideoUser">
-            <div class="mr-2 height-64 width-64 user-profile-avatar">
+            <div class="mr-2 height-75 width-75 user-profile-avatar ">
               @if(isset($content->content_account->image_url))
-                <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle height-64 width-64 ">
+                <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg">
               @else
-                <img src="{{asset('assets/img/no_img.png')}}" alt="" class="rounded-circle height-64 width-64 ">
+                <img src="{{asset('assets/img/no_img.png')}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg">
               @endif
             </div>
           </div>
@@ -67,13 +67,13 @@
               @php
                 $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
-              <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 {{$likeClass}}"><i class="fal fa-check"></i> <span class="actionCount">{{$content->like_count}}</span></a>
+              <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 {{$likeClass}}"><i class="fal fa-check like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
             </li>
             <li>
               @php
                 $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
-              <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}}"><i class="fal fa-times"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
+              <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}}"><i class="fal fa-times unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
             </li>
 
             <li>
@@ -97,7 +97,7 @@
               <div class="mr-2 height-32 width-32 user-profile-avatar">
                 <img src="{{$content->content_user->user_image_url}}" alt="" class="rounded-circle  {{$userProfileClass}}">
               </div>
-              <strong><a href="{{route('other-user.account', $content->content_user->hashid)}}">{{$creatorName}}</a></strong>
+              <strong><a href="{{route('other-user.account', $content->content_user->hashid)}}" class="account-label">{{$creatorName}}</a></strong>
             </span>
 
             <span class="d-flex align-items-center">
@@ -106,18 +106,18 @@
 
           </div>
           <hr class="my-3">
-          <p>{{  Str::limit($content->description, 100)}}</p>
+          <p class="desc-bg">{{  Str::limit($content->description, 100)}}</p>
           <!-- Button trigger modal -->
           <div class="row">
 
             <div class="col-md-4 text-left">
               @if(isset($content->content_user_keep->id))
-                <span class="text-danger text-uppercase mr-5" style="font-weight: bold;">SAVED</span>
+                <span class="text-danger text-uppercase mr-5 saved-label" style="font-weight: bold;">SAVED</span>
               @endif
             </div>
 
             <div class="col-md-4 text-center">
-              <a href="javascript:void(0);" style="background-color: #3498DB; color:#FFF; padding:5px 15px 5px 15px;" data-id="{{ $content->id }}" class="btn btn-primary goto-content-details mr-2">VISIT</a>
+              <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mr-2 visit-btn">VISIT</a>
             </div>
 
             <div class="col-md-4 text-right">
@@ -125,9 +125,13 @@
             </div>
 
             @if(isset($editable) && $editable == true)
-              <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary mr-3 pull-right"><i class="far fa-edit"></i></a>
-              <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>
-            @endif
+              <div class="col-md-4 text-left mt-2">
+                <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mr-3 pull-right"><i class="far fa-edit"></i></a>
+              </div>
+              <div class="col-md-8 text-right mt-2">
+                <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary btn-sm mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>
+              </div>
+              @endif
           </div>
         </div>
       </aside>

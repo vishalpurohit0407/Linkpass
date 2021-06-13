@@ -544,6 +544,12 @@
 .height-64{
     height:64px!important;
 }
+.width-75{
+    width:75px!important;
+}
+.height-75{
+    height:75px!important;
+}
 .width-64{
     width:64px!important;
 }
@@ -552,6 +558,13 @@
 	height: 64px;
 }
 .user-profile-avatar img {
+	padding: 2px;
+}
+
+.social-account-avatar {
+
+}
+.social-account-avatar img {
 	padding: 2px;
 }
 .content-title

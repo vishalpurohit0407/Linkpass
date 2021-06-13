@@ -1596,13 +1596,15 @@ ul.ListingList li a:hover {
 	background: #fff;
 	padding: 3px 10px;
 	font-size: 12px;
-	font-weight: 400;
 	border-radius: 5px;
 	line-height: 14px;
+	font-weight: bold;
 }
 .AddVideo .CategoryTitle {
 	display: block;
+	color:#0000F1;
 	margin: 10px 0 0;
+	font-size: 12px;
 }
 .AddVideo ul {
 	margin: 15px 0;
@@ -1639,6 +1641,7 @@ ul.ListingList li a:hover {
 	margin-left: 3px;
 	padding-left: 12px;
 	position: relative;
+	color:#666666;
 }
 .AddVideo p.date span:last-child:before {
 	content: "\f111";
@@ -1679,7 +1682,8 @@ ul.ListingList li a:hover {
 	margin: 10px 0;
 	font-size: 16px;
 	font-weight: bold;
-	line-height: 18px
+	line-height: 18px;
+	color:#0000F1;
 }
 .AddListing p.ListingList {
 	margin-bottom: 10px;
@@ -2078,3 +2082,42 @@ ul.ListingList li a:hover {
     font-size: 12px;
 }
 /* Password strength : End */
+
+.desc-bg {
+	background: #E8F3FE;
+	border-radius: 8px;
+	padding: 3px 5px;
+	color: #666666;
+	text-indent:1px;
+}
+
+.like-color
+{
+	color:#00FF00;
+}
+
+.unlike-color
+{
+	color:#FF0000;
+}
+
+.actionCount{
+	color: #000000;
+}
+
+.account-label
+{
+	color:#99CCFF;
+}
+.visit-btn
+{
+	color: #FFFFFF;
+	background: #41C7D6;
+	border-radius: 4px;
+	border:none;
+	word-wrap: normal;
+}
+
+.saved-label{
+	color: #C8102E;
+}
