@@ -2101,6 +2101,16 @@ ul.ListingList li a:hover {
 	color:#FF0000;
 }
 
+.like-color-border
+{
+	border:1px solid #00FF00 !important;
+}
+
+.unlike-color-border
+{
+	border:1px solid #FF0000 !important;
+}
+
 .actionCount{
 	color: #000000;
 }

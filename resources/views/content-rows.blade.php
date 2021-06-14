@@ -23,7 +23,7 @@
             $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
           @endphp
           <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}}</a>
-          <h4>{{$content->main_title}}</h4>
+          <h4>{{ Str::limit($content->main_title, 40, '...')}}</h4>
           <div class="VideoUser">
             <div class="mr-2 height-75 width-75 user-profile-avatar ">
               @if(isset($content->content_account->image_url))
@@ -76,13 +76,13 @@
               @php
                 $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
-              <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 {{$likeClass}}"><i class="fal fa-check like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
+              <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 like-color-border {{$likeClass}}"><i class="fal fa-check like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
             </li>
             <li>
               @php
                 $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
-              <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}}"><i class="fal fa-times unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
+              <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 unlike-color-border {{$unlikeClass}}"><i class="fal fa-times unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
             </li>
 
             <li>
