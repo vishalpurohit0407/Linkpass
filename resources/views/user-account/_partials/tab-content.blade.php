@@ -13,10 +13,7 @@
           <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-times"></i></a></li>
         </ul>
-        <ul>
-          <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-arrow-up"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-arrow-down"></i></a></li>
-        </ul>
+
         <ul>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
@@ -89,10 +86,7 @@
           <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-times"></i></a></li>
         </ul>
-        <ul>
-          <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-arrow-up"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-arrow-down"></i></a></li>
-        </ul>
+
         <ul>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
@@ -165,10 +159,7 @@
           <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-times"></i></a></li>
         </ul>
-        <ul>
-          <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-arrow-up"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-arrow-down"></i></a></li>
-        </ul>
+
         <ul>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
@@ -251,10 +242,7 @@
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="far fa-check"></i></a></li>
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="far fa-times"></i></a></li>
         </ul>
-        <ul>
-          <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="far fa-arrow-up"></i></a></li>
-          <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="far fa-arrow-down"></i></a></li>
-        </ul>
+
         <ul>
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-eye"></i></a></li>
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-eye-slash"></i></a></li>

@@ -78,9 +78,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6 col-md-4">
+                                    <div class="col-6 col-md-4 social-account-avatar">
                                         <a href="javascript:void(0);">
-                                            <img id="output" src="" class="img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
+                                            <img id="output" src="{{asset('assets/img/no_img.png')}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg">
                                         </a>
                                     </div>
                                 </div>
