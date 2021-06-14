@@ -438,7 +438,7 @@
   }
 
   .user-profile-bg{
-    border: 1px solid #E74C3C;
+    border: none;
   }
 
   .creator-profile-bg{
@@ -446,7 +446,7 @@
   }
 
   .hybrid-profile-bg{
-    border: 1px solid #32c20e;
+    border: 1px solid #E74C3C;
   }
 /*============= Dashboard - Side Menu : START =============*/
 
