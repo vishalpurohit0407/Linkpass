@@ -38,6 +38,15 @@
               <div class="imgvid">
                 <img src="{{ $content->main_image_url}}">
 
+                  @php
+                    $contentType = array(1 => 'Image', 2 => 'Video', 3 => 'Podcast', 4 => 'Text/Blog');
+                    $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words);
+
+                  @endphp
+                  <span class="image-date">{{ date("M d, 'y", strtotime($content->posted_at)) }}</span>
+                  <span class="image-duration">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
+                  <span class="image-type">{{ isset($contentType[$content->type]) ? $contentType[$content->type] : 'NA' }}</span>
+
                   @if(!isset($content->content_user_remove->id))
                     <div class="Remove">
                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action"><span class="badge badge-info">Remove</span></a>

@@ -2121,3 +2121,29 @@ ul.ListingList li a:hover {
 .saved-label{
 	color: #C8102E;
 }
+
+.image-date, .image-duration{
+	position: absolute;
+    top: 83%;
+    padding: 0px 8px;
+    background: #CCCCCC;
+    margin-left: 5px;
+    margin-right: 5px;
+	border-radius: 2px;
+	opacity: 70%;
+}
+.image-date{left: 0;}
+.image-duration{right: 0;}
+
+
+.image-type{
+	position: absolute;
+    top: 4%;
+    padding: 0px 8px;
+    background: #99CCFF;
+    margin-left: 5px;
+    margin-right: 5px;
+	border-radius: 8px;
+	opacity: 70%;
+}
+.image-type{left: 0;}
