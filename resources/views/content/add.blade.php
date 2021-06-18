@@ -64,7 +64,7 @@
                                               <option value="">Please Select Type</option>
                                               <option @if($content->type ==1) selected @endif value="1">Images</option>
                                               <option @if($content->type ==2) selected @endif value="2">Video</option>
-                                              <option @if($content->type ==3) selected @endif value="3">Podcast</option>
+                                              <option @if($content->type ==3) selected @endif value="3">Audio</option>
                                               <option @if($content->type ==4) selected @endif value="4">Text/Blog</option>
                                             </select>
                                             <span class="invalid-feedback">{{ $errors->first('type') }}</span>
@@ -184,7 +184,7 @@
                                     <div class="row length-field podcast-length-field">
 
                                       <div class="col-sm-12">
-                                        <label class="form-control-label" for="podcast_length">Podcast Length</label>
+                                        <label class="form-control-label" for="podcast_length">Audio Length</label>
                                       </div>
 
                                       <div class="col-sm-2">
