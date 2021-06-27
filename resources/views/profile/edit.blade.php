@@ -118,19 +118,22 @@
         <article class="container">
 
             @if(Auth::user()->user_type == '0')
-                <div class="custom-control custom-switch">
-                    @php $status = $user->user_type == 2 ? 'checked' : ''; @endphp
-                    <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger userTypeToggle" id="customSwitchHybrid" {{$status}}>
-                    <label class="custom-control-label" for="customSwitchHybrid"></label>
-                    <span class="text-primary" id="valueOfSwitch">Hybrid</span>
+                <div class="w100p pull-left mb-3">
+                    <span class="text-primary pull-left mr-2 isHybridLabel" id="valueOfSwitch">CREATE:</span>
+                    <div class="custom-control custom-switch pull-left">
+                        @php $status = $user->user_type == 2 ? 'checked' : ''; @endphp
+
+                        <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger userTypeToggle" id="customSwitchHybrid" {{$status}}>
+                        <label class="custom-control-label" for="customSwitchHybrid"></label>
+                    </div>
                 </div>
             @endif
 
             @if(Auth::user()->user_type == '0')
                 <ul class="LinkVerb">
                     <li class="active"><a id="addNewUserPreferencesGroup" href="javascript:void(0);">New # Group</a></li>
-                    <li><a href="javascript:void(0);"> Total : <span id="userPreferencesCount"></span></a></li>
-                    <li><a href="javascript:void(0);"># Total : <span id="userPreferencesTagsCount"></span></a></li>
+                    <li><label># Groups : <span id="userPreferencesCount"></span></label></li>
+                    <li><label># Total : <span id="userPreferencesTagsCount"></span></label></li>
                 </ul>
                 <div id="userPreferencesWrap"></div>
             @endif
@@ -408,7 +411,7 @@ jQuery(document).ready(function($) {
         var totalGroup = $('.userPreferencesBox').length;
 
         if (totalGroup == 4) {
-            swal('Error!!', 'You can add maximum 3 groups', 'error');
+            swal('','You reached the maximum number of # groups', '');
             return false;
         }
 
@@ -454,8 +457,11 @@ jQuery(document).ready(function($) {
             data : {status : status},
             datatype: "json"
         }).done(function(data) {
-              //swal('Succes!!', data.message, 'success');
-              return false;
+            if(status == 2)
+            {
+              swal('Succes!!', 'Now you can create content listing', 'success');
+            }
+            return false;
         })
     });
 
@@ -479,10 +485,6 @@ jQuery(document).ready(function($) {
         })
     });
 
-
-
-
-
     $(document).on('click', '.addNewTag', function(event) {
         event.preventDefault();
         var groupId = $(this).data('group-id');
@@ -497,6 +499,7 @@ jQuery(document).ready(function($) {
             };
 
             $('#user-tags-input-'+groupId).tagsinput(options);
+
 
             $('#user-tags-input-'+groupId).on('itemAdded', function(event) {
 
@@ -515,6 +518,11 @@ jQuery(document).ready(function($) {
                     if(data.success){
                         $('#userPreferencesTagsCount').html(data.userPreferencesTagsCount);
                         $('#user-tags-box-'+groupId).html(data.tagsHtml);
+                    }
+                    else
+                    {
+                        swal('Error!!', data.message, 'error');
+                        return false;
                     }
                 });
             });

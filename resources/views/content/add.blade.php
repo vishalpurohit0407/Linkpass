@@ -99,7 +99,7 @@
                                     <div class="row">
                                       <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="category_tags">Category Tags</label><br>
+                                            <label class="form-control-label" for="category_tags">Keywords</label><br>
                                             <input type="text" class="form-control" id="category_tags" name="category_tags" value="{{old('category_tags', $contentCategoryTags)}}" data-role="tagsinput" />
                                         </div>
                                       </div>

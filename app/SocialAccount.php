@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Config;
 use Storage;
+use Auth;
 
 class SocialAccount extends Authenticatable
 {
@@ -15,10 +16,10 @@ class SocialAccount extends Authenticatable
     protected $table = 'social_accounts';
 
     protected $fillable = [
-        'user_id', 'name', 'image', 'url', 'account_url', 'status'
+        'user_id', 'name', 'host_name', 'image', 'url', 'account_url', 'status'
     ];
 
-    protected $appends = [ 'image_url' ];
+    protected $appends = [ 'image_url', 'user_content_count' ];
 
     public function social_account_user()
     {
@@ -28,6 +29,12 @@ class SocialAccount extends Authenticatable
     public function contents()
     {
         return $this->hasMany('App\Content', 'social_account_id', 'id');
+    }
+
+
+    public function getUserContentCountAttribute()
+    {
+        return \App\Content::where('social_account_id', $this->id)->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A')->count();
     }
 
     public function getImageUrlAttribute()

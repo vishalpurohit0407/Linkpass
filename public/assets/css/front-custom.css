@@ -423,6 +423,19 @@
 	letter-spacing: 0.2px!important;
   }
 
+ .userPreferencesBox .bootstrap-tagsinput{
+	width: 100%!important;
+	height: auto !important;
+	box-shadow: inherit!important;
+    background: #FFF!important;
+	border: none!important;
+	font-size: 16px!important;
+	color: rgba(14,9,65,1.00)!important;
+	font-weight: 500!important;
+	letter-spacing: 0.2px!important;
+    padding: 5px !important;
+  }
+
   .bootstrap-tagsinput .tag {
     margin-right: 2px;
     color: white;

@@ -23,7 +23,7 @@
         </div>
         <ul class="LinkVerb mt-3">
         <li class="active"><a href="javascript:void(0);">Link</a></li>
-        <li><a class="sm" href="javascript:void(0);">Verb</a></li>
+        <li><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></li>
         </ul>
     </aside>
     <aside class="col-md-4 head-link">

@@ -461,7 +461,7 @@ class ContentController extends Controller
                           ->from('content_ratings')
                           ->whereRaw('content_ratings.content_id = content.id');
                 })
-                ->paginate(6);
+                ->orderBy('created_at', 'desc')->paginate(6);
             }
             else
             {
@@ -469,7 +469,7 @@ class ContentController extends Controller
                 {
                     $query->where('user_id', Auth::user()->id);
                 // $query->orderBy('rating', 'asc');
-                })->paginate(6);
+                })->orderBy('created_at', 'desc')->paginate(6);
             }
 
         }

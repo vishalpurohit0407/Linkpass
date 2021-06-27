@@ -1,6 +1,6 @@
 <div class="tab-content" id="pills-tabContent">
     <!--Start Kept-->
-    <div class="tab-pane fade {{($user->user_type == '0' || $user->user_type == '2') ? 'show active' : ''}}" id="pills-Kept" role="tabpanel" aria-labelledby="pills-Kept-tab">
+    <div class="tab-pane fade" id="pills-Kept" role="tabpanel" aria-labelledby="pills-Kept-tab">
       <div class="d-flex justify-content-center TabFilter disabled">
         <ul>
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
@@ -21,59 +21,13 @@
 
       </div>
       <div class="CompanyList savedContent">
-        <div class="row">
-          @if(false)
-            @for($i=0; $i<=5;$i++)
-              <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                <div class="AddVideo">
-                  <div class="YoutubeLable"><span>YouTube</span></div>
-                  <a href="javascript:void(0);" class="CategoryTitle">Sports: Golf</a>
-                  <h4>Video Title</h4>
-                  <div class="VideoUser"><img src="{{asset('assets/img/unnamed.jpg')}}" alt=""></div>
-                  <div class="owl-carousel owl-theme owl-one">
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                  </div>
-                  <ul class="d-flex justify-content-between">
-                    <li><a href="javascript:void(0);"><i class="fal fa-check"></i> <span>647</span></a></li>
-                    <li><a href="javascript:void(0);"><i class="fal fa-times"></i> <span>99</span></a></li>
-                    <li><a href="javascript:void(0);"><i class="far fa-share-alt"></i></a></li>
-                    <li><a href="javascript:void(0);"><i class="fas fa-exclamation-triangle"></i></a></li>
-                  </ul>
-                  <p class="date"><span class="text-danger text-uppercase">Rated</span> <span>1,280,707 views</span></p>
-                  <div class="d-flex justify-content-between align-items-center"><span>16 Jan 2021</span> <span class="d-flex align-items-center">
-                    <div class="width32 mr-2"><img src="{{asset('assets/img/unnamed.jpg')}}" alt="" class="rounded-circle border border-danger"></div>
-                    <strong><a href="javascript:void(0);">Creator Account</a></strong></span></div>
-                  <hr class="my-3">
-                  <p>Lorem ipsum dolor sit amet righteous, consectetur adipiscing elit, sed is a do eiusmod is tempor incididunt ut labore et dolore magna dolor aliqua ullamco tempor laboris.</p>
-                  <!-- Button trigger modal -->
-                  <div class="VideoPopup">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-expand"></i></button>
-                  </div>
-                </div>
-              </aside>
-            @endfor
-          @else
-              <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">Content could not found</div>
-          @endif
+        <div class="text-center mt-10">
+          <img src="{{asset('assets/img/loader.gif')}}" width="30">
         </div>
       </div>
     </div>
     <!--Start Matches-->
-    <div class="tab-pane fade" id="pills-Matches" role="tabpanel" aria-labelledby="pills-Matches-tab">
+    <div class="tab-pane fade {{($user->user_type == '0' || $user->user_type == '2') ? 'show active' : ''}}" id="pills-Matches" role="tabpanel" aria-labelledby="pills-Matches-tab">
       <div class="d-flex justify-content-center TabFilter">
         <ul>
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
@@ -94,54 +48,8 @@
 
       </div>
       <div class="CompanyList matchesContent">
-        <div class="row">
-          @if(false)
-            @for($i=0; $i<=5;$i++)
-              <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                <div class="AddVideo">
-                  <div class="YoutubeLable"><span>YouTube</span></div>
-                  <a href="javascript:void(0);" class="CategoryTitle">Sports: Golf</a>
-                  <h4>Video Title</h4>
-                  <div class="VideoUser"><img src="{{asset('assets/img/unnamed.jpg')}}" alt=""></div>
-                  <div class="owl-carousel owl-theme owl-one">
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                  </div>
-                  <ul class="d-flex justify-content-between">
-                    <li><a href="javascript:void(0);"><i class="fal fa-check"></i> <span>647</span></a></li>
-                    <li><a href="javascript:void(0);"><i class="fal fa-times"></i> <span>99</span></a></li>
-                    <li><a href="javascript:void(0);"><i class="far fa-share-alt"></i></a></li>
-                    <li><a href="javascript:void(0);"><i class="fas fa-exclamation-triangle"></i></a></li>
-                  </ul>
-                  <p class="date"><span class="text-danger text-uppercase">Rated</span> <span>1,280,707 views</span></p>
-                  <div class="d-flex justify-content-between align-items-center"><span>16 Jan 2021</span> <span class="d-flex align-items-center">
-                    <div class="width32 mr-2"><img src="{{asset('assets/img/unnamed.jpg')}}" alt="" class="rounded-circle border border-danger"></div>
-                    <strong><a href="javascript:void(0);">Creator Account</a></strong></span></div>
-                  <hr class="my-3">
-                  <p>Lorem ipsum dolor sit amet righteous, consectetur adipiscing elit, sed is a do eiusmod is tempor incididunt ut labore et dolore magna dolor aliqua ullamco tempor laboris.</p>
-                  <!-- Button trigger modal -->
-                  <div class="VideoPopup">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-expand"></i></button>
-                  </div>
-                </div>
-              </aside>
-            @endfor
-          @else
-              <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">Content could not found</div>
-          @endif
+        <div class="text-center mt-10">
+          <img src="{{asset('assets/img/loader.gif')}}" width="30">
         </div>
       </div>
     </div>
@@ -167,54 +75,8 @@
 
       </div>
       <div class="CompanyList ratedContent">
-        <div class="row">
-          @if(false)
-            @for($i=0; $i<=5;$i++)
-              <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                <div class="AddVideo">
-                  <div class="YoutubeLable"><span>YouTube</span></div>
-                  <a href="javascript:void(0);" class="CategoryTitle">Sports: Golf</a>
-                  <h4>Video Title</h4>
-                  <div class="VideoUser"><img src="{{asset('assets/img/unnamed.jpg')}}" alt=""></div>
-                  <div class="owl-carousel owl-theme owl-one">
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="imgvid">
-                        <img src="{{asset('assets/img/no_img.png')}}">
-                      </div>
-                    </div>
-                  </div>
-                  <ul class="d-flex justify-content-between">
-                    <li><a href="javascript:void(0);"><i class="fal fa-check"></i> <span>647</span></a></li>
-                    <li><a href="javascript:void(0);"><i class="fal fa-times"></i> <span>99</span></a></li>
-                    <li><a href="javascript:void(0);"><i class="far fa-share-alt"></i></a></li>
-                    <li><a href="javascript:void(0);"><i class="fas fa-exclamation-triangle"></i></a></li>
-                  </ul>
-                  <p class="date"><span class="text-danger text-uppercase">Rated</span> <span>1,280,707 views</span></p>
-                  <div class="d-flex justify-content-between align-items-center"><span>16 Jan 2021</span> <span class="d-flex align-items-center">
-                    <div class="width32 mr-2"><img src="{{asset('assets/img/unnamed.jpg')}}" alt="" class="rounded-circle border border-danger"></div>
-                    <strong><a href="javascript:void(0);">Creator Account</a></strong></span></div>
-                  <hr class="my-3">
-                  <p>Lorem ipsum dolor sit amet righteous, consectetur adipiscing elit, sed is a do eiusmod is tempor incididunt ut labore et dolore magna dolor aliqua ullamco tempor laboris.</p>
-                  <!-- Button trigger modal -->
-                  <div class="VideoPopup">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-expand"></i></button>
-                  </div>
-                </div>
-              </aside>
-            @endfor
-          @else
-            <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">Content could not found</div>
-          @endif
+        <div class="text-center mt-10">
+          <img src="{{asset('assets/img/loader.gif')}}" width="30">
         </div>
       </div>
     </div>
@@ -262,12 +124,13 @@
                   <aside class="col-lg-3 col-md-4 col-sm-6" id="social-account-box-{{$socialAccount->id}}">
                     <div class="AddListing">
                       <h4>{{$socialAccount->name}}</h4>
-                      <p class="ListingList">{{$socialAccount->contents()->count()}} Listing</p>
+                      <p class="ListingList">{{$socialAccount->user_content_count}} Listing</p>
                       <div class="social-account-avatar">
                         <a href="{{route('user.account.contents', [$socialAccount->hashid, $user->hashid])}}" class="ListingLogo">
                           <img class="rounded-circle height-75 width-75 creator-profile-bg" src="{{$socialAccount->image_url}}" alt="">
                         </a>
                       </div>
+                      <p class="ListingList">{{$socialAccount->host_name}}</p>
                       @if($editable)
                       <div class="VideoPopup text-center">
                         <a href="{{route('user.social-account.edit', $socialAccount->hashid)}}" class="btn btn-primary pull-right"><i class="far fa-edit"></i></a>

@@ -172,6 +172,7 @@
                         </span>
                     @endif
                 </div>
+
                 <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
                         <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}">
@@ -223,7 +224,7 @@
                   <div class="form-group login-btn">
                     <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Continue</button>
                   </div>
-                <h5 class="text-light mt-4">Already have an account? <a href="{{url('home')}}">Login</a></h5>
+                <h5 class="text-light mt-4">Already have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModalPrompt" >Login</a></h5>
             </form>
 
           </div>

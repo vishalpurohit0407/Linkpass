@@ -15,13 +15,20 @@
 @endphp
 <div class="row d-flex align-items-stretch">
     <aside class="col-lg-12">
-      <div class="AddVideo mt-0 h-100">
+      <div class="AddVideo mt-0 h-100 {!!$content->views_count > 0 ? '' : 'AddVideoVisited' !!}">
         <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
         @php
         $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
         @endphp
         <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}} </a>
         <h4>{{$content->main_title}}</h4>
+        <div class="pull-left mb-2 w100p">
+          <div class=" image-type">{{ isset($contentType[$content->type]) ? $contentType[$content->type] : 'N/A' }}</div>
+          <div class=" image-date">{{ date("M d, 'y", strtotime($content->posted_at)) }}</div>
+          @if(isset($content->content_account->host_name) && !empty($content->content_account->host_name) )
+            <div class="image-host-name">{{ isset($content->content_account->host_name) ? $content->content_account->host_name : '' }}</div>
+          @endif
+        </div>
         <div class="VideoUser">
             <div class="mr-2 height-75 width-75 user-profile-avatar">
               @if(isset($content->content_account->image_url))
@@ -35,6 +42,25 @@
           <div class="item">
             <div class="imgvid">
               <img src="{{ $content->main_image_url}}">
+
+                @php
+                  $contentType = array(1 => 'Image', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
+                  $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words);
+
+                @endphp
+                <span class="image-duration">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
+
+                @if(!isset($content->content_user_remove->id))
+                  <div class="Remove">
+                    <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action"><span class="badge badge-info">Remove</span></a>
+                  </div>
+                @endif
+
+                @if(!isset($content->content_user_keep->id))
+                  <div class="Keep">
+                    <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action"><span class="badge badge-info">Keep</span></a>
+                  </div>
+                @endif
             </div>
           </div>
         </div>
@@ -42,38 +68,39 @@
           <li>
             @php
               $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
+              $userLikeClass = (isset($content->content_user_like->id) && !isset($content->content_user_unlike->id)) ? 'like-action-disabled' : '';
             @endphp
-            <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20 like-color-border {{$likeClass}}"><i class="fal fa-check like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
+            <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20  {{$likeClass}} {{$userLikeClass}}"><i class="fal fa-check fa-2x like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
           </li>
           <li>
             @php
               $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
+              $userUnlikeClass = (!isset($content->content_user_like->id) && isset($content->content_user_unlike->id)) ? 'unlike-action-disabled' : '';
             @endphp
-            <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 unlike-color-border {{$unlikeClass}}"><i class="fal fa-times unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
+            <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}} {{$userUnlikeClass}}"><i class="fal fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
           </li>
 
           <li>
-            <a href="javascript:void(0);"><i class="far fa-share-alt"></i></a>
+            <a href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share<span></a>
           </li>
 
           <li>
             @php
               $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
             @endphp
-            <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-exclamation-triangle"></i> </a>
+            <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-2x fa-exclamation-triangle"></i> <span class="inappropriate-action-label">Report<span></a>
           </li>
         </ul>
         <p class="date">
-           {{-- @if($content->ratings_count)
+          {{-- @if($content->ratings_count)
               <span class="text-danger text-uppercase">Rated</span>
-           @else
-              <a href="javascript:void(0);" data-content-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateContent">Rate</a>
-           @endif --}}
-
-           <span>{{$content->views_count}} views</span>
+          @else
+              <a href="javascript:void(0);" data-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateListingContent">Rate</a>
+          @endif --}}
+          <span>{{ date("M d, 'y", strtotime($content->created_at)) }}</span>
+          <span id="view-count-{{$content->id}}">{{$content->views_count}} {{$content->views_count == 1 ? 'Visit' : 'Visits'}}</span>
         </p>
         <div class="d-flex justify-content-between align-items-center">
-            <span>{{ date("d M Y", strtotime($content->created_at)) }}</span>
             <span class="d-flex align-items-center">
                 @php
                 $creatorName = isset($content->content_user->name) ? $content->content_user->name : '';
@@ -84,12 +111,19 @@
                 <strong><a href="javascript:void(0);">{{$creatorName}}</a></strong>
             </span>
         </div>
-        <hr class="my-3">
 
         <div class="scrollbar-250" id="style-1">
             <div class="force-overflow-250">
-                <p>{{ $content->description }}</p>
+                @if(!empty($content->description))
+                  <p class="desc-bg mt-2">{{ $content->description }}</p>
+                @else
+                  <p class="desc-bg mt-2 text-center">No description added</p>
+                @endif
             </div>
+        </div>
+
+        <div class="float-right text-right mt-2 mb-2">
+          <a href="javascript:void(0);" id="close-content-detail-modal" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary " ><i class="far fa-2x fa-compress"></i></a>
         </div>
 
       </div>

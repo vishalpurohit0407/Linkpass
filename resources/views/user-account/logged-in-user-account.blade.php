@@ -131,9 +131,21 @@ function deleteSocialAccount(id){
 
   jQuery(document).ready(function($) {
 
-    if($('#pills-Kept-tab').length > 0)
+    var userType = "{{ isset(Auth::user()->id) ? Auth::user()->user_type : '' }}";
+
+    if(userType != 1)
     {
-        setTimeout(function(){ $('#pills-Kept-tab').click(); }, 1000);
+        if($('#pills-Matches-tab').length > 0)
+        {
+            setTimeout(function(){ $('#pills-Matches-tab').click(); }, 1000);
+        }
+    }
+    else
+    {
+        if($('#pills-Cretors-tab').length > 0)
+        {
+            setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 1000);
+        }
     }
 
     $(document).on('click','.rateListingContent',function(event) {
@@ -369,6 +381,12 @@ function deleteSocialAccount(id){
               return window.history.pushState(null, null, hash)
             });
       });
+
+      $(document).on("click","#close-content-detail-modal",function(e) {
+        e.preventDefault();
+        $('#content-details-modal').modal('hide');
+      });
+
   });
 
   function getRatingsData()
@@ -480,6 +498,16 @@ function deleteSocialAccount(id){
                           $(element).removeClass('content-action');
                           $(element).addClass('action-disabled');
                           $(element).find('.actionCount').html(data.actionCount);
+
+                          if(action == 1)
+                          {
+                            $(element).addClass('like-action-disabled');
+                          }
+                          else if(action == 2)
+                          {
+                            $(element).addClass('unlike-action-disabled');
+                          }
+
 
                           return false;
                       }

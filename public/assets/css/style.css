@@ -512,14 +512,26 @@ button:focus {
 	color: #fff;
 	background: #666;
 }
-.btn-dark:hover, .btn-dark.active.focus, .btn-dark.active:focus, .btn-dark.active:hover, .btn-dark:active.focus, .btn-dark:active:focus, .btn-dark:active:hover, .open>.dropdown-toggle.btn-dark.focus, .open>.dropdown-toggle.btn-dark:focus, .open>.dropdown-toggle.btn-dark:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-dark.active, .btn-dark:active, .open>.dropdown-toggle.btn-dark {
+.btn-dark:hover, .btn-dark.active.focus,.btn-dark:focus, .btn-dark.active:focus, .btn-dark.active:hover, .btn-dark:active.focus, .btn-dark:active:focus, .btn-dark:active:hover, .open>.dropdown-toggle.btn-dark.focus, .open>.dropdown-toggle.btn-dark:focus, .open>.dropdown-toggle.btn-dark:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-dark.active, .btn-dark:active, .open>.dropdown-toggle.btn-dark {
 	background: #007fff;
 	outline: inherit;
 	color: #FFF;
-	border-radius: 30px;
 }
+
 .rounded-30 {
 	border-radius: 30px;
+}
+.rounded-20 {
+	border-radius: 20px;
+}
+.rounded-15 {
+	border-radius: 15px;
+}
+.rounded-10 {
+	border-radius: 10px;
+}
+.rounded-5 {
+	border-radius: 5px;
 }
 .width100 {
 	width: 100%;
@@ -1405,11 +1417,26 @@ ul.LinkVerb li a:hover, ul.LinkVerb li.active a {
 	background: #666;
 	color: #FFF;
 }
+.LinkVerbLabel
+{
+	background: none !important;
+	color: #666 !important;
+	font-size:12px !important;
+}
+.LinkVerbLabel:hover
+{
+	background: none !important;
+	color: #666 !important;
+}
+.head-link
+{
+	text-align: right;
+}
 ul.ListingList {
 	margin-top: 20px;
 	/*border-top: 1px solid rgb(204, 204, 204);*/
 	padding-top: 0px;
-	text-align: center;
+	text-align: left;
 }
 ul.ListingList li {
 	display: inline-block;
@@ -1455,7 +1482,7 @@ ul.ListingList li a:hover {
 }
 .KeptPills.nav {
 	text-align: center;
-	justify-content: center;
+	justify-content: left;
 	margin-top: 20px;
 }
 .KeptPills.nav li {
@@ -1535,10 +1562,16 @@ ul.ListingList li a:hover {
 	-moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.2);
 	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.2);
 }
+
 .AddVideo:hover {
 	-webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.4);
 	-moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.4);
 	box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.4);
+}
+.AddVideoVisited{
+	-webkit-box-shadow: 0px 0px 30px 0px rgba(127, 0, 255, 0.295)!important;
+	-moz-box-shadow: 0px 0px 30px 0px rgba(127, 0, 255, 0.295)!important;
+	box-shadow: 0px 0px 30px 0px rgba(127, 0, 255, 0.295)!important;
 }
 .modal .AddVideo {
 	height: 100%;
@@ -1579,8 +1612,8 @@ ul.ListingList li a:hover {
 }
 .VideoUser {
 	position: absolute;
-	right: 10px;
-	top: -30px;
+	right: 20px;
+	top: -40px;
 }
 .VideoUser img {
 	width: 32px;
@@ -1593,7 +1626,7 @@ ul.ListingList li a:hover {
 	top: -10px;
 }
 .YoutubeLable span {
-	background: #fff;
+	background:#FFFFFF;
 	padding: 3px 10px;
 	font-size: 12px;
 	border-radius: 5px;
@@ -1613,8 +1646,7 @@ ul.ListingList li a:hover {
 	display: inline-block;
 }
 .AddVideo ul li a {
-	border: 1px solid #0056b3;
-	border-radius: 5px;
+	/* border-radius: 5px; */
 	padding: 0 8px;
 	text-align: center;
 	display: block;
@@ -1624,8 +1656,24 @@ ul.ListingList li a:hover {
 	font-size: 13px;
 }
 .AddVideo ul li a:hover {
-	border: 1px solid rgb(204, 204, 204);
-	color: rgb(204, 204, 204);
+	/* border: 1px solid rgb(204, 204, 204);
+	color: rgb(204, 204, 204); */
+}
+.inappropriate-action-label, .share-action-label
+{
+	float: right;
+	color:#666666;
+	margin: 2px 0px 0px 10px !important;
+}
+.like-action-disabled{
+	border-bottom: 2px solid #00FF00;
+}
+.unlike-action-disabled{
+	border-bottom: 2px solid #FF0000;
+}
+.isHybridLabel{
+	color: #666 !important;
+	margin: 2px 0px 0px 0px;
 }
 .AddVideo p {
 	font-size: 13px;
@@ -1810,11 +1858,19 @@ ul.ListingList li a:hover {
 }
 .close-modal {
 	position: absolute;
-	right: -33px;
-	font-size: 40px;
+    right: 0px;
+    top: -40px;
+    font-size: 40px;
 }
 .user-modal .modal-body {
 	padding-top: 1.8rem
+}
+#content-details-modal {
+	padding-top:20px !important;
+}
+#content-details-modal .modal-body
+{
+	padding: 0px !important;
 }
 .CompanyList {
 /*background: #efefef;
@@ -2089,6 +2145,7 @@ ul.ListingList li a:hover {
 	padding: 3px 5px;
 	color: #666666;
 	text-indent:1px;
+	min-height: 10px;
 }
 
 .like-color
@@ -2113,6 +2170,8 @@ ul.ListingList li a:hover {
 
 .actionCount{
 	color: #000000;
+    float: right;
+    padding: 2px 0px 0px 5px;
 }
 
 .account-label
@@ -2132,7 +2191,10 @@ ul.ListingList li a:hover {
 	color: #C8102E;
 }
 
-.image-date, .image-duration{
+
+.image-duration{right: 0;}
+
+.image-duration{
 	position: absolute;
     top: 83%;
     padding: 0px 8px;
@@ -2141,19 +2203,59 @@ ul.ListingList li a:hover {
     margin-right: 5px;
 	border-radius: 2px;
 	opacity: 70%;
+	color:#000;
 }
-.image-date{left: 0;}
-.image-duration{right: 0;}
-
-
+.image-date{
+    padding: 0px 8px;
+    background: #CCCCCC;
+    margin-left: 5px;
+    margin-right: 5px;
+	border-radius: 2px;
+	opacity: 70%;
+	float: left;
+}
 .image-type{
-	position: absolute;
-    top: 4%;
     padding: 0px 8px;
     background: #99CCFF;
     margin-left: 5px;
     margin-right: 5px;
 	border-radius: 8px;
 	opacity: 70%;
+	float: left;
 }
-.image-type{left: 0;}
+.w100p
+{
+	width: 100%!important;
+}
+.w30p
+{
+	width: 30%!important;
+}
+.w10p
+{
+	width: 10%!important;
+}
+.w65p
+{
+	width: 65%!important;
+}
+.w50p
+{
+	width: 50%!important;
+}
+.image-host-name{
+	float: right;
+}
+.bootstrap-tagsinput > .label-info{
+	display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+	background-color: #5bc0de;
+}

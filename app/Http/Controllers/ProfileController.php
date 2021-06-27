@@ -191,7 +191,7 @@ class ProfileController extends Controller
 
     public function saveUserPreferencesGroupTag(Request $request){
 
-        $name     = $request->get('name');
+        $name     = trim($request->get('name'));
         $group_id = $request->get('group_id');
         $type     = $request->get('type');
 
@@ -199,11 +199,15 @@ class ProfileController extends Controller
         {
             if($type == 'add')
             {
-                $isExist = UserPreferencesGroupTags::where('name', $name)->where('group_id', $group_id)->first();
+                $isExist = UserPreferencesGroupTags::where('name', $name)->first();
 
                 if(!isset($isExist->id))
                 {
                     UserPreferencesGroupTags::create(['name' => $name, 'group_id' => $group_id]);
+                }
+                else
+                {
+                    return response()->json(['success' => false, 'message' => 'The Tag is already exist!']);
                 }
             }
 

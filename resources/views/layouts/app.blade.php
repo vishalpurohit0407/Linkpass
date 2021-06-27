@@ -65,6 +65,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta name="author" content="">
   <meta name="description" content="">
+  <meta Http-Equiv="Cache-Control" Content="no-cache">
+  <meta Http-Equiv="Pragma" Content="no-cache">
+  <meta Http-Equiv="Expires" Content="0">
   <title>{{ config('app.name', 'Linkpasser') }}</title>
   <!-- Favicon -->
   <link rel="icon" href="{{asset('assets/img/favicon.png')}}" type="image/png">
@@ -138,6 +141,7 @@
             <div class="modal-body">
               <form role="form" method="POST" action="{{ route('login') }}">
                 @csrf
+                <input type="hidden" name="loginPrompt" value="1">
                 <div class="form-group {{ $errors->has('email') ? ' has-danger' : '' }}">
                   <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" autofocus>
                   @if ($errors->has('email'))
@@ -275,7 +279,8 @@
       <script>
       $(function() {
         var currentUrl = '{{Route::currentRouteName()}}';
-        if(currentUrl != '' && currentUrl != 'home' && currentUrl != 'register' && currentUrl != 'creator-register' && currentUrl != 'profile.edit')
+
+        if(currentUrl != 'home' || currentUrl != 'profile.edit')
         {
             $('#loginModalPrompt').modal({
                 show: true

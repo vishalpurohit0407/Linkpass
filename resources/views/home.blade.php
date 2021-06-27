@@ -4,12 +4,12 @@
 
 <main class="main">
   <article class="container">
-    <div class="Trding">
+    {{-- <div class="Trding">
       <ul class="LinkVerb d-flex justify-content-center">
         <li><a href="#">Trading</a></li>
         <li><a href="#">Latest</a></li>
       </ul>
-    </div>
+    </div> --}}
     <div class="row d-flex align-items-stretch">
       <aside class="col-lg-6">
         <div class="row">

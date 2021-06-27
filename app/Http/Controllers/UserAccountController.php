@@ -67,8 +67,8 @@ class UserAccountController extends Controller
 
         $socialAccount = SocialAccount::where('user_id', $decodedUserId)->where('id', $decodedId)->where('status', '1')->first();
 
-        $items = Content::where('user_id', $decodedUserId)->where('social_account_id', $decodedId)->orderBy('main_title', 'asc')->get();
-
+        $items = Content::where('user_id', $decodedUserId)->where('social_account_id', $decodedId)->orderBy('created_at', 'desc')->get();
+        //dd($items);
         return view('user-account.logged-in-user-account', array('title' => 'Account Contents', 'items' => $items, 'type' => 'content', 'socialAccountId' => $id, 'user' => $user, 'socialAccount' => $socialAccount, 'editable' => $editable));
     }
 }

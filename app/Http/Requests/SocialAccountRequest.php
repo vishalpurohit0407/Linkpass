@@ -27,6 +27,7 @@ class SocialAccountRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'min:3'],
+            'host_name'   => ['required', 'min:3'],
             'url'         => ['required', 'url'],
             'account_url' => ['required', 'url'],
             'image'       => 'mimes:jpeg,png,jpg,gif,svg|max:2048'

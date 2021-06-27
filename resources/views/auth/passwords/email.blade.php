@@ -54,8 +54,8 @@
 
                     </div>
                     <div class="col-6 text-right">
-                        <a href="{{ route('home') }}" class="">
-                            <small>{{ __('Login') }}</small>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModalPrompt">
+                            {{ __('Login') }}
                         </a>
                     </div>
                 </div>

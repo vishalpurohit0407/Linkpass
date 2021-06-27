@@ -124,6 +124,7 @@ class SocialAccountController extends Controller
 
         $paramsArr = array();
         $paramsArr['name']        = $request->name;
+        $paramsArr['host_name']   = $request->host_name;
         $paramsArr['url']         = $request->url;
         $paramsArr['account_url'] = $request->account_url;
         $paramsArr['user_id']     = Auth::user()->id;
@@ -183,6 +184,7 @@ class SocialAccountController extends Controller
 
         $paramsArr = array();
         $paramsArr['name']        = $request->name;
+        $paramsArr['host_name']   = $request->host_name;
         $paramsArr['url']         = $request->url;
         $paramsArr['account_url'] = $request->account_url;
 

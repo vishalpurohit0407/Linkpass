@@ -42,6 +42,18 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
+                                        <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name', $socialAccount->host_name) }}"  autofocus>
+
+                                        @if($errors->has('host_name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                {{ $errors->first('host_name') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <div class="{{ $errors->has('url') ? ' has-danger' : '' }}">
                                         <input type="url" name="url" id="url" class="form-control {{ $errors->has('url') ? ' is-invalid' : '' }}" placeholder="{{ __('Enter URL') }}" value="{{ old('url', $socialAccount->url) }}">
 
