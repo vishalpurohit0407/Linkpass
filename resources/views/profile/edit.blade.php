@@ -485,6 +485,14 @@ jQuery(document).ready(function($) {
         })
     });
 
+    $(document).on('blur', '.bootstrap-tagsinput', function(event) {
+        event.preventDefault();
+        var tGroupId = $(this).parents('.tagsinput-box').attr('data-group-id');
+        $('#user-tags-input-'+tGroupId).tagsinput('destroy');
+        $('#user-tags-box-'+tGroupId).show();
+        $('#user-tags-input-'+tGroupId).hide();
+    });
+
     $(document).on('click', '.addNewTag', function(event) {
         event.preventDefault();
         var groupId = $(this).data('group-id');
@@ -495,14 +503,17 @@ jQuery(document).ready(function($) {
             $('#user-tags-box-'+groupId).hide();
 
             var options = {
-                tagClass: 'badge badge-info user-hash-tags'
+                tagClass: 'badge badge-info user-hash-tags',
+                allowDuplicates: false,
+                trimValue: true,
+                addOnBlur: false
             };
 
             $('#user-tags-input-'+groupId).tagsinput(options);
 
 
             $('#user-tags-input-'+groupId).on('itemAdded', function(event) {
-
+                event.preventDefault();
                 var tagStr = event.item;
 
                 $.ajax({
@@ -519,15 +530,16 @@ jQuery(document).ready(function($) {
                         $('#userPreferencesTagsCount').html(data.userPreferencesTagsCount);
                         $('#user-tags-box-'+groupId).html(data.tagsHtml);
                     }
-                    else
-                    {
-                        swal('Error!!', data.message, 'error');
-                        return false;
-                    }
+                    // else
+                    // {
+                    //     swal('Error!!', data.message, 'error');
+                    //     return false;
+                    // }
                 });
             });
 
             $('#user-tags-input-'+groupId).on('itemRemoved', function(event) {
+                event.stopImmediatePropagation();
 
                 var tagStr = event.item;
 

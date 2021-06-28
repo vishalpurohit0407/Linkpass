@@ -205,10 +205,10 @@ class ProfileController extends Controller
                 {
                     UserPreferencesGroupTags::create(['name' => $name, 'group_id' => $group_id]);
                 }
-                else
-                {
-                    return response()->json(['success' => false, 'message' => 'The Tag is already exist!']);
-                }
+                // else
+                // {
+                //     return response()->json(['success' => false, 'message' => 'The Tag is already exist!']);
+                // }
             }
 
             if($type == 'remove')
