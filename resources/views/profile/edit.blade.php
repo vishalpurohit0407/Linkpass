@@ -487,15 +487,19 @@ jQuery(document).ready(function($) {
 
     $(document).on('blur', '.bootstrap-tagsinput', function(event) {
         event.preventDefault();
-        var tGroupId = $(this).parents('.tagsinput-box').attr('data-group-id');
-        $('#user-tags-input-'+tGroupId).tagsinput('destroy');
-        $('#user-tags-box-'+tGroupId).show();
-        $('#user-tags-input-'+tGroupId).hide();
+        try {
+            var tGroupId = $(this).parents('.tagsinput-box').attr('data-group-id');
+
+            $('#tagsinput-box-'+tGroupId).find('.bootstrap-tagsinput').hide();
+            $('#user-tags-box-'+tGroupId).show();
+            $('#user-tags-input-'+tGroupId).hide();
+        } catch (error) {}
     });
 
     $(document).on('click', '.addNewTag', function(event) {
         event.preventDefault();
         var groupId = $(this).data('group-id');
+        var isTagsInputApplied = $('#tagsinput-box-'+groupId).find('.bootstrap-tagsinput').length;
 
         if($('#user-tags-box-'+groupId).is(':visible'))
         {
@@ -509,60 +513,94 @@ jQuery(document).ready(function($) {
                 addOnBlur: false
             };
 
-            $('#user-tags-input-'+groupId).tagsinput(options);
+            if(isTagsInputApplied == 1)
+            {
+                $('#tagsinput-box-'+groupId).find('.bootstrap-tagsinput').show();
+                $('#user-tags-input-'+groupId).hide();
+            }
 
+            if(isTagsInputApplied == 0)
+            {
+                $('#user-tags-input-'+groupId).tagsinput(options);
 
-            $('#user-tags-input-'+groupId).on('itemAdded', function(event) {
-                event.preventDefault();
-                var tagStr = event.item;
+                $('#user-tags-input-'+groupId).on('beforeItemAdd', function(event) {
 
-                $.ajax({
-                    url: '{{route("user.save-preferences-group-tag")}}',
-                    type: "post",
-                    datatype: "json",
-                    data: {
-                        name: tagStr,
-                        group_id: groupId,
-                        type: 'add'
+                    var existingTags = $('#userPreferencesTags').val();
+                    var tagListArr = JSON.parse(existingTags);
+                    var item = event.item;
+                    if(tagListArr.includes(item))
+                    {
+                        event.cancel = true;
+                        swal('Error!!', 'The Tag is already exist!', 'error');
+                        return false;
                     }
-                }).done(function(data) {
-                    if(data.success){
-                        $('#userPreferencesTagsCount').html(data.userPreferencesTagsCount);
-                        $('#user-tags-box-'+groupId).html(data.tagsHtml);
-                    }
-                    // else
-                    // {
-                    //     swal('Error!!', data.message, 'error');
-                    //     return false;
-                    // }
-                });
-            });
-
-            $('#user-tags-input-'+groupId).on('itemRemoved', function(event) {
-                event.stopImmediatePropagation();
-
-                var tagStr = event.item;
-
-                $.ajax({
-                    url: '{{route("user.save-preferences-group-tag")}}',
-                    type: "post",
-                    datatype: "json",
-                    data: {
-                        name: tagStr,
-                        group_id: groupId,
-                        type: 'remove'
-                    }
-                }).done(function(data) {
-                    if(data.success){
-                        $('#userPreferencesTagsCount').html(data.userPreferencesTagsCount);
-                        $('#user-tags-box-'+groupId).html(data.tagsHtml);
+                    else
+                    {
+                        event.cancel = false;
                     }
                 });
-            });
+
+
+                $('#user-tags-input-'+groupId).on('itemAdded', function(event) {
+                    event.preventDefault();
+                    var tagStr = event.item;
+
+                    $.ajax({
+                        url: '{{route("user.save-preferences-group-tag")}}',
+                        type: "post",
+                        datatype: "json",
+                        data: {
+                            name: tagStr,
+                            group_id: groupId,
+                            type: 'add'
+                        }
+                    }).done(function(data) {
+                        if(data.success){
+                            $('#userPreferencesTagsCount').html(data.userPreferencesTagsCount);
+                            $('#user-tags-box-'+groupId).html(data.tagsHtml);
+
+                            $('#userPreferencesTags').val(data.userPreferencesTags);
+                        }
+                        // else
+                        // {
+                        //     swal('Error!!', data.message, 'error');
+                        //     return false;
+                        // }
+                    });
+                });
+
+                $('#user-tags-input-'+groupId).on('itemRemoved', function(event) {
+                    event.stopImmediatePropagation();
+
+                    var tagStr = event.item;
+                    $.ajax({
+                        url: '{{route("user.save-preferences-group-tag")}}',
+                        type: "post",
+                        datatype: "json",
+                        data: {
+                            name: tagStr,
+                            group_id: groupId,
+                            type: 'remove'
+                        }
+                    }).done(function(data) {
+                        if(data.success){
+                            $('#userPreferencesTagsCount').html(data.userPreferencesTagsCount);
+                            $('#user-tags-box-'+groupId).html(data.tagsHtml);
+                            $('#userPreferencesTags').val(data.userPreferencesTags);
+
+                            $('.bootstrap-tagsinput:first').trigger('blur');
+                        }
+                    });
+                });
+            }
         }
         else
         {
-            $('#user-tags-input-'+groupId).tagsinput('destroy');
+            // if(isTagsInputApplied == 1)
+            // {
+            //     $('#user-tags-input-'+groupId).tagsinput('destroy');
+            // }
+            $('#tagsinput-box-'+groupId).find('.bootstrap-tagsinput').hide();
             $('#user-tags-box-'+groupId).show();
             $('#user-tags-input-'+groupId).hide();
         }

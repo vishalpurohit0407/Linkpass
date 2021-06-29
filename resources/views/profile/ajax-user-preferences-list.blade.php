@@ -1,4 +1,5 @@
 <div class="row">
+    <input type="hidden" id="userPreferencesTags" value="{{ json_encode($userPreferencesTags) }}" >
     @php $i=0; @endphp
     @foreach($userPreferencesGroups as $item)
         <aside class="col-md-6 userPreferencesBox">
@@ -27,7 +28,7 @@
                 </ul>
             </div>
             </div>
-            <div class="card mt-2 py-2 px-3 rounded-lg tagsinput-box" data-group-id="{{$item->id}}" >
+            <div class="card mt-2 py-2 px-3 rounded-lg tagsinput-box" id="tagsinput-box-{{$item->id}}" data-group-id="{{$item->id}}" >
                 <div class="detail-tag">
                     <span id="user-tags-box-{{$item->id}}">
                         @if($item->tags()->count())

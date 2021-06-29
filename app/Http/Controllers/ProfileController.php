@@ -114,8 +114,9 @@ class ProfileController extends Controller
         $userPreferencesCount  = $userPreferencesGroups->count();
 
         $userPreferencesTagsCount = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->count();
+        $userPreferencesTags = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->pluck('user_preferences_group_tags.name')->toArray();
 
-        $html = view('profile.ajax-user-preferences-list', array('userPreferencesGroups' => $userPreferencesGroups))->render();
+        $html = view('profile.ajax-user-preferences-list', array('userPreferencesGroups' => $userPreferencesGroups, 'userPreferencesTags' => $userPreferencesTags))->render();
 
         return response()->json(['success' => true, 'userPreferencesCount' => $userPreferencesCount, 'userPreferencesTagsCount' => $userPreferencesTagsCount, 'html' => $html]);
     }
@@ -217,11 +218,12 @@ class ProfileController extends Controller
             }
 
             $userPreferencesTagsCount = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->count();
+            $userPreferencesTags = UserPreferencesGroupTags::where('user_preferences_groups.user_id', Auth::user()->id)->join('user_preferences_groups', 'user_preferences_groups.id', '=', 'user_preferences_group_tags.group_id')->pluck('user_preferences_group_tags.name')->toArray();
 
             $group = UserPreferencesGroups::find($group_id);
             $tagsHtml = view('profile.ajax-user-tags', array('item' => $group))->render();
 
-            return response()->json(['success' => true, 'userPreferencesTagsCount' => $userPreferencesTagsCount, 'tagsHtml' =>$tagsHtml]);
+            return response()->json(['success' => true, 'userPreferencesTagsCount' => $userPreferencesTagsCount, 'userPreferencesTags' => json_encode($userPreferencesTags), 'tagsHtml' =>$tagsHtml]);
         }
         else
         {
