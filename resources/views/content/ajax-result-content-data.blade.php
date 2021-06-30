@@ -122,9 +122,24 @@
             </div>
         </div>
 
-        <div class="float-right text-right mt-2 mb-2">
-          <a href="javascript:void(0);" id="close-content-detail-modal" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary " ><i class="far fa-2x fa-compress"></i></a>
-        </div>
+        <!-- Button slider start -->
+          <div class="item mt-2">
+            <div class="d-flex justify-content-between align-items-center">
+              @if(isset($content->content_user_keep->id))
+              <div class="w30p ml-3 text-left">
+                  <span class="text-danger text-uppercase mr-5 saved-label" style="font-weight: bold;">SAVED</span>
+              </div>
+              @endif
+              <div class="w30p text-center">
+                <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mr-2 visit-btn">VISIT</a>
+              </div>
+
+              <div class="text-right {!! isset($content->content_user_keep->id) ? 'w30p' : 'w65p' !!}">
+                <a href="javascript:void(0);" id="close-content-detail-modal" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary " ><i class="far fa-2x fa-compress"></i></a>
+              </div>
+            </div>
+          </div>
+        <!-- Button slider end -->
 
       </div>
     </aside>

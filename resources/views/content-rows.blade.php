@@ -23,7 +23,7 @@
             $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
           @endphp
           <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}}</a>
-          <h4>{{ Str::limit($content->main_title, 40, '...')}}</h4>
+          <h4>{{ $content->main_title }}</h4>
 
           <div class="pull-left mb-2 w100p">
             <div class=" image-type">{{ isset($contentType[$content->type]) ? $contentType[$content->type] : 'N/A' }}</div>
@@ -130,32 +130,41 @@
           @else
             <p class="desc-bg mt-2 text-center">No description added</p>
           @endif
-          <!-- Button trigger modal -->
-          <div class="row">
-            @if(isset($content->content_user_keep->id))
-            <div class="w30p ml-3 text-left">
-                <span class="text-danger text-uppercase mr-5 saved-label" style="font-weight: bold;">SAVED</span>
-            </div>
-            @endif
-            <div class="w30p text-center">
-              <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mr-2 visit-btn">VISIT</a>
-            </div>
 
-            <div class=" text-right {!! isset($content->content_user_keep->id) ? 'w30p' : 'w65p' !!}">
-              <a href="javascript:void(0);" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-2x fa-expand"></i></a>
+          <!-- Button slider start -->
+          <div class="owl-carousel owl-theme owl-three">
+            <div class="item">
+              <div class="d-flex justify-content-between align-items-center">
+                @if(isset($content->content_user_keep->id))
+                <div class="w30p ml-3 text-left">
+                    <span class="text-danger text-uppercase mr-5 saved-label" style="font-weight: bold;">SAVED</span>
+                </div>
+                @endif
+                <div class="w30p text-center">
+                  <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mr-2 visit-btn">VISIT</a>
+                </div>
+
+                <div class="text-right {!! isset($content->content_user_keep->id) ? 'w30p' : 'w65p' !!}">
+                  <a href="javascript:void(0);" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-2x fa-expand"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                @if(isset($editable) && $editable == true)
+                  <div class="text-left">
+                    <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mr-3 pull-right"><i class="far fa-edit"></i></a>
+                  </div>
+                  <div class="text-right">
+                    <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary btn-sm mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>
+                  </div>
+                @endif
+              </div>
             </div>
           </div>
-          <div class="row">
+          <!-- Button slider end -->
 
-            @if(isset($editable) && $editable == true)
-              <div class="col-md-4 text-left mt-2">
-                <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mr-3 pull-right"><i class="far fa-edit"></i></a>
-              </div>
-              <div class="col-md-8 text-right mt-2">
-                <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary btn-sm mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>
-              </div>
-              @endif
-          </div>
+
         </div>
       </aside>
     @endforeach
