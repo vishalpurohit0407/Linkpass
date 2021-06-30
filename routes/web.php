@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
+Route::any('user/check-logged-in','HomeController@checkLoggedIn')->name('user.check-logged-in');
 Auth::routes(['verify' => true]);
 
 Route::get('/creator-register', 'Auth\RegisterController@creatorRegister')->name('creator-register');
@@ -29,16 +30,13 @@ Route::get('/results', 'HomeController@getResults')->name('results');
 Route::post('/results/details', 'HomeController@getContentDetails')->name('result.get-details');
 Route::get('/results/{id}', 'HomeController@getContentDetailsOld')->name('result.get-details-old');
 
-Route::post('/content/save-rating','ContentController@saveRating')->name('user.content.save-rating');
-Route::post('/content/save-rating-vote','ContentController@saveRatingVote')->name('user.content.save-rating-vote');
-Route::get('/content/get-ratings','ContentController@getRatings')->name('user.content.get-ratings');
-Route::get('/content/get-tabs-contents','ContentController@getTabsContent')->name('user.content.get-tabs-contents');
-Route::post('/content/save-action','ContentController@saveAction')->name('user.content.save-action');
+
 
 //  Verify Account Name
 Route::post('validate-account-name', ['as' => 'user.validate-account-name', 'uses' => 'ProfileController@validateAccountName']);
 
-Route::group(['middleware' => 'auth'], function () {
+
+ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
 
 	// Profile Routes
 	Route::get('profile_settings', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
@@ -49,6 +47,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile_settings/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 	// Content Module Routes
+	Route::get('/content/get-tabs-contents','ContentController@getTabsContent')->name('user.content.get-tabs-contents');
+	Route::post('/content/save-rating','ContentController@saveRating')->name('user.content.save-rating');
+	Route::post('/content/save-rating-vote','ContentController@saveRatingVote')->name('user.content.save-rating-vote');
+	Route::get('/content/get-ratings','ContentController@getRatings')->name('user.content.get-ratings');
+	Route::post('/content/save-action','ContentController@saveAction')->name('user.content.save-action');
 	Route::get('/content/search','ContentController@search')->name('user.content.search');
 	Route::post('/content/delete','ContentController@deleteContent')->name('user.content.delete');
 	//Route::post('/content/get-details','ContentController@getContentDetails')->name('user.content.get-details');
@@ -102,3 +105,4 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/{url_slug}','PagepreviewController@pagepreview')->name('cms.pagepreview');
+
