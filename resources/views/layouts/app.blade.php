@@ -139,7 +139,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
             </div>
             <div class="modal-body">
-              <form role="form" method="POST" action="{{ route('login') }}">
+              <form role="form" method="POST" id="post-login-form" action="{{ route('post-login') }}">
                 @csrf
                 <input type="hidden" name="loginPrompt" value="1">
                 <div class="form-group {{ $errors->has('email') ? ' has-danger' : '' }}">
@@ -160,16 +160,17 @@
                 </div>
                 <div class="form-group radioeffect magic-radio-group text-left">
                   <span>
-                    <input name="user_type" value="0" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
-                    <label for="radio1" class="css-label radGroup1">User</label>
+                    <input name="auser_type" value="0" id="aradio1" class="css-checkbox radioshow magic-radio" type="radio"  checked="">
+                    <label for="aradio1" class="css-label radGroup1">User</label>
                   </span>
                   <span>
-                    <input name="user_type" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
-                    <label for="radio2" class="css-label radGroup1">Creator</label>
+                    <input name="auser_type" value="1" id="aradio2" class="css-checkbox radioshow magic-radio" type="radio" >
+                    <label for="aradio2" class="css-label radGroup1">Creator</label>
                   </span>
                 </div>
+
                 <div class="form-group login-btn">
-                  <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Login</button>
+                  <button type="submit" id="loginBtn" class="btn btn-primary rounded-30 text-uppercase w-100">Login</button>
                 </div>
                 <div class="text-center"> <a href="{{ route('password.request') }}">Forgot Password?</a> </div>
               </form>
@@ -273,6 +274,26 @@
       e.preventDefault();
       $('html, body').animate({scrollTop:0}, '300');
     });
+
+    $("form#post-login-form").submit(function(e){
+      e.preventDefault();
+        $.ajax({
+            url: '{{route("post-login")}}',
+            type: "post",
+            dataType : 'json',
+            data:$("#post-login-form input").serialize()
+        }).done(function(data) {
+            if(data.success)
+            {
+              window.location = data.redirectUrl;
+            }
+            else
+            {
+              swal('Login Failed!!', data.message, 'error');
+            }
+        });
+    });
+
   </script>
   @yield('pagewise_js')
   @if($errors->has('email') || $errors->has('password'))

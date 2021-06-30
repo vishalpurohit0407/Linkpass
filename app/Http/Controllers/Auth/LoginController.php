@@ -67,6 +67,84 @@ class LoginController extends Controller
     }
 
     /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function postLogin(Request $request)
+    {
+        $errors = $this->validateLogin($request);
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponseAjax($request);
+        }
+
+        return $this->sendFailedLoginResponseAjax($request);
+    }
+
+    protected function sendFailedLoginResponseAjax(Request $request)
+    {
+        return response()->json(['success' => false, 'message' => trans('auth.failed')]);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendLoginResponseAjax(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+
+        // Validate Creator
+        if($request->get('auser_type') == '1' && in_array($this->guard()->user()->user_type, ['0', '2']))
+        {
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            $this->incrementLoginAttempts($request);
+
+            return $this->sendFailedLoginResponseAjax($request);
+        }
+
+        // Validate User
+        if($request->get('auser_type') == '0' && in_array($this->guard()->user()->user_type, ['1', '2']))
+        {
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            $this->incrementLoginAttempts($request);
+
+            return $this->sendFailedLoginResponseAjax($request);
+        }
+
+        if(empty($this->guard()->user()->last_login_at))
+        {
+            $redirectUrl = $this->redirectToProfile;
+        }
+        else
+        {
+            $redirectUrl = $this->redirectPath();
+        }
+
+        User::where('id', $this->guard()->user()->id)->update(array('last_login_at' => Carbon::now()));
+
+        return response()->json(['success' => true, 'redirectUrl' => url($redirectUrl)]);
+    }
+
+    /**
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request

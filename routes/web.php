@@ -19,6 +19,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/creator-register', 'Auth\RegisterController@creatorRegister')->name('creator-register');
 Route::get('/creator-login', 'Auth\LoginController@creatorLogin')->name('creator-login');
+Route::post('/postLogin', 'Auth\LoginController@postLogin')->name('post-login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
