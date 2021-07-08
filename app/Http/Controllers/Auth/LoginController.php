@@ -119,7 +119,7 @@ class LoginController extends Controller
         }
 
         // Validate User
-        if($request->get('auser_type') == '0' && in_array($this->guard()->user()->user_type, ['1', '2']))
+        if($request->get('auser_type') == '0' && in_array($this->guard()->user()->user_type, ['1']))
         {
             $request->session()->invalidate();
 
@@ -173,7 +173,7 @@ class LoginController extends Controller
         }
 
         // Validate User
-        if($request->get('user_type') == '0' && in_array($this->guard()->user()->user_type, ['1', '2']))
+        if($request->get('user_type') == '0' && in_array($this->guard()->user()->user_type, ['1']))
         {
             $request->session()->invalidate();
 

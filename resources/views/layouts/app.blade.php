@@ -301,12 +301,12 @@
       $(function() {
         var currentUrl = '{{Route::currentRouteName()}}';
 
-        if(currentUrl != 'home' || currentUrl != 'profile.edit')
-        {
-            $('#loginModalPrompt').modal({
-                show: true
-            });
-        }
+        // if(currentUrl != 'home' || currentUrl != 'profile.edit')
+        // {
+        //     $('#loginModalPrompt').modal({
+        //         show: true
+        //     });
+        // }
       });
       </script>
   @endif
