@@ -16,7 +16,7 @@
 <div class="row d-flex justify-content-between">
     <aside class="col-md-4">
 
-        <div class="user-profile-avatar">
+        <div class="user-profile-avatar user-profile-avatar-top">
             <a href="{{route('user.account')}}">
             <img src="{{$user->user_image_url}}" alt="" class="rounded-circle height-64 width-64 {{$userProfileClass}}">
             </a>

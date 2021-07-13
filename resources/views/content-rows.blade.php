@@ -104,7 +104,7 @@
               @php
                 $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               @endphp
-              <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-2x fa-exclamation-triangle"></i> <span class="inappropriate-action-label">Report<span></a>
+              <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
             </li>
           </ul>
 
@@ -149,18 +149,18 @@
                 </div>
               </div>
             </div>
-            <div class="item">
-              <div class="d-flex justify-content-between align-items-center mt-2">
-                @if(isset($editable) && $editable == true)
-                  <div class="text-left">
-                    <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mr-3 pull-right"><i class="far fa-edit"></i></a>
-                  </div>
-                  <div class="text-right">
-                    <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary btn-sm mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>
-                  </div>
-                @endif
+            @if(isset($editable) && $editable == true)
+              <div class="item">
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <div class="text-left">
+                      <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mr-3 pull-right"><i class="far fa-edit"></i></a>
+                    </div>
+                    <div class="text-right">
+                      <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary btn-sm mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>
+                    </div>
+                </div>
               </div>
-            </div>
+            @endif
           </div>
           <!-- Button slider end -->
 

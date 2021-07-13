@@ -471,7 +471,7 @@ button:focus {
 	background: #007fff;
 	outline: inherit;
 	color: #FFF;
-	border-radius: 30px;
+	/* border-radius: 30px; */
 }
 .btn-warning {
 	color: #fff;
@@ -480,7 +480,7 @@ button:focus {
 .btn-warning:hover, .btn-warning.active.focus, .btn-warning.active:focus, .btn-warning.active:hover, .btn-warning:active.focus, .btn-warning:active:focus, .btn-warning:active:hover, .open>.dropdown-toggle.btn-warning.focus, .open>.dropdown-toggle.btn-warning:focus, .open>.dropdown-toggle.btn-warning:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-warning.active, .btn-warning:active, .open>.dropdown-toggle.btn-warning {
 	background: #ca082a;
 	color: #FFF;
-	border-radius: 30px;
+	/* border-radius: 30px; */
 }
 .btn-default {
 	color: #ca082a;
@@ -491,7 +491,7 @@ button:focus {
 	background: #007fff;
 	outline: inherit;
 	color: #FFF;
-	border-radius: 30px;
+	/* border-radius: 30px; */
 }
 .btn-secondary {
 	color: #fff;
@@ -1430,8 +1430,10 @@ ul.LinkVerb li a:hover, ul.LinkVerb li.active a {
 .LinkVerbLabel
 {
 	background: none !important;
-	color: #666 !important;
-	font-size:12px !important;
+    color: #666 !important;
+    font-size: 12px !important;
+    padding: 3px 5px !important;
+    font-style: italic;
 }
 .LinkVerbLabel:hover
 {
@@ -1563,6 +1565,7 @@ ul.ListingList li a:hover {
 	color: rgba(255,255,255,0.60);
 }
 .AddVideo {
+	background-color: #FFF;
 	margin-top: 30px;
 	border: 1px solid #CCC;
 	padding: 10px 10px 30px;
@@ -1702,7 +1705,7 @@ ul.ListingList li a:hover {
 	font-size: 13px;
 	margin-bottom: 10px;
 	font-weight: 400;
-	margin-top: 15px;
+	margin-top: 5px;
 }
 .AddVideo p.date span:last-child {
 	margin-left: 3px;
@@ -2213,6 +2216,10 @@ ul.ListingList li a:hover {
 
 .image-duration{right: 0;}
 
+.image-duration-detail{
+    top: 90% !important;
+}
+
 .image-duration{
 	position: absolute;
     top: 83%;
@@ -2264,6 +2271,7 @@ ul.ListingList li a:hover {
 }
 .image-host-name{
 	float: right;
+	font-weight: bold;
 }
 .bootstrap-tagsinput > .label-info{
 	display: inline;
@@ -2277,4 +2285,8 @@ ul.ListingList li a:hover {
     vertical-align: baseline;
     border-radius: .25em;
 	background-color: #5bc0de;
+}
+
+.user-profile-avatar-top{
+	margin: 0px 0px 0px 5px !important;
 }

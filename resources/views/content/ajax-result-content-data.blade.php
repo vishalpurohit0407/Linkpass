@@ -48,7 +48,7 @@
                   $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words);
 
                 @endphp
-                <span class="image-duration">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
+                <span class="image-duration image-duration-detail">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
 
                 @if(!isset($content->content_user_remove->id))
                   <div class="Remove">
@@ -64,6 +64,15 @@
             </div>
           </div>
         </div>
+        <p class="date">
+          {{-- @if($content->ratings_count)
+              <span class="text-danger text-uppercase">Rated</span>
+          @else
+              <a href="javascript:void(0);" data-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateListingContent">Rate</a>
+          @endif --}}
+          <span>{{ date("M d, 'y", strtotime($content->created_at)) }}</span>
+          <span id="view-count-{{$content->id}}">{{$content->views_count}} {{$content->views_count == 1 ? 'Visit' : 'Visits'}}</span>
+        </p>
         <ul class="d-flex justify-content-between">
           <li>
             @php
@@ -88,18 +97,10 @@
             @php
               $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
             @endphp
-            <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="fas fa-2x fa-exclamation-triangle"></i> <span class="inappropriate-action-label">Report<span></a>
+            <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
           </li>
         </ul>
-        <p class="date">
-          {{-- @if($content->ratings_count)
-              <span class="text-danger text-uppercase">Rated</span>
-          @else
-              <a href="javascript:void(0);" data-id="{{$content->id}}" class="text-white text-uppercase badge badge-pill badge-info rateListingContent">Rate</a>
-          @endif --}}
-          <span>{{ date("M d, 'y", strtotime($content->created_at)) }}</span>
-          <span id="view-count-{{$content->id}}">{{$content->views_count}} {{$content->views_count == 1 ? 'Visit' : 'Visits'}}</span>
-        </p>
+
         <div class="d-flex justify-content-between align-items-center">
             <span class="d-flex align-items-center">
                 @php
@@ -110,7 +111,13 @@
                 </div>
                 <strong><a href="javascript:void(0);">{{$creatorName}}</a></strong>
             </span>
+
+            <span class="d-flex align-items-center">
+              Linked
+            </span>
         </div>
+
+
 
         <div class="scrollbar-250" id="style-1">
             <div class="force-overflow-250">
@@ -123,7 +130,7 @@
         </div>
 
         <!-- Button slider start -->
-          <div class="item mt-2">
+          <div class="item mt-px-15">
             <div class="d-flex justify-content-between align-items-center">
               @if(isset($content->content_user_keep->id))
               <div class="w30p ml-3 text-left">

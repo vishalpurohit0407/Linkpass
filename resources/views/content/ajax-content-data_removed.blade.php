@@ -38,7 +38,7 @@
           <li><a href="javascript:void(0);"><i class="fal fa-check"></i> <span>0</span></a></li>
           <li><a href="javascript:void(0);"><i class="fal fa-times"></i> <span>0</span></a></li>
           <li><a href="javascript:void(0);"><i class="far fa-share-alt"></i></a></li>
-          <li><a href="javascript:void(0);"><i class="fas fa-exclamation-triangle"></i></a></li>
+          <li><a href="javascript:void(0);"><i class="far fa-flag"></i></a></li>
         </ul>
         <p class="date"><span class="text-white text-uppercase badge badge-pill badge-info">Rate</span> <span>0 views</span></p>
         <div class="d-flex justify-content-between align-items-center">

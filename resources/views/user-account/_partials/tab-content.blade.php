@@ -125,9 +125,9 @@
                     <div class="AddListing">
                       <h4>{{$socialAccount->name}}</h4>
                       <p class="ListingList">{{$socialAccount->user_content_count}} Listing</p>
-                      <div class="social-account-avatar">
+                      <div class="">
                         <a href="{{route('user.account.contents', [$socialAccount->hashid, $user->hashid])}}" class="ListingLogo">
-                          <img class="rounded-circle height-75 width-75 creator-profile-bg" src="{{$socialAccount->image_url}}" alt="">
+                          <img class="rounded-circle height-75 width-75 " src="{{$socialAccount->image_url}}" alt="">
                         </a>
                       </div>
                       <p class="ListingList">{{$socialAccount->host_name}}</p>

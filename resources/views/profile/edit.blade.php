@@ -117,7 +117,7 @@
     <main class="main">
         <article class="container">
 
-            @if(Auth::user()->user_type == '0')
+            @if(in_array(Auth::user()->user_type, ['0','2']))
                 <div class="w100p pull-left mb-3">
                     <span class="text-primary pull-left mr-2 isHybridLabel" id="valueOfSwitch">CREATE:</span>
                     <div class="custom-control custom-switch pull-left">
@@ -129,7 +129,7 @@
                 </div>
             @endif
 
-            @if(Auth::user()->user_type == '0')
+            @if(in_array(Auth::user()->user_type, ['0','2']))
                 <ul class="LinkVerb">
                     <li class="active"><a id="addNewUserPreferencesGroup" href="javascript:void(0);">New # Group</a></li>
                     <li><label># Groups : <span id="userPreferencesCount"></span></label></li>
