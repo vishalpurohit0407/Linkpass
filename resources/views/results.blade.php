@@ -77,6 +77,7 @@
 
             pageno=1;
             getRatingsData();
+            $('[data-toggle="tooltip"]').tooltip();
 
             $('#content-details-modal').modal('show');
             }

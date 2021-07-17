@@ -197,6 +197,8 @@ function deleteSocialAccount(id){
                 pageno=1;
                 getRatingsData();
 
+                $('[data-toggle="tooltip"]').tooltip();
+
                 $('#content-details-modal').modal('show');
               }
               else
@@ -440,6 +442,8 @@ function deleteSocialAccount(id){
                 $('.ratedContent').html(data);
             }
             //$("#ratings_data").html(data);
+
+            $('[data-toggle="tooltip"]').tooltip();
 
             //location.hash = page;
         }).fail(function(jqXHR, ajaxOptions, thrownError){

@@ -14,7 +14,7 @@
     }
 @endphp
 <div class="row d-flex justify-content-between">
-    <aside class="col-md-4">
+    <aside class="col-md-10">
 
         <div class="user-profile-avatar user-profile-avatar-top">
             <a href="{{route('user.account')}}">
@@ -26,7 +26,7 @@
         <li><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></li>
         </ul>
     </aside>
-    <aside class="col-md-4 head-link">
+    <aside class="col-md-2 head-link">
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->account_name}}</a></p>
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->name}}</a></p>
         <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">Here Since: <span>{{date('d M Y', strtotime($user->created_at))}}</span></a></strong></p>

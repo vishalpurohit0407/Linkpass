@@ -15,14 +15,19 @@
           {
               $userProfileClass = 'hybrid-profile-bg';
           }
+
+          $contentType         = array(1 => 'Image', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
+          $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words);
+
       @endphp
       <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-3" id="content-box-{{$content->id}}">
-        <div class="AddVideo {!!$content->views_count > 0 ? '' : 'AddVideoVisited' !!}">
+        <div class="AddVideo {!!$content->views_count > 0 ? '' : 'active' !!}">
           <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
           @php
             $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
+            $sub_category = !empty($content->sub_category) ? " : ".$content->sub_category : '';
           @endphp
-          <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}}</a>
+          <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}} {{$sub_category}} </a>
           <h4>{{ $content->main_title }}</h4>
 
           <div class="pull-left mb-2 w100p">
@@ -47,24 +52,19 @@
               <div class="imgvid">
                 <img src="{{ $content->main_image_url}}">
 
-                  @php
-                    $contentType = array(1 => 'Image', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
-                    $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words);
-
-                  @endphp
-
                   <span class="image-duration">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
-
-
-                  @if(!isset($content->content_user_remove->id))
+                  @php
+                    $currentRoute = Route::currentRouteName();
+                  @endphp
+                  @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results')
                     <div class="Remove">
-                      <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action"><span class="badge badge-info">Remove</span></a>
+                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"></a>
                     </div>
                   @endif
 
                   @if(!isset($content->content_user_keep->id))
                     <div class="Keep">
-                      <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action"><span class="badge badge-info">Keep</span></a>
+                      <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"></a>
                     </div>
                   @endif
               </div>
@@ -86,14 +86,14 @@
                 $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
                 $userLikeClass = (isset($content->content_user_like->id) && !isset($content->content_user_unlike->id)) ? 'like-action-disabled' : '';
               @endphp
-              <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20  {{$likeClass}} {{$userLikeClass}}"><i class="fal fa-check fa-2x like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
+              <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20  {{$likeClass}} {{$userLikeClass}}"><i class="fas fa-check fa-2x like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
             </li>
             <li>
               @php
                 $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
                 $userUnlikeClass = (!isset($content->content_user_like->id) && isset($content->content_user_unlike->id)) ? 'unlike-action-disabled' : '';
               @endphp
-              <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}} {{$userUnlikeClass}}"><i class="fal fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
+              <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}} {{$userUnlikeClass}}"><i class="fas fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
             </li>
 
             <li>
@@ -140,7 +140,7 @@
                     <span class="text-danger text-uppercase mr-5 saved-label" style="font-weight: bold;">SAVED</span>
                 </div>
                 @endif
-                <div class="w30p text-center">
+                <div class="w30p  {{ !isset($content->content_user_keep->id) ? 'text-left' : 'text-center' }}">
                   <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mr-2 visit-btn">VISIT</a>
                 </div>
 
@@ -151,7 +151,7 @@
             </div>
             @if(isset($editable) && $editable == true)
               <div class="item">
-                <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="d-flex justify-content-between align-items-center ml-2">
                     <div class="text-left">
                       <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mr-3 pull-right"><i class="far fa-edit"></i></a>
                     </div>
@@ -163,7 +163,6 @@
             @endif
           </div>
           <!-- Button slider end -->
-
 
         </div>
       </aside>

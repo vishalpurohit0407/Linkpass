@@ -108,14 +108,16 @@ class HomeController extends Controller
         $keyword = trim($request->search);
 
         $query = $this->content;
-        $query = $query->where('status', '1');
+        $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
+        $query = $query->join('users', 'users.id', '=', 'content.user_id');
+        $query = $query->where('content.status', '1');
         $query = $query->whereDoesntHave('content_user_remove');
 
         if(isset($keyword) && !empty($keyword)) {
             $query = $query->where(function ($query) use ($keyword)
             {
-                $query = $query->where('main_title','LIKE','%'.$keyword.'%');
-                $query = $query->orWhere('description','LIKE','%'.$keyword.'%');
+                $query = $query->where('content.main_title','LIKE','%'.$keyword.'%');
+                $query = $query->orWhere('content.description','LIKE','%'.$keyword.'%');
                 $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
                 {
                     $query->where('name', 'LIKE', '%'.$keyword.'%');
@@ -129,10 +131,16 @@ class HomeController extends Controller
                     $query->where('name', 'LIKE', '%'.$keyword.'%');
                     $query->orWhere('host_name', 'LIKE', '%'.$keyword.'%');
                 });
+
+                $query = $query->orWhereHas('content_user', function ($query) use ($keyword)
+                {
+                    $query->where('name', 'LIKE', '%'.$keyword.'%');
+                });
+
             });
         }
 
-        $items = $query->orderBy('main_title', 'asc')->get();
+        $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->get();
 
         return view('results', array('items' => $items));
     }

@@ -272,6 +272,7 @@ class ContentController extends Controller
         $content->type                    = $request->type;
         $content->main_title              = $request->main_title;
         $content->category_id             = $request->category_id;
+        $content->sub_category            = $request->sub_category;
         $content->user_id                 = Auth::user()->id;
         $content->description             = $request->description;
         $content->number_of_images        = $request->get('type') == 1 ? $request->number_of_images : 0;

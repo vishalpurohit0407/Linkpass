@@ -85,6 +85,14 @@
                                             @endif
                                           </div>
 
+                                          <div class="form-group ">
+                                              <label class="form-control-label" for="example3cols2Input">Sub Category </label>
+                                              <input type="text" name="sub_category" class="form-control @if($errors->has('sub_category')) is-invalid @endif" id="sub_category" value="{{old('sub_category', $content->sub_category)}}">
+                                              @if($errors->has('sub_category'))
+                                                  <span class="invalid-feedback">{{ $errors->first('sub_category') }}</span>
+                                              @endif
+                                          </div>
+
                                           <div class="form-group">
                                               <label class="form-control-label" for="type">Posted At <strong class="text-danger">*</strong></label>
                                               <input type="date" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posted At" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
@@ -109,7 +117,7 @@
                                       <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="tags">Tags</label><br>
-                                            <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $contentTags)}}" data-role="tagsinput" />
+                                            <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $contentTags)}}" />
                                         </div>
                                       </div>
                                     </div>
@@ -269,6 +277,19 @@
 <script type="text/javascript">
 var content_id= '{{$content->id}}';
 $(document).ready(function() {
+
+  $('#tags').tagsinput();
+
+  $('#tags').on('beforeItemAdd', function(event) {
+      var item = event.item;
+      if (item.indexOf(' ') >= 0)
+      {
+        event.cancel=true;
+        event.preventDefault=true;
+        item=item.replace(" ", "");
+        $('#tags').tagsinput('add', item);
+      }
+  });
 
     bindType();
 

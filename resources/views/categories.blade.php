@@ -7,8 +7,8 @@
   <div class="header bg-gradient-primary pt-lg-3">
     <div class="container">
       <div class="header-body text-center ">
-        <div class="row justify-content-center">
-          <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+        <div class="row ">
+          <div class="col-xl-12 col-lg-12 col-md-12 px-3 text-left">
             <span class="Small-Title">Categories</span>
           </div>
         </div>
@@ -19,17 +19,6 @@
   <div class="container pt-lg-3">
     <!--start Category Section-->
 
-    <div class="row align-items-center mb20">
-      <div class="col-lg-6 col-7">
-          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-              <ol class="breadcrumb breadcrumb-links breadcrumb-dark pl-0">
-                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item">Categories</li>
-              </ol>
-          </nav>
-      </div>
-    </div>
-
     <div class="row">
       <!--Start Slider-->
       @if($categories->count() > 0)
@@ -37,9 +26,9 @@
             <div class="col-md-3">
               <div class="item">
                 <div class="CategoryBox"> <a href="{{route('categories.get-items', $item->hashid)}}">
-                  <div class="boximg"> <img src="{{!empty($item->icon_url) ? $item->icon_url : asset('assets/img/no_img.png')}}" alt="" class="w-100"> </div>
+                  <div class="boximg"> <img src="{{!empty($item->icon_url) ? $item->icon_url : asset('assets/img/no_img.png')}}" alt="" width="256" height="160"> </div>
                   <div class="description">
-                    <h3>{!! $item->name !!}</h3>
+                    <h4>{!! $item->name !!}</h4>
                   </div>
                   </a>
                 </div>
