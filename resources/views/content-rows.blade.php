@@ -55,6 +55,7 @@
                   <span class="image-duration">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
                   @php
                     $currentRoute = Route::currentRouteName();
+                    $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
                   @endphp
                   @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results')
                     <div class="Remove">
@@ -63,7 +64,7 @@
                   @endif
 
                   @if(!isset($content->content_user_keep->id))
-                    <div class="Keep">
+                    <div class="Keep {{$KeepLeftClass}}">
                       <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"></a>
                     </div>
                   @endif
