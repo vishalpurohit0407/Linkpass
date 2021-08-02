@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
   });
 
   // Delete Social Account
-  $(document).on('click','.delete-social-account',function(event) {
+    $(document).on('click','.delete-social-account',function(event) {
       var socialAccId = $(this).attr('data-id');
 
       swal({
@@ -70,7 +70,33 @@ jQuery(document).ready(function($) {
               deleteSocialAccount(socialAccId);
           }
       });
-  });
+    });
+
+    // Delete Social Account
+    $(document).on('click','.follow-user',function(event) {
+        var linkedUserId = $(this).attr('data-user-id');
+
+        $(".content-listing-loader").show();
+        $.ajax(
+        {
+            url: '{{route("user.follow")}}',
+            type: "post",
+            datatype: "json",
+            data:{linked_user_id:linkedUserId},
+        }).done(function(data){
+
+            if(data.success)
+            {
+                $('.follow-user').html('Linked')
+            }
+
+            $(".content-listing-loader").hide();
+
+        }).fail(function(jqXHR, ajaxOptions, thrownError){
+            $(".content-listing-loader").hide();
+        });
+
+    });
 });
 
 function deleteContent(id){

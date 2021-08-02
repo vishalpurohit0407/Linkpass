@@ -40,6 +40,7 @@ Route::post('validate-account-name', ['as' => 'user.validate-account-name', 'use
  Route::middleware(['auth', 'prevent-back-history'])->group(function () {
 
 	// Profile Routes
+	Route::post('user/follow', ['as' => 'user.follow', 'uses' => 'ProfileController@followUser']);
 	Route::get('profile_settings', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile_settings', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 

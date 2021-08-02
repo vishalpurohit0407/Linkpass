@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Storage;
 use Auth;
 use App\User;
+use App\UserFollower;
 use App\Category;
 use App\UserPreferencesGroups;
 use App\UserPreferencesGroupTags;
@@ -288,6 +289,32 @@ class ProfileController extends Controller
             $isExist = User::where('account_name', $account_name)->first();
 
             return response()->json(['success' => isset($isExist->id) ? true : false]);
+        }
+    }
+
+    public function followUser(Request $request){
+
+        $linkedUserId = $request->get('linked_user_id');
+        $userId   = Auth::user()->id;
+
+        if(!empty($linkedUserId))
+        {
+            $isExist = UserFollower::where('user_id', $userId)->where('linked_user_id', $linkedUserId)->first();
+
+            if(!isset($isExist->id))
+            {
+                $userFollower                 = new UserFollower();
+                $userFollower->user_id        = $userId;
+                $userFollower->linked_user_id = $linkedUserId;
+                $userFollower->created_at     = date("Y-m-d H:i:s");
+                $userFollower->save();
+            }
+
+            return response()->json(['success' => true]);
+        }
+        else
+        {
+            return response()->json(['success' => false, 'message' => 'Cound not found the user']);
         }
     }
 

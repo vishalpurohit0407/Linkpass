@@ -21,8 +21,16 @@
             <img src="{{$user->user_image_url}}" alt="" class="rounded-circle height-64 width-64 {{$userProfileClass}}">
             </a>
         </div>
+
         <ul class="LinkVerb mt-3">
-        <li class="active"><a href="javascript:void(0);">Link</a></li>
+        @if(Auth::user()->id == $user->id)
+            <li class="active"><a href="javascript:void(0);">Link</a></li>
+        @elseif((Auth::user()->id != $user->id) && in_array($user->id, $followingIds))
+            <li class="active"><a class="" data-user-id="{{$user->id}}" href="javascript:void(0);">Linked</a></li>
+        @else
+            <li class="active"><a class="follow-user" data-user-id="{{$user->id}}" href="javascript:void(0);">Link</a></li>
+        @endif
+
         <li><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></li>
         </ul>
     </aside>
@@ -34,6 +42,6 @@
     </aside>
 </div>
 <ul class="ListingList font-12">
-    <li><strong><a href="javascript:void(0);" class="text-light">Linked: <span>0</span></a></strong></li>
-    <li><strong><a href="javascript:void(0);" class="text-light">Linker: <span>0</span></a></strong></li>
+    <li><strong><a href="javascript:void(0);" class="text-light">Linked: <span>{{count($followingIds)}}</span></a></strong></li>
+    <li><strong><a href="javascript:void(0);" class="text-light">Linker: <span>{{count($followerIds)}}</span></a></strong></li>
 </ul>

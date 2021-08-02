@@ -13,6 +13,7 @@ use App\ContentRatingVote;
 use App\ContentAction;
 use App\ContentView;
 use App\User;
+use App\UserFollower;
 use Illuminate\Http\Request;
 use Response;
 use Auth;
@@ -449,6 +450,8 @@ class ContentController extends Controller
 
         $items = [];
         $contentId = $request->get('content_id');
+        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
+        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
 
         $tab = $request->get('tab');
 
@@ -494,6 +497,6 @@ class ContentController extends Controller
             })->orderBy('created_at', 'desc')->paginate(6);
         }
 
-        return view('content.ajax-tabs-content-list',array('items' => $items));
+        return view('content.ajax-tabs-content-list',array('items' => $items, 'followingIds' => $followingIds, 'followerIds' => $followerIds));
     }
 }

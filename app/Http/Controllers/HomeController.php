@@ -5,6 +5,7 @@ use Auth;
 use App\Content;
 use App\Category;
 use App\ContentRating;
+use App\UserFollower;
 use Illuminate\Http\Request;
 use Response;
 use Carbon\Carbon;
@@ -153,15 +154,17 @@ class HomeController extends Controller
     public function getContentDetails(Request $request)
     {
         $content = $this->content->find($request->content_id);
+        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
+        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
 
         if(isset($content->id)){
 
-            $html = view('content.ajax-result-content-data', array('content'=>$content))->render();
+            $html = view('content.ajax-result-content-data', array('content'=>$content, 'followerIds' => $followerIds, 'followingIds' => $followingIds))->render();
 
             return Response::json(['status' => true, 'html' => $html]);
         }
 
-        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
+        return Response::json(['status' => false, 'message' => 'Something went wrong while getting content.']);
     }
 
     /**

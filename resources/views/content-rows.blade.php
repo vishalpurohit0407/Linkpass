@@ -122,7 +122,8 @@
             </span>
 
             <span class="d-flex align-items-center">
-              Linked
+              {{ in_array($content->user_id, $followingIds) ? 'Linked' : '' }}
+              {{ in_array($content->user_id, $followerIds) ? ' | Linker' : '' }}
             </span>
 
           </div>
