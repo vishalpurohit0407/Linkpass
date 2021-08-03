@@ -112,6 +112,7 @@ class HomeController extends Controller
         $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
         $query = $query->join('users', 'users.id', '=', 'content.user_id');
         $query = $query->where('content.status', '1');
+        $query = $query->where('content.is_published', '1');
         $query = $query->whereDoesntHave('content_user_remove');
 
         if(isset($keyword) && !empty($keyword)) {

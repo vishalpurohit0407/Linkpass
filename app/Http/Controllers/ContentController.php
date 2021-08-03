@@ -56,7 +56,7 @@ class ContentController extends Controller
 
     public function search(Request $request){
 
-        $content = $this->content->where('main_title','!=','')->where('user_id', Auth::user()->id)->where('status','=','1');
+        $content = $this->content->where('is_published', '1')->where('main_title','!=','')->where('user_id', Auth::user()->id)->where('status','=','1');
         $keyword = $request->search;
 
         if($keyword && !empty($keyword)){
@@ -459,7 +459,7 @@ class ContentController extends Controller
         {
             if((isset(Auth::user()->user_type) && Auth::user()->user_type == '1'))
             {
-                $items = $this->content->where('user_id', Auth::user()->id)
+                $items = $this->content->where('is_published', '1')->where('user_id', Auth::user()->id)
                 ->whereExists(function ($query) {
                     $query->select("content_ratings.id")
                           ->from('content_ratings')
@@ -469,7 +469,7 @@ class ContentController extends Controller
             }
             else
             {
-                $items = $this->content->with('content_ratings')->whereHas('content_ratings', function ($query)
+                $items = $this->content->where('is_published', '1')->with('content_ratings')->whereHas('content_ratings', function ($query)
                 {
                     $query->where('user_id', Auth::user()->id);
                 // $query->orderBy('rating', 'asc');
@@ -483,7 +483,7 @@ class ContentController extends Controller
             $loggedInUserGroupIds = Auth::user()->user_groups()->pluck('id')->toArray();
             $loggedInUserTags     = UserPreferencesGroupTags::whereIn('group_id', $loggedInUserGroupIds)->pluck('name')->toArray();
 
-            $items = $this->content->whereHas('content_tags', function ($query) use ($loggedInUserTags)
+            $items = $this->content->where('is_published', '1')->whereHas('content_tags', function ($query) use ($loggedInUserTags)
             {
               $query->whereIn('name', $loggedInUserTags);
             })->orderBy('created_at', 'desc')->paginate(6);
@@ -491,7 +491,7 @@ class ContentController extends Controller
 
         if($tab == 'saved')
         {
-            $items = $this->content->whereHas('content_user_keep', function ($query)
+            $items = $this->content->where('is_published', '1')->whereHas('content_user_keep', function ($query)
             {
               $query->where('user_id', Auth::user()->id);
             })->orderBy('created_at', 'desc')->paginate(6);

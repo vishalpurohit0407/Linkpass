@@ -317,6 +317,4 @@ class ProfileController extends Controller
             return response()->json(['success' => false, 'message' => 'Cound not found the user']);
         }
     }
-
-
 }
