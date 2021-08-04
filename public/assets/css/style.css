@@ -2309,3 +2309,21 @@ ul.ListingList li a:hover {
 	width:161px;
 	text-align:left;
 }
+
+.context-menu-icon.context-menu-icon-save:before,
+.context-menu-icon.context-menu-icon-facebook:before,
+.context-menu-icon.context-menu-icon-google-plus:before {
+  font-family: FontAwesome !important;
+}
+
+.context-menu-icon.context-menu-icon-save:before {
+  content: "\f0c7"; /* fa-floppy-o */
+}
+
+.context-menu-icon.context-menu-icon-facebook:before {
+  content: "\f230"; /* fa-facebook-official */
+}
+
+.context-menu-icon.context-menu-icon-google-plus:before {
+  content: "\f0d4"; /* fa-google-plus-square */
+}

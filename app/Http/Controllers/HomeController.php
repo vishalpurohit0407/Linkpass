@@ -108,6 +108,9 @@ class HomeController extends Controller
     {
         $keyword = trim($request->search);
 
+        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
+        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+
         $query = $this->content;
         $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
         $query = $query->join('users', 'users.id', '=', 'content.user_id');
@@ -144,7 +147,7 @@ class HomeController extends Controller
 
         $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->get();
 
-        return view('results', array('items' => $items));
+        return view('results', array('items' => $items, 'followerIds' => $followerIds, 'followingIds' => $followingIds));
     }
 
     /**

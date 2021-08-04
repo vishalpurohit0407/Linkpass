@@ -98,7 +98,7 @@
             </li>
 
             <li>
-              <a href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share</span></a>
+              <a class="social-share" href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share</span></a>
             </li>
 
             <li>

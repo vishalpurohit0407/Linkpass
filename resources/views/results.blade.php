@@ -24,6 +24,20 @@
 
   jQuery(document).ready(function($) {
 
+        $.contextMenu({
+            selector: '.social-share',
+            trigger: 'left',
+            callback: function(key, options) {
+                var m = "clicked: " + key;
+                window.console && console.log(m) || alert(m);
+            },
+            items: {
+                "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
+                "twitter": {name: " Twitter", icon: "fab fa-lg fa-twitter"},
+                "linkedin": {name: " Linkedin", icon: "fab fa-lg fa-linkedin"},
+            }
+        });
+
         $(document).on('click','.rateListingContent',function(event) {
 
             var contentId = $(this).attr('data-id');
