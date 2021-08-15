@@ -207,7 +207,7 @@ class SocialAccountController extends Controller
 
         $socialAccount->update($paramsArr);
 
-        return back()->withStatus(__('Social account details has been updated successfully.'));
+        return back();
     }
 
     /**

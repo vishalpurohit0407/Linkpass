@@ -30,19 +30,6 @@
 
                                 <div class="form-group">
                                     {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
-                                    <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name') }}"  autofocus>
-
-                                        @if($errors->has('name'))
-                                            <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('name') }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
                                     <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
                                         <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name') }}"  autofocus>
 
@@ -62,6 +49,19 @@
                                         @if ($errors->has('url'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('url') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
+                                    <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                        <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name') }}"  autofocus>
+
+                                        @if($errors->has('name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                {{ $errors->first('name') }}
                                             </span>
                                         @endif
                                     </div>
@@ -88,6 +88,11 @@
                                                 <input type="file" name="image" class="custom-file-input" id="customFileLang" accept="image/*" lang="en" onchange="loadFile(event)">
                                                 <label class="custom-file-label" for="customFileLang">Select Image</label>
                                             </div>
+                                            @if ($errors->has('image'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    {{ $errors->first('image') }}
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
 

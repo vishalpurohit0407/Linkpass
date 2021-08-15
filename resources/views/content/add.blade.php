@@ -3,10 +3,10 @@
 @section('content')
 
 <!-- Page content -->
-<div class="header pb-7">
-  <div class="container-fluid">
+<main class="main">
+  <article class="container">
       <div class="header-body">
-          <div class="row align-items-center py-4">
+          <div class="row align-items-center">
               <div class="col-lg-6 col-7">
                   <span class="Small-Title mb-0">Add/Edit Content</span>
                   <p class="text-muted">You can edit your content from here.</p>
@@ -94,8 +94,8 @@
                                           </div>
 
                                           <div class="form-group">
-                                              <label class="form-control-label" for="type">Posted At <strong class="text-danger">*</strong></label>
-                                              <input type="date" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posted At" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
+                                              <label class="form-control-label" for="type">Posting Date <strong class="text-danger">*</strong></label>
+                                              <input type="text" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posted At" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
                                               @if($errors->has('posted_at'))
                                                   <span class="invalid-feedback">{{ $errors->first('posted_at') }}</span>
                                               @endif
@@ -137,7 +137,7 @@
                                           <div class="form-group">
                                               <label class="form-control-label" for="number_of_images">Number Of Images</label>
                                               <div class="input-group mb-3">
-                                                <input type="number" class="form-control" id="number_of_images" name="number_of_images" placeholder="Enter Number Of Images" value="{{old('number_of_images', $content->number_of_images)}}">
+                                                <input type="number" class="form-control" min="2" id="number_of_images" name="number_of_images" placeholder="Enter Number Of Images" value="{{old('number_of_images', $content->number_of_images)}}">
                                               </div>
                                           </div>
                                       </div>
@@ -252,8 +252,10 @@
 
           </div>
       </div>
-  </div>
 </div>
+</article>
+</main>
+<!--End main Part-->
 <!-- Page content -->
 
 <style type="text/css">
@@ -278,15 +280,25 @@
 var content_id= '{{$content->id}}';
 $(document).ready(function() {
 
+
+  var date = new Date();
+
+  $('#posted_at').datepicker({
+    endDate: date,
+    format:'yyyy-mm-dd'
+  });
+
+
   $('#tags').tagsinput();
 
   $('#tags').on('beforeItemAdd', function(event) {
       var item = event.item;
-      if (item.indexOf(' ') >= 0)
+      if(!item.match("^#"))
       {
         event.cancel=true;
         event.preventDefault=true;
         item=item.replace(" ", "");
+        item='#'+item;
         $('#tags').tagsinput('add', item);
       }
   });

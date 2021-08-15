@@ -47,6 +47,8 @@
   <link rel="stylesheet" type="text/css" media="all" href="{{ asset('assets/css/stellarnav.css') }}">
   <!-- Animation STYLESHEETS-->
 
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css') }}">
+
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/contextmenu/jquery.contextMenu.css') }}">
 
   <!-- Style -->
@@ -161,6 +163,7 @@
   <script src="{{asset('assets/vendor/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
   <script src="{{asset('assets/vendor/emoji/emoji.min.js')}}"></script>
 
+  <script src="{{asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 
   <script src="{{asset('assets/vendor/contextmenu/jquery.contextMenu.min.js')}}"></script>
   <script src="{{asset('assets/vendor/contextmenu/jquery.ui.position.js')}}"></script>

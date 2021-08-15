@@ -17,7 +17,7 @@
           }
 
           $contentType         = array(1 => 'Image', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
-          $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words);
+          $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words.($content->number_of_words == 1 ? ' Word' : ' Words'));
 
       @endphp
       <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-3" id="content-box-{{$content->id}}">
@@ -34,7 +34,7 @@
             <div class=" image-type">{{ isset($contentType[$content->type]) ? $contentType[$content->type] : 'N/A' }}</div>
             <div class=" image-date">{{ date("M d, 'y", strtotime($content->posted_at)) }}</div>
             @if(isset($content->content_account->host_name) && !empty($content->content_account->host_name) )
-              <div class="image-host-name">{{ isset($content->content_account->host_name) ? $content->content_account->host_name : '' }}</div>
+              <div class="image-host-name">{{ isset($content->content_account->host_name) ? Str::limit($content->content_account->host_name, 25) : '' }}</div>
             @endif
           </div>
 

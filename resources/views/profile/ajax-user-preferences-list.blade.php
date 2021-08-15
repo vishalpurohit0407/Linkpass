@@ -4,17 +4,17 @@
     @foreach($userPreferencesGroups as $item)
         <aside class="col-md-6 userPreferencesBox">
         <article class="SettingBox">
-            <div class="d-flex justify-content-between align-items-center SettingBoxHead">
-            <h5 class="user-preferences-group"><a href="javascript:void(0);"># {{$item->name}} {{$i+1}} :</a></h5>
+            <div class="d-flex bd-highlight justify-content-between align-items-center SettingBoxHead">
+            <h5 class="user-preferences-group p-2 flex-grow-1 bd-highlight"><a href="javascript:void(0);">#{{$i+1}} {{ucwords($item->name)}} :</a></h5>
             @if($i != 0)
-                <div class="custom-control custom-switch">
+                <div class="custom-control custom-switch p-2 bd-highlight">
                     @php $status = $item->status == 1 ? 'checked' : ''; @endphp
                     <input name="subscribe" type="checkbox" class="custom-control-input condition-trigger groupStatusToggle" data-group-id="{{$item->id}}" id="customSwitch{{$item->id}}" {{$status}}>
                     <label class="custom-control-label" for="customSwitch{{$item->id}}"></label>
                     <span class="" id="valueOfSwitch{{$item->id}}"> {{$item->status ? 'On' : 'Off'}}</span>
                 </div>
             @endif
-            <div class="SettingBoxHeadLast">
+            <div class="SettingBoxHeadLast p-2 bd-highlight">
                 <ul>
                 <li><a href="javascript:void(0);" data-group-id="{{$item->id}}" class="btn btn-dark btn-sm rounded-5 addNewTag" id="addNewTag{{$item->id}}">Add #</a></li>
                 @if($i > 0)

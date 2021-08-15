@@ -522,6 +522,7 @@ jQuery(document).ready(function($) {
             if(isTagsInputApplied == 0)
             {
                 $('#user-tags-input-'+groupId).tagsinput(options);
+                $('#user-tags-input-'+groupId).tagsinput('focus');
 
                 $('#user-tags-input-'+groupId).on('beforeItemAdd', function(event) {
 

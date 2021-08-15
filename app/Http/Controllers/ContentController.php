@@ -227,7 +227,6 @@ class ContentController extends Controller
 
         $request->validate([
             'main_title'        => 'required',
-            'description'       => 'required',
             'category_id'       => 'required',
             'posted_at'         => 'required',
         ], $messages);

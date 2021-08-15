@@ -7,7 +7,7 @@
         </ul>
         <ul>
           <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-plus"></i></a></li>
+          <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
         </ul>
         <ul>
           <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
@@ -34,7 +34,7 @@
         </ul>
         <ul>
           <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-plus"></i></a></li>
+          <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
         </ul>
         <ul>
           <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
@@ -61,7 +61,7 @@
         </ul>
         <ul>
           <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-plus"></i></a></li>
+          <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
         </ul>
         <ul>
           <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
@@ -92,9 +92,9 @@
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-align-left"></i></a></li>
           @if($editable)
             @if($type == 'socialAccount')
-              <li class="disabled-li"><a href="{{route('user.social-account.create')}}" class="bg-secondary"><i class="fas fa-plus"></i></a></li>
+              <li class="disabled-li"><a href="{{route('user.social-account.create')}}" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
             @else
-              <li class="disabled-li"><a href="{{route('user.content.create', ['saId'=> @$socialAccountId])}}" class="bg-secondary"><i class="fas fa-plus"></i></a></li>
+              <li class="disabled-li"><a href="{{route('user.content.create', ['saId'=> @$socialAccountId])}}" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
             @endif
           @else
             <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="far fa-plus"></i></a></li>
@@ -124,7 +124,7 @@
                   <aside class="col-lg-3 col-md-4 col-sm-6" id="social-account-box-{{$socialAccount->id}}">
                     <div class="AddListing">
                       <h4>{{$socialAccount->name}}</h4>
-                      <p class="ListingList">{{$socialAccount->user_content_count}} Listing</p>
+                      <p class="ListingList">{{$socialAccount->user_content_count}} {{$socialAccount->user_content_count == 1 ? 'Listing' : 'Listings'}}</p>
                       <div class="">
                         <a href="{{route('user.account.contents', [$socialAccount->hashid, $user->hashid])}}" class="ListingLogo">
                           <img class="rounded-circle height-75 width-75 " src="{{$socialAccount->image_url}}" alt="">
@@ -133,8 +133,15 @@
                       <p class="ListingList">{{$socialAccount->host_name}}</p>
                       @if($editable)
                       <div class="VideoPopup text-center">
-                        <a href="{{route('user.social-account.edit', $socialAccount->hashid)}}" class="btn btn-primary pull-right"><i class="far fa-edit"></i></a>
-                        <a href="javascript:void(0);" data-id="{{ $socialAccount->id }}" class="btn btn-primary mr-3 pull-right delete-social-account"><i class="far fa-trash"></i></a>
+                        <div class="SettingBoxHeadLast">
+                          <ul>
+                            <li>
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                  <li class="nav-item"> <a href="{{route('user.social-account.edit', $socialAccount->hashid)}}" class="btn btn-primary  w100p text-align-left"><i class="far fa-edit"></i> Edit</a> </li>
+                                  <li class="nav-item"> <a href="javascript:void(0);" data-id="{{ $socialAccount->id }}" class="btn btn-primary mr-3  w100p delete-social-account text-align-left"><i class="far fa-trash"></i> Delete</a> </li>
+                                </ul>
+                            </li>
                       </div>
                       @endif
 

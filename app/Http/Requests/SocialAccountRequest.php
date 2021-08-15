@@ -33,4 +33,16 @@ class SocialAccountRequest extends FormRequest
             'image'       => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'image.max' => 'The image may not be greater than 2 MB.'
+        ];
+    }
 }

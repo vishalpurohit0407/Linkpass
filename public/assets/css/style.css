@@ -1576,7 +1576,6 @@ ul.ListingList li a:hover {
 }
 .AddVideo {
 	margin-top: 30px;
-	background-color: #FFF;
 	border: 1px solid #CCC;
 	padding: 10px 10px 30px;
 	border-radius: 8px;
@@ -1655,7 +1654,7 @@ ul.ListingList li a:hover {
 	top: -10px;
 }
 .YoutubeLable span {
-	background: #FFFFFF;
+	background: #FAFAFA;
 	padding: 3px 10px;
 	font-size: 12px;
 	border-radius: 5px;
@@ -1676,8 +1675,7 @@ ul.ListingList li a:hover {
 	display: inline-block;
 }
 .AddVideo ul li a {
-	/* border-radius: 5px; */
-	padding: 0 8px;
+	padding: 0 0px !important;
 	text-align: center;
 	display: block;
 }
@@ -1897,8 +1895,16 @@ ul.ListingList li a:hover {
 #content-details-modal {
 	padding-top: 20px !important;
 }
+#content-details-wrap
+{
+	background-color: #FAFAFA;
+	border-radius: 8px;
+}
 #content-details-modal .modal-body {
 	padding: 0px !important;
+}
+#content-details-modal .modal-content{
+	border-radius: 8px !important;
 }
 .CompanyList {
 /*background: #efefef;
@@ -2227,7 +2233,7 @@ ul.ListingList li a:hover {
 	word-wrap: normal;
 }
 .saved-label {
-	color: #C8102E;
+	color: #C8102E!important;
 }
 .AddVideo .owl-carousel .btn.visit-btn:hover {
 	background: #41C7D6;
@@ -2256,6 +2262,9 @@ ul.ListingList li a:hover {
 	color: #000;
 	z-index: 9;
 }
+.image-duration-detail{
+	top: 90%!important;
+}
 .image-date {
 	padding: 0px 8px;
 	background: #CCCCCC;
@@ -2268,7 +2277,7 @@ ul.ListingList li a:hover {
 .image-type {
 	padding: 0px 8px;
 	background: #97C5F4;
-	margin-left: 5px;
+	margin-left: 0px;
 	margin-right: 5px;
 	border-radius: 8px;
 	opacity: 70%;
@@ -2288,6 +2297,13 @@ ul.ListingList li a:hover {
 }
 .w50p {
 	width: 50%!important;
+}
+.text-align-left{
+	text-align: left!important;
+}
+.circle-link
+{
+	border-radius: 50%!important;
 }
 .image-host-name {
 	float: right;
