@@ -50,8 +50,14 @@ class HomeController extends Controller
     public function getLatestResults()
     {
         $items = $this->content->where('status', '1')->orderBy('posted_at', 'desc')->limit(10)->get();
-        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
-        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+
+        $followingIds = [];
+        $followerIds  = [];
+        if(isset(Auth::user()->id))
+        {
+            $followingIds = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
+            $followerIds  = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+        }
 
         return view('results', array('items' => $items, 'followingIds' => $followingIds, 'followerIds' => $followerIds));
     }
@@ -63,8 +69,13 @@ class HomeController extends Controller
      */
     public function getTrendingResults()
     {
-        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
-        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+        $followingIds = [];
+        $followerIds  = [];
+        if(isset(Auth::user()->id))
+        {
+            $followingIds = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
+            $followerIds  = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+        }
 
         $items = $this->content->where('status', '1')->orderBy('posted_at', 'desc')->limit(10)->get();
 
@@ -113,8 +124,13 @@ class HomeController extends Controller
     {
         $keyword = trim($request->search);
 
-        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
-        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+        $followingIds = [];
+        $followerIds  = [];
+        if(isset(Auth::user()->id))
+        {
+            $followingIds = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
+            $followerIds  = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+        }
 
         $query = $this->content;
         $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
