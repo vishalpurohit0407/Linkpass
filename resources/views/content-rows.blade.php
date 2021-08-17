@@ -143,22 +143,22 @@
                 </div>
                 @endif
                 <div class="w30p  {{ !isset($content->content_user_keep->id) ? 'text-left' : 'text-center' }}">
-                  <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mr-2 visit-btn">VISIT</a>
+                  <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mx-2 visit-btn">VISIT</a>
                 </div>
 
                 <div class="text-right {!! isset($content->content_user_keep->id) ? 'w30p' : 'w65p' !!}">
-                  <a href="javascript:void(0);" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary view-content-details" id="view-content-details-{{$content->id}}"><i class="far fa-2x fa-expand"></i></a>
+                  <a href="javascript:void(0);" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary view-content-details mx-2" id="view-content-details-{{$content->id}}"><i class="far fa-2x fa-expand"></i></a>
                 </div>
               </div>
             </div>
             @if(isset($editable) && $editable == true)
               <div class="item">
-                <div class="d-flex justify-content-between align-items-center ml-2">
+                <div class="d-flex justify-content-between align-items-center">
                     <div class="text-left">
-                      <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mr-3 pull-right"><i class="far fa-edit"></i></a>
+                      <a href="{{ route('user.content.edit', $content->hashid)}}" class="btn btn-primary btn-sm mx-2 pull-right"><i class="far fa-edit"></i></a>
                     </div>
                     <div class="text-right">
-                      <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary btn-sm mr-3 pull-right delete-content"><i class="far fa-trash"></i></a>
+                      <a href="javascript:void(0);" data-id="{{ $content->id }}" class="btn btn-primary btn-sm mx-2 pull-right delete-content"><i class="far fa-trash"></i></a>
                     </div>
                 </div>
               </div>

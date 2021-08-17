@@ -662,7 +662,7 @@ button:focus {
 }
 .site-header {
 	position: relative;
-	z-index: 999;
+	z-index: 9999;
 	width: 100%;
 	left: 0;
 	right: 0;
@@ -1232,6 +1232,10 @@ main.main {
 .owl-theme .owl-nav {
 	margin: 0;
 }
+.owl-theme.owl-three .view-content-details i{font-size: 28px;}
+#content-details-modal .btn i{font-size: 28px;}
+.modal .close{opacity: inherit; color: #FFF;}
+.modal .close:not(:disabled):not(.disabled):hover, .modal .close:not(:disabled):not(.disabled):focus{color: #FFF;}
 /*============= Footer =============*/
 footer {
 	margin: 60px 0 0;
@@ -1599,6 +1603,7 @@ ul.ListingList li a:hover {
 }
 .modal .AddVideo {
 	height: 100%;
+	padding: 10px 10px 15px;
 }
 .AddVideo h4 {
 	font-size: 15px;
@@ -1893,7 +1898,7 @@ ul.ListingList li a:hover {
 	padding-top: 1.8rem
 }
 #content-details-modal {
-	padding-top: 20px !important;
+	padding-top: 40px !important;
 }
 #content-details-wrap
 {

@@ -141,8 +141,8 @@
               </div>
               @endif
               <div class="w30p {{ !isset($content->content_user_keep->id) ? 'text-left' : 'text-center' }}">
-                <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mr-2 visit-btn">VISIT</a>
-              </div>
+                <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mx-2 visit-btn">VISIT</a>
+              </div> 
 
               <div class="text-right {!! isset($content->content_user_keep->id) ? 'w30p' : 'w65p' !!}">
                 <a href="javascript:void(0);" id="close-content-detail-modal" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary " ><i class="far fa-2x fa-compress"></i></a>

@@ -31,7 +31,7 @@
 .container {
 	width: 100%;
 	max-width: 100%;
-	z-index: 999;
+	/*z-index: 999;*/
 }
 .stellarnav.dark li.hover-bg a {
 	padding: 6px 15px;
@@ -257,7 +257,10 @@ h3 {
 	margin: 0;
 }
 	.header-center h4{font-size: 13px;}
-	ul.LinkVerb li{display: block; text-align: center;}
+	/*ul.LinkVerb li{display: block; text-align: center;}
+	.LinkVerbLabel {font-size: 15px !important;}*/
+	.image-host-name{float: left; margin-top: 3px;}
+	.image-type, .image-date{width: 30%; text-align: center;}
 }
 
 @media (max-width: 376px) {
