@@ -132,7 +132,7 @@ class HomeController extends Controller
             $followerIds  = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
         }
 
-        $query = $this->content;
+        $query = $this->content->select('content.*');
         $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
         $query = $query->join('users', 'users.id', '=', 'content.user_id');
         $query = $query->where('content.status', '1');

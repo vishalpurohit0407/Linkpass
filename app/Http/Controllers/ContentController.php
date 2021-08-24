@@ -353,11 +353,19 @@ class ContentController extends Controller
 
     public function goToContentDetails(Request $request)
     {
-        $content = $this->content->find($request->content_id);
+        if(isset(Auth::user()->id))
+        {
+            if(isset(Auth::user()->user_type) && Auth::user()->user_type != '1')
+            {
+                $isExist = ContentView::select('id')->where('user_id', Auth::user()->id)->where('content_id', $request->content_id)->first();
 
-        if(isset($content->id)){
+                if(!isset($isExist->id))
+                {
+                    ContentView::create(array('user_id' => Auth::user()->id, 'content_id' => $request->content_id));
+                }
+            }
 
-            ContentView::create(array('user_id' => Auth::user()->id, 'content_id' => $request->content_id));
+            $content = $this->content->find($request->content_id);
 
             $count = $content->views_count;
 
@@ -417,6 +425,11 @@ class ContentController extends Controller
        if(!isset(Auth::user()->id))
        {
             return Response::json(['status' => false, 'message' => 'Please login to save action.']);
+       }
+
+       if($request->get('action') == 5)
+       {
+            ContentAction::where('content_id', $request->get('content_id'))->where('user_id', Auth::user()->id)->where('action', 4)->delete();
        }
 
        $action = ContentAction::create([
@@ -490,7 +503,7 @@ class ContentController extends Controller
 
         if($tab == 'saved')
         {
-            $items = $this->content->where('is_published', '1')->whereHas('content_user_keep', function ($query)
+            $items = $this->content->where('user_id', '!=', Auth::user()->id)->where('is_published', '1')->whereHas('content_user_keep', function ($query)
             {
               $query->where('user_id', Auth::user()->id);
             })->orderBy('created_at', 'desc')->paginate(6);

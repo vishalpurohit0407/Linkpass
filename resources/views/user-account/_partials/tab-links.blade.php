@@ -8,5 +8,8 @@
     @if($user->user_type == '1')
     <li class="nav-item"> <a data-tab-name="creators" class="nav-link active content-tabs" id="pills-Cretors-tab" data-toggle="pill" href="#pills-Cretors" role="tab" aria-controls="pills-Cretors" aria-selected="false">Creators</a> </li>
     @endif
+
+    @if($user->user_type == '0' || $user->user_type == '2')
     <li class="nav-item"> <a data-tab-name="saved" class="nav-link content-tabs" id="pills-Kept-tab" data-toggle="pill" href="#pills-Kept" role="tab" aria-controls="pills-Kept" aria-selected="true">Saved</a> </li>
+    @endif
 </ul>

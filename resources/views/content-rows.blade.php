@@ -57,13 +57,13 @@
                     $currentRoute = Route::currentRouteName();
                     $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
                   @endphp
-                  @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results')
+                  @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results' && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
                     <div class="Remove">
                        <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"></a>
                     </div>
                   @endif
 
-                  @if(!isset($content->content_user_keep->id))
+                  @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
                     <div class="Keep {{$KeepLeftClass}}">
                       <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"></a>
                     </div>

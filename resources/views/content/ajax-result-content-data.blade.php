@@ -52,13 +52,13 @@
                 @php
                   $currentRoute = Route::currentRouteName();
                 @endphp
-                @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results')
+                @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results' && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
                   <div class="Remove">
                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"></a>
                   </div>
                 @endif
 
-                @if(!isset($content->content_user_keep->id))
+                @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
                   <div class="Keep">
                     <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"></a>
                   </div>
@@ -142,7 +142,7 @@
               @endif
               <div class="w30p {{ !isset($content->content_user_keep->id) ? 'text-left' : 'text-center' }}">
                 <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mx-2 visit-btn">VISIT</a>
-              </div> 
+              </div>
 
               <div class="text-right {!! isset($content->content_user_keep->id) ? 'w30p' : 'w65p' !!}">
                 <a href="javascript:void(0);" id="close-content-detail-modal" style="background:none;color:#666;padding:0;" data-id="{{ $content->id }}" class="btn btn-primary " ><i class="far fa-2x fa-compress"></i></a>

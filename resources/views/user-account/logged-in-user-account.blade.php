@@ -480,7 +480,8 @@ function deleteSocialAccount(id){
 
   function saveContentAction(element, action, content_id){
 
-      var text = '';
+      var text       = '',
+          visitCount = parseInt($('#view-count-'+content_id).html());
 
       switch(action) {
       case '1':
@@ -498,8 +499,13 @@ function deleteSocialAccount(id){
       case '5':
           text = "Would you like to Remove this content?";
           break;
-
       }
+
+    if(['1','2','3'].includes(action) && visitCount == 0)
+    {
+        swal('Oops!', 'Please visit the content before take this action', 'error');
+        return false
+    }
 
       if(text.length > 0)
       {
@@ -537,6 +543,11 @@ function deleteSocialAccount(id){
                           {
                             $(element).addClass('unlike-action-disabled');
                           }
+                          else if(action == 5)
+                          {
+                            $('#pills-Kept-tab').trigger('click');
+                          }
+
 
 
                           return false;

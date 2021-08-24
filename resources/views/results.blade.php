@@ -125,7 +125,7 @@
 
               if(data.status)
               {
-                  $('#view-count-'+contentId).html(data.count+ ' views');
+                  $('#view-count-'+contentId).html(data.count+ ' Visits');
 
                   window.open(data.url, '_blank').focus();
               }
@@ -290,7 +290,8 @@
 
   function saveContentAction(element, action, content_id){
 
-      var text = '';
+      var text = '',
+        visitCount = parseInt($('#view-count-'+content_id).html());
 
       switch(action) {
       case '1':
@@ -308,8 +309,13 @@
       case '5':
           text = "Would you like to Remove this content?";
           break;
-
       }
+
+    if(['1','2','3'].includes(action) && visitCount == 0)
+    {
+        swal('Oops!', 'Please visit the content before take this action', 'error');
+        return false
+    }
 
       if(text.length > 0)
       {
