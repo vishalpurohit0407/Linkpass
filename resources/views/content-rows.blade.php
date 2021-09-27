@@ -41,8 +41,10 @@
           <div class="VideoUser">
             <div class="mr-2 height-75 width-75 user-profile-avatar ">
               @if(isset($content->content_account->image_url))
-                <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg1">
-              @else
+                <a href="{{route('user.account.contents', [$content->content_account->hashid, $content->content_user->hashid])}}">
+                  <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg1">
+                </a>
+                @else
                 <img src="{{asset('assets/img/no_img.png')}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg1">
               @endif
             </div>
@@ -113,7 +115,7 @@
 
             <span class="d-flex align-items-center">
               @php
-                $creatorName = isset($content->content_user->name) ? $content->content_user->name : '';
+                $creatorName = isset($content->content_user->account_name) ? $content->content_user->account_name  : '';
               @endphp
               <div class="mr-2 height-32 width-32 user-profile-avatar">
                 <img src="{{$content->content_user->user_image_url}}" alt="" class="rounded-circle  {{$userProfileClass}}">

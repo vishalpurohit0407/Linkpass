@@ -510,7 +510,10 @@ jQuery(document).ready(function($) {
                 tagClass: 'badge badge-info user-hash-tags',
                 allowDuplicates: false,
                 trimValue: true,
-                addOnBlur: false
+                addOnBlur: false,
+                itemText: function(item) {
+                    return item.replace(" ", "");
+                }
             };
 
             if(isTagsInputApplied == 1)
@@ -529,15 +532,14 @@ jQuery(document).ready(function($) {
                     var existingTags = $('#userPreferencesTags').val();
                     var tagListArr = JSON.parse(existingTags);
                     var item = event.item;
+
+                    item = item.replace(" ", "");
+
                     if(tagListArr.includes(item))
                     {
                         event.cancel = true;
                         swal('Error!!', 'The Tag is already exist!', 'error');
                         return false;
-                    }
-                    else
-                    {
-                        event.cancel = false;
                     }
                 });
 
@@ -545,6 +547,11 @@ jQuery(document).ready(function($) {
                 $('#user-tags-input-'+groupId).on('itemAdded', function(event) {
                     event.preventDefault();
                     var tagStr = event.item;
+                        tagStr = tagStr.replace(" ", "");
+
+                        // event.cancel=true;
+                        // event.preventDefault=true;
+                        // $('#user-tags-input-'+groupId).tagsinput('add', tagStr);
 
                     $.ajax({
                         url: '{{route("user.save-preferences-group-tag")}}',

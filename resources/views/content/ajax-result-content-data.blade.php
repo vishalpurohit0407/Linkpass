@@ -20,7 +20,11 @@
 <div class="row d-flex align-items-stretch">
     <aside class="col-lg-12">
       <div class="AddVideo mt-0 h-100 {!!$content->views_count > 0 ? '' : 'AddVideoVisited' !!}">
-        <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
+        <div class="YoutubeLable">
+          <span>
+          {{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}
+          </span>
+        </div>
         @php
         $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
         @endphp
@@ -36,7 +40,9 @@
         <div class="VideoUser">
             <div class="mr-2 height-75 width-75 user-profile-avatar">
               @if(isset($content->content_account->image_url))
+              <a href="{{route('user.account.contents', [$content->content_account->hashid, $content->content_user->hashid])}}">
                 <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle height-75 width-75  ">
+              </a>
               @else
                 <img src="{{asset('assets/img/theme/unnamed.jpg')}}" alt="" class="rounded-circle height-75 width-75  ">
               @endif
@@ -106,7 +112,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <span class="d-flex align-items-center">
                 @php
-                $creatorName = isset($content->content_user->name) ? $content->content_user->name : '';
+                $creatorName = isset($content->content_user->account_name) ? $content->content_user->account_name : '';
                 @endphp
                 <div class="mr-2 height-32 width-32 user-profile-avatar">
                  <img src="{{$content->content_user->user_image_url}}" alt="" class="rounded-circle  {{$userProfileClass}}">

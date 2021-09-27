@@ -124,7 +124,14 @@
                   <aside class="col-lg-3 col-md-4 col-sm-6" id="social-account-box-{{$socialAccount->id}}">
                     <div class="AddListing">
                       <h4>{{$socialAccount->name}}</h4>
-                      <p class="ListingList">{{$socialAccount->user_content_count}} {{$socialAccount->user_content_count == 1 ? 'Listing' : 'Listings'}}</p>
+                      <p class="ListingList">
+                        @if((isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
+                          {{$socialAccount->content_count}}
+                        @else
+                          {{$socialAccount->user_content_count}}
+                        @endif
+
+                        {{$socialAccount->user_content_count == 1 ? 'Listing' : 'Listings'}}</p>
                       <div class="">
                         <a href="{{route('user.account.contents', [$socialAccount->hashid, $user->hashid])}}" class="ListingLogo">
                           <img class="rounded-circle height-75 width-75 " src="{{$socialAccount->image_url}}" alt="">

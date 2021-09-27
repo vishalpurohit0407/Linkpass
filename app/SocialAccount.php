@@ -19,7 +19,7 @@ class SocialAccount extends Authenticatable
         'user_id', 'name', 'host_name', 'image', 'url', 'account_url', 'status'
     ];
 
-    protected $appends = [ 'image_url', 'user_content_count' ];
+    protected $appends = [ 'image_url', 'user_content_count', 'content_count' ];
 
     public function social_account_user()
     {
@@ -34,7 +34,12 @@ class SocialAccount extends Authenticatable
 
     public function getUserContentCountAttribute()
     {
-        return \App\Content::where('social_account_id', $this->id)->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A')->count();
+        return \App\Content::where('social_account_id', $this->id)->where('is_published', '1')->where('status', '1')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A')->count();
+    }
+
+    public function getContentCountAttribute()
+    {
+        return \App\Content::where('social_account_id', $this->id)->where('is_published', '1')->where('status', '1')->count();
     }
 
     public function getImageUrlAttribute()
