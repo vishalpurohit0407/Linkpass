@@ -10,7 +10,7 @@
     <div class="card col-md-12 text-center">
         <!-- Card body -->
         <div class="card-body">
-            <span class="card-title mb-0 text-center">No matching records found</span>
+            <span class="card-title mb-0 text-center">No matching content(s) found</span>
         </div>
     </div>
 </article>

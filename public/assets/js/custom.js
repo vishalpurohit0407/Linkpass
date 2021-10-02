@@ -149,7 +149,7 @@ $('.Testimonial').slick({
 $(window).scroll(function() {
     var scroll = $(window).scrollTop();
 
-    if (scroll >= 700) {
+    if (scroll >= 100) {
         $(".site-header").addClass("sticky");
     } else {
         $(".site-header").removeClass("sticky");

@@ -31,7 +31,7 @@
 
                                 <div class="form-group">
                                     <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name', $socialAccount->host_name) }}"  autofocus>
+                                        <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name', $socialAccount->host_name) }}" maxlength="18"  autofocus>
 
                                         @if($errors->has('host_name'))
                                             <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
 
                                 <div class="form-group">
                                     <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $socialAccount->name) }}"  autofocus>
+                                        <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $socialAccount->name) }}" maxlength="25"  autofocus>
 
                                         @if($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">

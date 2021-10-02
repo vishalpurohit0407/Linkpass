@@ -159,7 +159,7 @@ function deleteSocialAccount(id){
 
     var userType = "{{ isset(Auth::user()->id) ? Auth::user()->user_type : '' }}";
 
-    if(userType != 1)
+    if(userType == '0')
     {
         if($('#pills-Matches-tab').length > 0)
         {
@@ -173,6 +173,14 @@ function deleteSocialAccount(id){
             setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 1000);
         }
     }
+
+
+
+    $(document).on('click','.sortContentListing',function(event) {
+        var filterBy = $(this).attr('data-filter-by');
+        var tabName = $(this).data('tab-name');
+        getTabsContentData(tabName, filterBy);
+    });
 
     $(document).on('click','.rateListingContent',function(event) {
 
@@ -443,24 +451,32 @@ function deleteSocialAccount(id){
       });
   }
 
-  function getTabsContentData(tab)
+  function getTabsContentData(tab, filterBy)
   {
         $.ajax(
         {
             url: '{{ route("user.content.get-tabs-contents") }}',
             type: 'get',
             datatype: 'json',
-            data:{page:pageno,tab:tab},
+            data:{page:pageno,tab:tab, filterBy:filterBy},
         }).done(function(data){
 
             if(tab == 'matched')
             {
                 $('.matchesContent').html(data);
+
+                $('.savedContent').html(data);
+                $('.content-visited').addClass('active');
+
             }
 
             if(tab == 'saved')
             {
                 $('.savedContent').html(data);
+
+                $(".Remove").find('a').attr('data-original-title', 'Delete');
+
+                $('.content-visited').addClass('active');
             }
 
             if(tab == 'rated')
@@ -470,6 +486,75 @@ function deleteSocialAccount(id){
             //$("#ratings_data").html(data);
 
             $('[data-toggle="tooltip"]').tooltip();
+
+            $('.owl-three').owlCarousel({
+                loop: false,
+                margin: 0,
+                nav: false,
+                dots: true,
+                autoplay: false,
+                slideSpeed: 6000,
+                autoplayTimeout: 5000,
+                autoplaySpeed: 6000,
+                autoplayHoverPause: true,
+                navText: [
+                    '<span aria-label="' + 'Previous' + '"><i class="far fa-arrow-left"></i></span>',
+                    '<span aria-label="' + 'Next' + '"><i class="far fa-arrow-right"></i></span>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    480: {
+                        items: 1
+                    },
+                    690: {
+                        items: 1
+                    },
+                    768: {
+                        items: 1
+                    },
+                    960: {
+                        items: 1
+                    },
+                    1025: {
+                        items: 1
+                    }
+                }
+            });
+
+            $.contextMenu({
+                selector: '.social-share',
+                trigger: 'left',
+                callback: function(key, options, e) {
+
+                    var contentTitle = $(options.$trigger).attr('data-content-title');
+                    var url = '{{ url("results?search=")}}'+contentTitle;
+                    var ShareUrl = '';
+
+                    if(key == 'facebook')
+                    {
+                        var ShareUrl = 'https://www.facebook.com/sharer/sharer.php?u='+url+'&quote='+url+'';
+                    }
+
+                    if(key == 'twitter')
+                    {
+                        var ShareUrl = 'https://twitter.com/intent/tweet?text='+url;
+                    }
+
+                    if(key == 'linkedin')
+                    {
+                        var ShareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url='+url;
+                    }
+
+                    window.open(ShareUrl, '_blank').focus();
+                },
+                items: {
+                    "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
+                    "twitter": {name: " Twitter", icon: "fab fa-lg fa-twitter"},
+                    "linkedin": {name: " Linkedin", icon: "fab fa-lg fa-linkedin"},
+                }
+            });
 
             //location.hash = page;
         }).fail(function(jqXHR, ajaxOptions, thrownError){

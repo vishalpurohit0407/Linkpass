@@ -3,7 +3,7 @@
 @section('content')
 
 <main class="main">
-  <article class="container">
+  <article class="container" style="min-height: 375px;">
 
     @include('content-rows')
 
@@ -27,9 +27,28 @@
         $.contextMenu({
             selector: '.social-share',
             trigger: 'left',
-            callback: function(key, options) {
-                var m = "clicked: " + key;
-                window.console && console.log(m) || alert(m);
+            callback: function(key, options, e) {
+
+                var contentTitle = $(options.$trigger).attr('data-content-title');
+                var url = '{{ url("results?search=")}}'+contentTitle;
+                var ShareUrl = '';
+
+                if(key == 'facebook')
+                {
+                    var ShareUrl = 'https://www.facebook.com/sharer/sharer.php?u='+url+'&quote='+url+'';
+                }
+
+                if(key == 'twitter')
+                {
+                    var ShareUrl = 'https://twitter.com/intent/tweet?text='+url;
+                }
+
+                if(key == 'linkedin')
+                {
+                    var ShareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url='+url;
+                }
+
+                window.open(ShareUrl, '_blank').focus();
             },
             items: {
                 "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},

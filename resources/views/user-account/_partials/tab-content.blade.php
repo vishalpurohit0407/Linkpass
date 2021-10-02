@@ -1,22 +1,22 @@
 <div class="tab-content" id="pills-tabContent">
-    <!--Start Kept-->
+    <!--Start Saved-->
     <div class="tab-pane fade" id="pills-Kept" role="tabpanel" aria-labelledby="pills-Kept-tab">
-      <div class="d-flex justify-content-center TabFilter disabled">
-        <ul>
+      <div class="d-flex justify-content-center TabFilter ">
+        {{-- <ul>
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
-        </ul>
+        </ul> --}}
         <ul>
           <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
         </ul>
         <ul>
-          <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-times"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="saved" data-filter-by="like" class="bg-success sortContentListing"><i class="far fa-check"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="saved" data-filter-by="unlike" class="bg-danger sortContentListing"><i class="far fa-times"></i></a></li>
         </ul>
 
         <ul>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="saved" data-filter-by="visited" class="bg-secondary sortContentListing"><i class="fas fa-eye"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="saved" data-filter-by="unvisited" class="bg-secondary sortContentListing"><i class="fas fa-eye-slash"></i></a></li>
         </ul>
 
       </div>
@@ -29,21 +29,21 @@
     <!--Start Matches-->
     <div class="tab-pane fade {{($user->user_type == '0' || $user->user_type == '2') ? 'show active' : ''}}" id="pills-Matches" role="tabpanel" aria-labelledby="pills-Matches-tab">
       <div class="d-flex justify-content-center TabFilter">
-        <ul>
+        {{-- <ul>
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
-        </ul>
+        </ul> --}}
         <ul>
           <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
         </ul>
         <ul>
-          <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-danger"><i class="far fa-times"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="matched" data-filter-by="like" class="bg-success sortContentListing"><i class="far fa-check"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="matched" data-filter-by="unlike" class="bg-danger sortContentListing"><i class="far fa-times"></i></a></li>
         </ul>
 
         <ul>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-eye-slash"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="matched" data-filter-by="visited" class="bg-secondary sortContentListing"><i class="fas fa-eye"></i></a></li>
+          <li><a href="javascript:void(0);" data-tab-name="matched" data-filter-by="unvisited" class="bg-secondary sortContentListing"><i class="fas fa-eye-slash"></i></a></li>
         </ul>
 
       </div>
@@ -54,7 +54,7 @@
       </div>
     </div>
     <!--Start Rated-->
-    <div class="tab-pane fade" id="pills-Rated" role="tabpanel" aria-labelledby="pills-Rated-tab">
+    {{-- <div class="tab-pane fade" id="pills-Rated" role="tabpanel" aria-labelledby="pills-Rated-tab">
       <div class="d-flex justify-content-center TabFilter disabled">
         <ul>
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
@@ -79,15 +79,15 @@
           <img src="{{asset('assets/img/loader.gif')}}" width="30">
         </div>
       </div>
-    </div>
+    </div> --}}
     <!--Start Creators-->
     <div class="tab-pane fade {{($user->user_type == '1') ? 'show active' : ''}}" id="pills-Cretors" role="tabpanel" aria-labelledby="pills-Cretors-tab">
       <div class="d-flex justify-content-center TabFilter">
-        <ul>
+        {{-- <ul>
           <li class="disabled-li"><a class="filter-btn-disabled" id="showall">All</a>
 
           </li>
-        </ul>
+        </ul> --}}
         <ul>
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-align-left"></i></a></li>
           @if($editable)
@@ -126,9 +126,9 @@
                       <h4>{{$socialAccount->name}}</h4>
                       <p class="ListingList">
                         @if((isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
-                          {{$socialAccount->content_count}}
-                        @else
                           {{$socialAccount->user_content_count}}
+                        @else
+                          {{$socialAccount->content_count}}
                         @endif
 
                         {{$socialAccount->user_content_count == 1 ? 'Listing' : 'Listings'}}</p>

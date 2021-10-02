@@ -19,7 +19,6 @@
                   @csrf
                   {{ method_field('PUT') }}
 
-
                       <div class="card shadow mt-3">
                           <div class="card-body">
                               <div class="" id="myTabContent">
@@ -52,7 +51,7 @@
 
                                           <div class="form-group ">
                                               <label class="form-control-label" for="example3cols2Input">Main Title <strong class="text-danger">*</strong></label>
-                                              <input type="text" name="main_title" class="form-control @if($errors->has('main_title')) is-invalid @endif" id="main_title" value="{{old('main_title', $content->main_title)}}">
+                                              <input type="text" name="main_title" class="form-control @if($errors->has('main_title')) is-invalid @endif" id="main_title" value="{{old('main_title', $content->main_title)}}" maxlength="120">
                                               @if($errors->has('main_title'))
                                                   <span class="invalid-feedback">{{ $errors->first('main_title') }}</span>
                                               @endif
@@ -87,7 +86,7 @@
 
                                           <div class="form-group ">
                                               <label class="form-control-label" for="example3cols2Input">Sub Category </label>
-                                              <input type="text" name="sub_category" class="form-control @if($errors->has('sub_category')) is-invalid @endif" id="sub_category" value="{{old('sub_category', $content->sub_category)}}">
+                                              <input type="text" name="sub_category" class="form-control @if($errors->has('sub_category')) is-invalid @endif" id="sub_category" value="{{old('sub_category', $content->sub_category)}}" maxlength="18">
                                               @if($errors->has('sub_category'))
                                                   <span class="invalid-feedback">{{ $errors->first('sub_category') }}</span>
                                               @endif
@@ -126,7 +125,7 @@
                                       <div class="col-sm-12">
                                         <div class="form-group">
                                           <label class="form-control-label" for="example4cols3Input">Description/Summary</label>
-                                          <textarea name="description" id="description" class="form-control" rows="10">{{old('description', $content->description)}}</textarea>
+                                          <textarea name="description" id="description" class="form-control" rows="6" maxlength="400">{{old('description', $content->description)}}</textarea>
                                         </div>
                                       </div>
                                     </div>

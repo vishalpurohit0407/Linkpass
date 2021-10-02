@@ -19,7 +19,7 @@ class Content extends Authenticatable
         'category_id', 'sub_category', 'user_id', 'type', 'social_account_id', 'main_title', 'main_image', 'description', 'external_link', 'number_of_images', 'number_of_words', 'video_length', 'podcast_length', 'status', 'is_published', 'posted_at'
     ];
 
-    protected $appends = ['main_image_url', 'views_count', 'ratings_count', 'like_count', 'unlike_count'];
+    protected $appends = ['main_image_url', 'views_count', 'user_views_count', 'ratings_count', 'like_count', 'unlike_count'];
 
     public function content_category()
     {
@@ -39,6 +39,11 @@ class Content extends Authenticatable
     public function getViewsCountAttribute()
     {
         return \App\ContentView::where('content_id', $this->id)->count();
+    }
+
+    public function getUserViewsCountAttribute()
+    {
+        return \App\ContentView::where('content_id', $this->id)->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A')->count();
     }
 
     public function getRatingsCountAttribute()
@@ -100,4 +105,11 @@ class Content extends Authenticatable
     {
         return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '5')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
     }
+
+    public function content_user_visited()
+    {
+        return $this->hasOne('App\ContentView', 'content_id','id')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
+    }
+
+
 }

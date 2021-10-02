@@ -164,6 +164,19 @@
                             @endif
 
                             <div class="pl-lg-4">
+
+                                <div class="form-group text-left">
+                                    <div class="{{ $errors->has('account_name') ? ' has-danger' : '' }}">
+                                        <input type="text" name="account_name" id="account_name" class="form-control {{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('account_name', auth()->user()->account_name) }}" maxlength="18">
+                                        <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 50 characters allowed</small>
+                                        @if($errors->has('account_name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                {{ $errors->first('account_name') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
                                         <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" maxlength="50">
@@ -188,17 +201,7 @@
                                     </div>
                                 </div> --}}
 
-                                <div class="form-group text-left">
-                                    <div class="{{ $errors->has('account_name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="account_name" id="account_name" class="form-control {{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('account_name', auth()->user()->account_name) }}" maxlength="50">
-                                        <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 50 characters allowed</small>
-                                        @if($errors->has('account_name'))
-                                            <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('account_name') }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
+
 
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('email') ? ' has-danger' : '' }}">

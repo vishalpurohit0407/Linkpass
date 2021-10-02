@@ -73,7 +73,7 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
         <aside class="logo"> <a class="navbar-brand" href="{{url('home')}}"><img src="{{ asset('assets/img/logo.svg') }}" alt=""></a> </aside>
-        @if(!isset(Auth::user()->user_type) || Auth::user()->user_type != 1)
+
         <div class="header-center">
           <!-- Actual search box -->
           <form method="GET" action="{{route('results')}}">
@@ -83,7 +83,7 @@
             </div>
           </form>
         </div>
-        @endif
+
         <div class="btn-menu">
           <ul>
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>

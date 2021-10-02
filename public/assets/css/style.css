@@ -50,7 +50,10 @@ a, .btn, img, button, .form-control, .CategoryBox h3, .AddListing, .AddVideo {
 a {
 	color: #007fff;
 }
-a:hover, a:active, a:focus {
+a:hover{
+	color: #007fff;
+}
+a:active, a:focus {
 	text-decoration: none;
 	color: #ca082a;
 	outline: none;
@@ -467,7 +470,10 @@ button:focus {
 	color: #FFF;
 	background: #ca082a;
 }
-.btn-primary:hover, .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
+.btn-primary:hover{
+	background: #ca082a;
+}
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
 	background: #007fff;
 	outline: inherit;
 	color: #FFF;
@@ -477,7 +483,10 @@ button:focus {
 	color: #fff;
 	background: #007fff;
 }
-.btn-warning:hover, .btn-warning.active.focus, .btn-warning.active:focus, .btn-warning.active:hover, .btn-warning:active.focus, .btn-warning:active:focus, .btn-warning:active:hover, .open>.dropdown-toggle.btn-warning.focus, .open>.dropdown-toggle.btn-warning:focus, .open>.dropdown-toggle.btn-warning:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-warning.active, .btn-warning:active, .open>.dropdown-toggle.btn-warning {
+.btn-warning:hover{
+	background: #007fff;
+}
+.btn-warning.active.focus, .btn-warning.active:focus, .btn-warning.active:hover, .btn-warning:active.focus, .btn-warning:active:focus, .btn-warning:active:hover, .open>.dropdown-toggle.btn-warning.focus, .open>.dropdown-toggle.btn-warning:focus, .open>.dropdown-toggle.btn-warning:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-warning.active, .btn-warning:active, .open>.dropdown-toggle.btn-warning {
 	background: #ca082a;
 	color: #FFF;
 	/* border-radius: 30px; */
@@ -487,7 +496,10 @@ button:focus {
 	background: #FFF;
 	letter-spacing: 1.5px;
 }
-.btn-default:hover, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+.btn-default:hover{
+	background: #FFF;
+}
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
 	background: #007fff;
 	outline: inherit;
 	color: #FFF;
@@ -497,7 +509,12 @@ button:focus {
 	color: #fff;
 	background: #007fff;
 }
-.btn-secondary:hover, .btn-secondary.active.focus, .btn-secondary.active:focus, .btn-secondary.active:hover, .btn-secondary:active.focus, .btn-secondary:active:focus, .btn-secondary:active:hover, .open>.dropdown-toggle.btn-secondary.focus, .open>.dropdown-toggle.btn-secondary:focus, .open>.dropdown-toggle.btn-secondary:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-secondary.active, .btn-secondary:active, .open>.dropdown-toggle.btn-secondary {
+.btn-secondary:hover
+{
+	color: #fff;
+	background: #007fff;
+}
+.btn-secondary.active.focus, .btn-secondary.active:focus, .btn-secondary.active:hover, .btn-secondary:active.focus, .btn-secondary:active:focus, .btn-secondary:active:hover, .open>.dropdown-toggle.btn-secondary.focus, .open>.dropdown-toggle.btn-secondary:focus, .open>.dropdown-toggle.btn-secondary:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-secondary.active, .btn-secondary:active, .open>.dropdown-toggle.btn-secondary {
 	background: #ca082a;
 	color: #FFF;
 }
@@ -512,7 +529,11 @@ button:focus {
 	color: #fff;
 	background: #666;
 }
-.btn-dark:hover, .btn-dark.active.focus,.btn-dark:focus, .btn-dark.active:focus, .btn-dark.active:hover, .btn-dark:active.focus, .btn-dark:active:focus, .btn-dark:active:hover, .open>.dropdown-toggle.btn-dark.focus, .open>.dropdown-toggle.btn-dark:focus, .open>.dropdown-toggle.btn-dark:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-dark.active, .btn-dark:active, .open>.dropdown-toggle.btn-dark {
+.btn-dark:hover{
+	color: #fff;
+	background: #666;
+}
+.btn-dark.active.focus,.btn-dark:focus, .btn-dark.active:focus, .btn-dark.active:hover, .btn-dark:active.focus, .btn-dark:active:focus, .btn-dark:active:hover, .open>.dropdown-toggle.btn-dark.focus, .open>.dropdown-toggle.btn-dark:focus, .open>.dropdown-toggle.btn-dark:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-dark.active, .btn-dark:active, .open>.dropdown-toggle.btn-dark {
 	background: #007fff;
 	outline: inherit;
 	color: #FFF;

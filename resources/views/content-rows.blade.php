@@ -21,13 +21,13 @@
 
       @endphp
       <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-3" id="content-box-{{$content->id}}">
-        <div class="AddVideo {!!$content->views_count > 0 ? '' : 'active' !!}">
+        <div class="AddVideo {!!$content->user_views_count > 0 ? 'content-visited' : '' !!}">
           <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
           @php
             $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
-            $sub_category = !empty($content->sub_category) ? " : ".$content->sub_category : '';
+            $sub_category = !empty($content->sub_category) ? ": ".$content->sub_category : '';
           @endphp
-          <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}} {{$sub_category}} </a>
+          <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}}{{$sub_category}} </a>
           <h4>{{ $content->main_title }}</h4>
 
           <div class="pull-left mb-2 w100p">
@@ -59,13 +59,13 @@
                     $currentRoute = Route::currentRouteName();
                     $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
                   @endphp
-                  @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results' && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
+                  @if(!isset($content->content_user_remove->id)  && (isset(Auth::user()->user_type)))
                     <div class="Remove">
                        <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"></a>
                     </div>
                   @endif
 
-                  @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
+                  @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type)))
                     <div class="Keep {{$KeepLeftClass}}">
                       <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"></a>
                     </div>
@@ -100,7 +100,7 @@
             </li>
 
             <li>
-              <a class="social-share" href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share</span></a>
+              <a class="social-share" data-content-title="{{ $content->main_title }}" href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share</span></a>
             </li>
 
             <li>

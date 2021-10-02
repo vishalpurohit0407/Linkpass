@@ -355,13 +355,20 @@ class ContentController extends Controller
     {
         if(isset(Auth::user()->id))
         {
-            if(isset(Auth::user()->user_type) && Auth::user()->user_type != '1')
+            if(isset(Auth::user()->user_type))
             {
                 $isExist = ContentView::select('id')->where('user_id', Auth::user()->id)->where('content_id', $request->content_id)->first();
-
-                if(!isset($isExist->id))
+                $content = $this->content->find($request->content_id);
+                if(!isset($isExist->id) && isset($content->id) && $content->user_id != Auth::user()->id)
                 {
                     ContentView::create(array('user_id' => Auth::user()->id, 'content_id' => $request->content_id));
+
+                    // Save In Saved Tab
+                    ContentAction::create([
+                        'content_id' => $request->content_id,
+                        'user_id'    => Auth::user()->id,
+                        'action'     => 4
+                    ]);
                 }
             }
 
@@ -466,6 +473,7 @@ class ContentController extends Controller
         $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
 
         $tab = $request->get('tab');
+        $filterBy = !empty($request->get('filterBy')) ? $request->get('filterBy') : '';
 
         if($tab == 'rated')
         {
@@ -495,18 +503,90 @@ class ContentController extends Controller
             $loggedInUserGroupIds = Auth::user()->user_groups()->pluck('id')->toArray();
             $loggedInUserTags     = UserPreferencesGroupTags::whereIn('group_id', $loggedInUserGroupIds)->pluck('name')->toArray();
 
-            $items = $this->content->where('is_published', '1')->whereHas('content_tags', function ($query) use ($loggedInUserTags)
+            $items = $this->content->where('is_published', '1')
+            ->whereHas('content_tags', function ($query) use ($loggedInUserTags)
             {
               $query->whereIn('name', $loggedInUserTags);
-            })->orderBy('created_at', 'desc')->paginate(6);
+            });
+
+            if(!empty($filterBy))
+            {
+                if($filterBy == 'like')
+                {
+                    $items = $items->whereHas('content_user_like', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+                else if($filterBy == 'unlike')
+                {
+                    $items = $items->whereHas('content_user_unlike', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+                else if($filterBy == 'visited')
+                {
+                    $items = $items->whereHas('content_user_visited', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+                else if($filterBy == 'unvisited')
+                {
+                    $items = $items->whereDoesntHave('content_user_visited', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+            }
+
+            $items = $items->orderBy('created_at', 'desc')
+                ->paginate(6);
         }
 
         if($tab == 'saved')
         {
-            $items = $this->content->where('user_id', '!=', Auth::user()->id)->where('is_published', '1')->whereHas('content_user_keep', function ($query)
+            $items = $this->content->where('user_id', '!=', Auth::user()->id)->where('is_published', '1')
+            ->whereHas('content_user_keep', function ($query)
             {
               $query->where('user_id', Auth::user()->id);
-            })->orderBy('created_at', 'desc')->paginate(6);
+            });
+
+            if(!empty($filterBy))
+            {
+                if($filterBy == 'like')
+                {
+                    $items = $items->whereHas('content_user_like', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+                else if($filterBy == 'unlike')
+                {
+                    $items = $items->whereHas('content_user_unlike', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+                else if($filterBy == 'visited')
+                {
+                    $items = $items->whereHas('content_user_visited', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+                else if($filterBy == 'unvisited')
+                {
+                    $items = $items->whereDoesntHave('content_user_visited', function ($query)
+                    {
+                        $query->where('user_id', Auth::user()->id);
+                    });
+                }
+            }
+
+            $items = $items->orderBy('created_at', 'desc');
+            $items = $items->paginate(6);
         }
 
         return view('content.ajax-tabs-content-list',array('items' => $items, 'followingIds' => $followingIds, 'followerIds' => $followerIds));

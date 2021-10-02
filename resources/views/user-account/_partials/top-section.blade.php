@@ -23,22 +23,24 @@
         </div>
 
         <ul class="LinkVerb mt-3">
-        @if(Auth::user()->id == $user->id)
-            <li class="active"><a href="javascript:void(0);">Link</a></li>
-        @elseif((Auth::user()->id != $user->id) && in_array($user->id, $followingIds))
-            <li class="active"><a class="" data-user-id="{{$user->id}}" href="javascript:void(0);">Linked</a></li>
-        @else
-            <li class="active"><a class="follow-user" data-user-id="{{$user->id}}" href="javascript:void(0);">Link</a></li>
-        @endif
+            @if(Auth::user()->id != $user->id)
+                @if((Auth::user()->id != $user->id) && in_array($user->id, $followingIds))
+                    <li class="active"><a class="" data-user-id="{{$user->id}}" href="javascript:void(0);">Linked</a></li>
+                @else
+                    <li class="active"><a class="follow-user" data-user-id="{{$user->id}}" href="javascript:void(0);">Link</a></li>
+                @endif
 
-        <li><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></li>
+                <li><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></li>
+            @endif
         </ul>
     </aside>
     <aside class="col-md-2 head-link">
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->account_name}}</a></p>
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->name}}</a></p>
         <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">Here Since: <span>{{date('d M Y', strtotime($user->created_at))}}</span></a></strong></p>
+        @if(!empty($user->location))
         <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">From: Your <span>{{ !empty($user->location) ? $user->location : 'N/A'}}</span></a></strong></p>
+        @endif
     </aside>
 </div>
 <ul class="ListingList font-12">
