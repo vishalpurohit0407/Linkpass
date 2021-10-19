@@ -462,7 +462,7 @@ jQuery(document).ready(function($) {
         }).done(function(data) {
             if(status == 2)
             {
-              swal('Succes!!', 'Now you can create content listing', 'success');
+              swal('Succes!!', 'You can now create content listings', 'success');
             }
             return false;
         })
@@ -541,7 +541,7 @@ jQuery(document).ready(function($) {
                     if(tagListArr.includes(item))
                     {
                         event.cancel = true;
-                        swal('Error!!', 'The Tag is already exist!', 'error');
+                        swal('Error!!', 'This tag already exists', 'error');
                         return false;
                     }
                 });

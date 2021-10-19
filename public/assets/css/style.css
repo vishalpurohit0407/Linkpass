@@ -66,7 +66,7 @@ a:active, a:focus {
 	width: 100%;
 	height: 50px !important;
 	box-shadow: inherit;
-	border-radius: 30px;
+	/* border-radius: 30px; */
 	border: 1px solid #dbdbdb;
 	background: #fafafa;
 	font-size: 16px;
@@ -83,7 +83,7 @@ textarea.form-control {
 	-webkit-box-shadow: inherit;
 	box-shadow: inherit;
 	background: #FFF;
-	border: 1px solid #ca082a;
+	border: 1px solid #007fff;
 }
 .form-control::placeholder {
  color: #007fff;
@@ -1471,6 +1471,7 @@ ul.LinkVerb li a:hover, ul.LinkVerb li.active a {
 	background: none !important;
 	color: #666 !important;
 	font-size: 12px !important;
+	padding-left: 0px !important;
 }
 .LinkVerbLabel:hover {
 	background: none !important;
@@ -1483,7 +1484,7 @@ ul.ListingList {
 	margin-top: 20px;
 	/*border-top: 1px solid rgb(204, 204, 204);*/
 	padding-top: 0px;
-	text-align: left;
+	text-align: center;
 }
 ul.ListingList li {
 	display: inline-block;
@@ -1534,6 +1535,7 @@ ul.ListingList li a:hover {
 	background: #f2f2f2;
 }
 .KeptPills.nav li {
+	width: 33.33%;
 }
 .KeptPills.nav-pills .nav-link.active, .KeptPills.nav-pills .show>.nav-link {
 	background: #9999ff;
@@ -1620,7 +1622,7 @@ ul.ListingList li a:hover {
 	box-shadow: 0px 0px 30px 0px rgba(127, 0, 255, 0.295)!important;
 }
 .AddVideo.active {
-	border: 1px solid #9999ff;
+	border: 3px solid #9999ff;
 }
 .modal .AddVideo {
 	height: 100%;
@@ -2368,4 +2370,12 @@ ul.ListingList li a:hover {
 
 .context-menu-icon.context-menu-icon-google-plus:before {
   content: "\f0d4"; /* fa-google-plus-square */
+}
+
+li.top-right-ellipse-li
+{
+	width: 50px;
+	background-color: #EEE;
+	border-radius: 50%;
+	text-align: center;
 }

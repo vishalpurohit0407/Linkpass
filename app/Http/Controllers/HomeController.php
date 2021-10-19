@@ -160,7 +160,7 @@ class HomeController extends Controller
 
                 $query = $query->orWhereHas('content_user', function ($query) use ($keyword)
                 {
-                    $query->where('name', 'LIKE', '%'.$keyword.'%');
+                    $query->where('account_name', 'LIKE', '%'.$keyword.'%');
                 });
 
             });
@@ -179,8 +179,8 @@ class HomeController extends Controller
     public function getContentDetails(Request $request)
     {
         $content = $this->content->find($request->content_id);
-        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
-        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+        $followingIds  = isset(Auth::user()->id) ? UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray() : [];
+        $followerIds   = isset(Auth::user()->id) ? UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray() : [];
 
         if(isset($content->id)){
 

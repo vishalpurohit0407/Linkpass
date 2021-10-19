@@ -21,7 +21,7 @@
 
       @endphp
       <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-3" id="content-box-{{$content->id}}">
-        <div class="AddVideo {!!$content->user_views_count > 0 ? 'content-visited' : '' !!}">
+        <div class="AddVideo {!!$content->user_views_count == 0 ? 'content-visited' : '' !!}">
           <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
           @php
             $category_name = isset($content->content_category->name) ? $content->content_category->name : '';

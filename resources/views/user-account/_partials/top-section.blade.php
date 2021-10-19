@@ -28,22 +28,23 @@
                     <li class="active"><a class="" data-user-id="{{$user->id}}" href="javascript:void(0);">Linked</a></li>
                 @else
                     <li class="active"><a class="follow-user" data-user-id="{{$user->id}}" href="javascript:void(0);">Link</a></li>
+                    <li><i><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></i></li>
                 @endif
 
-                <li><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></li>
+
             @endif
         </ul>
     </aside>
     <aside class="col-md-2 head-link">
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->account_name}}</a></p>
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->name}}</a></p>
-        <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">Here Since: <span>{{date('d M Y', strtotime($user->created_at))}}</span></a></strong></p>
+        <p class="font-14"><a href="javascript:void(0);" class="text-primary"><strong class="text-primary">Here Since: </strong><span>{{date('d M Y', strtotime($user->created_at))}}</span></a></p>
         @if(!empty($user->location))
-        <p class="font-14"><strong><a href="javascript:void(0);" class="text-primary">From: Your <span>{{ !empty($user->location) ? $user->location : 'N/A'}}</span></a></strong></p>
+        <p class="font-14"><a href="javascript:void(0);" class="text-primary"><strong class="text-primary">From:</strong> <span>{{ !empty($user->location) ? $user->location : 'N/A'}}</span></a></p>
         @endif
     </aside>
 </div>
 <ul class="ListingList font-12">
-    <li><strong><a href="javascript:void(0);" class="text-light">Linked: <span>{{count($followingIds)}}</span></a></strong></li>
-    <li><strong><a href="javascript:void(0);" class="text-light">Linker: <span>{{count($followerIds)}}</span></a></strong></li>
+    <li><strong><a href="javascript:void(0);" class="text-light">Linked: </strong><span class="text-light">{{count($followingIds)}}</span></a></li>
+    <li><strong><a href="javascript:void(0);" class="text-light">Linker: </strong><span class="text-light">{{count($followerIds)}}</span></a></li>
 </ul>

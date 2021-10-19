@@ -38,22 +38,39 @@
                     var ShareUrl = 'https://www.facebook.com/sharer/sharer.php?u='+url+'&quote='+url+'';
                 }
 
-                if(key == 'twitter')
+                if(key == 'whatsapp')
                 {
-                    var ShareUrl = 'https://twitter.com/intent/tweet?text='+url;
+                    var ShareUrl = 'https://wa.me/?text='+url;
                 }
 
-                if(key == 'linkedin')
+                if(key == 'email')
                 {
-                    var ShareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url='+url;
+                    var ShareUrl = 'mailto:?subject= Linkpasser: '+url+' &amp;body='+url;
                 }
 
-                window.open(ShareUrl, '_blank').focus();
+                if(key == 'copy')
+                {
+                    const body = document.querySelector('body');
+                    const area = document.createElement('textarea');
+                    body.appendChild(area);
+
+                    area.value = url;
+                    area.select();
+                    document.execCommand('copy');
+
+                    body.removeChild(area);
+                }
+
+                if(key != 'copy')
+                {
+                    window.open(ShareUrl, '_blank').focus();
+                }
             },
             items: {
                 "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
-                "twitter": {name: " Twitter", icon: "fab fa-lg fa-twitter"},
-                "linkedin": {name: " Linkedin", icon: "fab fa-lg fa-linkedin"},
+                "whatsapp": {name: " Whatsapp", icon: "fab fa-lg fa-whatsapp"},
+                "email": {name: " Email", icon: "fas fa-lg fa-envelope"},
+                "copy": {name: " Copy Link", icon: "far fa-lg fa-copy"},
             }
         });
 
@@ -74,7 +91,7 @@
                     $('#content-details-wrap').html(data.html);
 
                     pageno=1;
-                    getRatingsData();
+                    //getRatingsData();
 
                     $('#content-details-modal').modal('show');
                 }
@@ -109,7 +126,7 @@
             $('#content-details-wrap').html(data.html);
 
             pageno=1;
-            getRatingsData();
+            //getRatingsData();
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#content-details-modal').modal('show');
@@ -166,7 +183,7 @@
 
           var myurl = $(this).attr('href');
           pageno=$(this).attr('href').split('page=')[1];
-          getRatingsData();
+          //getRatingsData();
       });
 
 
@@ -214,7 +231,7 @@
 
                   $('#rating-text').val('');
                   pageno=1;
-                  getRatingsData();
+                  //getRatingsData();
 
                   return false;
               }
@@ -244,7 +261,7 @@
               if(data.status)
               {
                   pageno=1;
-                  getRatingsData();
+                  //getRatingsData();
 
                   return false;
               }
@@ -314,20 +331,20 @@
 
       switch(action) {
       case '1':
-          text = "Would you like to marked as a 'Like' this content?";
+          text = "Are you sure you want to recommend this listing?";
           break;
       case '2':
-          text = "Would you like to marked as a 'Unlike' this content?";
+        text = "Are you sure you want to not recommend this listing?";
           break;
       case '3':
-          text = "Would you like to marked as a 'InAppropriate' this content?";
-          break;
+        text = "Are you sure you want to report this listing?";
+        break;
       case '4':
-          text = "Would you like to Keep this content?";
-          break;
+        text = "Are you sure you want to Keep this listing?";
+        break;
       case '5':
-          text = "Would you like to Remove this content?";
-          break;
+        text = "Are you sure you want to Remove this listing?";
+        break;
       }
 
     if(['1','2','3'].includes(action) && visitCount == 0)
@@ -345,7 +362,7 @@
               showCancelButton: true,
               confirmButtonColor: '#DD6B55',
               confirmButtonText: 'Yes',
-              cancelButtonText: "No, Cancel it!"
+              cancelButtonText: "No"
           }).then((result) => {
               if (result.value) {
                   $.ajax(

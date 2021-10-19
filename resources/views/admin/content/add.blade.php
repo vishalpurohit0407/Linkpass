@@ -159,8 +159,8 @@
                                   </div>
 
                                   <div class="form-group">
-                                      <label class="form-control-label" for="type">Posted At <strong class="text-danger">*</strong></label>
-                                      <input type="date" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posted At" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
+                                      <label class="form-control-label" for="type">Posting Date <strong class="text-danger">*</strong></label>
+                                      <input type="date" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posting Date" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
                                       @if($errors->has('posted_at'))
                                           <span class="invalid-feedback">{{ $errors->first('posted_at') }}</span>
                                       @endif

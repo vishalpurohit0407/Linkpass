@@ -10,7 +10,7 @@
                 <aside class="col-lg-12">
                     <div class="border-0">
                         <div class="row align-items-center ">
-                            <h4 class="mb-4 ml-5">{{ __('Add Social Account') }}</h4>
+                            <h4 class="mb-4 ml-5">{{ __('Host Details') }}</h4>
                         </div>
                     </div>
                     <div class="pt-0">

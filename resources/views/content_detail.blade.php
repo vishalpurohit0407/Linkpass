@@ -243,7 +243,7 @@ jQuery(document).ready(function($){
 
         var myurl = $(this).attr('href');
         pageno=$(this).attr('href').split('page=')[1];
-        getRatingsData();
+        //getRatingsData();
     });
 
     setTimeout(countDownTimer, 1000);
@@ -295,7 +295,7 @@ jQuery(document).ready(function($){
                 $('.rating-img').css('border', 'none');
                 $('#rating-text').val('');
                 pageno=1;
-                getRatingsData();
+                //getRatingsData();
 
                 return false;
             }
@@ -429,21 +429,20 @@ function saveContentAction(element, action){
 
     switch(action) {
     case '1':
-        text = "Would you like to marked as a 'Like' this content?";
+        text = "Are you sure you want to recommend this listing?";
         break;
     case '2':
-        text = "Would you like to marked as a 'Unlike' this content?";
+        text = "Are you sure you want to not recommend this listing?";
         break;
     case '3':
-        text = "Would you like to marked as a 'InAppropriate' this content?";
+        text = "Are you sure you want to report this listing?";
         break;
     case '4':
-        text = "Would you like to Keep this content?";
+        text = "Are you sure you want to Keep this listing?";
         break;
     case '5':
-        text = "Would you like to Remove this content?";
+        text = "Are you sure you want to Remove this listing?";
         break;
-
     }
 
     if(text.length > 0)
@@ -455,7 +454,7 @@ function saveContentAction(element, action){
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
             confirmButtonText: 'Yes',
-            cancelButtonText: "No, Cancel it!"
+            cancelButtonText: "No"
         }).then((result) => {
             if (result.value) {
                 $.ajax(

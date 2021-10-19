@@ -11,7 +11,7 @@
     @endif
 
     @if($user->user_type == '1' || $user->user_type == '2')
-    <li class="nav-item"> <a data-tab-name="creators" class="nav-link content-tabs" id="pills-Cretors-tab" data-toggle="pill" href="#pills-Cretors" role="tab" aria-controls="pills-Cretors" aria-selected="false">Creators</a> </li>
+    <li class="nav-item"> <a data-tab-name="creators" class="nav-link content-tabs" id="pills-Cretors-tab" data-toggle="pill" href="#pills-Cretors" role="tab" aria-controls="pills-Cretors" aria-selected="false">Created</a> </li>
     @endif
     {{-- <li class="nav-item"> <a data-tab-name="rated" class="nav-link content-tabs" id="pills-Rated-tab" data-toggle="pill" href="#pills-Rated" role="tab" aria-controls="pills-Rated" aria-selected="false">Rated</a> </li> --}}
 

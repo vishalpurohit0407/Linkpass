@@ -87,7 +87,8 @@ jQuery(document).ready(function($) {
 
             if(data.success)
             {
-                $('.follow-user').html('Linked')
+                $('.follow-user').html('Linked');
+                $('.LinkVerbLabel').parents('li').remove();
             }
 
             $(".content-listing-loader").hide();
@@ -199,7 +200,7 @@ function deleteSocialAccount(id){
                 $('#content-details-wrap').html(data.html);
 
                 pageno=1;
-                getRatingsData();
+                //getRatingsData();
 
                 $('#content-details-modal').modal('show');
               }
@@ -229,7 +230,7 @@ function deleteSocialAccount(id){
                 $('#content-details-wrap').html(data.html);
 
                 pageno=1;
-                getRatingsData();
+               // getRatingsData();
 
                 $('[data-toggle="tooltip"]').tooltip();
 
@@ -287,7 +288,7 @@ function deleteSocialAccount(id){
 
           var myurl = $(this).attr('href');
           pageno=$(this).attr('href').split('page=')[1];
-          getRatingsData();
+          //getRatingsData();
       });
 
       $(document).on('click', '.content-tabs',function(event){
@@ -353,7 +354,7 @@ function deleteSocialAccount(id){
 
                   $('#rating-text').val('');
                   pageno=1;
-                  getRatingsData();
+                  //getRatingsData();
 
                   return false;
               }
@@ -383,7 +384,7 @@ function deleteSocialAccount(id){
               if(data.status)
               {
                   pageno=1;
-                  getRatingsData();
+                  //getRatingsData();
 
                   return false;
               }
@@ -524,37 +525,54 @@ function deleteSocialAccount(id){
             });
 
             $.contextMenu({
-                selector: '.social-share',
-                trigger: 'left',
-                callback: function(key, options, e) {
+            selector: '.social-share',
+            trigger: 'left',
+            callback: function(key, options, e) {
 
-                    var contentTitle = $(options.$trigger).attr('data-content-title');
-                    var url = '{{ url("results?search=")}}'+contentTitle;
-                    var ShareUrl = '';
+                var contentTitle = $(options.$trigger).attr('data-content-title');
+                var url = '{{ url("results?search=")}}'+contentTitle;
+                var ShareUrl = '';
 
-                    if(key == 'facebook')
-                    {
-                        var ShareUrl = 'https://www.facebook.com/sharer/sharer.php?u='+url+'&quote='+url+'';
-                    }
-
-                    if(key == 'twitter')
-                    {
-                        var ShareUrl = 'https://twitter.com/intent/tweet?text='+url;
-                    }
-
-                    if(key == 'linkedin')
-                    {
-                        var ShareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url='+url;
-                    }
-
-                    window.open(ShareUrl, '_blank').focus();
-                },
-                items: {
-                    "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
-                    "twitter": {name: " Twitter", icon: "fab fa-lg fa-twitter"},
-                    "linkedin": {name: " Linkedin", icon: "fab fa-lg fa-linkedin"},
+                if(key == 'facebook')
+                {
+                    var ShareUrl = 'https://www.facebook.com/sharer/sharer.php?u='+url+'&quote='+url+'';
                 }
-            });
+
+                if(key == 'whatsapp')
+                {
+                    var ShareUrl = 'https://wa.me/?text='+url;
+                }
+
+                if(key == 'email')
+                {
+                    var ShareUrl = 'mailto:?subject= Linkpasser: '+url+' &amp;body='+url;
+                }
+
+                if(key == 'copy')
+                {
+                    const body = document.querySelector('body');
+                    const area = document.createElement('textarea');
+                    body.appendChild(area);
+
+                    area.value = url;
+                    area.select();
+                    document.execCommand('copy');
+
+                    body.removeChild(area);
+                }
+
+                if(key != 'copy')
+                {
+                    window.open(ShareUrl, '_blank').focus();
+                }
+            },
+            items: {
+                "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
+                "whatsapp": {name: " Whatsapp", icon: "fab fa-lg fa-whatsapp"},
+                "email": {name: " Email", icon: "fas fa-lg fa-envelope"},
+                "copy": {name: " Copy Link", icon: "far fa-lg fa-copy"},
+            }
+        });
 
             //location.hash = page;
         }).fail(function(jqXHR, ajaxOptions, thrownError){
@@ -570,19 +588,19 @@ function deleteSocialAccount(id){
 
       switch(action) {
       case '1':
-          text = "Would you like to marked as a 'Like' this content?";
+          text = "Are you sure you want to recommend this listing?";
           break;
       case '2':
-          text = "Would you like to marked as a 'Unlike' this content?";
+          text = "Are you sure you want to not recommend this listing?";
           break;
       case '3':
-          text = "Would you like to marked as a 'InAppropriate' this content?";
+          text = "Are you sure you want to report this listing?";
           break;
       case '4':
-          text = "Would you like to Keep this content?";
+          text = "Are you sure you want to Keep this listing?";
           break;
       case '5':
-          text = "Would you like to Remove this content?";
+          text = "Are you sure you want to Remove this listing?";
           break;
       }
 
@@ -601,7 +619,7 @@ function deleteSocialAccount(id){
               showCancelButton: true,
               confirmButtonColor: '#DD6B55',
               confirmButtonText: 'Yes',
-              cancelButtonText: "No, Cancel it!"
+              cancelButtonText: "No"
           }).then((result) => {
               if (result.value) {
                   $.ajax(
