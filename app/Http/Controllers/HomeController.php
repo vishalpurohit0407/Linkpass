@@ -6,6 +6,7 @@ use App\Content;
 use App\Category;
 use App\ContentRating;
 use App\UserFollower;
+use App\Enquiry;
 use Illuminate\Http\Request;
 use Response;
 use Carbon\Carbon;
@@ -24,6 +25,7 @@ class HomeController extends Controller
         $this->content        = new Content();
         $this->category       = new Category();
         $this->contentRatings = new ContentRating();
+        $this->enquiry        = new Enquiry();
     }
 
     /**
@@ -190,6 +192,40 @@ class HomeController extends Controller
         }
 
         return Response::json(['status' => false, 'message' => 'Something went wrong while getting content.']);
+    }
+
+    /**
+     * Get content Details.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function sendEnquiry(Request $request)
+    {
+        $subject = $request->get('subject');
+        $message = $request->get('message');
+        $enquiry = Enquiry::create(
+            [
+                'subject' => $subject,
+                'message' => $message,
+                'user_id' => isset(Auth::user()->id) ? Auth::user()->id : '',
+                'created_at' => date("Y-m-d H:i:s")
+            ]
+        );
+
+
+        $data = [
+            'subject' => $request->subject,
+            'email' => 'tagadiyamayur@gmail.com',
+            'content' => $message
+          ];
+
+        //   \Mail::send('email-template', $data, function($message) use ($data) {
+        //     $message->to($data['email'])
+        //     ->subject($data['subject']);
+        //   });
+
+        $request->session()->flash('alert-success', 'Enquiry has been sent successfully');
+        return redirect(url('contact'));
     }
 
     /**

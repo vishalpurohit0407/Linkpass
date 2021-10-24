@@ -755,7 +755,7 @@
 .select2-container--default .select2-selection--single {
     background-color: #fff;
     border: 1px solid #aaa;
-    border-radius: 25px;
+    /* border-radius: 25px; */
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {

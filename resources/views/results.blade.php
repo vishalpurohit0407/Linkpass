@@ -146,10 +146,10 @@
           var contentId = $(this).attr('data-id');
           var userId    = "{{ isset(Auth::user()->id) ? Auth::user()->id : '' }}";
 
-          if(userId == '')
-          {
-              $('#loginModalPrompt').modal('show');
-          }
+        //   if(userId == '')
+        //   {
+        //       $('#loginModalPrompt').modal('show');
+        //   }
 
           $.ajax(
           {
@@ -199,6 +199,13 @@
           e.preventDefault();
           var action = $(this).attr('data-action');
           var content_id = $(this).attr('data-content-id');
+          var login = $(this).attr('data-login');
+
+          if((action == '1' || action == '2' || action == '3') && login == '0')
+          {
+             $('#loginModalPrompt').modal('show');
+             return false;
+          }
 
           saveContentAction(this, action, content_id);
       });
@@ -337,7 +344,17 @@
         text = "Are you sure you want to not recommend this listing?";
           break;
       case '3':
-        text = "Are you sure you want to report this listing?";
+        text = "<p>Are you sure you want to report this listing?</p>";
+
+        text += '<p class="text-align-left">Reason:</p>';
+        text += '<select class="form-control" id="report-reason">';
+        text += '  <option value="Abusive">Abusive</option>';
+        text += '  <option value="Copyright infringement">Copyright infringement</option>';
+        text += '  <option value="Directly selling a product or service">Directly selling a product or service</option>';
+        text += '  <option value="Illegal activities">Illegal activities</option>';
+        text += '  <option value="Pornography">Pornography</option>';
+        text += '  <option value="Spam">Spam</option>';
+        text += '</select>';
         break;
       case '4':
         text = "Are you sure you want to Keep this listing?";
@@ -357,7 +374,7 @@
       {
           swal({
               title: "Are you sure?",
-              text: text,
+              html: text,
               type: "warning",
               showCancelButton: true,
               confirmButtonColor: '#DD6B55',
@@ -365,19 +382,22 @@
               cancelButtonText: "No"
           }).then((result) => {
               if (result.value) {
+
+                var reportReason = ($('#report-reason').length && action == '3') ? $('#report-reason').val() : '';
+
                   $.ajax(
                   {
                       url: '{{route("user.content.save-action")}}',
                       type: "post",
                       datatype: "json",
-                      data:{content_id : content_id, action : action},
+                      data:{content_id : content_id, action : action, reason : reportReason},
                   }).done(function(data){
 
                       if(data.status)
                       {
                           swal('Succes!!', data.message, 'success');
 
-                            if(action == '4' || action == '5')
+                            if(action == '4' || action == '5' || data.reload == '1')
                             {
                                 setTimeout(function()
                                 {
@@ -387,6 +407,21 @@
 
                           $(element).removeClass('content-action');
                           $(element).addClass('action-disabled');
+
+                          if(action == '1')
+                          {
+                            $(element).addClass('like-action-disabled');
+                            $('.content-unlike-'+content_id).removeClass('content-action');
+                            $('.content-unlike-'+content_id).addClass('action-disabled');
+
+                          }
+                          else if(action == '2')
+                          {
+                            $(element).addClass('unlike-action-disabled');
+                            $('.content-like-'+content_id).removeClass('content-action');
+                            $('.content-like-'+content_id).addClass('action-disabled');
+                          }
+
                           $(element).find('.actionCount').html(data.actionCount);
 
                           return false;

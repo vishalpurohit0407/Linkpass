@@ -37,11 +37,11 @@
                 <div class="form-group radioeffect magic-radio-group text-left">
                   <span>
                     <input name="user_type" value="0" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
-                    <label for="radio1" class="css-label radGroup1">User</label>
+                    <label for="radio1" class="css-label radGroup1">Login as a user</label>
                   </span>
                   <span>
                     <input name="user_type" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
-                    <label for="radio2" class="css-label radGroup1">Creator</label>
+                    <label for="radio2" class="css-label radGroup1">Login as a creator</label>
                   </span>
                 </div>
                 <div class="chiller_cb mb-3">
@@ -64,7 +64,8 @@
         </div>
       </aside>
       <aside class="col-lg-6">
-        <div class="bg-login d-flex align-items-center" style="background: url({{ asset('assets/img/bg01.png') }}); background-size: cover; background-repeat: no-repeat;">
+        <div class="bg-login d-flex align-items-center" style="background:#FFF;color:#666;">
+          {{-- <div class="bg-login d-flex align-items-center" style="background: url({{ asset('assets/img/bg01.png') }}); background-size: cover; background-repeat: no-repeat;"> --}}
           <div class="div1 allshow">
             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>

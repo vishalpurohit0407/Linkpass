@@ -6,8 +6,8 @@
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
         </ul> --}}
         <ul>
-          <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
+          <li class="active"><a href="javascript:void(0);" data-tab-name="saved" data-filter-by="" class="bg-secondary sortContentListing"><i class="fas fa-align-left"></i></a></li>
         </ul>
         <ul>
           <li><a href="javascript:void(0);" data-tab-name="saved" data-filter-by="like" class="bg-success sortContentListing"><i class="far fa-check"></i></a></li>
@@ -33,8 +33,8 @@
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
         </ul> --}}
         <ul>
-          <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
-          <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
+          <li><a href="javascript:void(0);" class="bg-secondary circle-link loadUnpublishedContents"><i class="fas fa-plus"></i></a></li>
+          <li class="active"><a href="javascript:void(0);" data-tab-name="matched" data-filter-by="" class="bg-secondary sortContentListing"><i class="fas fa-align-left"></i></a></li>
         </ul>
         <ul>
           <li><a href="javascript:void(0);" data-tab-name="matched" data-filter-by="like" class="bg-success sortContentListing"><i class="far fa-check"></i></a></li>
@@ -60,8 +60,8 @@
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
         </ul>
         <ul>
-          <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
           <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
+          <li class="active"><a href="javascript:void(0);" class="bg-secondary"><i class="fas fa-align-left"></i></a></li>
         </ul>
         <ul>
           <li><a href="javascript:void(0);" class="bg-success"><i class="far fa-check"></i></a></li>
@@ -89,7 +89,6 @@
           </li>
         </ul> --}}
         <ul>
-          <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-align-left"></i></a></li>
           @if($editable)
             @if($type == 'socialAccount')
               <li class="disabled-li"><a href="{{route('user.social-account.create')}}" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
@@ -97,8 +96,9 @@
               <li class="disabled-li"><a href="{{route('user.content.create', ['saId'=> @$socialAccountId])}}" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
             @endif
           @else
-            <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="far fa-plus"></i></a></li>
+            <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled circle-link"><i class="far fa-plus"></i></a></li>
           @endif
+          <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="fas fa-align-left"></i></a></li>
         </ul>
         <ul>
           <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled"><i class="far fa-check"></i></a></li>

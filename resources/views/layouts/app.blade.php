@@ -87,7 +87,7 @@
           <div class="modal-content">
             <div class="modal-header py-3">
               <h4 class="modal-title text-light">Linkpasser Login</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+              <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
             </div>
             <div class="modal-body">
               <form role="form" method="POST" id="post-login-form" action="{{ route('post-login') }}">
@@ -168,6 +168,10 @@
   <script src="{{asset('assets/vendor/contextmenu/jquery.contextMenu.min.js')}}"></script>
   <script src="{{asset('assets/vendor/contextmenu/jquery.ui.position.js')}}"></script>
 
+  <!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
   <!-- Setup of Menu JS -->
   <script type="text/javascript" src="{{asset('assets/js/stellarnav.js')}}"></script>
   <!-- Setup of Custom JS -->
@@ -229,6 +233,43 @@
       });
       </script>
   @endif
+  <script>
+    @if(Session::has('alert-success'))
+    toastr.options =
+    {
+      "closeButton" : true,
+      "progressBar" : true
+    }
+        toastr.success("{{ session('alert-success') }}");
+    @endif
+
+    @if(Session::has('alert-error'))
+    toastr.options =
+    {
+      "closeButton" : true,
+      "progressBar" : true
+    }
+        toastr.error("{{ session('alert-error') }}");
+    @endif
+
+    @if(Session::has('alert-info'))
+    toastr.options =
+    {
+      "closeButton" : true,
+      "progressBar" : true
+    }
+        toastr.info("{{ session('alert-info') }}");
+    @endif
+
+    @if(Session::has('alert-warning'))
+    toastr.options =
+    {
+      "closeButton" : true,
+      "progressBar" : true
+    }
+        toastr.warning("{{ session('alert-warning') }}");
+    @endif
+  </script>
 </body>
 
 </html>

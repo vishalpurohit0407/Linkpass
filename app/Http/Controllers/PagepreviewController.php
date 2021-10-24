@@ -20,6 +20,6 @@ class PagepreviewController extends Controller
         if(!$cmspage){
             return abort(404);
         }
-        return view('pagepreview',array('title' => 'CMS Page List','page'=>$cmspage));
+        return view('pagepreview',array('title' => 'Page','page'=>$cmspage));
     }
 }

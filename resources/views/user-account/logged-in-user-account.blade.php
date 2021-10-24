@@ -175,11 +175,13 @@ function deleteSocialAccount(id){
         }
     }
 
-
-
     $(document).on('click','.sortContentListing',function(event) {
         var filterBy = $(this).attr('data-filter-by');
         var tabName = $(this).data('tab-name');
+        $('.sortContentListing').parent().removeClass('active');
+        $('.sortContentListing').removeClass('active');
+        $(this).addClass('active');
+        $(this).parent().addClass('active');
         getTabsContentData(tabName, filterBy);
     });
 
@@ -251,10 +253,10 @@ function deleteSocialAccount(id){
           var contentId = $(this).attr('data-id');
           var userId    = "{{ isset(Auth::user()->id) ? Auth::user()->id : '' }}";
 
-          if(userId == '')
-          {
-              $('#loginModalPrompt').modal('show');
-          }
+        //   if(userId == '')
+        //   {
+        //       $('#loginModalPrompt').modal('show');
+        //   }
 
           $.ajax(
           {
@@ -322,6 +324,14 @@ function deleteSocialAccount(id){
           e.preventDefault();
           var action = $(this).attr('data-action');
           var content_id = $(this).attr('data-content-id');
+
+          var login = $(this).attr('data-login');
+
+        if((action == '1' || action == '2' || action == '3') && login == '0')
+        {
+            $('#loginModalPrompt').modal('show');
+            return false;
+        }
 
           saveContentAction(this, action, content_id);
       });
@@ -398,6 +408,32 @@ function deleteSocialAccount(id){
           });
       });
 
+        $(document).on("click", ".loadUnpublishedContents",function() {
+
+            $.ajax(
+            {
+                url: '{{route("user.content.load-unpublished-contents")}}',
+                type: "post",
+                datatype: "json",
+                data:{},
+            }).done(function(data){
+
+                if(data.status)
+                {
+                    var tabName = $('.content-tabs.active').data('tab-name');
+
+                    getTabsContentData(tabName);
+                }
+                else
+                {
+                    swal('Error!!', data.message, 'error');
+                    return false;
+                }
+            }).fail(function(jqXHR, ajaxOptions, thrownError){
+
+            });
+        });
+
       $(".togglelink").click(function(e){
           e.preventDefault();
           $($(this).attr('href')).slideToggle();
@@ -459,7 +495,7 @@ function deleteSocialAccount(id){
             url: '{{ route("user.content.get-tabs-contents") }}',
             type: 'get',
             datatype: 'json',
-            data:{page:pageno,tab:tab, filterBy:filterBy},
+            data:{page:pageno,tab:tab, filterBy:filterBy, user_id : '{{ isset($user->id) ? $user->id : ''}}'},
         }).done(function(data){
 
             if(tab == 'matched')
@@ -567,9 +603,9 @@ function deleteSocialAccount(id){
                 }
             },
             items: {
-                "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
-                "whatsapp": {name: " Whatsapp", icon: "fab fa-lg fa-whatsapp"},
-                "email": {name: " Email", icon: "fas fa-lg fa-envelope"},
+                // "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
+                // "whatsapp": {name: " Whatsapp", icon: "fab fa-lg fa-whatsapp"},
+                // "email": {name: " Email", icon: "fas fa-lg fa-envelope"},
                 "copy": {name: " Copy Link", icon: "far fa-lg fa-copy"},
             }
         });
@@ -594,8 +630,17 @@ function deleteSocialAccount(id){
           text = "Are you sure you want to not recommend this listing?";
           break;
       case '3':
-          text = "Are you sure you want to report this listing?";
-          break;
+        text = "<p>Are you sure you want to report this listing?</p>";
+        text += '<p class="text-align-left">Reason:</p>';
+        text += '<select class="form-control" id="report-reason">';
+        text += '  <option value="Abusive">Abusive</option>';
+        text += '  <option value="Copyright infringement">Copyright infringement</option>';
+        text += '  <option value="Directly selling a product or service">Directly selling a product or service</option>';
+        text += '  <option value="Illegal activities">Illegal activities</option>';
+        text += '  <option value="Pornography">Pornography</option>';
+        text += '  <option value="Spam">Spam</option>';
+        text += '</select>';
+        break;
       case '4':
           text = "Are you sure you want to Keep this listing?";
           break;
@@ -614,7 +659,7 @@ function deleteSocialAccount(id){
       {
           swal({
               title: "Are you sure?",
-              text: text,
+              html: text,
               type: "warning",
               showCancelButton: true,
               confirmButtonColor: '#DD6B55',
@@ -622,12 +667,15 @@ function deleteSocialAccount(id){
               cancelButtonText: "No"
           }).then((result) => {
               if (result.value) {
+
+                var reportReason = ($('#report-reason').length && action == '3') ? $('#report-reason').val() : '';
+
                   $.ajax(
                   {
                       url: '{{route("user.content.save-action")}}',
                       type: "post",
                       datatype: "json",
-                      data:{content_id : content_id, action : action},
+                      data:{content_id : content_id, action : action, reason : reportReason},
                   }).done(function(data){
 
                       if(data.status)
@@ -638,20 +686,30 @@ function deleteSocialAccount(id){
                           $(element).addClass('action-disabled');
                           $(element).find('.actionCount').html(data.actionCount);
 
-                          if(action == 1)
+                          if(action == '1')
                           {
                             $(element).addClass('like-action-disabled');
+                            $('.content-unlike-'+content_id).removeClass('content-action');
+                            $('.content-unlike-'+content_id).addClass('action-disabled');
+
                           }
-                          else if(action == 2)
+                          else if(action == '2')
                           {
                             $(element).addClass('unlike-action-disabled');
+                            $('.content-like-'+content_id).removeClass('content-action');
+                            $('.content-like-'+content_id).addClass('action-disabled');
                           }
-                          else if(action == 5)
+                          else if(action == '5')
                           {
-                            $('#pills-Kept-tab').trigger('click');
+                             $('#pills-Kept-tab').trigger('click');
                           }
 
+                          if(action == '3' && data.reload == '1')
+                          {
+                            var tabName = $('.content-tabs.active').data('tab-name');
 
+                            getTabsContentData(tabName);
+                          }
 
                           return false;
                       }

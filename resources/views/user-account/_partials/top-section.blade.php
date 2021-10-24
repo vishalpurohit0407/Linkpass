@@ -1,14 +1,14 @@
 @php
     $userProfileClass = '';
-    if(Auth::user()->user_type == '0')
+    if($user->user_type == '0')
     {
         $userProfileClass = 'user-profile-bg';
     }
-    if((isset(Auth::user()->user_type) && Auth::user()->user_type == '1'))
+    if($user->user_type == '1')
     {
         $userProfileClass = 'creator-profile-bg';
     }
-    if(Auth::user()->user_type == '2')
+    if($user->user_type == '2')
     {
         $userProfileClass = 'hybrid-profile-bg';
     }
@@ -22,18 +22,16 @@
             </a>
         </div>
 
-        <ul class="LinkVerb mt-3">
-            @if(Auth::user()->id != $user->id)
-                @if((Auth::user()->id != $user->id) && in_array($user->id, $followingIds))
+        {{-- <ul class="LinkVerb mt-3">
+            @if(isset(Auth::user()->id) && Auth::user()->id != $user->id)
+                @if(isset(Auth::user()->id) && (Auth::user()->id != $user->id) && in_array($user->id, $followingIds))
                     <li class="active"><a class="" data-user-id="{{$user->id}}" href="javascript:void(0);">Linked</a></li>
                 @else
                     <li class="active"><a class="follow-user" data-user-id="{{$user->id}}" href="javascript:void(0);">Link</a></li>
                     <li><i><a class="sm LinkVerbLabel" href="javascript:void(0);">Verb</a></i></li>
                 @endif
-
-
             @endif
-        </ul>
+        </ul> --}}
     </aside>
     <aside class="col-md-2 head-link">
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->account_name}}</a></p>
@@ -44,7 +42,7 @@
         @endif
     </aside>
 </div>
-<ul class="ListingList font-12">
+{{-- <ul class="ListingList font-12">
     <li><strong><a href="javascript:void(0);" class="text-light">Linked: </strong><span class="text-light">{{count($followingIds)}}</span></a></li>
     <li><strong><a href="javascript:void(0);" class="text-light">Linker: </strong><span class="text-light">{{count($followerIds)}}</span></a></li>
-</ul>
+</ul> --}}

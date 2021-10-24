@@ -98,7 +98,7 @@ class ResetPasswordController extends Controller
 
     protected function sendResetResponse(Request $request,$response) {
         //dd('in sucess');
-        $request->session()->flash('alert-success', 'Your password has beed successfully updated. Please login with new password.');
+        $request->session()->flash('alert-success', 'Your password has been updated successfully. Please login with new password.');
         return redirect(route('home'))
                             ->with('status',trans($response));
     }

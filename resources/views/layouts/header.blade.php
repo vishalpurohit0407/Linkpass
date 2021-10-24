@@ -92,13 +92,14 @@
                   <li class="nav-item"> <a class="nav-link" href="{{url('profile_settings')}}"> <span class="font-16"><i class="fal fa-cog"></i> Setting</span></a> </li>
                   <li class="nav-item"> <a class="nav-link" href="{{url('account')}}"> <span class="font-16"><i class="fal fa-user"></i> My Account</span></a> </li>
                 @endif
-                <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-square"></i> Footer</span></a> </li>
+                {{-- <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-square"></i> Footer</span></a> </li> --}}
                 @if(isset(Auth::user()->id))
                   <li class="nav-item"> <a class="nav-link" id="" href="{{url('trending')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Trending</span></a> </li>
                   <li class="nav-item"> <a class="nav-link" id="" href="{{url('latest')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Latest</span></a> </li>
                   <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}">  <span class="font-16"><i class="fal fa-sign-out"></i> Logout</span></a> </li>
                 @elseif(Route::currentRouteName() != '' && Route::currentRouteName() != 'home')
-                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);" data-toggle="modal" data-target="#loginModalPrompt"> <span class="font-16"><i class="fal fa-sign-in"></i> Login</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);" data-toggle="modal" data-target="#loginModalPrompt"> <span class="font-16"><i class="fal fa-sign-in"></i> Log in</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('register')}}" > <span class="font-16"><i class="fal fa-user-plus"></i> Sign Up</span></a> </li>
                 @endif
               </ul>
             </li>

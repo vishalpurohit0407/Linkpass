@@ -285,11 +285,12 @@ class ContentController extends Controller
 
         $encodedUserId = encodeHashId($content->user_id);
         $encodedSocialAccountId = encodeHashId($content->social_account_id);
+        $encodedContentId = encodeHashId($content->id);
 
         if ($content->save()) {
             $request->session()->flash('alert-success', 'Content has been updated successfully.');
         }
-        return redirect(route('user.account.contents', [$encodedSocialAccountId, $encodedUserId]));
+        return redirect(route('user.content.edit', [$encodedContentId]));
     }
 
     /**
@@ -337,6 +338,13 @@ class ContentController extends Controller
         return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
     }
 
+    public function loadUnpublishedContents(Request $request)
+    {
+        Content::where('is_published', '0')->update(['is_published' => '1']);
+
+        return Response::json(['status' => true, 'message' => '']);
+    }
+
     // public function getContentDetails(Request $request)
     // {
     //     $content = $this->content->find($request->content_id);
@@ -353,8 +361,7 @@ class ContentController extends Controller
 
     public function goToContentDetails(Request $request)
     {
-        if(isset(Auth::user()->id))
-        {
+
             if(isset(Auth::user()->user_type))
             {
                 $isExist = ContentView::select('id')->where('user_id', Auth::user()->id)->where('content_id', $request->content_id)->first();
@@ -377,9 +384,7 @@ class ContentController extends Controller
             $count = $content->views_count;
 
             return Response::json(['status' => true, 'count' => $count, 'url' => $content->external_link]);
-        }
 
-        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting content.']);
     }
 
     public function saveRating(Request $request)
@@ -442,14 +447,26 @@ class ContentController extends Controller
        $action = ContentAction::create([
            'content_id' => $request->get('content_id'),
            'user_id'    => Auth::user()->id,
-           'action'     => $request->get('action')
+           'action'     => $request->get('action'),
+           'reason'     => $request->get('reason'),
        ]);
 
        if(isset($action->id))
        {
             $actionCount = ContentAction::where('content_id', $request->get('content_id'))->where('action', $request->get('action'))->count();
+            $reload = '0';
+            if($request->get('action') == '3')
+            {
+                $reportCount = ContentAction::where('content_id', $request->get('content_id'))->where('action', $request->get('action'))->count();
 
-            return Response::json(['status' => true, 'message' => 'The content action has been saved successfully.', 'actionCount' => $actionCount]);
+                if($reportCount > 30)
+                {
+                    Content::where('content_id', $request->get('content_id'))->update(['status' => '0']);
+                    $reload = '1';
+                }
+            }
+
+            return Response::json(['status' => true, 'message' => 'The content action has been saved successfully.', 'actionCount' => $actionCount, 'reload' => $reload]);
        }
 
        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -468,19 +485,31 @@ class ContentController extends Controller
     public function getTabsContent(Request $request){
 
         $items = [];
+
         $contentId = $request->get('content_id');
-        $followingIds  = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
-        $followerIds   = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
+        $userId = $request->get('user_id');
+
+        if(isset(Auth::user()->id))
+        {
+            $user = Auth::user();
+        }
+        else
+        {
+            $user = User::find($userId);
+        }
+
+        $followingIds  = UserFollower::where('user_id', $user->id)->pluck('linked_user_id')->toArray();
+        $followerIds   = UserFollower::where('linked_user_id', $user->id)->pluck('user_id')->toArray();
 
         $tab = $request->get('tab');
         $filterBy = !empty($request->get('filterBy')) ? $request->get('filterBy') : '';
 
         if($tab == 'rated')
         {
-            if((isset(Auth::user()->user_type) && Auth::user()->user_type == '1'))
+            if((isset($user->user_type) && $user->user_type == '1'))
             {
-                $items = $this->content->where('is_published', '1')->where('user_id', Auth::user()->id)
-                ->whereExists(function ($query) {
+                $items = $this->content->where('is_published', '1')->where('user_id', $user->id)
+                ->whereExists(function ($query) use($user) {
                     $query->select("content_ratings.id")
                           ->from('content_ratings')
                           ->whereRaw('content_ratings.content_id = content.id');
@@ -489,9 +518,9 @@ class ContentController extends Controller
             }
             else
             {
-                $items = $this->content->where('is_published', '1')->with('content_ratings')->whereHas('content_ratings', function ($query)
+                $items = $this->content->where('is_published', '1')->with('content_ratings')->whereHas('content_ratings', function ($query) use($user)
                 {
-                    $query->where('user_id', Auth::user()->id);
+                    $query->where('user_id', $user->id);
                 // $query->orderBy('rating', 'asc');
                 })->orderBy('created_at', 'desc')->paginate(6);
             }
@@ -500,7 +529,7 @@ class ContentController extends Controller
 
         if($tab == 'matched')
         {
-            $loggedInUserGroupIds = Auth::user()->user_groups()->pluck('id')->toArray();
+            $loggedInUserGroupIds = $user->user_groups()->pluck('id')->toArray();
             $loggedInUserTags     = UserPreferencesGroupTags::whereIn('group_id', $loggedInUserGroupIds)->pluck('name')->toArray();
 
             $items = $this->content->where('is_published', '1')
@@ -513,30 +542,30 @@ class ContentController extends Controller
             {
                 if($filterBy == 'like')
                 {
-                    $items = $items->whereHas('content_user_like', function ($query)
+                    $items = $items->whereHas('content_user_like', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
                 else if($filterBy == 'unlike')
                 {
-                    $items = $items->whereHas('content_user_unlike', function ($query)
+                    $items = $items->whereHas('content_user_unlike', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
                 else if($filterBy == 'visited')
                 {
-                    $items = $items->whereHas('content_user_visited', function ($query)
+                    $items = $items->whereHas('content_user_visited', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
                 else if($filterBy == 'unvisited')
                 {
-                    $items = $items->whereDoesntHave('content_user_visited', function ($query)
+                    $items = $items->whereDoesntHave('content_user_visited', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
             }
@@ -547,40 +576,40 @@ class ContentController extends Controller
 
         if($tab == 'saved')
         {
-            $items = $this->content->where('user_id', '!=', Auth::user()->id)->where('is_published', '1')
-            ->whereHas('content_user_keep', function ($query)
+            $items = $this->content->where('user_id', '!=', $user->id)->where('is_published', '1')
+            ->whereHas('content_user_keep', function ($query) use($user)
             {
-              $query->where('user_id', Auth::user()->id);
+              $query->where('user_id', $user->id);
             });
 
             if(!empty($filterBy))
             {
                 if($filterBy == 'like')
                 {
-                    $items = $items->whereHas('content_user_like', function ($query)
+                    $items = $items->whereHas('content_user_like', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
                 else if($filterBy == 'unlike')
                 {
-                    $items = $items->whereHas('content_user_unlike', function ($query)
+                    $items = $items->whereHas('content_user_unlike', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
                 else if($filterBy == 'visited')
                 {
-                    $items = $items->whereHas('content_user_visited', function ($query)
+                    $items = $items->whereHas('content_user_visited', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
                 else if($filterBy == 'unvisited')
                 {
-                    $items = $items->whereDoesntHave('content_user_visited', function ($query)
+                    $items = $items->whereDoesntHave('content_user_visited', function ($query) use($user)
                     {
-                        $query->where('user_id', Auth::user()->id);
+                        $query->where('user_id', $user->id);
                     });
                 }
             }

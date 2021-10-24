@@ -85,7 +85,7 @@
                                           </div>
 
                                           <div class="form-group ">
-                                              <label class="form-control-label" for="example3cols2Input">Sub Category </label>
+                                              <label class="form-control-label" for="example3cols2Input">Enter a subcategory or an instance of a subcategory </label>
                                               <input type="text" name="sub_category" class="form-control @if($errors->has('sub_category')) is-invalid @endif" id="sub_category" value="{{old('sub_category', $content->sub_category)}}" maxlength="18">
                                               @if($errors->has('sub_category'))
                                                   <span class="invalid-feedback">{{ $errors->first('sub_category') }}</span>

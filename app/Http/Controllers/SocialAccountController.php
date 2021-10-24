@@ -207,6 +207,8 @@ class SocialAccountController extends Controller
 
         $socialAccount->update($paramsArr);
 
+        $request->session()->flash('alert-success', 'Host Details has been updated successfully.');
+
         return back();
     }
 

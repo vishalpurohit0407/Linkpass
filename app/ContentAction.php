@@ -11,7 +11,7 @@ class ContentAction extends Authenticatable
     protected $table = 'content_actions';
 
     protected $fillable = [
-        'content_id', 'user_id', 'action'
+        'content_id', 'user_id', 'action', 'reason'
     ];
 
     public function content()

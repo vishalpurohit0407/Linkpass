@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 Route::any('user/check-logged-in','HomeController@checkLoggedIn')->name('user.check-logged-in');
+Route::post('send-enquiry','HomeController@sendEnquiry')->name('user.send-enquiry');
 Auth::routes(['verify' => true]);
 
 Route::get('/creator-register', 'Auth\RegisterController@creatorRegister')->name('creator-register');
@@ -49,13 +50,15 @@ Route::post('validate-account-name', ['as' => 'user.validate-account-name', 'use
 	Route::put('profile_settings/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 	// Content Module Routes
-	Route::get('/content/get-tabs-contents','ContentController@getTabsContent')->name('user.content.get-tabs-contents');
+
 	Route::post('/content/save-rating','ContentController@saveRating')->name('user.content.save-rating');
 	Route::post('/content/save-rating-vote','ContentController@saveRatingVote')->name('user.content.save-rating-vote');
 	Route::get('/content/get-ratings','ContentController@getRatings')->name('user.content.get-ratings');
 	Route::post('/content/save-action','ContentController@saveAction')->name('user.content.save-action');
 	Route::get('/content/search','ContentController@search')->name('user.content.search');
 	Route::post('/content/delete','ContentController@deleteContent')->name('user.content.delete');
+	Route::post('/content/load-unpublished-contents','ContentController@loadUnpublishedContents')->name('user.content.load-unpublished-contents');
+
 	//Route::post('/content/get-details','ContentController@getContentDetails')->name('user.content.get-details');
 	Route::resource('/content', 'ContentController', [
 	    'names' => [
@@ -87,13 +90,11 @@ Route::post('validate-account-name', ['as' => 'user.validate-account-name', 'use
 	    ]
 	]);
 
-	// Search Page Routes
-	Route::post('/content/goto-content-details','ContentController@goToContentDetails')->name('user.content.goto-content-details');
+
 
 	// User Account
 	Route::get('account','UserAccountController@getLoggedInUserAccount')->name('user.account');
-	Route::get('user-account/{id}','UserAccountController@getOtherUserAccount')->name('other-user.account');
-	Route::get('account/{id}/contents/{userId}','UserAccountController@getContentsByAccountId')->name('user.account.contents');
+
 
 	// User Preferences
 	Route::post('/user/save-user-interest','ProfileController@saveUserInterest')->name('user.save-user-interest');
@@ -106,5 +107,10 @@ Route::post('validate-account-name', ['as' => 'user.validate-account-name', 'use
 
 });
 
+// Search Page Routes
+Route::post('/content/goto-content-details','ContentController@goToContentDetails')->name('user.content.goto-content-details');
 Route::get('/{url_slug}','PagepreviewController@pagepreview')->name('cms.pagepreview');
+Route::get('/contents/get-tabs-contents','ContentController@getTabsContent')->name('user.content.get-tabs-contents');
 
+Route::get('user-account/{id}','UserAccountController@getOtherUserAccount')->name('other-user.account');
+Route::get('account/{id}/contents/{userId}','UserAccountController@getContentsByAccountId')->name('user.account.contents');

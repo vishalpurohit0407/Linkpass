@@ -52,6 +52,7 @@ a {
 }
 a:hover{
 	color: #007fff;
+	text-decoration: none;
 }
 a:active, a:focus {
 	text-decoration: none;
@@ -68,7 +69,7 @@ a:active, a:focus {
 	box-shadow: inherit;
 	/* border-radius: 30px; */
 	border: 1px solid #dbdbdb;
-	background: #fafafa;
+	background: #FFF;
 	font-size: 16px;
 	color: rgba(14,9,65,1.00);
 	font-weight: normal;
@@ -1128,7 +1129,7 @@ button:focus {
 }
 /*============= Main Content Home =============*/
 main.main {
-	margin-top: 30px;
+	margin-top: 50px;
 }
 /*============= Start Titel =============*/
 .sec-title {
@@ -1261,7 +1262,7 @@ main.main {
 footer {
 	margin: 60px 0 0;
 	padding: 30px 0 0;
-	background: #007fff;
+	background: #7F7FFF;
 }
 .footer-logo {
 	width: 110px;
@@ -1380,7 +1381,7 @@ footer {
 	border-radius: 20px;
 }
 .bg-login p {
-	color: #FFF;
+	color: #666;
 }
 .login-box {
 	height: 100%;/*background: #ccc;
@@ -1534,8 +1535,14 @@ ul.ListingList li a:hover {
 	margin-top: 20px;
 	background: #f2f2f2;
 }
-.KeptPills.nav li {
-	width: 33.33%;
+.KeptPills > li.nav-item.creator-tabs {
+	width: 50%!important;
+}
+.KeptPills > li.nav-item.tabs-50-perc {
+	width: 50%!important;
+}
+.KeptPills > li.nav-item.tabs-33-perc {
+	width: 33.33%!important;
 }
 .KeptPills.nav-pills .nav-link.active, .KeptPills.nav-pills .show>.nav-link {
 	background: #9999ff;
@@ -1581,6 +1588,10 @@ ul.ListingList li a:hover {
 	display: none;
 }
 .TabFilter ul li a:hover {
+	background: #9999ff !important;
+	color: #FFF;
+}
+.TabFilter ul li a.active {
 	background: #9999ff !important;
 	color: #FFF;
 }
@@ -2027,7 +2038,7 @@ ul.ListingList li a:hover {
 	color: #666;
 	font-style: italic;
 	padding: 0 15px;
-	background: #FFF;
+	background: #FAFAFA;
 }
 .footer-bottom {
 	background: rgba(0,127,255,0.60);
