@@ -67,9 +67,9 @@
                 }
             },
             items: {
-                "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
-                "whatsapp": {name: " Whatsapp", icon: "fab fa-lg fa-whatsapp"},
-                "email": {name: " Email", icon: "fas fa-lg fa-envelope"},
+                // "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
+                // "whatsapp": {name: " Whatsapp", icon: "fab fa-lg fa-whatsapp"},
+                // "email": {name: " Email", icon: "fas fa-lg fa-envelope"},
                 "copy": {name: " Copy Link", icon: "far fa-lg fa-copy"},
             }
         });
@@ -362,7 +362,40 @@
       case '5':
         text = "Are you sure you want to Remove this listing?";
         break;
-      }
+    }
+
+    if(action == '4')
+    {
+        $.ajax(
+        {
+            url: '{{route("user.content.save-action")}}',
+            type: "post",
+            datatype: "json",
+            data:{content_id : content_id, action : action, reason : ''},
+        }).done(function(data){
+
+            if(data.status)
+            {
+                swal('Succes!!', data.message, 'success');
+
+                setTimeout(function()
+                {
+                    location.reload();
+                }, 3000);
+
+                return false;
+            }
+            else
+            {
+                swal('Error!!', data.message, 'error');
+                return false;
+            }
+        }).fail(function(jqXHR, ajaxOptions, thrownError){
+
+        });
+
+        return false;
+    }
 
     if(['1','2','3'].includes(action) && visitCount == 0)
     {

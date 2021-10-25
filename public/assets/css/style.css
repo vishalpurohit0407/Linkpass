@@ -2036,7 +2036,7 @@ ul.ListingList li a:hover {
 	top: -13px;
 	left: 44%;
 	color: #666;
-	font-style: italic;
+	/* font-style: italic; */
 	padding: 0 15px;
 	background: #FAFAFA;
 }

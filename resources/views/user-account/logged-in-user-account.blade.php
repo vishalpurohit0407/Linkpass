@@ -647,7 +647,28 @@ function deleteSocialAccount(id){
       case '5':
           text = "Are you sure you want to Remove this listing?";
           break;
-      }
+    }
+
+    if(action == '4' || action == '5')
+    {
+        $.ajax(
+        {
+            url: '{{route("user.content.save-action")}}',
+            type: "post",
+            datatype: "json",
+            data:{content_id : content_id, action : action, reason : ''},
+        }).done(function(data){
+            if(data.status)
+            {
+                swal('Succes!!', data.message, 'success');
+                var tabName = $('.content-tabs.active').data('tab-name');
+
+                getTabsContentData(tabName);
+            }
+        });
+
+        return false;
+    }
 
     if(['1','2','3'].includes(action) && visitCount == 0)
     {
