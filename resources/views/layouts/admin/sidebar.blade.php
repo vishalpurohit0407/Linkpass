@@ -95,6 +95,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link {{ Request::routeIs('admin.enquiry.*') ? 'active' : '' }}" href="{{route('admin.enquiry.list')}}">
+                <i class="ni ni-ungroup text-info"></i>
+                <span class="nav-link-text">Enquiries</span>
+              </a>
+            </li>
+
           </ul>
 
         </div>

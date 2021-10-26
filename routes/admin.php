@@ -51,6 +51,19 @@ Route::group(['middleware' => ['admin']],function(){
 	    ]
 	]);
 
+	// Enquiry Module Routes
+	Route::post('/enquiry/list/data','admin\EnquiryController@listdata')->name('admin.enquiry.listdata');
+	Route::resource('/enquiry', 'admin\EnquiryController', [
+	    'names' => [
+	        'index' => 'admin.enquiry.list',
+	        'edit' => 'admin.enquiry.edit',
+	        'create' => 'admin.enquiry.create',
+	        'store' => 'admin.enquiry.store',
+	        'update' => 'admin.enquiry.update',
+	        'destroy' => 'admin.enquiry.destroy',
+	    ]
+	]);
+
 	// User Module Routes
 	Route::get('/user/restore/{id?}','admin\UserController@userRestore')->name('admin.user.restore');
 	Route::get('/user/get-account/{id}','admin\UserController@getAccountsByUserId')->name('admin.user.get-account');
