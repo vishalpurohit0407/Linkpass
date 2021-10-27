@@ -10,7 +10,7 @@
                 <aside class="col-lg-12">
                     <div class="border-0">
                         <div class="row align-items-center ">
-                            <h4 class="mb-4 ml-5">{{ $page ? $page->title : ''}}</h4>
+                            <h4 class="mb-4 ml-3">{{ $page ? $page->title : ''}}</h4>
                         </div>
                     </div>
                     <div class="pt-0">

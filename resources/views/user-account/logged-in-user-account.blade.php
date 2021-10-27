@@ -20,6 +20,37 @@
       </div>
     </div>
     <!-- End Modal -->
+
+    <!-- Start Modal -->
+    <div class="modal fade" id="content-terms" style="top:35px;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Listing Rules</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+            </div>
+            <div class="modal-body" id="">
+                <ul>
+                    <li> - Do not create listings for content you do not own</li>
+                    <li> - Do not list illegal content</li>
+                    <li> - Do not list meaningless, short text tweets</li>
+                    <li> - Do not list singular images (minimum is 2 images)</li>
+                    <li> - Do not list pornography content</li>
+                    <li> - Do not list abusive content</li>
+                    <li> - Do not list content where there is direct selling of a product or service (no commercial
+                        content)</li>
+                    <li> - Do not spam or create a misleading listing</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirm-create-content" class="btn btn-primary">Ok</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+
   </article>
 </main>
 <!--End main Part-->
@@ -98,6 +129,22 @@ jQuery(document).ready(function($) {
         });
 
     });
+
+    // Content Terms
+    $(document).on('click','#content-terms-button',function(event)
+    {
+        $('#content-terms').modal({
+            show: true
+        });
+    });
+
+    $(document).on('click','#confirm-create-content',function(event)
+    {
+        var addContentUrl = '{{route('user.content.create', ['saId'=> @$socialAccountId])}}';
+
+        window.location = addContentUrl;
+    });
+
 });
 
 function deleteContent(id){

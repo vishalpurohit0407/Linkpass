@@ -67,13 +67,32 @@
         <div class="bg-login d-flex align-items-center" style="background:#FFF;color:#666;">
           {{-- <div class="bg-login d-flex align-items-center" style="background: url({{ asset('assets/img/bg01.png') }}); background-size: cover; background-repeat: no-repeat;"> --}}
           <div class="div1 allshow">
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>
+              Signing up on LinkPasser as a user allows you to
+              share your interests with LinkPasser so that
+              LinkPasser may find content that matches those
+              interests and give it to you on a periodical basis.
+              With this type of account you can also create
+              your own content listing, to be discovered by
+              others, and thereby becoming a hybrid of a user
+              and creator account. This account is for
+              individuals. If this account isn’t what you’re
+              looking for, try the LinkPasser creator account!
+            </p>
           </div>
           <div class="div2 allshow" style="display: none;">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>
+              Signing up on LinkPasser as a creator allows you
+              to create content listings for your various content
+              wherever it may be found. Your content listings
+              will be matched to the interests of LinkPasser
+              users. This type of account is for users who just
+              want to list their content on LinkPasser so that it
+              may be discovered by others. Nonindividuals,
+              such as companies, should choose this account.
+              If this account isn’t what you’re looking for, try
+              the LinkPasser individual user account!
+            </p>
           </div>
 
         </div>

@@ -93,7 +93,7 @@
             @if($type == 'socialAccount')
               <li class="disabled-li"><a href="{{route('user.social-account.create')}}" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
             @else
-              <li class="disabled-li"><a href="{{route('user.content.create', ['saId'=> @$socialAccountId])}}" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
+              <li class="disabled-li"><a id="content-terms-button" href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
             @endif
           @else
             <li class="disabled-li"><a href="javascript:void(0);" class="filter-btn-disabled circle-link"><i class="far fa-plus"></i></a></li>

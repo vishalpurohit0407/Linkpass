@@ -1130,6 +1130,7 @@ button:focus {
 /*============= Main Content Home =============*/
 main.main {
 	margin-top: 50px;
+	min-height:350px;
 }
 /*============= Start Titel =============*/
 .sec-title {

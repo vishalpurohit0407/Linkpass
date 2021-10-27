@@ -95,11 +95,28 @@
 
             <h3>{{$isCreator ? 'Creator' : 'User'}} Sign Up</h3>
             <div class="text-left">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-              <div class="pb-3"></div>
               @if($isCreator)
+                <p>
+                  With this account you can create content listings
+                  for your content so that LinkPasser can match
+                  your listings with the interests of LinkPasser
+                  users. This type of account is for individuals and
+                  non-individuals to only create content listings in
+                  their professional and non-personal capacity.
+                </p>
+                <div class="pb-3"></div>
                 <p><strong>If you want to sign up as a User <a href="{{url('register')}}">Sign Up</a></strong></p>
               @else
+              <p>
+                With this account you can share your interests
+                with LinkPasser so that LinkPasser may find
+                content listings which match your interests. You
+                may also choose to create your own listings of
+                your content, later. This type of account is for
+                individuals only and is primarily aimed for
+                nonprofessional and personal use.
+              </p>
+              <div class="pb-3"></div>
                 <p><strong>If you want to sign up as a Creator <a href="{{url('creator-register')}}">Sign Up</a></strong></p>
               @endif
               <hr>
@@ -224,6 +241,8 @@
                   <div class="form-group login-btn">
                     <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Continue</button>
                   </div>
+                  <p class="text-align-left font-14 pull-left">By signing up you agree to the LinkPasser <a href="{{url('terms-conditions')}}">Terms & Conditions</a> and <a href="{{url('privacy-policy')}}">Privacy Policy</a>.  Also, by signing up you acknowledge that you are 13 years of age or older</p>
+
                 <h5 class="text-light mt-4">Already have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModalPrompt" >Login</a></h5>
             </form>
 
