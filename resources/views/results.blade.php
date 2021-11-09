@@ -399,7 +399,7 @@
 
     if(['1','2','3'].includes(action) && visitCount == 0)
     {
-        swal('Oops!', 'Please visit the content before take this action', 'error');
+        swal('', 'Please visit the listed content first.', 'error');
         return false
     }
 

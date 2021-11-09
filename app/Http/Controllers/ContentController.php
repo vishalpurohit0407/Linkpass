@@ -466,7 +466,7 @@ class ContentController extends Controller
                 }
             }
 
-            return Response::json(['status' => true, 'message' => 'The content action has been saved successfully.', 'actionCount' => $actionCount, 'reload' => $reload]);
+            return Response::json(['status' => true, 'message' => 'Done!', 'actionCount' => $actionCount, 'reload' => $reload]);
        }
 
        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
