@@ -287,7 +287,7 @@ jQuery(document).ready(function($){
 
             if(data.status)
             {
-                swal('Succes!!', data.message, 'success');
+                swal('Success!', data.message, 'success');
 
                 $('.ratingsCount').html(data.ratingsCount);
 
@@ -467,7 +467,7 @@ function saveContentAction(element, action){
 
                     if(data.status)
                     {
-                        swal('Succes!!', data.message, 'success');
+                        swal('Success!', data.message, 'success');
 
                         $(element).remove();
 

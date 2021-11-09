@@ -232,7 +232,7 @@
 
               if(data.status)
               {
-                  swal('Succes!!', data.message, 'success');
+                  swal('Success!', data.message, 'success');
 
                   $('.ratingsCount').html(data.ratingsCount);
 
@@ -376,7 +376,7 @@
 
             if(data.status)
             {
-                swal('Succes!!', data.message, 'success');
+                swal('Success!', data.message, 'success');
 
                 setTimeout(function()
                 {
@@ -428,7 +428,7 @@
 
                       if(data.status)
                       {
-                          swal('Succes!!', data.message, 'success');
+                          swal('Success!', data.message, 'success');
 
                             if(action == '4' || action == '5' || data.reload == '1')
                             {

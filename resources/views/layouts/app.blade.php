@@ -86,7 +86,7 @@
         <div class="modal-dialog modal-md">
           <div class="modal-content">
             <div class="modal-header py-3">
-              <h4 class="modal-title text-light">Linkpasser Login</h4>
+              <h4 class="modal-title text-light">Linkpasser Log in</h4>
               <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
             </div>
             <div class="modal-body">
@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="form-group login-btn">
-                  <button type="submit" id="loginBtn" class="btn btn-primary rounded-30 text-uppercase w-100">Login</button>
+                  <button type="submit" id="loginBtn" class="btn btn-primary  text-uppercase w-100">Log in</button>
                 </div>
                 <div class="text-center"> <a href="{{ route('password.request') }}">Forgot Password?</a> </div>
               </form>
@@ -212,7 +212,7 @@
             }
             else
             {
-              swal('Login Failed!!', data.message, 'error');
+              swal('Log in Failed!!', data.message, 'error');
             }
         });
     });

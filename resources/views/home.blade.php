@@ -37,11 +37,11 @@
                 <div class="form-group radioeffect magic-radio-group text-left">
                   <span>
                     <input name="user_type" value="0" id="radio1" class="css-checkbox radioshow magic-radio" type="radio" data-class="div1" checked="">
-                    <label for="radio1" class="css-label radGroup1">Login as a user</label>
+                    <label for="radio1" class="css-label radGroup1">Log in as a user</label>
                   </span>
                   <span>
                     <input name="user_type" value="1" id="radio2" class="css-checkbox radioshow magic-radio" type="radio" data-class="div2">
-                    <label for="radio2" class="css-label radGroup1">Login as a creator</label>
+                    <label for="radio2" class="css-label radGroup1">Log in as a creator</label>
                   </span>
                 </div>
                 <div class="chiller_cb mb-3">
@@ -50,14 +50,14 @@
                   <span></span>
               </div>
                 <div class="form-group login-btn">
-                  <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Login</button>
+                  <button type="submit" class="btn btn-primary text-uppercase w-100">Log in</button>
                 </div>
                 <a href="{{ route('password.request') }}">Forgot Password?</a>
-                <h5 class="text-light mt-4">Want an account? <a href="{{ route('register') }}">Sign Up</a></h5>
+                <h5 class="text-light mt-4">Want an account? <a href="{{ route('register') }}">Sign up</a></h5>
                 <div class="or">
                   <p>Or</p>
                 </div>
-                <h5 class="text-light mt-4">Want to sign Up as a Creator? <a href="{{ route('creator-register') }}">Sign Up</a></h5>
+                <h5 class="text-light mt-4">Want to sign up as a Creator? <a href="{{ route('creator-register') }}">Sign up</a></h5>
               </form>
             </div>
           </aside>

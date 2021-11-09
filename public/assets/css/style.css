@@ -56,7 +56,7 @@ a:hover{
 }
 a:active, a:focus {
 	text-decoration: none;
-	color: #ca082a;
+	/* color: #ca082a; */
 	outline: none;
 }
 :focus {
@@ -564,13 +564,29 @@ button:focus {
 .text-light {
 	color: #666 !important;
 }
+a.text-light:hover, a.text-light:focus
+{
+	color: #666 !important;
+}
 .text-dark {
+	color: #000 !important;
+}
+a.text-dark:hover, a.text-dark:focus
+{
 	color: #000 !important;
 }
 .text-secondary {
 	color: #99ccff !important;
 }
+a.text-secondary:hover, a.text-secondary:focus
+{
+	color: #99ccff !important;
+}
 .text-primary {
+	color: #9999ff !important;
+}
+a.text-primary:hover, a.text-primary:focus
+{
 	color: #9999ff !important;
 }
 .bg-secondary {
@@ -667,6 +683,7 @@ button:focus {
 	padding-left: 2.375rem;
 	height: 2.375rem !important;
 	line-height: 2.375rem;
+	background: #FAFAFA;
 }
 .header-center {
 	width: 40%;
@@ -857,8 +874,8 @@ button:focus {
 	font-size: 32px;
 	color: #666;
 	width: 50px;
-	height: 50px;
-	line-height: 50px;
+	height: 35px;
+	line-height: 35px;
 }
 .btn-menu ul li a img {
 	position: relative;
@@ -1419,7 +1436,7 @@ footer {
 }
 .header-sec-link span {
 	position: absolute;
-	left: 50%;
+	left: 48%;
 	width: 30px;
 	height: 18px;
 	line-height: 18px;
@@ -1546,7 +1563,7 @@ ul.ListingList li a:hover {
 	width: 33.33%!important;
 }
 .KeptPills.nav-pills .nav-link.active, .KeptPills.nav-pills .show>.nav-link {
-	background: #9999ff;
+	background: #41C7DB;
 	color: #FFF;
 }
 .KeptPills.nav-pills .nav-link {
@@ -2386,7 +2403,7 @@ ul.ListingList li a:hover {
 
 li.top-right-ellipse-li
 {
-	width: 50px;
+	width: 40px;
 	background-color: #EEE;
 	border-radius: 50%;
 	text-align: center;

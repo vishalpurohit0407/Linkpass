@@ -560,6 +560,12 @@
 .width-75{
     width:75px!important;
 }
+.height-90{
+    height:90px!important;
+}
+.width-90{
+    width:90px!important;
+}
 .height-75{
     height:75px!important;
 }
@@ -571,6 +577,13 @@
 	height: 64px;
 }
 .user-profile-avatar img {
+	padding: 2px;
+}
+.user-profile-avatar-90 {
+	width: 90px;
+	height: 90px;
+}
+.user-profile-avatar-90 img {
 	padding: 2px;
 }
 

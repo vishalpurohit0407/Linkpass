@@ -53,8 +53,8 @@
               </li>
             @else
               <li>
-                  <a href="{{url('login')}}">Login</a>
-                  <a href="{{url('creator-login')}}">Creator Login <i class="fas fa-user"></i></a>
+                  <a href="{{url('login')}}">Log in</a>
+                  <a href="{{url('creator-login')}}">Creator Log in <i class="fas fa-user"></i></a>
               </li>
             @endif
 
@@ -89,18 +89,18 @@
             <li class="top-right-ellipse-li"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-ellipsis-v"></i></a>
               <ul class="dropdown-menu dropdown-menu-right">
                 @if(isset(Auth::user()->id))
-                  <li class="nav-item"> <a class="nav-link" href="{{url('profile_settings')}}"> <span class="font-16"><i class="fal fa-cog"></i> Setting</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" href="{{url('profile_settings')}}"> <span class="font-16"><i class="fal fa-cog"></i> Settings</span></a> </li>
                   <li class="nav-item"> <a class="nav-link" href="{{url('account')}}"> <span class="font-16"><i class="fal fa-user"></i> My Account</span></a> </li>
-                @endif
+
                 {{-- <li class="nav-item"> <a class="nav-link" id="ShowFooter" href="javascript:void(0);"> <span class="font-16"><i class="fal fa-square"></i> Footer</span></a> </li> --}}
-                @if(isset(Auth::user()->id))
-                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('trending')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Trending</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('latest')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Latest</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}">  <span class="font-16"><i class="fal fa-sign-out"></i> Logout</span></a> </li>
-                @elseif(Route::currentRouteName() != '')
+
+                  {{-- <li class="nav-item"> <a class="nav-link" id="" href="{{url('trending')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Trending</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('latest')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Latest</span></a> </li> --}}
+                  <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}">  <span class="font-16"><i class="fal fa-sign-out"></i> Log out</span></a> </li>
+                 @else
                   <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);" data-toggle="modal" data-target="#loginModalPrompt"> <span class="font-16"><i class="fal fa-sign-in"></i> Log in</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('register')}}" > <span class="font-16"><i class="fal fa-user-plus"></i> Sign Up</span></a> </li>
-                @endif
+                  <li class="nav-item"> <a class="nav-link" id="" href="{{url('register')}}" > <span class="font-16"><i class="fal fa-user-plus"></i> Sign up</span></a> </li>
+                  @endif
               </ul>
             </li>
           </ul>
@@ -115,7 +115,7 @@
     <div class="container">
       <div class="header-sec-top-part">
         <p class="head-time user-interest-head-time">{{ !empty(Auth::user()->interest_last_updated_at) ? date('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at)) : ''}} </p>
-        <h4 class="m-0 user-interest-head-title">{{ !empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Interests!'}}</h4>
+        <h4 class="m-0 user-interest-head-title">{{ !empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Let your interests find you!'}}</h4>
       </div>
       <div class="header-sec-link btn-receita" id="btn-receitamob" data-clicked-times="0"> <span class="custom-scroll-link"><i class="fal fa-chevron-double-down" id="seta"></i></span> </div>
       <div id="receita-div" style="display: none; height: 250px; border: 1px solid #ccc; border-top: 0;" class="{{Route::currentRouteName() != 'profile.edit' ? 'receita-hidden' : 'user-ineresest-wrap'}}">
@@ -140,7 +140,7 @@
                     </div>
 
                     <div class="form-group login-btn">
-                      <button type="button" class="btn btn-primary rounded-30 text-uppercase w-100 save-user-interest">Save</button>
+                      <button type="button" class="btn btn-primary  text-uppercase w-100 save-user-interest">Save</button>
                     </div>
                   </div>
                 </div>

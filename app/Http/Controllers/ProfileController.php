@@ -264,7 +264,7 @@ class ProfileController extends Controller
             $user->interest_last_updated_at = Carbon::now();
             $user->save();
 
-            return response()->json(['success' => true, 'title' => $title, 'updated_at' => date('Y/m/d h:i A', strtotime($user->interest_last_updated_at)), 'message' => 'The user interest has been saved successfully.']);
+            return response()->json(['success' => true, 'title' => $title, 'updated_at' => date('Y/m/d h:i A', strtotime($user->interest_last_updated_at)), 'message' => 'Your changes have been saved']);
         }
         else
         {

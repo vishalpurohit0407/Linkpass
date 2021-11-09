@@ -235,8 +235,8 @@
 
                                     <div class="row">
                                       <div class="col-md-12 text-center">
-                                          <input type="submit" class="btn btn-primary rounded-30 text-uppercase float-left " name="submit" value="Save">
-                                          <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-default rounded-30 text-uppercase float-left ml-2 ">Cancel</a>
+                                          <input type="submit" class="btn btn-primary  text-uppercase float-left " name="submit" value="Save">
+                                          <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-default  text-uppercase float-left ml-2 ">Cancel</a>
                                       </div>
                                     </div>
 

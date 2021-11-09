@@ -159,7 +159,7 @@ function deleteContent(id){
 
         if(data.status)
         {
-            swal('Succes!!', data.message, 'success');
+            swal('Success!', data.message, 'success');
             pageno=1;
             getData();
             return false;

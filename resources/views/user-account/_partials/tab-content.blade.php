@@ -6,7 +6,7 @@
           <li><a class="AllTab bg-secondary" id="showall">All</a></li>
         </ul> --}}
         <ul>
-          <li><a href="javascript:void(0);" class="bg-secondary circle-link"><i class="fas fa-plus"></i></a></li>
+          <li class="disabled-li"><a href="javascript:void(0);"  class="filter-btn-disabled circle-link"><i class="fas fa-plus"></i></a></li>
           <li class="active"><a href="javascript:void(0);" data-tab-name="saved" data-filter-by="" class="bg-secondary sortContentListing"><i class="fas fa-align-left"></i></a></li>
         </ul>
         <ul>
@@ -169,9 +169,9 @@
               </div>
               <div class="col-md-6 mt-3">
                 @if($editable)
-                  <a href="{{route('user.account')}}" class="btn btn-primary btn-sm rounded-30 text-uppercase pull-right ">Back</a>
+                  <a href="{{route('user.account')}}" class="btn btn-primary btn-sm  text-uppercase pull-right ">Back</a>
                 @else
-                  <a href="{{route('other-user.account', $user->hashid)}}" class="btn btn-primary btn-sm rounded-30 text-uppercase pull-right ">Back</a>
+                  <a href="{{route('other-user.account', $user->hashid)}}" class="btn btn-primary btn-sm  text-uppercase pull-right ">Back</a>
                 @endif
               </div>
             </div>

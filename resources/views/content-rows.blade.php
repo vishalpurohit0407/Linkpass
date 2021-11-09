@@ -21,7 +21,7 @@
 
       @endphp
       <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-3" id="content-box-{{$content->id}}">
-        <div class="AddVideo {!!$content->user_views_count == 0 ? 'content-visited' : '' !!}">
+        <div class="AddVideo {!!$content->user_views_count == 0 ? 'content-visited1111' : '' !!}">
           <div class="YoutubeLable"><span>{{ isset($content->content_account->name) ? $content->content_account->name : 'N/A'}}</span></div>
           @php
             $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
@@ -105,7 +105,7 @@
 
             <li>
               @php
-                $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
+                $inappropriateClass = (isset(Auth::user()->user_type) && Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
               @endphp
               <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
             </li>
@@ -172,7 +172,7 @@
       </aside>
     @endforeach
   @else
-      <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">There is no content to display</div>
+      <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">No listings found</div>
   @endif
 </div>
   <!-- Start Modal -->

@@ -141,14 +141,14 @@
             <div class="row d-flex justify-content-center">
                 <aside class="col-lg-5">
                 <ul class="nav nav-pills mb-3 KeptPills" id="pills-tab" role="tablist">
-                    <li class="nav-item w-auto"> <a class="nav-link {{ (request()->old('updateProfile') || !request()->old('changePass')) ? 'active' : '' }}" id="pills-Profile-tab" data-toggle="pill" href="#pills-Profile" role="tab" aria-controls="pills-Profile" aria-selected="true">Profile Setting</a> </li>
-                    <li class="nav-item w-auto"> <a class="nav-link {{ request()->old('changePass') ? 'active' : '' }}" id="pills-Pass-tab" data-toggle="pill" href="#pills-Pass" role="tab" aria-controls="pills-Pass" aria-selected="false">Change Password</a> </li>
+                    <li class="nav-item w50p"> <a class="nav-link {{ (request()->old('updateProfile') || !request()->old('changePass')) ? 'active' : '' }}" id="pills-Profile-tab" data-toggle="pill" href="#pills-Profile" role="tab" aria-controls="pills-Profile" aria-selected="true">Profile Settings</a> </li>
+                    <li class="nav-item w50p"> <a class="nav-link {{ request()->old('changePass') ? 'active' : '' }}" id="pills-Pass-tab" data-toggle="pill" href="#pills-Pass" role="tab" aria-controls="pills-Pass" aria-selected="false">Change Password</a> </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <!--Start Profile-->
                     <div class="tab-pane fade {{ (request()->old('updateProfile') || !request()->old('changePass')) ? 'show active' : '' }}" id="pills-Profile" role="tabpanel" aria-labelledby="pills-Profile-tab">
                     <div class="login-box text-center">
-                        <h5><strong>Profile Setting</strong></h5>
+                        <h5><strong>Profile Settings</strong></h5>
 
                         <form method="post" action="{{ route('profile.update') }}" autocomplete="off" enctype= "multipart/form-data">
                             @csrf
@@ -272,7 +272,7 @@
                                         <div class="form-group text-left">
                                             <div class="custom-file">
                                                 <input type="file" name="profile_img" class="custom-file-input" id="customFileLang" accept="image/*" lang="en" onchange="loadFile(event)">
-                                                <label class="custom-file-label" for="customFileLang">Select file</label>
+                                                <label class="custom-file-label" for="customFileLang">Select profile image</label>
                                             </div>
                                         </div>
                                     </div>
@@ -302,7 +302,7 @@
                                 </div>
 
                                 <div class="form-group login-btn mt-3">
-                                    <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Save</button>
+                                    <button type="submit" class="btn btn-primary  text-uppercase w-100">Save</button>
                                 </div>
                             </div>
                         </form>
@@ -342,7 +342,7 @@
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('password') ? ' has-danger' : '' }}">
                                         <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" value="" >
-                                        <small id="passwordHelp" class="form-text text-muted">Password must contain atleast one number and special character</small>
+                                        <small id="passwordHelp" class="form-text text-muted">Password must contain at least one number and special character</small>
                                         @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('password') }}
@@ -355,7 +355,7 @@
                                 </div>
 
                                 <div class="form-group login-btn">
-                                    <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Save</button>
+                                    <button type="submit" class="btn btn-primary  text-uppercase w-100">Save</button>
                                 </div>
                             </div>
                         </form>
@@ -444,7 +444,7 @@ jQuery(document).ready(function($) {
             datatype: "json"
         }).done(function(data) {
               getUserPreferences();
-              //swal('Succes!!', data.message, 'success');
+              //swal('Success!', data.message, 'success');
               return false;
         })
     });
@@ -462,7 +462,7 @@ jQuery(document).ready(function($) {
         }).done(function(data) {
             if(status == 2)
             {
-              swal('Succes!!', 'You can now create content listings', 'success');
+              swal('Success!', 'You can now create content listings', 'success');
             }
             return false;
         })
@@ -483,7 +483,7 @@ jQuery(document).ready(function($) {
 
             $('.user-interest-head-title').html(data.title)
             $('.user-interest-head-time').html(data.updated_at)
-              swal('Succes!!', data.message, 'success');
+              swal('Success!', data.message, 'success');
               return false;
         })
     });
@@ -687,7 +687,7 @@ function saveUserPreferencesGroup(element) {
                 }).done(function(data) {
                     if (data.success) {
                         getUserPreferences();
-                        swal('Succes!!', data.message, 'success');
+                        swal('Success!', data.message, 'success');
                         return false;
                     } else {
                         swal({
@@ -736,7 +736,7 @@ function deleteUserPreferencesGroup(element) {
             }).done(function(data) {
                 if (data.success) {
                     getUserPreferences();
-                    swal('Succes!!', data.message, 'success');
+                    swal('Success!', data.message, 'success');
                     return false;
                 } else {
                     swal('Error!!', data.message, 'error');
@@ -795,7 +795,7 @@ function deleteUserPreferencesGroup(element) {
 //               }).done(function(data) {
 //                   if (data.success) {
 //                       getUserPreferences();
-//                       swal('Succes!!', data.message, 'success');
+//                       swal('Success!', data.message, 'success');
 //                       return false;
 //                   } else {
 //                       swal({

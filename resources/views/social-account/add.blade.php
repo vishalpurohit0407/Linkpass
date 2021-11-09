@@ -104,8 +104,8 @@
                                 </div>
 
                                 <div class="form-group mt-3">
-                                    <button type="submit" class="btn btn-primary rounded-30 text-uppercase float-left w-50">Save</button>
-                                    <a href="{{route('user.account')}}" class="btn btn-default rounded-30 text-uppercase float-left ml-2 w-45">{{ __('Cancel') }}</a>
+                                    <button type="submit" class="btn btn-primary  text-uppercase float-left w-50">Save</button>
+                                    <a href="{{route('user.account')}}" class="btn btn-default  text-uppercase float-left ml-2 w-45">{{ __('Cancel') }}</a>
                                 </div>
 
                             </div>

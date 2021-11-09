@@ -139,7 +139,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="ni ni-key-25 text-info"></i> Login
+                    <i class="ni ni-key-25 text-info"></i> Log in
                 </a>
             </li>
             <li class="nav-item">

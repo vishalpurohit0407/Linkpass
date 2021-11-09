@@ -161,7 +161,7 @@ function deleteContent(id){
 
         if(data.status)
         {
-            swal('Succes!!', data.message, 'success');
+            swal('Success!', data.message, 'success');
             jQuery('#content-box-'+id).remove();
             return false;
         }
@@ -186,7 +186,7 @@ function deleteSocialAccount(id){
 
         if(data.status)
         {
-            swal('Succes!!', data.message, 'success');
+            swal('Success!', data.message, 'success');
             jQuery('#social-account-box-'+id).remove();
             return false;
         }
@@ -405,7 +405,7 @@ function deleteSocialAccount(id){
 
               if(data.status)
               {
-                  swal('Succes!!', data.message, 'success');
+                  swal('Success!', data.message, 'success');
 
                   $('.ratingsCount').html(data.ratingsCount);
 
@@ -707,7 +707,7 @@ function deleteSocialAccount(id){
         }).done(function(data){
             if(data.status)
             {
-                swal('Succes!!', data.message, 'success');
+                swal('Success!', data.message, 'success');
                 var tabName = $('.content-tabs.active').data('tab-name');
 
                 getTabsContentData(tabName);
@@ -748,7 +748,7 @@ function deleteSocialAccount(id){
 
                       if(data.status)
                       {
-                          swal('Succes!!', data.message, 'success');
+                          swal('Success!', data.message, 'success');
 
                           $(element).removeClass('content-action');
                           $(element).addClass('action-disabled');

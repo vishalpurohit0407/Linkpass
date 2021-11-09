@@ -22,7 +22,7 @@
                 @endphp
 
                 <div class="text-center text-muted mb-4">
-                    <span>{{ $isCreator ? __('Creator Sign Up') : __('Sign Up') }}</span>
+                    <span>{{ $isCreator ? __('Creator Sign Up') : __('Sign up') }}</span>
                 </div>
                 <form role="form" method="POST" action="{{ route('register') }}">
                     @csrf
@@ -75,7 +75,7 @@
             </div>
             <div class="col-6 text-right">
                 <a href="{{ route('login') }}" class="">
-                    <small>{{ __('Login') }}</small>
+                    <small>{{ __('Log in') }}</small>
                 </a>
             </div>
           </div>
@@ -93,7 +93,7 @@
                 $isCreator = isset($isCreator) ? 1 : 0;
             @endphp
 
-            <h3>{{$isCreator ? 'Creator' : 'User'}} Sign Up</h3>
+            <h3>{{$isCreator ? 'Creator' : 'User'}} Sign up</h3>
             <div class="text-left">
               @if($isCreator)
                 <p>
@@ -105,7 +105,7 @@
                   their professional and non-personal capacity.
                 </p>
                 <div class="pb-3"></div>
-                <p><strong>If you want to sign up as a User <a href="{{url('register')}}">Sign Up</a></strong></p>
+                <p><strong>If you want to sign up as a User <a href="{{url('register')}}">Sign up</a></strong></p>
               @else
               <p>
                 With this account you can share your interests
@@ -117,7 +117,7 @@
                 nonprofessional and personal use.
               </p>
               <div class="pb-3"></div>
-                <p><strong>If you want to sign up as a Creator <a href="{{url('creator-register')}}">Sign Up</a></strong></p>
+                <p><strong>If you want to sign up as a Creator <a href="{{url('creator-register')}}">Sign up</a></strong></p>
               @endif
               <hr>
             </div>
@@ -157,7 +157,7 @@
               <div class="form-group login-btn">
                 <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Continue</button>
               </div>
-              <h5 class="text-light mt-4">Already have an account? <a href="#">Login</a></h5>
+              <h5 class="text-light mt-4">Already have an account? <a href="#">Log in</a></h5>
             </form> --}}
 
             <form role="form" method="POST" action="{{ route('register') }}" id="registerForm">
@@ -216,7 +216,7 @@
                     <div class="input-group input-group-alternative">
                         <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password" id="password">
                     </div>
-                    <small id="passwordHelp" class="form-text text-muted">Password must contain atleast one number and special character</small>
+                    <small id="passwordHelp" class="form-text text-muted">Password must contain at least one number and special character</small>
                     <div id="strengthMessage"></div>
                     @if ($errors->has('password'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -239,11 +239,11 @@
                  <div class="g-recaptcha" data-sitekey="6LeoP6MaAAAAAF8YZYET3TcBRt9fL_wO0zBcv_Vh"></div>
 
                   <div class="form-group login-btn">
-                    <button type="submit" class="btn btn-primary rounded-30 text-uppercase w-100">Continue</button>
+                    <button type="submit" class="btn btn-primary text-uppercase w-100">Continue</button>
                   </div>
-                  <p class="text-align-left font-14 pull-left">By signing up you agree to the LinkPasser <a href="{{url('terms-conditions')}}">Terms & Conditions</a> and <a href="{{url('privacy-policy')}}">Privacy Policy</a>.  Also, by signing up you acknowledge that you are 13 years of age or older</p>
+                  <p class="text-align-left font-14 pull-left">By signing up you agree to the LinkPasser <a href="{{url('terms-conditions')}}">Terms & Conditions</a> and <a href="{{url('privacy-policy')}}">Privacy Policy</a>.  Also, by signing up you acknowledge that you are 13 years of age or older.</p>
 
-                <h5 class="text-light mt-4">Already have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModalPrompt" >Login</a></h5>
+                <h5 class="text-light mt-4">Already have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModalPrompt" >Log in</a></h5>
             </form>
 
           </div>
