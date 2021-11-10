@@ -515,7 +515,9 @@ jQuery(document).ready(function($) {
                 trimValue: true,
                 addOnBlur: false,
                 itemText: function(item) {
-                    return item.replace(" ", "");
+                    item = item.replace(" ", "");
+                    item = item.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
+                    return item;
                 }
             };
 
@@ -535,9 +537,8 @@ jQuery(document).ready(function($) {
                     var existingTags = $('#userPreferencesTags').val();
                     var tagListArr = JSON.parse(existingTags);
                     var item = event.item;
-
                     item = item.replace(" ", "");
-
+                    item = item.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
                     if(tagListArr.includes(item))
                     {
                         event.cancel = true;
@@ -551,6 +552,7 @@ jQuery(document).ready(function($) {
                     event.preventDefault();
                     var tagStr = event.item;
                         tagStr = tagStr.replace(" ", "");
+                        tagStr = tagStr.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
 
                         // event.cancel=true;
                         // event.preventDefault=true;

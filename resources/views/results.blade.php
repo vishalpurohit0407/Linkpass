@@ -161,7 +161,8 @@
 
               if(data.status)
               {
-                  $('#view-count-'+contentId).html(data.count+ ' Visits');
+                  var visitStr = parseInt(data.count) == 1 ? 'Visit' : 'Visits';
+                  $('#view-count-'+contentId).html(data.count+ ' ' +visitStr);
 
                   window.open(data.url, '_blank').focus();
               }
