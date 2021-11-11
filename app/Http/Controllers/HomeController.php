@@ -163,6 +163,7 @@ class HomeController extends Controller
                 $query = $query->orWhereHas('content_user', function ($query) use ($keyword)
                 {
                     $query->where('account_name', 'LIKE', '%'.$keyword.'%');
+                    $query->orWhere('name', 'LIKE', '%'.$keyword.'%');
                 });
 
             });

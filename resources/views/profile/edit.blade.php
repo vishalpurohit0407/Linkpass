@@ -462,7 +462,7 @@ jQuery(document).ready(function($) {
         }).done(function(data) {
             if(status == 2)
             {
-              swal('Success!', 'You can now create content listings', 'success');
+              swal('', 'You can now create content listings', 'success');
             }
             return false;
         })

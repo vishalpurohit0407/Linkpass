@@ -1613,6 +1613,20 @@ ul.ListingList li a:hover {
 	background: #9999ff !important;
 	color: #FFF;
 }
+.TabFilter ul li a.bg-success:focus {
+	background: #28a745  !important;
+	color: #FFF;
+}
+.TabFilter ul li a.bg-danger:focus {
+	background: #c7092a  !important;
+	color: #FFF;
+}
+
+.TabFilter ul li a.bg-secondary:focus {
+	background: #007fff  !important;
+	color: #FFF;
+}
+
 .TabFilter ul li a.AllTab {
 	width: auto;
 	padding: 5px 24px;

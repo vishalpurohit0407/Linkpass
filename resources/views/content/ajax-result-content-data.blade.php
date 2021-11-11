@@ -65,7 +65,7 @@
                 @endif
 
                 @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
-                  <div class="Keep">
+                  <div class="Save">
                     <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"></a>
                   </div>
                 @endif
@@ -142,12 +142,12 @@
           <div class="item mt-px-15">
             <div class="d-flex justify-content-between align-items-center">
               @if(isset($content->content_user_keep->id))
-              <div class="w30p ml-3 text-left">
+              <div class="w30p text-left">
                   <span class="text-danger text-uppercase mr-5 saved-label" style="font-weight: bold;">SAVED</span>
               </div>
               @endif
               <div class="w30p {{ !isset($content->content_user_keep->id) ? 'text-left' : 'text-center' }}">
-                <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details mx-2 visit-btn">VISIT</a>
+                <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details visit-btn">VISIT</a>
               </div>
 
               <div class="text-right {!! isset($content->content_user_keep->id) ? 'w30p' : 'w65p' !!}">

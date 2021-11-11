@@ -689,7 +689,7 @@ function deleteSocialAccount(id){
         text += '</select>';
         break;
       case '4':
-          text = "Are you sure you want to Keep this listing?";
+          text = "Are you sure you want to Save this listing?";
           break;
       case '5':
           text = "Are you sure you want to Remove this listing?";
