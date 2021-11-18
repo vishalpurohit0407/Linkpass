@@ -243,6 +243,10 @@ class ContentController extends Controller
 
             ContentTags::whereNotIn('name', $tags)->delete();
         }
+        else
+        {
+            ContentTags::where('content_id', $content->id)->where('content_id', $content->id)->delete();
+        }
 
         if(!empty($request->category_tags))
         {
@@ -254,7 +258,11 @@ class ContentController extends Controller
                 $contentCategoryTags = ContentCategoryTags::updateOrCreate($cparams);
             }
 
-            ContentCategoryTags::whereNotIn('name', $categoryTags)->delete();
+            ContentCategoryTags::whereNotIn('name', $categoryTags)->where('content_id', $content->id)->delete();
+        }
+        else
+        {
+            ContentCategoryTags::where('content_id', $content->id)->delete();
         }
 
         // $social_account_id = $request->social_account_id;
