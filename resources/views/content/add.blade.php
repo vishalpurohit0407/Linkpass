@@ -116,7 +116,7 @@
                                       <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="tags">Tags <strong class="text-danger">*</strong></label><br>
-                                            <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $contentTags)}}" required />
+                                            <input type="text" class="form-control" id="tags" name="tags" value="{{old('tags', $contentTags)}}" />
                                         </div>
                                       </div>
                                     </div>
@@ -136,7 +136,7 @@
                                           <div class="form-group">
                                               <label class="form-control-label" for="number_of_images">Number Of Images</label>
                                               <div class="input-group mb-3">
-                                                <input type="number" class="form-control" min="2" id="number_of_images" name="number_of_images" placeholder="Enter Number Of Images" value="{{old('number_of_images', ($content->number_of_images == 0) ? 2 : $content->number_of_images)}}">
+                                                <input type="number" class="form-control" min="0" id="number_of_images" name="number_of_images" placeholder="Enter Number Of Images" value="{{old('number_of_images', ($content->number_of_images == 0) ? 2 : $content->number_of_images)}}">
                                               </div>
                                           </div>
                                       </div>
