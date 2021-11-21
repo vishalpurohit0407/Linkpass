@@ -124,7 +124,7 @@
                                     <div class="row">
                                       <div class="col-sm-12">
                                         <div class="form-group">
-                                          <label class="form-control-label" for="example4cols3Input">Description/Summary</label>
+                                          <label class="form-control-label" for="example4cols3Input">Description/Summary <strong class="text-danger">*</strong></label>
                                           <textarea name="description" id="description" class="form-control" rows="6" maxlength="400">{{old('description', $content->description)}}</textarea>
                                         </div>
                                       </div>
@@ -225,7 +225,7 @@
                                     <div class="row">
                                       <div class="col-sm-12">
                                           <div class="form-group">
-                                              <label class="form-control-label" for="external_link" id="external_link_label">Link</label>
+                                              <label class="form-control-label" for="external_link" id="external_link_label">Link <strong class="text-danger">*</strong></label>
                                               <div class="input-group mb-3">
                                                 <input type="url" class="form-control" id="external_link" name="external_link" placeholder="Enter URL " value="{{old('external_link', $content->external_link)}}">
                                               </div>
@@ -345,8 +345,12 @@ function validateStep2()
   var main_title  = $('#main_title').val();
   var category_id = $('#category_id').val();
   var posted_at   = $('#posted_at').val();
-  var errorStr = '<div class="pull-left offset-4">';
-  var errCount = 0;
+  var tags        = $('#tags').val();
+  var external_link = $('#external_link').val();
+  var description = $('#description').val();
+  var errorStr    = '<div class="pull-left offset-4">';
+  var errCount    = 0;
+
   if(main_title == '')
   {
     errorStr += '<p class="text-left">Please enter main title.</p>';
@@ -362,6 +366,25 @@ function validateStep2()
   if(posted_at == '')
   {
     errorStr += '<p class="text-left">Please enter posted date.</p>';
+    errCount++;
+  }
+
+  if(tags == '')
+  {
+    errorStr += '<p class="text-left">Please enter tags.</p>';
+    errCount++;
+  }
+
+
+  if(description == '')
+  {
+    errorStr += '<p class="text-left">Please enter description.</p>';
+    errCount++;
+  }
+
+  if(external_link == '')
+  {
+    errorStr += '<p class="text-left">Please enter external link.</p>';
     errCount++;
   }
 

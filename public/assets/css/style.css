@@ -1280,7 +1280,7 @@ main.main {
 footer {
 	margin: 60px 0 0;
 	padding: 30px 0 0;
-	background: #7F7FFF;
+	background: #e7e7e7;
 }
 .footer-logo {
 	width: 110px;
@@ -1290,7 +1290,7 @@ footer {
 }
 .footer-mennu li {
 	display: inline-block;
-	border-left: 1px solid #FFF;
+	border-left: 1px solid #585858;
 	line-height: 12px;
 	padding: 0 0 0 20px;
 	margin: 0 0 0 15px;
@@ -1301,7 +1301,7 @@ footer {
 	border: 0;
 }
 .footer-mennu li a {
-	color: #FFF;
+	color: #585858;
 	font-size: 14px;
 	line-height: 12px;
 	font-weight: normal;
@@ -1314,7 +1314,7 @@ footer {
 	text-align: center;
 	font-size: 12px;
 	font-weight: normal;
-	color: #FFF;
+	color: #585858;
 }
 .FooterSocial {
 	text-align: center;
