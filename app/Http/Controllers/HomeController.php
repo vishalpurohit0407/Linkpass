@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\Content;
+use App\User;
 use App\Category;
 use App\ContentRating;
 use App\UserFollower;
@@ -26,6 +27,7 @@ class HomeController extends Controller
         $this->category       = new Category();
         $this->contentRatings = new ContentRating();
         $this->enquiry        = new Enquiry();
+        $this->user           = new User();
     }
 
     /**
@@ -126,52 +128,76 @@ class HomeController extends Controller
     {
         $keyword = trim($request->search);
 
-        $followingIds = [];
-        $followerIds  = [];
+        $followingIds  = [];
+        $followerIds   = [];
+        $isUserListing = 1;
         if(isset(Auth::user()->id))
         {
             $followingIds = UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray();
             $followerIds  = UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray();
         }
 
-        $query = $this->content->select('content.*');
-        $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
-        $query = $query->join('users', 'users.id', '=', 'content.user_id');
-        $query = $query->where('content.status', '1');
-        $query = $query->where('content.is_published', '1');
-        $query = $query->whereDoesntHave('content_user_remove');
-
-        if(isset($keyword) && !empty($keyword)) {
-            $query = $query->where(function ($query) use ($keyword)
+        if(strlen($keyword) >= 3)
+        {
+            $users = $this->user->whereHas('contents')->with(['contents' => function ($query)
             {
-                $query = $query->where('content.main_title','LIKE','%'.$keyword.'%');
-                $query = $query->orWhere('content.description','LIKE','%'.$keyword.'%');
-                $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
-                {
-                    $query->where('name', 'LIKE', '%'.$keyword.'%');
-                });
-                $query = $query->orWhereHas('content_category_tags', function ($query) use ($keyword)
-                {
-                    $query->where('name', 'LIKE', '%'.$keyword.'%');
-                });
-                $query = $query->orWhereHas('content_account', function ($query) use ($keyword)
-                {
-                    $query->where('name', 'LIKE', '%'.$keyword.'%');
-                    $query->orWhere('host_name', 'LIKE', '%'.$keyword.'%');
-                });
-
-                $query = $query->orWhereHas('content_user', function ($query) use ($keyword)
-                {
-                    $query->where('account_name', 'LIKE', '%'.$keyword.'%');
-                    $query->orWhere('name', 'LIKE', '%'.$keyword.'%');
-                });
-
+                $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
+                $query->join('users', 'users.id', '=', 'content.user_id');
+                $query->where('content.status', '1');
+                $query->where('content.is_published', '1');
+                $query->whereDoesntHave('content_user_remove');
+            }])->where(function ($uQuery) use ($keyword)
+            {
+                $uQuery->where('account_name', 'LIKE', '%'.$keyword.'%');
+                $uQuery->orWhere('name', 'LIKE', '%'.$keyword.'%');
             });
+
+            $items = $users->get();
         }
 
-        $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->get();
+        if(!isset($items) || $items->isEmpty())
+        {
+            $query = $this->content->select('content.*');
+            $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
+            $query = $query->join('users', 'users.id', '=', 'content.user_id');
+            $query = $query->where('content.status', '1');
+            $query = $query->where('content.is_published', '1');
+            $query = $query->whereDoesntHave('content_user_remove');
 
-        return view('results', array('items' => $items, 'followerIds' => $followerIds, 'followingIds' => $followingIds));
+            if(isset($keyword) && !empty($keyword)) {
+                $query = $query->where(function ($query) use ($keyword)
+                {
+                    $query = $query->where('content.main_title','LIKE','%'.$keyword.'%');
+                    $query = $query->orWhere('content.description','LIKE','%'.$keyword.'%');
+                    $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
+                    {
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                    });
+                    $query = $query->orWhereHas('content_category_tags', function ($query) use ($keyword)
+                    {
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                    });
+                    $query = $query->orWhereHas('content_account', function ($query) use ($keyword)
+                    {
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                        $query->orWhere('host_name', 'LIKE', '%'.$keyword.'%');
+                    });
+
+                    $query = $query->orWhereHas('content_user', function ($query) use ($keyword)
+                    {
+                        $query->where('account_name', 'LIKE', '%'.$keyword.'%');
+                        $query->orWhere('name', 'LIKE', '%'.$keyword.'%');
+                    });
+
+                });
+            }
+
+            $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->get();
+            $isUserListing = 0;
+        }
+
+
+        return view('results', array('items' => $items, 'followerIds' => $followerIds, 'followingIds' => $followingIds, 'isUserListing' => $isUserListing));
     }
 
     /**

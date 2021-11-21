@@ -5,7 +5,49 @@
 <main class="main">
   <article class="container" style="min-height: 375px;">
 
-    @include('content-rows')
+    @if($isUserListing == 1)
+        @foreach($items as $user)
+            @php
+                $userProfileClass = '';
+                if($user->user_type == '0')
+                {
+                    $userProfileClass = 'user-profile-bg';
+                }
+                if($user->user_type == '1')
+                {
+                    $userProfileClass = 'creator-profile-bg';
+                }
+                if($user->user_type == '2')
+                {
+                    $userProfileClass = 'hybrid-profile-bg';
+                }
+            @endphp
+                <div class="col-md-12 AddVideo pb10">
+                    <div class="row ">
+                        <aside class="col-md-2">
+                            <div class="user-profile-avatar-90 user-profile-avatar-top  ml-10">
+                                <a href="{{route('other-user.account', $user->hashid)}}">
+                                <img src="{{$user->user_image_url}}" alt="" class="rounded-circle height-90 width-90 {{$userProfileClass}}">
+                                </a>
+                            </div>
+
+                        </aside>
+                        <aside class="col-md-10">
+                            <p><a href="{{route('other-user.account', $user->hashid)}}" class="text-secondary">{{$user->account_name}}</a></p>
+                            <p><a href="{{route('other-user.account', $user->hashid)}}" class="text-secondary">{{$user->name}}</a></p>
+                            <p class="font-14"><a href="javascript:void(0);" class="text-primary"><strong class="text-primary">Here Since: </strong><span>{{date('d M Y', strtotime($user->created_at))}}</span></a></p>
+                        </aside>
+                    </div>
+                </div>
+        @endforeach
+
+        @include('content-rows', array('items' =>$user->contents))
+
+    @else
+        @include('content-rows')
+    @endif
+
+
 
   </article>
 </main>

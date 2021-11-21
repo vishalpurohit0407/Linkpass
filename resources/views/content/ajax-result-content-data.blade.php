@@ -13,7 +13,7 @@
         $userProfileClass = 'hybrid-profile-bg';
     }
 
-    $contentType = array(1 => 'Image', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
+    $contentType = array(1 => 'Images', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
     $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words.($content->number_of_words == 1 ? ' Word' : ' Words'));
 
 @endphp
@@ -87,14 +87,14 @@
               $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               $userLikeClass = (isset($content->content_user_like->id) && !isset($content->content_user_unlike->id)) ? 'like-action-disabled' : '';
             @endphp
-            <a href="javascript:void(0);" data-action="1" data-content-id="{{ $content->id }}" class="mr20  {{$likeClass}} {{$userLikeClass}}"><i class="fas fa-check fa-2x like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
+            <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="1" data-content-id="{{ $content->id }}" class="mr20  {{$likeClass}} {{$userLikeClass}}"><i class="fas fa-check fa-2x like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
           </li>
           <li>
             @php
               $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
               $userUnlikeClass = (!isset($content->content_user_like->id) && isset($content->content_user_unlike->id)) ? 'unlike-action-disabled' : '';
             @endphp
-            <a href="javascript:void(0);" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}} {{$userUnlikeClass}}"><i class="fas fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
+            <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}} {{$userUnlikeClass}}"><i class="fas fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
           </li>
 
           <li>
@@ -105,7 +105,7 @@
             @php
               $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
             @endphp
-            <a href="javascript:void(0);" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
+            <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
           </li>
         </ul>
 

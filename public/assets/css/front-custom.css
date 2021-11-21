@@ -700,7 +700,9 @@
 .mb-10 {
 	margin-bottom: 10px !important;
 }
-
+.pb10{
+    padding-bottom: 10px !important;
+}
 .ml-1 {
 	margin-left: 1px !important;
 }
