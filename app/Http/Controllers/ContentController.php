@@ -290,6 +290,7 @@ class ContentController extends Controller
         $content->posted_at               = $request->has('posted_at') ? date("Y-m-d H:i:s", strtotime($request->posted_at)) : '';
         $content->external_link           = $request->external_link;
         $content->status                  = '1';
+        $content->is_published            = '1';
 
         $encodedUserId = encodeHashId($content->user_id);
         $encodedSocialAccountId = encodeHashId($content->social_account_id);
