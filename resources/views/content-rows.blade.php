@@ -100,7 +100,7 @@
             </li>
 
             <li>
-              <a class="social-share" data-content-title="{{ $content->main_title }}" href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share</span></a>
+              <a class="social-share" data-content-id="{{ $content->hashid }}" data-content-title="{{ $content->main_title }}" href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share</span></a>
             </li>
 
             <li>

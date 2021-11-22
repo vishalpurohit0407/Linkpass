@@ -570,7 +570,8 @@ function deleteSocialAccount(id){
             callback: function(key, options, e) {
 
                 var contentTitle = $(options.$trigger).attr('data-content-title');
-                var url = '{{ url("results?search=")}}'+contentTitle;
+                var contentId = $(options.$trigger).attr('data-content-id');
+                var url = '{{ url("results?search=")}}'+contentTitle+'&id='+contentId;
                 var ShareUrl = '';
 
                 if(key == 'facebook')

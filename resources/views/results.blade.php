@@ -66,13 +66,23 @@
 
   jQuery(document).ready(function($) {
 
+        var id = "{{ (request()->has('id') && !empty(request()->get('id'))) ? decodeHashId(request()->get('id')) : ''}}";
+
+        if(id != '')
+        {
+            setTimeout(function(){
+                $('#view-content-details-'+id).trigger('click');
+            }, 1000);
+        }
+
         $.contextMenu({
             selector: '.social-share',
             trigger: 'left',
             callback: function(key, options, e) {
 
                 var contentTitle = $(options.$trigger).attr('data-content-title');
-                var url = '{{ url("results?search=")}}'+contentTitle;
+                var contentId = $(options.$trigger).attr('data-content-id');
+                var url = '{{ url("results?search=")}}'+contentTitle+'&id='+contentId;
                 var ShareUrl = '';
 
                 if(key == 'facebook')
