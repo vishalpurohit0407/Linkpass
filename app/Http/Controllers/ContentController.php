@@ -56,8 +56,13 @@ class ContentController extends Controller
 
     public function search(Request $request){
 
-        $content = $this->content->where('is_published', '1')->where('main_title','!=','')->where('user_id', Auth::user()->id)->where('status','=','1');
+        $content = $this->content->where('main_title','!=','')->where('user_id', Auth::user()->id)->where('status','=','1');
         $keyword = $request->search;
+
+        if((isset($user->user_type) && $user->user_type == '0'))
+        {
+            $content = $content->where('is_published', '1');
+        }
 
         if($keyword && !empty($keyword)){
             $content = $content->where('main_title','LIKE','%'.$keyword.'%');
@@ -290,7 +295,6 @@ class ContentController extends Controller
         $content->posted_at               = $request->has('posted_at') ? date("Y-m-d H:i:s", strtotime($request->posted_at)) : '';
         $content->external_link           = $request->external_link;
         $content->status                  = '1';
-        $content->is_published            = '1';
 
         $encodedUserId = encodeHashId($content->user_id);
         $encodedSocialAccountId = encodeHashId($content->social_account_id);
@@ -541,11 +545,20 @@ class ContentController extends Controller
             $loggedInUserGroupIds = $user->user_groups()->pluck('id')->toArray();
             $loggedInUserTags     = UserPreferencesGroupTags::whereIn('group_id', $loggedInUserGroupIds)->pluck('name')->toArray();
 
-            $items = $this->content->where('is_published', '1')
-            ->whereHas('content_tags', function ($query) use ($loggedInUserTags)
+            $tagsList = [];
+            if(!empty($loggedInUserTags))
             {
-              $query->whereIn('name', $loggedInUserTags);
-            });
+                foreach($loggedInUserTags as $tag)
+                {
+                    $tagsList[] = '#'.$tag;
+                }
+            }
+
+            $items = $this->content->where('is_published', '1')
+                ->whereHas('content_tags', function ($query) use ($tagsList)
+                {
+                $query->whereIn('name', $tagsList);
+                });
 
             if(!empty($filterBy))
             {
@@ -585,8 +598,13 @@ class ContentController extends Controller
 
         if($tab == 'saved')
         {
-            $items = $this->content->where('user_id', '!=', $user->id)->where('is_published', '1')
-            ->whereHas('content_user_keep', function ($query) use($user)
+            $items = $this->content->where('user_id', '!=', $user->id);
+
+            if((isset($user->user_type) && $user->user_type == '0'))
+            {
+                $items = $items->where('is_published', '1');
+            }
+            $items = $items->whereHas('content_user_keep', function ($query) use($user)
             {
               $query->where('user_id', $user->id);
             });
