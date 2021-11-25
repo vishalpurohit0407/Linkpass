@@ -274,6 +274,8 @@
               <li> - Do not list content where there is direct selling of a product or service (no commercial
                   content)</li>
               <li> - Do not spam or create a misleading listing</li>
+              <li> - Do not create the same exact listing (with the same link) more than once</li>
+              <li> - No links allowed in the description area of a content listing</li>
           </ul>
       </div>
       <div class="modal-footer">

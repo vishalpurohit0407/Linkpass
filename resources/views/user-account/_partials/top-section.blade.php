@@ -34,7 +34,7 @@
         </ul> --}}
     </aside>
     <aside class="col-md-2 head-link">
-        <p><a href="javascript:void(0);" class="text-secondary">{{$user->account_name}}</a></p>
+        <p><a href="javascript:void(0);" ><strong class="text-secondary">{{$user->account_name}}</strong></a></p>
         <p><a href="javascript:void(0);" class="text-secondary">{{$user->name}}</a></p>
         <p class="font-14"><a href="javascript:void(0);" class="text-primary"><strong class="text-primary">Here Since: </strong><span>{{date('d M Y', strtotime($user->created_at))}}</span></a></p>
         @if(!empty($user->location))

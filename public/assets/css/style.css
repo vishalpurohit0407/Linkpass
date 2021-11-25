@@ -2422,3 +2422,8 @@ li.top-right-ellipse-li
 	border-radius: 50%;
 	text-align: center;
 }
+
+.auto-height
+{
+	height: auto!important;
+}

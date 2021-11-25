@@ -464,6 +464,10 @@ jQuery(document).ready(function($) {
             {
               swal('', 'You can now create content listings', 'success');
             }
+            else
+            {
+                swal('', 'Content listing creation is suspended', 'success');
+            }
             return false;
         })
     });

@@ -29,7 +29,7 @@
         $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
         @endphp
         <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}} </a>
-        <h4>{{$content->main_title}}</h4>
+        <h4 class="auto-height">{{$content->main_title}}</h4>
         <div class="pull-left mb-2 w100p">
           <div class=" image-type">{{ isset($contentType[$content->type]) ? $contentType[$content->type] : 'N/A' }}</div>
           <div class=" image-date">{{ date("M d, 'y", strtotime($content->posted_at)) }}</div>
@@ -117,7 +117,7 @@
                 <div class="mr-2 height-32 width-32 user-profile-avatar">
                  <img src="{{$content->content_user->user_image_url}}" alt="" class="rounded-circle  {{$userProfileClass}}">
                 </div>
-                <strong><a href="javascript:void(0);">{{$creatorName}}</a></strong>
+                <strong><a href="javascript:void(0);" class="account-label">{{$creatorName}}</a></strong>
             </span>
 
             <span class="d-flex align-items-center">
