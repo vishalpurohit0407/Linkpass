@@ -237,6 +237,7 @@
                                       <div class="col-md-12 text-center">
                                           <input type="submit" class="btn btn-primary  text-uppercase float-left " name="submit" value="Save">
                                           <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-default  text-uppercase float-left ml-2 ">Cancel</a>
+                                          <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-default  text-uppercase float-left ml-2 ">Back</a>
                                       </div>
                                     </div>
 
@@ -348,7 +349,7 @@ $(document).ready(function() {
       {
         event.cancel=true;
         event.preventDefault=true;
-        item = item.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
+        item = item.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '');
         item=item.replace(" ", "");
         item='#'+item;
         $('#tags').tagsinput('add', item);

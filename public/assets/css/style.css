@@ -1436,7 +1436,7 @@ footer {
 }
 .header-sec-link span {
 	position: absolute;
-	left: 48%;
+	left: 48.55%;
 	width: 30px;
 	height: 18px;
 	line-height: 18px;
@@ -2415,12 +2415,13 @@ ul.ListingList li a:hover {
   content: "\f0d4"; /* fa-google-plus-square */
 }
 
-li.top-right-ellipse-li
+.top-right-ellipse
 {
-	width: 40px;
-	background-color: #EEE;
-	border-radius: 50%;
-	text-align: center;
+	background: #EEE;
+    width: 45px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 5px;
 }
 
 .auto-height
