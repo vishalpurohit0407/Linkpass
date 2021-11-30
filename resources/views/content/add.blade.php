@@ -399,8 +399,15 @@ function validateStep2()
   var tags        = $('#tags').val();
   var external_link = $('#external_link').val();
   var description = $('#description').val();
+  var image       = $('.dz-preview-img').length;
   var errorStr    = '<div class="pull-left offset-4">';
   var errCount    = 0;
+
+  if(image == 0)
+  {
+    errorStr += '<p class="text-left">Please upload main Image.</p>';
+    errCount++;
+  }
 
   if(main_title == '')
   {
