@@ -59,7 +59,7 @@ class ContentController extends Controller
         $content = $this->content->where('main_title','!=','')->where('user_id', Auth::user()->id)->where('status','=','1');
         $keyword = $request->search;
 
-        if((isset($user->user_type) && $user->user_type == '0'))
+        if(isset(Auth::user()->user_type) && Auth::user()->user_type == '0')
         {
             $content = $content->where('is_published', '1');
         }

@@ -1960,6 +1960,10 @@ ul.ListingList li a:hover {
 	top: -40px;
 	font-size: 40px;
 }
+#loginModalPrompt
+{
+	padding-top: 35px !important;
+}
 .user-modal .modal-body {
 	padding-top: 1.8rem
 }

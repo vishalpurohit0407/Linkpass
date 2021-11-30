@@ -141,10 +141,16 @@ class HomeController extends Controller
         {
             $users = $this->user->whereHas('contents')->with(['contents' => function ($query)
             {
+                $query->select('content.*');
                 $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
                 $query->join('users', 'users.id', '=', 'content.user_id');
                 $query->where('content.status', '1');
-                $query->where('content.is_published', '1');
+
+                if(isset(Auth::user()->user_type) && Auth::user()->user_type == '0')
+                {
+                    $query->where('content.is_published', '1');
+                }
+
                 $query->whereDoesntHave('content_user_remove');
             }])->where(function ($uQuery) use ($keyword)
             {
@@ -161,7 +167,12 @@ class HomeController extends Controller
             $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
             $query = $query->join('users', 'users.id', '=', 'content.user_id');
             $query = $query->where('content.status', '1');
-            $query = $query->where('content.is_published', '1');
+
+            if(isset(Auth::user()->user_type) && Auth::user()->user_type == '0')
+            {
+                $query->where('content.is_published', '1');
+            }
+
             $query = $query->whereDoesntHave('content_user_remove');
 
             if(isset($keyword) && !empty($keyword)) {
