@@ -74,11 +74,6 @@ class UserAccountController extends Controller
 
         $items = Content::where('user_id', $decodedUserId)->where('social_account_id', $decodedId);
 
-        if(isset(Auth::user()->user_type) && Auth::user()->user_type == '0')
-        {
-            $items = $items->where('is_published', '1');
-        }
-
         $items = $items->where('status', '1')->orderBy('created_at', 'desc')->get();
 
         $followingIds  = UserFollower::where('user_id', $decodedUserId)->pluck('linked_user_id')->toArray();

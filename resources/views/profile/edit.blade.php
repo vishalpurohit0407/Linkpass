@@ -540,7 +540,7 @@ jQuery(document).ready(function($) {
 
                     var existingTags = $('#userPreferencesTags').val();
                     var tagListArr = JSON.parse(existingTags);
-                    var item = event.item;
+                    var item = event.item.toLowerCase();
                     item = item.replace(" ", "");
                     item = item.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
                     if(tagListArr.includes(item))

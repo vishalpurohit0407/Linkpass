@@ -15,7 +15,8 @@
         <div class="row">
           <aside class="col-lg-10">
             <div class="login-box text-center">
-              <h3>LinkPasser</h3>
+              <img width="300" src="{{asset('assets/img/LinkPasser-Text.svg')}}" alt="LinkPasser" class="mb-4"/>
+
               <form role="form" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group {{ $errors->has('email') ? ' has-danger' : '' }}">
