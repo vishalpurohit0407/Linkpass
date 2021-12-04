@@ -26,9 +26,10 @@
           </span>
         </div>
         @php
-        $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
-        @endphp
-        <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}} </a>
+            $category_name = isset($content->content_category->name) ? $content->content_category->name : '';
+            $sub_category = !empty($content->sub_category) ? ": ".$content->sub_category : '';
+          @endphp
+        <a href="javascript:void(0);" class="CategoryTitle">{{$category_name}}{{$sub_category}} </a>
         <h4 class="auto-height">{{$content->main_title}}</h4>
         <div class="pull-left mb-2 w100p">
           <div class=" image-type">{{ isset($contentType[$content->type]) ? $contentType[$content->type] : 'N/A' }}</div>
@@ -105,7 +106,7 @@
             @php
               $inappropriateClass = (isset($content->content_user_inappropriate->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
             @endphp
-            <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
+            <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="3" data-content-id="{{ $content->id }}" class="mr20 report-icon-color {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
           </li>
         </ul>
 

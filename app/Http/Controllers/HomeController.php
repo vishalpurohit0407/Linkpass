@@ -145,12 +145,6 @@ class HomeController extends Controller
                 $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
                 $query->join('users', 'users.id', '=', 'content.user_id');
                 $query->where('content.status', '1');
-
-                if(isset(Auth::user()->user_type) && Auth::user()->user_type == '0')
-                {
-                    $query->where('content.is_published', '1');
-                }
-
                 $query->whereDoesntHave('content_user_remove');
             }])->where(function ($uQuery) use ($keyword)
             {
@@ -168,11 +162,6 @@ class HomeController extends Controller
             $query = $query->join('users', 'users.id', '=', 'content.user_id');
             $query = $query->where('content.status', '1');
 
-            if(isset(Auth::user()->user_type) && Auth::user()->user_type == '0')
-            {
-                $query->where('content.is_published', '1');
-            }
-
             $query = $query->whereDoesntHave('content_user_remove');
 
             if(isset($keyword) && !empty($keyword)) {
@@ -180,6 +169,7 @@ class HomeController extends Controller
                 {
                     $query = $query->where('content.main_title','LIKE','%'.$keyword.'%');
                     $query = $query->orWhere('content.description','LIKE','%'.$keyword.'%');
+                    $query = $query->orWhere('content.sub_category','LIKE','%'.$keyword.'%');
                     $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
                     {
                         $query->where('name', 'LIKE', '%'.$keyword.'%');
@@ -199,6 +189,12 @@ class HomeController extends Controller
                         $query->where('account_name', 'LIKE', '%'.$keyword.'%');
                         $query->orWhere('name', 'LIKE', '%'.$keyword.'%');
                     });
+
+                    $query = $query->orWhereHas('content_category', function ($query) use ($keyword)
+                    {
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                    });
+
 
                 });
             }

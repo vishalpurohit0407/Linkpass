@@ -59,11 +59,6 @@ class ContentController extends Controller
         $content = $this->content->where('main_title','!=','')->where('user_id', Auth::user()->id)->where('status','=','1');
         $keyword = $request->search;
 
-        if(isset(Auth::user()->user_type) && Auth::user()->user_type == '0')
-        {
-            $content = $content->where('is_published', '1');
-        }
-
         if($keyword && !empty($keyword)){
             $content = $content->where('main_title','LIKE','%'.$keyword.'%');
             $content = $content->orWhere('description','LIKE','%'.$keyword.'%');
@@ -521,7 +516,7 @@ class ContentController extends Controller
         {
             if((isset($user->user_type) && $user->user_type == '1'))
             {
-                $items = $this->content->where('is_published', '1')->where('user_id', $user->id)
+                $items = $this->content->where('user_id', $user->id)
                 ->whereExists(function ($query) use($user) {
                     $query->select("content_ratings.id")
                           ->from('content_ratings')
@@ -531,7 +526,7 @@ class ContentController extends Controller
             }
             else
             {
-                $items = $this->content->where('is_published', '1')->with('content_ratings')->whereHas('content_ratings', function ($query) use($user)
+                $items = $this->content->with('content_ratings')->whereHas('content_ratings', function ($query) use($user)
                 {
                     $query->where('user_id', $user->id);
                 // $query->orderBy('rating', 'asc');
@@ -600,10 +595,6 @@ class ContentController extends Controller
         {
             $items = $this->content->where('user_id', '!=', $user->id);
 
-            if((isset($user->user_type) && $user->user_type == '0'))
-            {
-                $items = $items->where('is_published', '1');
-            }
             $items = $items->whereHas('content_user_keep', function ($query) use($user)
             {
               $query->where('user_id', $user->id);

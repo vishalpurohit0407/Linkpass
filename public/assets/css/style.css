@@ -2446,3 +2446,8 @@ ul.ListingList li a:hover {
 {
 	height: auto!important;
 }
+
+.report-icon-color
+{
+	color: #ffbf00;
+}

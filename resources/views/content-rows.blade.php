@@ -107,7 +107,7 @@
               @php
                 $inappropriateClass = (isset(Auth::user()->user_type) && Auth::user()->user_type == '1') ? 'action-disabled' : 'content-action';
               @endphp
-              <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="3" data-content-id="{{ $content->id }}" class="mr20 {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
+              <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="3" data-content-id="{{ $content->id }}" class="mr20 report-icon-color {{$inappropriateClass}}"><i class="far fa-2x fa-flag"></i> <span class="inappropriate-action-label">Report<span></a>
             </li>
           </ul>
 
