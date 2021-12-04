@@ -61,13 +61,13 @@
                   @endphp
                   @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results')
                     <div class="Remove">
-                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"></a>
+                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"><span>Remove</span></a>
                     </div>
                   @endif
 
                   @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type)) && Auth::user()->id != $content->user_id)
                     <div class="Save {{$KeepLeftClass}}">
-                      <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"></a>
+                      <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"><span>Keep</span></a>
                     </div>
                   @endif
               </div>

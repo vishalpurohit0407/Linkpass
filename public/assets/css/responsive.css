@@ -131,6 +131,7 @@
 .login-box {
 	margin-top: 20px;
 }
+	.Remove a span, .Keep a span{display: inline-block;}
 }
 
 @media (max-width: 767px) {

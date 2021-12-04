@@ -2232,6 +2232,20 @@ ul.ListingList li a:hover {
 	display: block;
 	height: 100%
 }
+.Remove a span, .Keep a span{
+	background: rgba(0,0,0,0.60);
+    text-align: center;
+    width: 100px;
+	height: 28px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 25px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+	color: #FFF;
+	display: none;
+}
 /* Password strength : Start */
 .Short {
 	width: 100%;
