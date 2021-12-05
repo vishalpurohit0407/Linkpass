@@ -3,7 +3,8 @@
         $currentRoute = Route::currentRouteName();
 
         $class = '';
-        if($user->user_type == '2')
+        $disabledClass = '';
+        if($user->user_type == '2' || !isset(Auth::user()->id) || (Auth::user()->id && Auth::user()->id != $user->id))
         {
             $class = 'tabs-33-perc';
         }
@@ -11,11 +12,17 @@
         {
             $class = 'tabs-50-perc';
         }
+
+        if(!isset(Auth::user()->id) || (Auth::user()->id && Auth::user()->id != $user->id))
+        {
+            $disabledClass = 'disabled';
+        }
+
     @endphp
 
 
-    @if($user->user_type == '0' || $user->user_type == '2')
-        <li class="nav-item {{$class}}"> <a data-tab-name="matched" class="nav-link active content-tabs" id="pills-Matches-tab" data-toggle="pill" href="#pills-Matches" role="tab" aria-controls="pills-Matches" aria-selected="false">Matches</a> </li>
+    @if($user->user_type == '0' || $user->user_type == '2' || !isset(Auth::user()->id) || (Auth::user()->id && Auth::user()->id != $user->id))
+        <li class="nav-item {{$class}}"> <a data-tab-name="matched" class="nav-link active content-tabs {{$disabledClass}}" id="pills-Matches-tab" data-toggle="pill" href="#pills-Matches" role="tab" aria-controls="pills-Matches" aria-selected="false" >Matches</a> </li>
     @endif
 
     @if($user->user_type == '1' || $user->user_type == '2')

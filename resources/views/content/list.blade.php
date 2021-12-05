@@ -159,7 +159,12 @@ function deleteContent(id){
 
         if(data.status)
         {
-            swal('Success!', data.message, 'success');
+            toastr.options =
+            {
+                "closeButton" : true,
+                "progressBar" : true
+            }
+            toastr.success(data.message);
             pageno=1;
             getData();
             return false;

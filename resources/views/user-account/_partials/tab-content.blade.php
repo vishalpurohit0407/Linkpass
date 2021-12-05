@@ -125,8 +125,10 @@
                     <div class="AddListing">
                       <h4>{{$socialAccount->name}}</h4>
                       <p class="ListingList">
-                        @if((isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
+                        @if((isset(Auth::user()->user_type) && Auth::user()->user_type != '1' && Auth::user()->id == $user->id))
                           {{$socialAccount->user_content_count}}
+                        @elseif(!isset(Auth::user()->id) || Auth::user()->id != $user->id)
+                          {{$socialAccount->logged_out_user_content_count}}
                         @else
                           {{$socialAccount->content_count}}
                         @endif

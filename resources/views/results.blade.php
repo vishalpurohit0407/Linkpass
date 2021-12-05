@@ -285,7 +285,12 @@
 
               if(data.status)
               {
-                  swal('Success!', data.message, 'success');
+                    toastr.options =
+                    {
+                        "closeButton" : true,
+                        "progressBar" : true
+                    }
+                    toastr.success(data.message);
 
                   $('.ratingsCount').html(data.ratingsCount);
 
@@ -429,7 +434,12 @@
 
             if(data.status)
             {
-                swal('Success!', data.message, 'success');
+                toastr.options =
+                {
+                    "closeButton" : true,
+                    "progressBar" : true
+                }
+                toastr.success(data.message);
 
                 setTimeout(function()
                 {
@@ -481,15 +491,20 @@
 
                       if(data.status)
                       {
-                          swal('Success!', data.message, 'success');
+                        toastr.options =
+                        {
+                            "closeButton" : true,
+                            "progressBar" : true
+                        }
+                        toastr.success(data.message);
 
-                            if(action == '4' || action == '5' || data.reload == '1')
+                        if(action == '4' || action == '5' || data.reload == '1')
+                        {
+                            setTimeout(function()
                             {
-                                setTimeout(function()
-                                {
-                                    location.reload();
-                                }, 3000);
-                            }
+                                location.reload();
+                            }, 3000);
+                        }
 
                           $(element).removeClass('content-action');
                           $(element).addClass('action-disabled');

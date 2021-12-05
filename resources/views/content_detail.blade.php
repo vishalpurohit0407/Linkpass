@@ -287,7 +287,12 @@ jQuery(document).ready(function($){
 
             if(data.status)
             {
-                swal('Success!', data.message, 'success');
+                toastr.options =
+                {
+                    "closeButton" : true,
+                    "progressBar" : true
+                }
+                toastr.success(data.message);
 
                 $('.ratingsCount').html(data.ratingsCount);
 
@@ -467,7 +472,12 @@ function saveContentAction(element, action){
 
                     if(data.status)
                     {
-                        swal('Success!', data.message, 'success');
+                        toastr.options =
+                        {
+                            "closeButton" : true,
+                            "progressBar" : true
+                        }
+                        toastr.success(data.message);
 
                         $(element).remove();
 

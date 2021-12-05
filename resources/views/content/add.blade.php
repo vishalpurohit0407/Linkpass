@@ -125,7 +125,7 @@
                                       <div class="col-sm-12">
                                         <div class="form-group">
                                           <label class="form-control-label" for="example4cols3Input">Description/Summary <strong class="text-danger">*</strong></label>
-                                          <textarea name="description" id="description" class="form-control" rows="6" maxlength="400">{{old('description', $content->description)}}</textarea>
+                                          <textarea name="description" placeholder="400 character limit" id="description" class="form-control" rows="6" maxlength="400">{{old('description', $content->description)}}</textarea>
                                         </div>
                                       </div>
                                     </div>
@@ -181,7 +181,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="video_length_s">Seconds</label>
                                             <div class="input-group mb-3">
-                                              <input type="number" min="0" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{old('video_length_s', $content->video_length_s)}}">
+                                              <input type="number" min="1" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{ isset($content->id) && $content->video_length_s ? old('video_length_s', $content->video_length_s) : 1}}">
                                             </div>
                                         </div>
                                       </div>
@@ -216,7 +216,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_s">Seconds</label>
                                           <div class="input-group mb-3">
-                                            <input type="number" min="0" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{old('podcast_length_s', $content->podcast_length_s)}}">
+                                            <input type="number" min="0" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{isset($content->id) && $content->podcast_length_m > 0 ? old('podcast_length_s', $content->podcast_length_s) : 1}}">
                                           </div>
                                         </div>
                                       </div>

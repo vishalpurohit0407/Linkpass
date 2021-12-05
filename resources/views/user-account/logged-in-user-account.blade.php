@@ -118,7 +118,12 @@ function deleteContent(id){
 
         if(data.status)
         {
-            swal('Success!', data.message, 'success');
+            toastr.options =
+            {
+                "closeButton" : true,
+                "progressBar" : true
+            }
+            toastr.success(data.message);
             jQuery('#content-box-'+id).remove();
             return false;
         }
@@ -143,7 +148,12 @@ function deleteSocialAccount(id){
 
         if(data.status)
         {
-            swal('Success!', data.message, 'success');
+            toastr.options =
+            {
+                "closeButton" : true,
+                "progressBar" : true
+            }
+            toastr.success(data.message);
             jQuery('#social-account-box-'+id).remove();
             return false;
         }
@@ -164,7 +174,7 @@ function deleteSocialAccount(id){
 
     var userType = "{{ isset(Auth::user()->id) ? Auth::user()->user_type : '' }}";
 
-    if(userType == '0')
+    if(userType != '1')
     {
         if($('#pills-Matches-tab').length > 0)
         {
@@ -173,10 +183,7 @@ function deleteSocialAccount(id){
     }
     else
     {
-        if($('#pills-Cretors-tab').length > 0)
-        {
-            setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 1000);
-        }
+        setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 1000);
     }
 
     $(document).on('click','.sortContentListing',function(event) {
@@ -362,15 +369,20 @@ function deleteSocialAccount(id){
 
               if(data.status)
               {
-                  swal('Success!', data.message, 'success');
+                    toastr.options =
+                    {
+                        "closeButton" : true,
+                        "progressBar" : true
+                    }
+                    toastr.success(data.message);
 
-                  $('.ratingsCount').html(data.ratingsCount);
+                    $('.ratingsCount').html(data.ratingsCount);
 
-                  $('#rating-text').val('');
-                  pageno=1;
-                  //getRatingsData();
+                    $('#rating-text').val('');
+                    pageno=1;
+                    //getRatingsData();
 
-                  return false;
+                    return false;
               }
               else
               {
@@ -494,12 +506,15 @@ function deleteSocialAccount(id){
 
   function getTabsContentData(tab, filterBy)
   {
+      var loggedInUserID = '{{ isset(Auth::user()->id) ? Auth::user()->id : '' }}';
+      var user_id = '{{ isset($user->id) ? $user->id : ""}}';
+
         $.ajax(
         {
             url: '{{ route("user.content.get-tabs-contents") }}',
             type: 'get',
             datatype: 'json',
-            data:{page:pageno,tab:tab, filterBy:filterBy, user_id : '{{ isset($user->id) ? $user->id : ''}}'},
+            data:{page:pageno,tab:tab, filterBy:filterBy, user_id : user_id},
         }).done(function(data){
 
             if(tab == 'matched')
@@ -518,6 +533,11 @@ function deleteSocialAccount(id){
                 $(".Remove").find('a').attr('data-original-title', 'Delete');
 
                 $('.content-visited').addClass('active');
+
+                if(loggedInUserID == user_id)
+                {
+                    $('.saved-label').parent().remove();
+                }
             }
 
             if(tab == 'rated')
@@ -654,7 +674,7 @@ function deleteSocialAccount(id){
           break;
     }
 
-    if(action == '4' || action == '5')
+    if(action == '4')
     {
         $.ajax(
         {
@@ -665,7 +685,12 @@ function deleteSocialAccount(id){
         }).done(function(data){
             if(data.status)
             {
-                swal('Success!', data.message, 'success');
+                toastr.options =
+                {
+                    "closeButton" : true,
+                    "progressBar" : true
+                }
+                toastr.success(data.message);
                 var tabName = $('.content-tabs.active').data('tab-name');
 
                 getTabsContentData(tabName);
@@ -706,43 +731,48 @@ function deleteSocialAccount(id){
 
                       if(data.status)
                       {
-                          swal('Success!', data.message, 'success');
+                            toastr.options =
+                            {
+                                "closeButton" : true,
+                                "progressBar" : true
+                            }
+                            toastr.success(data.message);
 
-                          $(element).removeClass('content-action');
-                          $(element).addClass('action-disabled');
-                          $(element).find('.actionCount').html(data.actionCount);
+                            $(element).removeClass('content-action');
+                            $(element).addClass('action-disabled');
+                            $(element).find('.actionCount').html(data.actionCount);
 
-                          if(action == '1')
-                          {
-                            $(element).addClass('like-action-disabled');
-                            $('.content-unlike-'+content_id).removeClass('content-action');
-                            $('.content-unlike-'+content_id).addClass('action-disabled');
+                            if(action == '1')
+                            {
+                                $(element).addClass('like-action-disabled');
+                                $('.content-unlike-'+content_id).removeClass('content-action');
+                                $('.content-unlike-'+content_id).addClass('action-disabled');
 
-                          }
-                          else if(action == '2')
-                          {
-                            $(element).addClass('unlike-action-disabled');
-                            $('.content-like-'+content_id).removeClass('content-action');
-                            $('.content-like-'+content_id).addClass('action-disabled');
-                          }
-                          else if(action == '5')
-                          {
-                             $('#pills-Kept-tab').trigger('click');
-                          }
+                            }
+                            else if(action == '2')
+                            {
+                                $(element).addClass('unlike-action-disabled');
+                                $('.content-like-'+content_id).removeClass('content-action');
+                                $('.content-like-'+content_id).addClass('action-disabled');
+                            }
+                            else if(action == '5')
+                            {
+                                $('#pills-Kept-tab').trigger('click');
+                            }
 
-                          if(action == '3' && data.reload == '1')
-                          {
-                            var tabName = $('.content-tabs.active').data('tab-name');
+                            if(action == '3' && data.reload == '1')
+                            {
+                                var tabName = $('.content-tabs.active').data('tab-name');
 
-                            getTabsContentData(tabName);
-                          }
+                                getTabsContentData(tabName);
+                            }
 
-                          return false;
+                            return false;
                       }
                       else
                       {
-                          swal('Error!!', data.message, 'error');
-                          return false;
+                            swal('Error!!', data.message, 'error');
+                            return false;
                       }
                   }).fail(function(jqXHR, ajaxOptions, thrownError){
 

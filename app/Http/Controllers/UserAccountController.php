@@ -72,9 +72,8 @@ class UserAccountController extends Controller
 
         $socialAccount = SocialAccount::where('user_id', $decodedUserId)->where('id', $decodedId)->where('status', '1')->first();
 
-        $items = Content::where('user_id', $decodedUserId)->where('social_account_id', $decodedId);
-
-        $items = $items->where('status', '1')->orderBy('created_at', 'desc')->get();
+        $items = Content::where('user_id', $decodedUserId)->where('social_account_id', $decodedId)
+            ->where('status', '1')->orderBy('created_at', 'desc')->get();
 
         $followingIds  = UserFollower::where('user_id', $decodedUserId)->pluck('linked_user_id')->toArray();
         $followerIds   = UserFollower::where('linked_user_id', $decodedUserId)->pluck('user_id')->toArray();

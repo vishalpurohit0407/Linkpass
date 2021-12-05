@@ -487,8 +487,14 @@ jQuery(document).ready(function($) {
 
             $('.user-interest-head-title').html(data.title)
             $('.user-interest-head-time').html(data.updated_at)
-              swal('Success!', data.message, 'success');
-              return false;
+            toastr.options =
+            {
+                "closeButton" : true,
+                "progressBar" : true
+            }
+            toastr.success(data.message);
+
+            return false;
         })
     });
 
