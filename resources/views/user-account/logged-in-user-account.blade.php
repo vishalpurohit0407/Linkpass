@@ -174,7 +174,7 @@ function deleteSocialAccount(id){
 
     var userType = "{{ isset(Auth::user()->id) ? Auth::user()->user_type : '' }}";
 
-    if(userType != '1')
+    if(userType != '1' && userType != '')
     {
         if($('#pills-Matches-tab').length > 0)
         {

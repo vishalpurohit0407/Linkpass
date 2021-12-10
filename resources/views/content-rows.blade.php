@@ -123,10 +123,10 @@
               <strong><a href="{{route('other-user.account', $content->content_user->hashid)}}" class="account-label">{{$creatorName}}</a></strong>
             </span>
 
-            <span class="d-flex align-items-center">
+            {{-- <span class="d-flex align-items-center">
               {{ in_array($content->user_id, $followingIds) ? 'Linked' : '' }}
               {{ in_array($content->user_id, $followerIds) ? ' | Linker' : '' }}
-            </span>
+            </span> --}}
 
           </div>
           @if(!empty($content->description))
