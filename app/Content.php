@@ -98,9 +98,8 @@ class Content extends Authenticatable
 
     public function content_user_keep()
     {
-        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '4');
+        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '4')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
     }
-
 
     public function content_user_remove()
     {
