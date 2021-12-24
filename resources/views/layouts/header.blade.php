@@ -129,7 +129,7 @@
                   <div class="col-md-6">
                     <div class="form-group{{ $errors->has('interest_title') ? ' has-danger' : '' }} text-left">
                         <div class="input-group input-group-alternative">
-                            <input class="form-control" placeholder="{{ __('Slogan') }}" type="text" name="interest_title" id="interest_title" value="{{ Auth::user()->interest_title }}">
+                            <input class="form-control" placeholder="{{ __('Slogan') }}" maxlength="60" type="text" name="interest_title" id="interest_title" value="{{ Auth::user()->interest_title }}">
                         </div>
                     </div>
 

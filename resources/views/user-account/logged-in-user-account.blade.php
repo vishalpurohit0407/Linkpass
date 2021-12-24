@@ -173,8 +173,9 @@ function deleteSocialAccount(id){
   jQuery(document).ready(function($) {
 
     var userType = "{{ isset(Auth::user()->id) ? Auth::user()->user_type : '' }}";
+    var currentRoute = "{{ Route::currentRouteName() }}";
 
-    if(userType != '1' && userType != '')
+    if(userType != '1' && userType != '' && currentRoute != 'user.account.contents')
     {
         if($('#pills-Matches-tab').length > 0)
         {

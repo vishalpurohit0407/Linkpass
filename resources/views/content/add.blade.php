@@ -136,7 +136,7 @@
                                           <div class="form-group">
                                               <label class="form-control-label" for="number_of_images">Number Of Images</label>
                                               <div class="input-group mb-3">
-                                                <input type="number" class="form-control" min="0" id="number_of_images" name="number_of_images" placeholder="Enter Number Of Images" value="{{old('number_of_images', ($content->number_of_images == 0) ? 2 : $content->number_of_images)}}">
+                                                <input type="number" class="form-control" min="0" id="number_of_images" name="number_of_images" placeholder="Enter Number Of Images" value="{{old('number_of_images', ($content->number_of_images == 0) ? 0 : $content->number_of_images)}}">
                                               </div>
                                           </div>
                                       </div>
@@ -181,7 +181,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="video_length_s">Seconds</label>
                                             <div class="input-group mb-3">
-                                              <input type="number" min="1" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{ isset($content->id) && $content->video_length_s ? old('video_length_s', $content->video_length_s) : 1}}">
+                                              <input type="number" min="0" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{ old('video_length_s', $content->video_length_s)}}">
                                             </div>
                                         </div>
                                       </div>
@@ -216,7 +216,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_s">Seconds</label>
                                           <div class="input-group mb-3">
-                                            <input type="number" min="0" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{isset($content->id) && $content->podcast_length_m > 0 ? old('podcast_length_s', $content->podcast_length_s) : 1}}">
+                                            <input type="number" min="0" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{old('podcast_length_s', $content->podcast_length_s)}}">
                                           </div>
                                         </div>
                                       </div>

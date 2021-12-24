@@ -1426,6 +1426,8 @@ footer {
 }
 .header-sec-top-part h4 {
 	line-height: 24px;
+	color:#252324;
+	font-size: 16px;
 }
 .header-sec-link {
 	position: absolute;
@@ -1446,6 +1448,7 @@ footer {
 	cursor: pointer;
 	color: #FFF;
 	font-size: 12px;
+	background-color: #252324;
 }
 .header-sec-link span.custom-scroll-link-up {
 	bottom: 19px;
@@ -2217,6 +2220,10 @@ ul.ListingList li a:hover {
 	right: 0;
 }
 .left-0
+{
+	left: 0 !important;
+}
+.Saveleft-0
 {
 	left: 0 !important;
 }

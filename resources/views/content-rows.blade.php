@@ -17,7 +17,7 @@
           }
 
           $contentType         = array(1 => 'Images', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
-          $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words.($content->number_of_words == 1 ? ' Word' : ' Words'));
+          $contentTypeDuration = array(1 => $content->number_of_images.($content->number_of_images == 1 ? ' Image' : ' Images'), 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words.($content->number_of_words == 1 ? ' Word' : ' Words'));
 
       @endphp
       <aside class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mt-3" id="content-box-{{$content->id}}">
