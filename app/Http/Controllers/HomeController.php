@@ -199,8 +199,18 @@ class HomeController extends Controller
                 });
             }
 
-            $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->get();
+            $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->paginate(12);
             $isUserListing = 0;
+
+            if ($request->ajax()) {
+
+                if($items->count() == 0)
+                {
+                    return '';
+                }
+
+                return view('content-rows', array('items' => $items))->render();
+            }
         }
 
 

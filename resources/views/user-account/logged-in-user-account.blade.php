@@ -294,35 +294,38 @@ function deleteSocialAccount(id){
 
       });
 
-      $(document).on('click', '.ratings-pagination.pagination a',function(event){
-          event.preventDefault();
+    //   $(document).on('click', '.ratings-pagination.pagination a',function(event){
+    //       event.preventDefault();
 
-          $('li').removeClass('active');
-          $(this).parent('li').addClass('active');
+    //       $('li').removeClass('active');
+    //       $(this).parent('li').addClass('active');
 
-          var myurl = $(this).attr('href');
-          pageno=$(this).attr('href').split('page=')[1];
-          //getRatingsData();
-      });
+    //       var myurl = $(this).attr('href');
+    //       pageno=$(this).attr('href').split('page=')[1];
+    //       //getRatingsData();
+    //   });
 
-      $(document).on('click', '.content-tabs',function(event){
+    $(document).on('click', '.content-tabs',function(event){
         var tabName = $(this).data('tab-name');
-        getTabsContentData(tabName);
-      });
+        if(tabName != 'creators')
+        {
+            getTabsContentData(tabName);
+        }
+    });
 
-      $(document).on('click', '.content-pagination.pagination a',function(event){
-          event.preventDefault();
+    //   $(document).on('click', '.content-pagination.pagination a',function(event){
+    //       event.preventDefault();
 
-          $('.content-pagination > li').removeClass('active');
-          $(this).parent('li').addClass('active');
+    //       $('.content-pagination > li').removeClass('active');
+    //       $(this).parent('li').addClass('active');
 
-          var myurl = $(this).attr('href');
-          pageno=$(this).attr('href').split('page=')[1];
+    //       var myurl = $(this).attr('href');
+    //       pageno=$(this).attr('href').split('page=')[1];
 
-          var tabName = $('.content-tabs.active').data('tab-name');
+    //       var tabName = $('.content-tabs.active').data('tab-name');
 
-          getTabsContentData(tabName);
-      });
+    //       getTabsContentData(tabName);
+    //   });
 
       // $(".rating").click(function(e){
       //     e.preventDefault();
@@ -479,57 +482,112 @@ function deleteSocialAccount(id){
 
   });
 
-  function getRatingsData()
-  {
-    var ratingWrap = $("#ratings_data");
+//   function getRatingsData()
+//   {
+//     var ratingWrap = $("#ratings_data");
 
-    var content_id = ratingWrap.data('content-id');
+//     var content_id = ratingWrap.data('content-id');
 
-      $.ajax(
-      {
-          url: '{{ route("user.content.get-ratings") }}',
-          type: "get",
-          datatype: "html",
-          data:{page:pageno,content_id:content_id},
-      }).done(function(data){
-          $("#ratings_data").html(data);
+//       $.ajax(
+//       {
+//           url: '{{ route("user.content.get-ratings") }}',
+//           type: "get",
+//           datatype: "html",
+//           data:{page:pageno,content_id:content_id},
+//       }).done(function(data){
+//           $("#ratings_data").html(data);
 
-          $("#emoji-div").emoji({width: '20px'});
+//           $("#emoji-div").emoji({width: '20px'});
 
-          $('#rating-text').focus();
+//           $('#rating-text').focus();
 
-          //location.hash = page;
-      }).fail(function(jqXHR, ajaxOptions, thrownError){
-          //alert('No response from server');
+//           //location.hash = page;
+//       }).fail(function(jqXHR, ajaxOptions, thrownError){
+//           //alert('No response from server');
 
-      });
-  }
+//       });
+//   }
 
-  function getTabsContentData(tab, filterBy)
+    var paginate = 1,
+        tabName  = $('.content-tabs.active').data('tab-name'),
+        filterBy = $('.sortContentListing.active:visible').data('data-filter-by');
+
+    getTabsContentData(tabName, filterBy, paginate);
+
+    $('.load-more').click(function() {
+        var page     = $(this).data('paginate'),
+            tabName  = $('.content-tabs.active').data('tab-name'),
+            filterBy = $('.sortContentListing.active:visible').data('data-filter-by');
+
+        getTabsContentData(tabName, filterBy, page);
+        $(this).data('paginate', page+1);
+    });
+
+  function getTabsContentData(tab, filterBy, pageno)
   {
       var loggedInUserID = '{{ isset(Auth::user()->id) ? Auth::user()->id : '' }}';
       var user_id = '{{ isset($user->id) ? $user->id : ""}}';
+      var socialAccountId = '{{ isset($socialAccount->id) ? $socialAccount->id : ''}}';
 
         $.ajax(
         {
             url: '{{ route("user.content.get-tabs-contents") }}',
             type: 'get',
             datatype: 'json',
-            data:{page:pageno,tab:tab, filterBy:filterBy, user_id : user_id},
+            data:{page:pageno,tab:tab, filterBy:filterBy, user_id : user_id, social_account_id : socialAccountId},
         }).done(function(data){
 
             if(tab == 'matched')
             {
-                $('.matchesContent').html(data);
+                $('.matched-loader').hide();
+                if(data.length == 0) {
+                    $('#invisible-matched').removeClass('invisible');
+                    $('#load-more-matched').hide();
 
-                $('.savedContent').html(data);
+                    return;
+                } else {
+                    $('#load-more-matched').text('Load more...');
+                }
+
+
+                $('.matchesContent').append(data);
+
+                $('.content-visited').addClass('active');
+
+            }
+
+
+            if(tab == 'creators')
+            {
+                if(data.length == 0) {
+                    $('#invisible-created').removeClass('invisible');
+                    $('#load-more-created').hide();
+                    return;
+                } else {
+                    $('#load-more-created').text('Load more...');
+                }
+
+                $('.created-loader').hide();
+
+                $('.createdContent').append(data);
+
                 $('.content-visited').addClass('active');
 
             }
 
             if(tab == 'saved')
             {
-                $('.savedContent').html(data);
+                $('.saved-loader').hide();
+
+                if(data.length == 0) {
+                    $('#invisible-saved').removeClass('invisible');
+                    $('#load-more-saved').hide();
+                    return;
+                } else {
+                    $('#load-more-saved').text('Load more...');
+                }
+
+                $('.savedContent').append(data);
 
                 $(".Remove").find('a').attr('data-original-title', 'Delete');
 
@@ -541,10 +599,10 @@ function deleteSocialAccount(id){
                 }
             }
 
-            if(tab == 'rated')
-            {
-                $('.ratedContent').html(data);
-            }
+            // if(tab == 'rated')
+            // {
+            //     $('.ratedContent').html(data);
+            // }
             //$("#ratings_data").html(data);
 
             $('[data-toggle="tooltip"]').tooltip();

@@ -66,7 +66,7 @@
                   @endif
 
                   @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type)) && Auth::user()->id != $content->user_id)
-                    <div class="Keep Save{{$KeepLeftClass}}">
+                    <div class="Keep Save {{$KeepLeftClass}}">
                       <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"><span>Keep</span></a>
                     </div>
                   @endif

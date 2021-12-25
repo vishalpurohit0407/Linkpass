@@ -44,8 +44,17 @@
         @include('content-rows', array('items' =>$user->contents))
 
     @else
-        @include('content-rows')
+        <div id="search-results">
+
+        </div>
+
+        <div class="text-center mt-2">
+            <button class="btn btn-primary col-md-12" id="load-more" data-paginate="2">Load more...</button>
+            <p class="invisible">No more contents...</p>
+        </div>
     @endif
+
+
 
 
 
@@ -466,8 +475,8 @@
         return false
     }
 
-      if(text.length > 0)
-      {
+        if(text.length > 0)
+        {
           swal({
               title: "Are you sure?",
               html: text,
@@ -537,8 +546,45 @@
                   });
               }
           });
-      }
-  }
-  </script>
-<!--End main Part-->
+        }
+    }
+
+    var paginate = 1;
+    loadMoreData(paginate);
+
+    $('#load-more').click(function() {
+        var page = $(this).data('paginate');
+        loadMoreData(page);
+        $(this).data('paginate', page+1);
+    });
+    // run function when user click load more button
+    function loadMoreData(paginate) {
+
+        var sUrl = "{{ url('results')}}";
+        var keyword = "{{ request()->get('search')}}";
+
+        $.ajax({
+            url: '?page=' + paginate+'&search=' + keyword,
+            type: 'get',
+            datatype: 'html',
+            beforeSend: function() {
+                $('#load-more').text('Loading...');
+            }
+        })
+        .done(function(data) {
+            if(data.length == 0) {
+                $('.invisible').removeClass('invisible');
+                $('#load-more').hide();
+                return;
+            } else {
+                $('#load-more').text('Load more...');
+                $('#search-results').append(data);
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        })
+           .fail(function(jqXHR, ajaxOptions, thrownError) {
+              alert('Something went wrong.');
+           });
+    }
+</script>
 @endsection

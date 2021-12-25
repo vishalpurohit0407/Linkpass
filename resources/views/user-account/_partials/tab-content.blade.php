@@ -1,4 +1,5 @@
 <div class="tab-content" id="pills-tabContent">
+
     <!--Start Saved-->
     <div class="tab-pane fade" id="pills-Kept" role="tabpanel" aria-labelledby="pills-Kept-tab">
       <div class="d-flex justify-content-center TabFilter ">
@@ -21,11 +22,17 @@
 
       </div>
       <div class="CompanyList savedContent">
-        <div class="text-center mt-10">
+        <div class="text-center mt-10 saved-loader">
           <img src="{{asset('assets/img/loader.gif')}}" width="30">
         </div>
       </div>
+
+      <div class="text-center mt-2">
+        <button class="btn btn-primary col-md-12 load-more" id="load-more-saved" data-paginate="2">Load more...</button>
+        <p id="invisible-saved" class="invisible">No more contents...</p>
+      </div>
     </div>
+
     <!--Start Matches-->
     <div class="tab-pane fade {{($user->user_type == '0' || $user->user_type == '2') ? 'show active' : ''}}" id="pills-Matches" role="tabpanel" aria-labelledby="pills-Matches-tab">
       <div class="d-flex justify-content-center TabFilter">
@@ -48,9 +55,13 @@
 
       </div>
       <div class="CompanyList matchesContent">
-        <div class="text-center mt-10">
+        <div class="text-center mt-10 matched-loader">
           <img src="{{asset('assets/img/loader.gif')}}" width="30">
         </div>
+      </div>
+      <div class="text-center mt-2">
+        <button class="btn btn-primary col-md-12 load-more" id="load-more-matched" data-paginate="2">Load more...</button>
+        <p id="invisible-matched" class="invisible">No more contents...</p>
       </div>
     </div>
     <!--Start Rated-->
@@ -80,6 +91,7 @@
         </div>
       </div>
     </div> --}}
+
     <!--Start Creators-->
     <div class="tab-pane fade {{($user->user_type == '1') ? 'show active' : ''}}" id="pills-Cretors" role="tabpanel" aria-labelledby="pills-Cretors-tab">
       <div class="d-flex justify-content-center TabFilter">
@@ -178,7 +190,15 @@
               </div>
             </div>
 
-            @include('content-rows')
+            <div class="createdContent">
+
+              @include('content-rows')
+            </div>
+
+            <div class="text-center mt-2">
+              <button class="btn btn-primary col-md-12 load-more" id="load-more-created" data-paginate="2">Load more...</button>
+              <p id="invisible-created" class="invisible">No more contents...</p>
+            </div>
 
           @endif
       </div>

@@ -509,31 +509,39 @@ class ContentController extends Controller
         $followingIds  = UserFollower::where('user_id', $user->id)->pluck('linked_user_id')->toArray();
         $followerIds   = UserFollower::where('linked_user_id', $user->id)->pluck('user_id')->toArray();
 
-        $tab = $request->get('tab');
+        $tab      = $request->get('tab');
         $filterBy = !empty($request->get('filterBy')) ? $request->get('filterBy') : '';
+        $socialAccountId = !empty($request->get('social_account_id')) ? $request->get('social_account_id') : '';
 
-        if($tab == 'rated')
+        if($tab == 'creators')
         {
-            if((isset($user->user_type) && $user->user_type == '1'))
-            {
-                $items = $this->content->where('user_id', $user->id)
-                ->whereExists(function ($query) use($user) {
-                    $query->select("content_ratings.id")
-                          ->from('content_ratings')
-                          ->whereRaw('content_ratings.content_id = content.id');
-                })
-                ->orderBy('created_at', 'desc')->paginate(6);
-            }
-            else
-            {
-                $items = $this->content->with('content_ratings')->whereHas('content_ratings', function ($query) use($user)
-                {
-                    $query->where('user_id', $user->id);
-                // $query->orderBy('rating', 'asc');
-                })->orderBy('created_at', 'desc')->paginate(6);
-            }
-
+            $items = $this->content->where('user_id', $userId)->where('social_account_id', $socialAccountId);
+            $items = $items->orderBy('created_at', 'desc');
+            $items = $items->paginate(12);
         }
+
+        // if($tab == 'rated')
+        // {
+        //     if((isset($user->user_type) && $user->user_type == '1'))
+        //     {
+        //         $items = $this->content->where('user_id', $user->id)
+        //         ->whereExists(function ($query) use($user) {
+        //             $query->select("content_ratings.id")
+        //                   ->from('content_ratings')
+        //                   ->whereRaw('content_ratings.content_id = content.id');
+        //         })
+        //         ->orderBy('created_at', 'desc')->paginate(6);
+        //     }
+        //     else
+        //     {
+        //         $items = $this->content->with('content_ratings')->whereHas('content_ratings', function ($query) use($user)
+        //         {
+        //             $query->where('user_id', $user->id);
+        //         // $query->orderBy('rating', 'asc');
+        //         })->orderBy('created_at', 'desc')->paginate(6);
+        //     }
+
+        // }
 
         if($tab == 'matched')
         {
@@ -588,7 +596,7 @@ class ContentController extends Controller
             }
 
             $items = $items->orderBy('created_at', 'desc')
-                ->paginate(6);
+                ->paginate(12);
         }
 
         if($tab == 'saved')
@@ -633,7 +641,18 @@ class ContentController extends Controller
             }
 
             $items = $items->orderBy('created_at', 'desc');
-            $items = $items->paginate(6);
+
+            $items = $items->paginate(12);
+        }
+
+        if ($request->ajax()) {
+
+            if($items->count() == 0)
+            {
+                return '';
+            }
+
+            return view('content-rows', array('items' => $items))->render();
         }
 
         return view('content.ajax-tabs-content-list',array('items' => $items, 'followingIds' => $followingIds, 'followerIds' => $followerIds));

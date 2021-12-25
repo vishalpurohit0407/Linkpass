@@ -2458,3 +2458,7 @@ ul.ListingList li a:hover {
 {
 	color: #ffbf00;
 }
+.invisible
+{
+	display: none!important;
+}
