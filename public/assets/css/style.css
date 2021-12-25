@@ -2062,7 +2062,7 @@ ul.ListingList li a:hover {
 .or {
 	width: 100%;
 	height: 1px;
-	background: #666;
+	background: #dbdbdb;
 	margin: 25px 0;
 	position: relative;
 }
@@ -2072,7 +2072,7 @@ ul.ListingList li a:hover {
 	font-weight: 400;
 	margin: 0;
 	position: absolute;
-	top: -13px;
+	top: -10px;
 	left: 44%;
 	color: #666;
 	/* font-style: italic; */

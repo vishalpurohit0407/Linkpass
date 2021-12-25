@@ -146,14 +146,25 @@ $('.Testimonial').slick({
 });
 
 //sticky Header //
-$(window).scroll(function() {
-    var scroll = $(window).scrollTop();
+// $(window).scroll(function() {
+//     var scroll = $(window).scrollTop();
 
-    if (scroll >= 100) {
-        $(".site-header").addClass("sticky");
-    } else {
-        $(".site-header").removeClass("sticky");
-    }
+//     if (scroll >= 100) {
+//         $(".site-header").addClass("sticky");
+//     } else {
+//         $(".site-header").removeClass("sticky");
+//     }
+// });
+
+var lastScrollTop = 0;
+$(window).scroll(function(event){
+   var st = $(this).scrollTop();
+   if (st > lastScrollTop){
+    $(".site-header").removeClass("sticky");
+   } else {
+    $(".site-header").addClass("sticky");
+   }
+   lastScrollTop = st;
 });
 
 $('.continue').click(function() {
