@@ -69,6 +69,20 @@
 
 @section('pagewise_js')
 <script type="text/javascript">
+      $(function() {
+        var isLoggedIn = '{{isset(Auth::user()->id) ? 1 : 0 }}';
+        var homeUrl = "{{url('home') }}";
 
+        if(isLoggedIn == 0)
+        {
+            $('#loginModalPrompt').modal({
+                show: true
+            });
+        }
+
+        $( ".close" ).click(function() {
+          window.location = homeUrl;
+        });
+      });
 </script>
 @endsection
