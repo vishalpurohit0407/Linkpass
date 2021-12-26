@@ -110,13 +110,14 @@
   </section>
 </header>
 
-@if(isset(Auth::user()->id))
-  <div class="header-sec-top">
-    <div class="container">
-      <div class="header-sec-top-part">
-        <p class="head-time user-interest-head-time">{{ !empty(Auth::user()->interest_last_updated_at) ? date('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at)) : date('Y/m/d h:i A')}} </p>
-        <h4 class="m-0 user-interest-head-title">{{ !empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Let your interests find you!'}}</h4>
-      </div>
+<div class="header-sec-top">
+  <div class="container">
+    <div class="header-sec-top-part">
+      <p class="head-time user-interest-head-time">{{ !empty(Auth::user()->interest_last_updated_at) ? gmdate('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at)) : gmdate('Y/m/d h:i A')}}(GMT) </p>
+      <h4 class="m-0 user-interest-head-title">{{ isset($interest_title) ? $interest_title : (!empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Let your interests find you!')}}</h4>
+    </div>
+
+    @if(Route::currentRouteName() != 'home' && !empty(Route::currentRouteName()))
       <div class="header-sec-link btn-receita" id="btn-receitamob" data-clicked-times="0"> <span class="custom-scroll-link"><i class="fal fa-chevron-double-down" id="seta"></i></span> </div>
       <div id="receita-div" style="display: none; height: 250px; border: 1px solid #ccc; border-top: 0;" class="{{Route::currentRouteName() != 'profile.edit' ? 'receita-hidden' : 'user-ineresest-wrap'}}">
 
@@ -129,13 +130,13 @@
                   <div class="col-md-6">
                     <div class="form-group{{ $errors->has('interest_title') ? ' has-danger' : '' }} text-left">
                         <div class="input-group input-group-alternative">
-                            <input class="form-control" placeholder="{{ __('Slogan') }}" maxlength="60" type="text" name="interest_title" id="interest_title" value="{{ Auth::user()->interest_title }}">
+                            <input class="form-control" placeholder="{{ __('Slogan') }}" maxlength="60" type="text" name="interest_title" id="interest_title" value="{{ isset(Auth::user()->interest_title) ?? Auth::user()->interest_title }}">
                         </div>
                     </div>
 
                     <div class="form-group{{ $errors->has('interest_description') ? ' has-danger' : '' }} text-left">
                         <div class="input-group input-group-alternative">
-                            <textarea class="form-control" placeholder="{{ __('Description') }}" name="interest_description" id="interest_description" >{{ Auth::user()->interest_description }}</textarea>
+                            <textarea class="form-control" placeholder="{{ __('Description') }}" name="interest_description" id="interest_description" >{{ isset(Auth::user()->interest_description) ?? Auth::user()->interest_description }}</textarea>
                         </div>
                     </div>
 
@@ -149,12 +150,16 @@
           @else
             <div class="row">
               <div class="col-md-12 user-ineresest-head-dec-wrap">
-                {{ Auth::user()->interest_description }}
+                @if(isset($interest_description))
+                  {{$interest_description}}
+                @else
+                  {{ isset(Auth::user()->interest_description) ?? Auth::user()->interest_description }}
+                @endif
               </div>
             </div>
           @endif
 
       </div>
-    </div>
+    @endif
   </div>
-@endif
+</div>

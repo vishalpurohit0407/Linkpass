@@ -512,7 +512,10 @@ function deleteSocialAccount(id){
         tabName  = $('.content-tabs.active').data('tab-name'),
         filterBy = $('.sortContentListing.active:visible').data('data-filter-by');
 
-    getTabsContentData(tabName, filterBy, paginate);
+    if(tabName)
+    {
+        getTabsContentData(tabName, filterBy, paginate);
+    }
 
     $('.load-more').click(function() {
         var page     = $(this).data('paginate'),

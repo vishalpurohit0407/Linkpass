@@ -2079,6 +2079,15 @@ ul.ListingList li a:hover {
 	padding: 0 15px;
 	background: #FAFAFA;
 }
+@media (max-width: 768px) {
+    .or p {
+		margin: 0px -9px;
+	}
+	.header-sec-link span
+	{
+		left: 46.5%;
+	}
+}
 .footer-bottom {
 	background: rgba(0,127,255,0.60);
 	border-top: 1px solid rgba(0,0,0,0.40);

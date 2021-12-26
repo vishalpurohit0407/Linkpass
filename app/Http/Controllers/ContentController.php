@@ -601,7 +601,7 @@ class ContentController extends Controller
 
         if($tab == 'saved')
         {
-            $items = $this->content->where('user_id', '!=', $user->id);
+            $items = $this->content;
 
             $items = $items->whereHas('content_user_keep', function ($query) use($user)
             {
