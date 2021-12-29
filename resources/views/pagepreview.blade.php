@@ -64,6 +64,29 @@
         </div>
     </article>
 </main>
+@if(isset($page->id) && $page->url_slug == 'privacy-policy')
+<style>
+    ul{
+        list-style-type:initial;
+    }
+    ul li, ol li
+    {
+        margin-left: 25px;
+        margin-bottom:5px;
+    }
+    h1 {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 12px 0px 0 0px;
+    }
+
+    h3 {
+        font-size: 26px;
+        font-weight: 600;
+        margin: 12px 0px 14px 0px;
+    }
+</style>
+@endif
 <!--End main Part-->
 @endsection
 
