@@ -72,8 +72,9 @@
       $(function() {
         var isLoggedIn = '{{isset(Auth::user()->id) ? 1 : 0 }}';
         var homeUrl = "{{url('home') }}";
+        var pageName = "{{ isset($page->id) ? $page->url_slug : '' }}";
 
-        if(isLoggedIn == 0)
+        if(isLoggedIn == 0 && pageName == 'contact')
         {
             $('#loginModalPrompt').modal({
                 show: true
