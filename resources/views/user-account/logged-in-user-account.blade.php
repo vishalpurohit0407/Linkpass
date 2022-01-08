@@ -552,7 +552,6 @@ function deleteSocialAccount(id){
                     $('#load-more-matched').text('Load more...');
                 }
 
-
                 $('.matchesContent').append(data);
 
                 $('.content-visited').addClass('active');

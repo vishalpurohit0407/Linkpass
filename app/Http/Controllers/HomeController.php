@@ -213,7 +213,6 @@ class HomeController extends Controller
             }
         }
 
-
         return view('results', array('items' => $items, 'followerIds' => $followerIds, 'followingIds' => $followingIds, 'isUserListing' => $isUserListing));
     }
 

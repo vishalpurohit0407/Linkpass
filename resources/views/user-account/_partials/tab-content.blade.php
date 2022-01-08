@@ -196,7 +196,9 @@
             </div>
 
             <div class="text-center mt-2">
-              <button class="btn btn-primary col-md-12 load-more" id="load-more-created" data-paginate="2">Load more...</button>
+              @if($items->count() > 0)
+                <button class="btn btn-primary col-md-12 load-more" id="load-more-created" data-paginate="2">Load more...</button>
+              @endif
               <p id="invisible-created" class="invisible">No more contents...</p>
             </div>
 

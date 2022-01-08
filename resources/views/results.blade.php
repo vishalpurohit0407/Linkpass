@@ -48,15 +48,15 @@
 
         </div>
 
-        <div class="text-center mt-2">
-            <button class="btn btn-primary col-md-12" id="load-more" data-paginate="2">Load more...</button>
-            <p class="invisible">No more contents...</p>
-        </div>
+        @if($items->count() > 0)
+            <div class="text-center mt-2">
+                <button class="btn btn-primary col-md-12" id="load-more" data-paginate="2">Load more...</button>
+                <p class="invisible">No more contents...</p>
+            </div>
+        @else
+            <div class="col-lg-12 col-md-12 col-sm-12 text-center">No listings found</div>
+        @endif
     @endif
-
-
-
-
 
   </article>
 </main>
