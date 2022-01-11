@@ -159,11 +159,21 @@ $('.Testimonial').slick({
 var lastScrollTop = 0;
 $(window).scroll(function(event){
    var st = $(this).scrollTop();
-   if (st > lastScrollTop){
-    $(".site-header").removeClass("sticky");
-   } else {
-    $(".site-header").addClass("sticky");
-   }
+
+    if (st > lastScrollTop)
+    {
+        $(".site-header").removeClass("sticky");
+    }
+    else
+    {
+        $(".site-header").addClass("sticky");
+    }
+
+    if(parseInt(st) <= 0)
+    {
+        $(".site-header").removeClass("sticky");
+    }
+
    lastScrollTop = st;
 });
 
