@@ -114,7 +114,7 @@
   <div class="container">
     <div class="header-sec-top-part">
       <p class="head-time user-interest-head-time">{{ !empty(Auth::user()->interest_last_updated_at) ? gmdate('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at)) : gmdate('Y/m/d h:i A')}}(GMT) </p>
-      <h4 class="m-0 user-interest-head-title">{{ isset($interest_title) ? $interest_title : (!empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Let your interests find you!')}}</h4>
+      <h4 class="m-0 user-interest-head-title">{{ isset($interest_title) ? $interest_title : (!empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Let your interests find you')}}</h4>
     </div>
 
     @if(Route::currentRouteName() != 'home' && !empty(Route::currentRouteName()))

@@ -459,7 +459,7 @@ function saveContentAction(element, action){
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
             confirmButtonText: 'Yes',
-            cancelButtonText: "No"
+            cancelButtonText: "Cancel"
         }).then((result) => {
             if (result.value) {
                 $.ajax(

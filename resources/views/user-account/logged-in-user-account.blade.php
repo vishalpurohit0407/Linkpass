@@ -41,13 +41,13 @@ jQuery(document).ready(function($) {
       var contentId = $(this).attr('data-id');
 
       swal({
-          title: "Are you sure?",
-          text: "Would you like to delete this content!",
+          title: "Delete!?",
+          text: "Would you like to delete this listing?",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: '#DD6B55',
-          confirmButtonText: 'Yes, Delete it!',
-          cancelButtonText: "No, Cancel it!"
+          confirmButtonText: 'Yes',
+          cancelButtonText: "Cancel"
       }).then((result) => {
           if (result.value) {
               deleteContent(contentId);
@@ -776,7 +776,7 @@ function deleteSocialAccount(id){
               showCancelButton: true,
               confirmButtonColor: '#DD6B55',
               confirmButtonText: 'Yes',
-              cancelButtonText: "No"
+              cancelButtonText: "Cancel"
           }).then((result) => {
               if (result.value) {
 
