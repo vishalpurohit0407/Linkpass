@@ -179,22 +179,109 @@
             url: '{{route("result.get-details")}}',
             type: "post",
             datatype: "json",
-            data:{content_id:contentId},
+            data:{content_id:contentId, currentRoute : 'results'},
         }).done(function(data){
 
             if(data.status)
             {
-            $('#content-details-wrap').html(data.html);
+                $('#content-details-wrap').html(data.html);
 
-            pageno=1;
-            //getRatingsData();
-            $('[data-toggle="tooltip"]').tooltip();
+                //pageno=1;
+                //getRatingsData();
+                $('[data-toggle="tooltip"]').tooltip();
 
-            $('#content-details-modal').modal('show');
+                $('.owl-three').owlCarousel({
+                    loop: false,
+                    margin: 0,
+                    nav: false,
+                    dots: true,
+                    autoplay: false,
+                    slideSpeed: 6000,
+                    autoplayTimeout: 5000,
+                    autoplaySpeed: 6000,
+                    autoplayHoverPause: true,
+                    navText: [
+                        '<span aria-label="' + 'Previous' + '"><i class="far fa-arrow-left"></i></span>',
+                        '<span aria-label="' + 'Next' + '"><i class="far fa-arrow-right"></i></span>'
+                    ],
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        480: {
+                            items: 1
+                        },
+                        690: {
+                            items: 1
+                        },
+                        768: {
+                            items: 1
+                        },
+                        960: {
+                            items: 1
+                        },
+                        1025: {
+                            items: 1
+                        }
+                    }
+                });
+
+                $.contextMenu({
+                    selector: '.social-share',
+                    trigger: 'left',
+                    callback: function(key, options, e) {
+
+                        var contentTitle = $(options.$trigger).attr('data-content-title');
+                        var contentId = $(options.$trigger).attr('data-content-id');
+                        var url = '{{ url("results?search=")}}'+contentTitle+'&id='+contentId;
+                        var ShareUrl = '';
+
+                        if(key == 'facebook')
+                        {
+                            var ShareUrl = 'https://www.facebook.com/sharer/sharer.php?u='+url+'&quote='+url+'';
+                        }
+
+                        if(key == 'whatsapp')
+                        {
+                            var ShareUrl = 'https://wa.me/?text='+url;
+                        }
+
+                        if(key == 'email')
+                        {
+                            var ShareUrl = 'mailto:?subject= Linkpasser: '+url+' &amp;body='+url;
+                        }
+
+                        if(key == 'copy')
+                        {
+                            const body = document.querySelector('body');
+                            const area = document.createElement('textarea');
+                            body.appendChild(area);
+
+                            area.value = url;
+                            area.select();
+                            document.execCommand('copy');
+
+                            body.removeChild(area);
+                        }
+
+                        if(key != 'copy')
+                        {
+                            window.open(ShareUrl, '_blank').focus();
+                        }
+                    },
+                    items: {
+                        // "facebook": {name: " Facebook", icon: "fab fa-lg fa-facebook"},
+                        // "whatsapp": {name: " Whatsapp", icon: "fab fa-lg fa-whatsapp"},
+                        // "email": {name: " Email", icon: "fas fa-lg fa-envelope"},
+                        "copy": {name: " Copy Link", icon: "far fa-lg fa-copy"},
+                    }
+                });
+
+                $('#content-details-modal').modal('show');
             }
             else
             {
-            swal('Error!!', data.message, 'error');
+                swal('Error!!', data.message, 'error');
             }
         }).fail(function(jqXHR, ajaxOptions, thrownError){
 

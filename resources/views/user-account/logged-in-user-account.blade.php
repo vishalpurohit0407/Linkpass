@@ -280,7 +280,8 @@ function deleteSocialAccount(id){
 
               if(data.status)
               {
-                  $('#view-count-'+contentId).html(data.count+ ' views');
+                  var visitStr = parseInt(data.count) == 1 ? 'Visit' : 'Visits';
+                  $('#view-count-'+contentId).html(data.count+ ' ' +visitStr);
 
                   window.open(data.url, '_blank').focus();
               }

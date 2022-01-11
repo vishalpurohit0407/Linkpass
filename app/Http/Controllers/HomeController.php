@@ -226,10 +226,10 @@ class HomeController extends Controller
         $content = $this->content->find($request->content_id);
         $followingIds  = isset(Auth::user()->id) ? UserFollower::where('user_id', Auth::user()->id)->pluck('linked_user_id')->toArray() : [];
         $followerIds   = isset(Auth::user()->id) ? UserFollower::where('linked_user_id', Auth::user()->id)->pluck('user_id')->toArray() : [];
-
+        $currentRoute = $request->get('currentRoute', '');
         if(isset($content->id)){
 
-            $html = view('content.ajax-result-content-data', array('content'=>$content, 'followerIds' => $followerIds, 'followingIds' => $followingIds))->render();
+            $html = view('content.ajax-result-content-data', array('content'=>$content, 'followerIds' => $followerIds, 'followingIds' => $followingIds, 'currentRoute' =>$currentRoute))->render();
 
             return Response::json(['status' => true, 'html' => $html]);
         }

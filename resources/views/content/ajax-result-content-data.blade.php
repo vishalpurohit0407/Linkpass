@@ -57,16 +57,16 @@
 
                 <span class="image-duration image-duration-detail">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
                 @php
-                  $currentRoute = Route::currentRouteName();
+                  $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
                 @endphp
-                @if(!isset($content->content_user_remove->id)  && $currentRoute != 'results' && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
+                @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results')
                   <div class="Remove">
                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"><span>Remove</span></a>
                   </div>
                 @endif
 
-                @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type) && Auth::user()->user_type != '1'))
-                  <div class="Save">
+                @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type)) && Auth::user()->id != $content->user_id)
+                  <div class="Keep Save {{$KeepLeftClass}}">
                     <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Keep"><span>Keep</span></a>
                   </div>
                 @endif
@@ -99,7 +99,7 @@
           </li>
 
           <li>
-            <a href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share<span></a>
+            <a class="social-share" href="javascript:void(0);"><i class="far fa-2x fa-share-alt"></i> <span class="share-action-label">Share<span></a>
           </li>
 
           <li>
