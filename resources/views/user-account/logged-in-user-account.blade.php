@@ -194,6 +194,22 @@ function deleteSocialAccount(id){
         $('.sortContentListing').removeClass('active');
         $(this).addClass('active');
         $(this).parent().addClass('active');
+
+        if(tabName == 'matched')
+        {
+            $('.matchesContent').html('');
+        }
+
+        if(tabName == 'creators')
+        {
+            $('.createdContent').html('');
+        }
+
+        if(tabName == 'saved')
+        {
+            $('.savedContent').html('');
+        }
+
         getTabsContentData(tabName, filterBy);
     });
 
@@ -308,6 +324,22 @@ function deleteSocialAccount(id){
 
     $(document).on('click', '.content-tabs',function(event){
         var tabName = $(this).data('tab-name');
+
+        if(tabName == 'matched')
+        {
+            $('.matchesContent').html('');
+        }
+
+        if(tabName == 'creators')
+        {
+            $('.createdContent').html('');
+        }
+
+        if(tabName == 'saved')
+        {
+            $('.savedContent').html('');
+        }
+
         if(tabName != 'creators')
         {
             getTabsContentData(tabName);
@@ -515,6 +547,21 @@ function deleteSocialAccount(id){
 
     if(tabName)
     {
+        if(tabName == 'matched')
+        {
+            $('.matchesContent').html('');
+        }
+
+        if(tabName == 'creators')
+        {
+            $('.createdContent').html('');
+        }
+
+        if(tabName == 'saved')
+        {
+            $('.savedContent').html('');
+        }
+
         getTabsContentData(tabName, filterBy, paginate);
     }
 
