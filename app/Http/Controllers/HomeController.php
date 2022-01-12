@@ -127,6 +127,7 @@ class HomeController extends Controller
     public function getResults(Request $request)
     {
         $keyword = trim($request->search);
+        $keyword = str_replace('#', '', $keyword);
 
         $followingIds  = [];
         $followerIds   = [];
