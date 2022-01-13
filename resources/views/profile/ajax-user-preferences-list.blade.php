@@ -33,7 +33,7 @@
                     <span id="user-tags-box-{{$item->id}}">
                         @if($item->tags()->count())
                             @foreach ($item->tags as $tag)
-                                <span class="label-info-tag label-tag-{{base64_encode($tag->name)}}"><a href="javascript:void(0);"># {{$tag->name}}</a></span>
+                                <span class="label-info-tag label-tag-{{base64_encode($tag->name)}}"><a href="javascript:void(0);">#{{$tag->name}}</a></span>
                             @endforeach
                         @else
                             <span class="label-info-tag no-tags">No tags found</span>
