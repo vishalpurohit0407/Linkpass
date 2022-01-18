@@ -60,13 +60,13 @@ jQuery(document).ready(function($) {
       var socialAccId = $(this).attr('data-id');
 
       swal({
-          title: "Are you sure?",
+          title: "Delete?",
           text: "Would you like to delete this account!",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: '#DD6B55',
-          confirmButtonText: 'Yes, Delete it!',
-          cancelButtonText: "No, Cancel it!"
+          confirmButtonText: 'Yes',
+          cancelButtonText: "Cancel"
       }).then((result) => {
           if (result.value) {
               deleteSocialAccount(socialAccId);
@@ -751,7 +751,14 @@ function deleteSocialAccount(id){
   function saveContentAction(element, action, content_id){
 
       var text       = '',
-          visitCount = parseInt($('#view-count-'+content_id).html());
+          visitCount = parseInt($('#view-count-'+content_id).html()),
+          tabName    = $('.content-tabs.active').data('tab-name'),
+          deleteText = 'Delete';
+
+        if(tabName!= '' && tabName == 'matched')
+        {
+            deleteText = 'Remove';
+        }
 
       switch(action) {
       case '1':
@@ -776,7 +783,7 @@ function deleteSocialAccount(id){
           text = "Are you sure you want to Save this listing?";
           break;
       case '5':
-          text = "Are you sure you want to Remove this listing?";
+          text = "Are you sure you want to "+(deleteText.toLowerCase())+" this listing?";
           break;
     }
 
@@ -797,7 +804,6 @@ function deleteSocialAccount(id){
                     "progressBar" : true
                 }
                 toastr.success(data.message);
-                var tabName = $('.content-tabs.active').data('tab-name');
 
                 getTabsContentData(tabName);
             }
@@ -815,7 +821,7 @@ function deleteSocialAccount(id){
       if(text.length > 0)
       {
           swal({
-              title: "Are you sure?",
+              title: (action == '5' ? deleteText+"!" : "Are you sure?"),
               html: text,
               type: "warning",
               showCancelButton: true,
