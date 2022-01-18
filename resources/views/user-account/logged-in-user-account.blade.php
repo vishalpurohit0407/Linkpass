@@ -213,35 +213,35 @@ function deleteSocialAccount(id){
         getTabsContentData(tabName, filterBy);
     });
 
-    $(document).on('click','.rateListingContent',function(event) {
+    // $(document).on('click','.rateListingContent',function(event) {
 
-        var contentId = $(this).attr('data-id');
+    //     var contentId = $(this).attr('data-id');
 
-          $.ajax(
-          {
-              url: '{{route("result.get-details")}}',
-              type: "post",
-              datatype: "json",
-              data:{content_id:contentId},
-          }).done(function(data){
+    //       $.ajax(
+    //       {
+    //           url: '{{route("result.get-details")}}',
+    //           type: "post",
+    //           datatype: "json",
+    //           data:{content_id:contentId},
+    //       }).done(function(data){
 
-              if(data.status)
-              {
-                $('#content-details-wrap').html(data.html);
+    //           if(data.status)
+    //           {
+    //             $('#content-details-wrap').html(data.html);
 
-                pageno=1;
-                //getRatingsData();
+    //             pageno=1;
+    //             //getRatingsData();
 
-                $('#content-details-modal').modal('show');
-              }
-              else
-              {
-                swal('Error!!', data.message, 'error');
-              }
-          }).fail(function(jqXHR, ajaxOptions, thrownError){
+    //             $('#content-details-modal').modal('show');
+    //           }
+    //           else
+    //           {
+    //             swal('Error!!', data.message, 'error');
+    //           }
+    //       }).fail(function(jqXHR, ajaxOptions, thrownError){
 
-          });
-      });
+    //       });
+    //   });
 
       $(document).on('click','.view-content-details',function(event) {
 
@@ -340,10 +340,7 @@ function deleteSocialAccount(id){
             $('.savedContent').html('');
         }
 
-        if(tabName != 'creators')
-        {
-            getTabsContentData(tabName);
-        }
+        getTabsContentData(tabName);
     });
 
     //   $(document).on('click', '.content-pagination.pagination a',function(event){
