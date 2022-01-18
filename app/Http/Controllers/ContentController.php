@@ -493,6 +493,7 @@ class ContentController extends Controller
     public function getTabsContent(Request $request){
 
         $items = [];
+        $editable = false;
 
         $contentId = $request->get('content_id');
         $userId = $request->get('user_id');
@@ -518,6 +519,8 @@ class ContentController extends Controller
             $items = $this->content->where('user_id', $userId)->where('social_account_id', $socialAccountId);
             $items = $items->orderBy('created_at', 'desc');
             $items = $items->paginate(12);
+
+            $editable = true;
         }
 
         // if($tab == 'rated')
@@ -652,7 +655,7 @@ class ContentController extends Controller
                 return '';
             }
 
-            return view('content-rows', array('items' => $items))->render();
+            return view('content-rows', array('items' => $items, 'editable' => $editable))->render();
         }
 
         return view('content.ajax-tabs-content-list',array('items' => $items, 'followingIds' => $followingIds, 'followerIds' => $followerIds));
