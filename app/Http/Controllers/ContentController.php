@@ -510,7 +510,7 @@ class ContentController extends Controller
         $followingIds  = UserFollower::where('user_id', $user->id)->pluck('linked_user_id')->toArray();
         $followerIds   = UserFollower::where('linked_user_id', $user->id)->pluck('user_id')->toArray();
 
-        $tab      = $request->get('tab');
+        $tab      = $request->get('tab', '');
         $filterBy = !empty($request->get('filterBy')) ? $request->get('filterBy') : '';
         $socialAccountId = !empty($request->get('social_account_id')) ? $request->get('social_account_id') : '';
 
@@ -655,7 +655,7 @@ class ContentController extends Controller
                 return '';
             }
 
-            return view('content-rows', array('items' => $items, 'editable' => $editable))->render();
+            return view('content-rows', array('items' => $items, 'editable' => $editable, 'tab' => $tab))->render();
         }
 
         return view('content.ajax-tabs-content-list',array('items' => $items, 'followingIds' => $followingIds, 'followerIds' => $followerIds));

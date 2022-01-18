@@ -247,12 +247,16 @@ function deleteSocialAccount(id){
 
           var contentId = $(this).attr('data-id');
 
+          var loggedInUserID = '{{ isset(Auth::user()->id) ? Auth::user()->id : '' }}';
+          var user_id = '{{ isset($user->id) ? $user->id : ""}}';
+          var tabName = $('.content-tabs.active').data('tab-name');
+
           $.ajax(
           {
               url: '{{route("result.get-details")}}',
               type: "post",
               datatype: "json",
-              data:{content_id:contentId},
+              data:{content_id:contentId,tab_name:tabName},
           }).done(function(data){
 
               if(data.status)
@@ -265,6 +269,11 @@ function deleteSocialAccount(id){
                 $('[data-toggle="tooltip"]').tooltip();
 
                 $('#content-details-modal').modal('show');
+
+                if(tabName =='saved' && loggedInUserID == user_id)
+                {
+                    $('.detail-saved-label').parent().remove();
+                }
               }
               else
               {
@@ -381,82 +390,82 @@ function deleteSocialAccount(id){
           saveContentAction(this, action, content_id);
       });
 
-      $(document).on("click","#saveRating",function() {
+    //   $(document).on("click","#saveRating",function() {
 
-          var rating      =  $("#emoji-div").emoji("getvalue");
-          var ratingText  =  $('#rating-text').val();
-          var content_id  =  $(this).data('id');
+    //       var rating      =  $("#emoji-div").emoji("getvalue");
+    //       var ratingText  =  $('#rating-text').val();
+    //       var content_id  =  $(this).data('id');
 
-          if(rating.length == 0)
-          {
-              swal('Error!', 'Please give a rating', 'error');
-              return false;
-          }
+    //       if(rating.length == 0)
+    //       {
+    //           swal('Error!', 'Please give a rating', 'error');
+    //           return false;
+    //       }
 
-          $.ajax(
-          {
-              url: '{{route("user.content.save-rating")}}',
-              type: "post",
-              datatype: "json",
-              data:{content_id : content_id, rating : rating, ratingText : ratingText},
-          }).done(function(data){
+    //       $.ajax(
+    //       {
+    //           url: '{{route("user.content.save-rating")}}',
+    //           type: "post",
+    //           datatype: "json",
+    //           data:{content_id : content_id, rating : rating, ratingText : ratingText},
+    //       }).done(function(data){
 
-              if(data.status)
-              {
-                    toastr.options =
-                    {
-                        "closeButton" : true,
-                        "progressBar" : true
-                    }
-                    toastr.success(data.message);
+    //           if(data.status)
+    //           {
+    //                 toastr.options =
+    //                 {
+    //                     "closeButton" : true,
+    //                     "progressBar" : true
+    //                 }
+    //                 toastr.success(data.message);
 
-                    $('.ratingsCount').html(data.ratingsCount);
+    //                 $('.ratingsCount').html(data.ratingsCount);
 
-                    $('#rating-text').val('');
-                    pageno=1;
-                    //getRatingsData();
+    //                 $('#rating-text').val('');
+    //                 pageno=1;
+    //                 //getRatingsData();
 
-                    return false;
-              }
-              else
-              {
-                  swal('Error!!', data.message, 'error');
-                  return false;
-              }
-          }).fail(function(jqXHR, ajaxOptions, thrownError){
+    //                 return false;
+    //           }
+    //           else
+    //           {
+    //               swal('Error!!', data.message, 'error');
+    //               return false;
+    //           }
+    //       }).fail(function(jqXHR, ajaxOptions, thrownError){
 
-          });
-      });
+    //       });
+    //   });
 
-      $(document).on("click",".ratingVoteAction",function() {
+    //   $(document).on("click",".ratingVoteAction",function() {
 
-          var type      = $(this).data('type');
-          var rating_id = $(this).data('id');
+    //       var type      = $(this).data('type');
+    //       var rating_id = $(this).data('id');
 
-          $.ajax(
-          {
-              url: '{{route("user.content.save-rating-vote")}}',
-              type: "post",
-              datatype: "json",
-              data:{rating_id : rating_id, type : type},
-          }).done(function(data){
+    //       $.ajax(
+    //       {
+    //           url: '{{route("user.content.save-rating-vote")}}',
+    //           type: "post",
+    //           datatype: "json",
+    //           data:{rating_id : rating_id, type : type},
+    //       }).done(function(data){
 
-              if(data.status)
-              {
-                  pageno=1;
-                  //getRatingsData();
+    //           if(data.status)
+    //           {
+    //               pageno=1;
+    //               //getRatingsData();
 
-                  return false;
-              }
-              else
-              {
-                  swal('Error!!', data.message, 'error');
-                  return false;
-              }
-          }).fail(function(jqXHR, ajaxOptions, thrownError){
+    //               return false;
+    //           }
+    //           else
+    //           {
+    //               swal('Error!!', data.message, 'error');
+    //               return false;
+    //           }
+    //       }).fail(function(jqXHR, ajaxOptions, thrownError){
 
-          });
-      });
+    //       });
+    //   });
 
         $(document).on("click", ".loadUnpublishedContents",function() {
 
