@@ -370,14 +370,24 @@ class ContentController extends Controller
     public function goToContentDetails(Request $request)
     {
 
-            if(isset(Auth::user()->user_type))
-            {
-                $isExist = ContentView::select('id')->where('user_id', Auth::user()->id)->where('content_id', $request->content_id)->first();
-                $content = $this->content->find($request->content_id);
-                if(!isset($isExist->id) && isset($content->id) && $content->user_id != Auth::user()->id)
-                {
-                    ContentView::create(array('user_id' => Auth::user()->id, 'content_id' => $request->content_id));
+            $ipAddress = $request->ip();
 
+            $isExist = ContentView::select('id')->where('ip_address', $ipAddress);
+
+            if(isset(Auth::user()->id))
+            {
+                $isExist = $isExist->where('user_id', Auth::user()->id);
+            }
+
+            $isExist = $isExist->where('content_id', $request->content_id)->first();
+            $content = $this->content->find($request->content_id);
+
+            if(!isset($isExist->id) && isset($content->id) && $content->user_id != Auth::user()->id)
+            {
+                ContentView::create(array('user_id' => isset(Auth::user()->id) ? Auth::user()->id : null, 'content_id' => $request->content_id, 'ip_address' => $ipAddress));
+
+                if(isset(Auth::user()->id))
+                {
                     // Save In Saved Tab
                     ContentAction::create([
                         'content_id' => $request->content_id,
@@ -387,11 +397,12 @@ class ContentController extends Controller
                 }
             }
 
-            $content = $this->content->find($request->content_id);
 
-            $count = $content->views_count;
+        $content = $this->content->find($request->content_id);
 
-            return Response::json(['status' => true, 'count' => $count, 'url' => $content->external_link]);
+        $count = $content->views_count;
+
+        return Response::json(['status' => true, 'count' => $count, 'url' => $content->external_link]);
 
     }
 

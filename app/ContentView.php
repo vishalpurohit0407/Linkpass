@@ -10,7 +10,7 @@ class ContentView extends Authenticatable
     protected $table = 'content_views';
 
     protected $fillable = [
-        'content_id', 'user_id',
+        'content_id', 'user_id', 'ip_address'
     ];
 
 
