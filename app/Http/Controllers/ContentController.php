@@ -382,7 +382,7 @@ class ContentController extends Controller
             $isExist = $isExist->where('content_id', $request->content_id)->first();
             $content = $this->content->find($request->content_id);
 
-            if(!isset($isExist->id) && isset($content->id) && $content->user_id != Auth::user()->id)
+            if(!isset($isExist->id) && isset($content->id) && isset(Auth::user()->id) && $content->user_id != Auth::user()->id)
             {
                 ContentView::create(array('user_id' => isset(Auth::user()->id) ? Auth::user()->id : null, 'content_id' => $request->content_id, 'ip_address' => $ipAddress));
 
@@ -395,6 +395,10 @@ class ContentController extends Controller
                         'action'     => 4
                     ]);
                 }
+            }
+            else if(!isset($isExist->id) && isset($content->id) && !isset(Auth::user()->id))
+            {
+                ContentView::create(array('user_id' => isset(Auth::user()->id) ? Auth::user()->id : null, 'content_id' => $request->content_id, 'ip_address' => $ipAddress));
             }
 
 
