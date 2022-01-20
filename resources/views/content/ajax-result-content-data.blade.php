@@ -13,6 +13,8 @@
         $userProfileClass = 'hybrid-profile-bg';
     }
 
+    $tabName = isset($tabName) ? $tabName : '';
+
     $contentType = array(1 => 'Images', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
     $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words.($content->number_of_words == 1 ? ' Word' : ' Words'));
 
@@ -61,7 +63,7 @@
                 @endphp
                 @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results')
                   <div class="Remove">
-                      <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"><span>Remove</span></a>
+                      <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{$tabName == 'saved' ? 'Delete' : 'Remove'}}"><span>{{$tabName == 'saved' ? 'Delete' : 'Remove'}}</span></a>
                   </div>
                 @endif
 
