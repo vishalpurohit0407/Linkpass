@@ -63,7 +63,7 @@
                 @endphp
                 @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results')
                   <div class="Remove">
-                      <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{$tabName == 'saved' ? 'Delete' : 'Remove'}}"><span>{{$tabName == 'saved' ? 'Delete' : 'Remove'}}</span></a>
+                      <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{$tabName == 'matched' ? 'Remove' : 'Delete'}}"><span>{{$tabName == 'matched' ? 'Remove' : 'Delete'}}</span></a>
                   </div>
                 @endif
 

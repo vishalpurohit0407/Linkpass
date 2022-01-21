@@ -64,7 +64,7 @@
         </div>
     </article>
 </main>
-@if(isset($page->id) && $page->url_slug == 'privacy-policy')
+@if(isset($page->id) && ($page->url_slug == 'privacy-policy' || $page->url_slug == 'terms-conditions'))
 <style>
     ul{
         list-style-type:initial;

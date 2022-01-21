@@ -33,7 +33,7 @@
 
                         </aside>
                         <aside class="col-md-9">
-                            <p><a href="{{route('other-user.account', $user->hashid)}}" class="text-secondary">{{$user->account_name}}</a></p>
+                            <p><a href="{{route('other-user.account', $user->hashid)}}" ><strong class="text-secondary">{{$user->account_name}}</strong></a></p>
                             <p><a href="{{route('other-user.account', $user->hashid)}}" class="text-secondary">{{$user->name}}</a></p>
                             <p class="font-14"><a href="javascript:void(0);" class="text-primary"><strong class="text-primary">Here Since: </strong><span>{{date('d M Y', strtotime($user->created_at))}}</span></a></p>
                         </aside>
@@ -60,6 +60,17 @@
 
   </article>
 </main>
+ <!-- Start Modal -->
+ <div class="modal fade user-modal" id="content-details-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+        <div class="modal-body" id="content-details-wrap">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
 <!--End main Part-->
 @endsection
 

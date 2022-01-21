@@ -263,7 +263,7 @@ function deleteSocialAccount(id){
               {
                 $('#content-details-wrap').html(data.html);
 
-                pageno=1;
+               // pageno=1;
                // getRatingsData();
 
                 $('[data-toggle="tooltip"]').tooltip();

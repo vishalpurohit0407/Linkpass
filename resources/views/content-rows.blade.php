@@ -63,7 +63,7 @@
                   @endphp
                   @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results')
                     <div class="Remove">
-                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove"><span>Remove</span></a>
+                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{$tab == 'matched' ? 'Remove' : 'Delete'}}"><span>{{$tab == 'matched' ? 'Remove' : 'Delete'}}</span></a>
                     </div>
                   @endif
 
@@ -177,17 +177,6 @@
       <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">No listings found</div>
   @endif
 </div>
-  <!-- Start Modal -->
-  <div class="modal fade user-modal" id="content-details-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-      <div class="modal-body" id="content-details-wrap">
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End Modal -->
 
 
 

@@ -163,7 +163,7 @@
                                           <div class="form-group">
                                               <label class="form-control-label" for="video_length_h">Hours</label>
                                               <div class="input-group mb-3">
-                                                <input type="number" min="0" class="form-control" id="video_length_h" name="video_length_h" placeholder="Hours" value="{{old('video_length_h', $content->video_length_h)}}">
+                                                <input type="number" min="0" max="99" class="form-control" id="video_length_h" name="video_length_h" placeholder="Hours" value="{{old('video_length_h', $content->video_length_h)}}">
                                               </div>
                                           </div>
                                       </div>
@@ -172,7 +172,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="video_length_m">Minutes</label>
                                             <div class="input-group mb-3">
-                                              <input type="number" min="0" class="form-control" id="video_length_m" name="video_length_m" placeholder="Minutes" value="{{old('video_length_m', $content->video_length_m)}}">
+                                              <input type="number" min="0" max="59" class="form-control" id="video_length_m" name="video_length_m" placeholder="Minutes" value="{{old('video_length_m', $content->video_length_m)}}">
                                             </div>
                                         </div>
                                       </div>
@@ -181,7 +181,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="video_length_s">Seconds</label>
                                             <div class="input-group mb-3">
-                                              <input type="number" min="0" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{ old('video_length_s', $content->video_length_s)}}">
+                                              <input type="number" min="0" max="59" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{ old('video_length_s', $content->video_length_s)}}">
                                             </div>
                                         </div>
                                       </div>
@@ -198,7 +198,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_h">Hours</label>
                                           <div class="input-group mb-3">
-                                          <input type="number" min="0" class="form-control" id="podcast_length_h" name="podcast_length_h" placeholder="Hours" value="{{old('podcast_length_h', $content->podcast_length_h)}}">
+                                          <input type="number" min="0" max="99" class="form-control" id="podcast_length_h" name="podcast_length_h" placeholder="Hours" value="{{old('podcast_length_h', $content->podcast_length_h)}}">
                                           </div>
                                         </div>
                                       </div>
@@ -207,7 +207,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_m">Minutes</label>
                                           <div class="input-group mb-3">
-                                            <input type="number" min="0" class="form-control" id="podcast_length_m" name="podcast_length_m" placeholder="Minutes" value="{{old('podcast_length_m', $content->podcast_length_m)}}">
+                                            <input type="number" min="0" max="59" class="form-control" id="podcast_length_m" name="podcast_length_m" placeholder="Minutes" value="{{old('podcast_length_m', $content->podcast_length_m)}}">
                                           </div>
                                         </div>
                                       </div>
@@ -216,7 +216,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_s">Seconds</label>
                                           <div class="input-group mb-3">
-                                            <input type="number" min="0" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{old('podcast_length_s', $content->podcast_length_s)}}">
+                                            <input type="number" min="0" max="59" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{old('podcast_length_s', $content->podcast_length_s)}}">
                                           </div>
                                         </div>
                                       </div>
