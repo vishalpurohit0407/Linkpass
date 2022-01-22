@@ -174,17 +174,19 @@ function deleteSocialAccount(id){
 
     var userType = "{{ isset(Auth::user()->id) ? Auth::user()->user_type : '' }}";
     var currentRoute = "{{ Route::currentRouteName() }}";
+    var activeTab = "{{ request()->get('tab', '') }}";
 
-    if(userType != '1' && userType != '' && currentRoute != 'user.account.contents')
+    if(activeTab == 'created')
     {
-        if($('#pills-Matches-tab').length > 0)
-        {
-            setTimeout(function(){ $('#pills-Matches-tab').click(); }, 1000);
-        }
+        setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 100);
+    }
+    else if(userType != '' && userType != '1' && currentRoute != 'user.account.contents' && $('#pills-Matches-tab').length > 0)
+    {
+        setTimeout(function(){ $('#pills-Matches-tab').click(); }, 100);
     }
     else
     {
-        setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 1000);
+        setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 100);
     }
 
     $(document).on('click','.sortContentListing',function(event) {

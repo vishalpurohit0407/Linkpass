@@ -163,7 +163,7 @@
                                           <div class="form-group">
                                               <label class="form-control-label" for="video_length_h">Hours</label>
                                               <div class="input-group mb-3">
-                                                <input type="number" min="0" max="99" class="form-control" id="video_length_h" name="video_length_h" placeholder="Hours" value="{{old('video_length_h', $content->video_length_h)}}">
+                                                <input type="number" min="0" max="99" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';}" class="form-control" id="video_length_h" name="video_length_h" placeholder="Hours" value="{{old('video_length_h', $content->video_length_h)}}">
                                               </div>
                                           </div>
                                       </div>
@@ -172,7 +172,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="video_length_m">Minutes</label>
                                             <div class="input-group mb-3">
-                                              <input type="number" min="0" max="59" class="form-control" id="video_length_m" name="video_length_m" placeholder="Minutes" value="{{old('video_length_m', $content->video_length_m)}}">
+                                              <input type="number" min="0" max="59" onKeyUp="if(this.value>59){this.value='59';}else if(this.value<0){this.value='0';}" class="form-control" id="video_length_m" name="video_length_m" placeholder="Minutes" value="{{old('video_length_m', $content->video_length_m)}}">
                                             </div>
                                         </div>
                                       </div>
@@ -181,7 +181,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="video_length_s">Seconds</label>
                                             <div class="input-group mb-3">
-                                              <input type="number" min="0" max="59" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{ old('video_length_s', $content->video_length_s)}}">
+                                              <input type="number" min="0" max="59" onKeyUp="if(this.value>59){this.value='59';}else if(this.value<0){this.value='0';}" class="form-control" id="video_length_s" name="video_length_s" placeholder="Seconds" value="{{ old('video_length_s', $content->video_length_s)}}">
                                             </div>
                                         </div>
                                       </div>
@@ -198,7 +198,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_h">Hours</label>
                                           <div class="input-group mb-3">
-                                          <input type="number" min="0" max="99" class="form-control" id="podcast_length_h" name="podcast_length_h" placeholder="Hours" value="{{old('podcast_length_h', $content->podcast_length_h)}}">
+                                          <input type="number" min="0" max="99" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';}" class="form-control" id="podcast_length_h" name="podcast_length_h" placeholder="Hours" value="{{old('podcast_length_h', $content->podcast_length_h)}}">
                                           </div>
                                         </div>
                                       </div>
@@ -207,7 +207,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_m">Minutes</label>
                                           <div class="input-group mb-3">
-                                            <input type="number" min="0" max="59" class="form-control" id="podcast_length_m" name="podcast_length_m" placeholder="Minutes" value="{{old('podcast_length_m', $content->podcast_length_m)}}">
+                                            <input type="number" min="0" max="59" onKeyUp="if(this.value>59){this.value='59';}else if(this.value<0){this.value='0';}" class="form-control" id="podcast_length_m" name="podcast_length_m" placeholder="Minutes" value="{{old('podcast_length_m', $content->podcast_length_m)}}">
                                           </div>
                                         </div>
                                       </div>
@@ -216,7 +216,7 @@
                                         <div class="form-group">
                                           <label class="form-control-label" for="podcast_length_s">Seconds</label>
                                           <div class="input-group mb-3">
-                                            <input type="number" min="0" max="59" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{old('podcast_length_s', $content->podcast_length_s)}}">
+                                            <input type="number" min="0" max="59" onKeyUp="if(this.value>59){this.value='59';}else if(this.value<0){this.value='0';}" class="form-control" id="podcast_length_s" name="podcast_length_s" placeholder="Seconds" value="{{old('podcast_length_s', $content->podcast_length_s)}}">
                                           </div>
                                         </div>
                                       </div>
@@ -393,15 +393,26 @@ function bindType()
 
 function validateStep2()
 {
-  var main_title  = $('#main_title').val();
-  var category_id = $('#category_id').val();
-  var posted_at   = $('#posted_at').val();
-  var tags        = $('#tags').val();
+  var main_title    = $('#main_title').val();
+  var category_id   = $('#category_id').val();
+  var posted_at     = $('#posted_at').val();
+  var tags          = $('#tags').val();
   var external_link = $('#external_link').val();
-  var description = $('#description').val();
-  var image       = $('.dz-preview-img').length;
-  var errorStr    = '<div class="pull-left offset-4">';
-  var errCount    = 0;
+  var description   = $('#description').val();
+  var image         = $('.dz-preview-img').length;
+  var errorStr      = '<div class="pull-left offset-4">';
+  var errCount      = 0;
+
+  var type             = $('#type').val();
+  var podcast_length_h = $('#podcast_length_h').val();
+  var podcast_length_m = $('#podcast_length_m').val();
+  var podcast_length_s = $('#podcast_length_s').val();
+  var number_of_images = $('#number_of_images').val();
+  var video_length_h   = $('#video_length_h').val();
+  var video_length_m   = $('#video_length_m').val();
+  var video_length_s   = $('#video_length_s').val();
+  var number_of_words  = $('#number_of_words').val();
+
 
   if(image == 0)
   {
@@ -437,6 +448,30 @@ function validateStep2()
   if(description == '')
   {
     errorStr += '<p class="text-left">Please enter description.</p>';
+    errCount++;
+  }
+
+  if(type == 1 && number_of_images <= 0)
+  {
+    errorStr += '<p class="text-left">Please enter number of images.</p>';
+    errCount++;
+  }
+
+  if(type == 2 && video_length_h <= 0 && video_length_m <= 0 && video_length_s <= 0)
+  {
+    errorStr += '<p class="text-left">Please enter video length.</p>';
+    errCount++;
+  }
+
+  if(type == 3 && podcast_length_h <= 0 && podcast_length_m <= 0 && podcast_length_s <= 0)
+  {
+    errorStr += '<p class="text-left">Please enter audio length.</p>';
+    errCount++;
+  }
+
+  if(type == 4 && number_of_words <= 0)
+  {
+    errorStr += '<p class="text-left">Please enter number of words.</p>';
     errCount++;
   }
 

@@ -59,9 +59,10 @@
                   <span class="image-duration">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
                   @php
                     $currentRoute = Route::currentRouteName();
+
                     $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
                   @endphp
-                  @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results')
+                  @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results' && Auth::user()->id != $content->user_id)
                     <div class="Remove">
                        <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{$tab == 'matched' ? 'Remove' : 'Delete'}}"><span>{{$tab == 'matched' ? 'Remove' : 'Delete'}}</span></a>
                     </div>

@@ -183,9 +183,9 @@
               </div>
               <div class="col-md-6 mt-3">
                 @if($editable)
-                  <a href="{{route('user.account')}}" class="btn btn-primary btn-sm  text-uppercase pull-right ">Back</a>
+                  <a href="{{route('user.account', array('tab' => 'created'))}}" class="btn btn-primary btn-sm  text-uppercase pull-right ">Back</a>
                 @else
-                  <a href="{{route('other-user.account', $user->hashid)}}" class="btn btn-primary btn-sm  text-uppercase pull-right ">Back</a>
+                  <a href="{{route('other-user.account', $user->hashid, array('tab' => 'created'))}}" class="btn btn-primary btn-sm  text-uppercase pull-right ">Back</a>
                 @endif
               </div>
             </div>

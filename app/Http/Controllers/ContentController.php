@@ -621,39 +621,39 @@ class ContentController extends Controller
         {
             $items = $this->content;
 
-            $items = $items->whereHas('content_user_keep', function ($query) use($user)
+            $items = $items->whereHas('content_user_keep', function ($query) use($userId)
             {
-              $query->where('user_id', $user->id);
+              $query->where('user_id', $userId);
             });
 
             if(!empty($filterBy))
             {
                 if($filterBy == 'like')
                 {
-                    $items = $items->whereHas('content_user_like', function ($query) use($user)
+                    $items = $items->whereHas('content_user_like', function ($query) use($userId)
                     {
-                        $query->where('user_id', $user->id);
+                        $query->where('user_id', $userId);
                     });
                 }
                 else if($filterBy == 'unlike')
                 {
-                    $items = $items->whereHas('content_user_unlike', function ($query) use($user)
+                    $items = $items->whereHas('content_user_unlike', function ($query) use($userId)
                     {
-                        $query->where('user_id', $user->id);
+                        $query->where('user_id', $userId);
                     });
                 }
                 else if($filterBy == 'visited')
                 {
-                    $items = $items->whereHas('content_user_visited', function ($query) use($user)
+                    $items = $items->whereHas('content_user_visited', function ($query) use($userId)
                     {
-                        $query->where('user_id', $user->id);
+                        $query->where('user_id', $userId);
                     });
                 }
                 else if($filterBy == 'unvisited')
                 {
-                    $items = $items->whereDoesntHave('content_user_visited', function ($query) use($user)
+                    $items = $items->whereDoesntHave('content_user_visited', function ($query) use($userId)
                     {
-                        $query->where('user_id', $user->id);
+                        $query->where('user_id', $userId);
                     });
                 }
             }
