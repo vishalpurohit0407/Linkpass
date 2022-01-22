@@ -335,6 +335,10 @@ function deleteSocialAccount(id){
 
     $(document).on('click', '.content-tabs',function(event){
         var tabName = $(this).data('tab-name');
+        var paginate = 1;
+        var filterBy = $('.sortContentListing.active:visible').data('data-filter-by');
+
+        filterBy = filterBy ? filterBy : '';
 
         if(tabName == 'matched')
         {
@@ -351,7 +355,7 @@ function deleteSocialAccount(id){
             $('.savedContent').html('');
         }
 
-        getTabsContentData(tabName);
+        getTabsContentData(tabName, filterBy, paginate);
     });
 
     //   $(document).on('click', '.content-pagination.pagination a',function(event){
@@ -549,29 +553,29 @@ function deleteSocialAccount(id){
 //       });
 //   }
 
-    var paginate = 1,
-        tabName  = $('.content-tabs.active').data('tab-name'),
-        filterBy = $('.sortContentListing.active:visible').data('data-filter-by');
+    // var paginate = 1,
+    //     tabName  = $('.content-tabs.active').data('tab-name'),
+    //     filterBy = $('.sortContentListing.active:visible').data('data-filter-by');
 
-    if(tabName)
-    {
-        if(tabName == 'matched')
-        {
-            $('.matchesContent').html('');
-        }
+    // if(tabName)
+    // {
+    //     if(tabName == 'matched')
+    //     {
+    //         $('.matchesContent').html('');
+    //     }
 
-        if(tabName == 'creators')
-        {
-            $('.createdContent').html('');
-        }
+    //     if(tabName == 'creators')
+    //     {
+    //         $('.createdContent').html('');
+    //     }
 
-        if(tabName == 'saved')
-        {
-            $('.savedContent').html('');
-        }
+    //     if(tabName == 'saved')
+    //     {
+    //         $('.savedContent').html('');
+    //     }
 
-        getTabsContentData(tabName, filterBy, paginate);
-    }
+    //     getTabsContentData(tabName, filterBy, paginate);
+    // }
 
     $('.load-more').click(function() {
         var page     = $(this).data('paginate'),
@@ -594,12 +598,14 @@ function deleteSocialAccount(id){
             type: 'get',
             datatype: 'json',
             data:{page:pageno,tab:tab, filterBy:filterBy, user_id : user_id, social_account_id : socialAccountId},
-        }).done(function(data){
+        }).done(function(response){
+
+            data = response.status == true ? response.html : '';
 
             if(tab == 'matched')
             {
                 $('.matched-loader').hide();
-                if(data.length == 0) {
+                if(response.status == false) {
                     $('#invisible-matched').removeClass('invisible');
                     $('#load-more-matched').hide();
 
@@ -612,12 +618,17 @@ function deleteSocialAccount(id){
 
                 $('.content-visited').addClass('active');
 
+                if(response.hasMoreContent == false)
+                {
+                    $('#invisible-matched').removeClass('invisible');
+                    $('#load-more-matched').hide();
+                }
             }
 
 
             if(tab == 'creators')
             {
-                if(data.length == 0) {
+                if(response.status == false) {
                     $('#invisible-created').removeClass('invisible');
                     $('#load-more-created').hide();
                     return;
@@ -631,13 +642,18 @@ function deleteSocialAccount(id){
 
                 $('.content-visited').addClass('active');
 
+                if(response.hasMoreContent == false)
+                {
+                    $('#invisible-created').removeClass('invisible');
+                    $('#load-more-created').hide();
+                }
             }
 
             if(tab == 'saved')
             {
                 $('.saved-loader').hide();
 
-                if(data.length == 0) {
+                if(response.status == false) {
                     $('#invisible-saved').removeClass('invisible');
                     $('#load-more-saved').hide();
                     return;
@@ -654,6 +670,12 @@ function deleteSocialAccount(id){
                 if(loggedInUserID == user_id)
                 {
                     $('.saved-label').parent().remove();
+                }
+
+                if(response.hasMoreContent == false)
+                {
+                    $('#invisible-saved').removeClass('invisible');
+                    $('#load-more-saved').hide();
                 }
             }
 

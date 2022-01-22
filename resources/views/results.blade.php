@@ -499,8 +499,8 @@
   function saveContentAction(element, action, content_id){
 
       var text = '',
-        visitCount = parseInt($('#view-count-'+content_id).html());
-
+        visitCount = parseInt($('#view-count-'+content_id).html()),
+        deleteText = 'Delete';
       switch(action) {
       case '1':
           text = "Are you sure you want to recommend this listing?";
@@ -522,10 +522,10 @@
         text += '</select>';
         break;
       case '4':
-        text = "Are you sure you want to Keep this listing?";
+        text = "Are you sure you want to Save this listing?";
         break;
       case '5':
-        text = "Are you sure you want to Remove this listing?";
+      text = "Are you sure you want to "+(deleteText.toLowerCase())+" this listing?";
         break;
     }
 
@@ -576,7 +576,7 @@
         if(text.length > 0)
         {
           swal({
-              title: "Are you sure?",
+              title: (action == '5' ? deleteText+"!" : "Are you sure?"),
               html: text,
               type: "warning",
               showCancelButton: true,
@@ -669,8 +669,11 @@
                 $('#load-more').text('Loading...');
             }
         })
-        .done(function(data) {
-            if(data.length == 0) {
+        .done(function(response) {
+
+            data = response.status == true ? response.html : '';
+
+            if(response.status == false) {
                 $('.invisible').removeClass('invisible');
                 $('#load-more').hide();
                 return;
@@ -678,6 +681,13 @@
                 $('#load-more').text('Load more...');
                 $('#search-results').append(data);
                 $('[data-toggle="tooltip"]').tooltip();
+            }
+
+            if(response.hasMoreContent == false)
+            {
+                $('.invisible').removeClass('invisible');
+                $('#load-more').hide();
+                return;
             }
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -769,9 +779,9 @@
             }
            });
         })
-           .fail(function(jqXHR, ajaxOptions, thrownError) {
-              alert('Something went wrong.');
-           });
+        .fail(function(jqXHR, ajaxOptions, thrownError) {
+            alert('Something went wrong.');
+        });
     }
 </script>
 @endsection

@@ -509,7 +509,7 @@ class ContentController extends Controller
 
         $items = [];
         $editable = false;
-
+        $totalCount = 0;
         $contentId = $request->get('content_id');
         $userId = $request->get('user_id');
 
@@ -533,9 +533,10 @@ class ContentController extends Controller
         {
             $items = $this->content->where('user_id', $userId)->where('social_account_id', $socialAccountId);
             $items = $items->orderBy('created_at', 'desc');
+            $totalCount = $items->count();
             $items = $items->paginate(12);
 
-            $editable = true;
+            $editable = isset(Auth::user()->id) && $userId == Auth::user()->id ? true : false;
         }
 
         // if($tab == 'rated')
@@ -612,7 +613,7 @@ class ContentController extends Controller
                     });
                 }
             }
-
+            $totalCount = $items->count();
             $items = $items->orderBy('created_at', 'desc')
                 ->paginate(12);
         }
@@ -659,18 +660,23 @@ class ContentController extends Controller
             }
 
             $items = $items->orderBy('created_at', 'desc');
-
+            $totalCount = $items->count();
             $items = $items->paginate(12);
         }
+
+        $pageNumber = $request->get('page', 0);
+        $hasMoreContent = $pageNumber * 12 <=$totalCount ? true : false;
 
         if ($request->ajax()) {
 
             if($items->count() == 0)
             {
-                return '';
+                return Response::json(['status' => false]);
             }
 
-            return view('content-rows', array('items' => $items, 'editable' => $editable, 'tab' => $tab))->render();
+            $rowHtml = view('content-rows', array('items' => $items, 'editable' => $editable, 'tab' => $tab))->render();
+
+            return Response::json(['status' => true, 'html' => $rowHtml, 'hasMoreContent' => $hasMoreContent]);
         }
 
         return view('content.ajax-tabs-content-list',array('items' => $items, 'followingIds' => $followingIds, 'followerIds' => $followerIds));

@@ -200,6 +200,10 @@ class HomeController extends Controller
                 });
             }
 
+            $totalCount = $query->count();
+            $pageNumber = $request->get('page', 0);
+            $hasMoreContent = $pageNumber * 12 <=$totalCount ? true : false;
+
             $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->paginate(12);
             $isUserListing = 0;
 
@@ -207,10 +211,12 @@ class HomeController extends Controller
 
                 if($items->count() == 0)
                 {
-                    return '';
+                    return Response::json(['status' => false]);
                 }
 
-                return view('content-rows', array('items' => $items))->render();
+                $rowHtml = view('content-rows', array('items' => $items))->render();
+
+                return Response::json(['status' => true, 'html' => $rowHtml, 'hasMoreContent' => $hasMoreContent]);
             }
         }
 
