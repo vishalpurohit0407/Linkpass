@@ -736,7 +736,7 @@ a.text-primary:hover, a.text-primary:focus
 	-moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
 	box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
 	top: 0;
-	z-index: 999;
+	z-index: 9999;
 	position: fixed;
 	-webkit-animation-name: animationFade;
 	-o-animation-name: animationFade;
