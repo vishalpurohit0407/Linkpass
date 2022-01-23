@@ -31,7 +31,7 @@
                   <li class="nav-item"> <a class="nav-link" id="" href="{{url('latest')}}"> <span class="font-16"><i class="fal fa-align-justify"></i> Latest</span></a> </li> --}}
                   <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}">  <span class="font-16"><i class="fal fa-sign-out"></i> Log out</span></a> </li>
                  @else
-                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);" data-toggle="modal" data-target="#loginModalPrompt"> <span class="font-16"><i class="fal fa-sign-in"></i> Log in</span></a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="" href="javascript:void(0);" data-toggle="modal" data-target="#loginModalPrompt"> <span class="font-16"><i class="fal fa-sign-in"></i> Login</span></a> </li>
                   <li class="nav-item"> <a class="nav-link" id="" href="{{url('register')}}" > <span class="font-16"><i class="fal fa-user-plus"></i> Sign up</span></a> </li>
                   @endif
               </ul>
