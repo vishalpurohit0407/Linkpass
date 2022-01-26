@@ -163,7 +163,7 @@ class HomeController extends Controller
             $query = $query->join('users', 'users.id', '=', 'content.user_id');
             $query = $query->where('content.status', '1');
 
-            $query = $query->whereDoesntHave('content_user_remove');
+            // $query = $query->whereDoesntHave('content_user_remove');
 
             if(isset($keyword) && !empty($keyword)) {
                 $query = $query->where(function ($query) use ($keyword)
