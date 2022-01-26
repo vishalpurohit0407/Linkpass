@@ -117,7 +117,7 @@
 
                 if(key == 'email')
                 {
-                    var ShareUrl = 'mailto:?subject= Linkpasser: '+url+' &amp;body='+url;
+                    var ShareUrl = 'mailto:?subject= LinkPasser: '+url+' &amp;body='+url;
                 }
 
                 if(key == 'copy')
@@ -259,7 +259,7 @@
 
                         if(key == 'email')
                         {
-                            var ShareUrl = 'mailto:?subject= Linkpasser: '+url+' &amp;body='+url;
+                            var ShareUrl = 'mailto:?subject= LinkPasser: '+url+' &amp;body='+url;
                         }
 
                         if(key == 'copy')
@@ -750,7 +750,7 @@
 
                 if(key == 'email')
                 {
-                    var ShareUrl = 'mailto:?subject= Linkpasser: '+url+' &amp;body='+url;
+                    var ShareUrl = 'mailto:?subject= LinkPasser: '+url+' &amp;body='+url;
                 }
 
                 if(key == 'copy')

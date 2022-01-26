@@ -5,13 +5,6 @@
     <!-- Header -->
     <div class="header bg-gradient-primary mt-4 py-7 py-lg-8">
         <div class="container">
-            <div class="header-body text-center mb-3">
-              <div class="row justify-content-center">
-                <div class="col-xl-5 col-lg-6 col-md-8 px-5">
-                  <span class="Small-Title">Welcome to {{env('APP_NAME')}}</span>
-                </div>
-              </div>
-            </div>
         </div>
     </div>
 

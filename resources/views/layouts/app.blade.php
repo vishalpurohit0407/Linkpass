@@ -15,7 +15,7 @@
   <meta Http-Equiv="Cache-Control" Content="no-cache">
   <meta Http-Equiv="Pragma" Content="no-cache">
   <meta Http-Equiv="Expires" Content="0">
-  <title>{{ config('app.name', 'Linkpasser') }}</title>
+  <title>{{ config('app.name', 'LinkPasser') }}</title>
   <!-- Favicon -->
   <link rel="icon" href="{{asset('assets/img/favicon.png')}}" type="image/png">
 
@@ -86,7 +86,7 @@
         <div class="modal-dialog modal-md">
           <div class="modal-content">
             <div class="modal-header py-3">
-              <h4 class="modal-title text-light">Linkpasser Login</h4>
+              <h4 class="modal-title text-light">LinkPasser Login</h4>
               <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
             </div>
             <div class="modal-body">
