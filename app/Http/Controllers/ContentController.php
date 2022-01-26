@@ -579,8 +579,12 @@ class ContentController extends Controller
             $items = $this->content->where('is_published', '1')
                 ->whereHas('content_tags', function ($query) use ($tagsList)
                 {
-                $query->whereIn('name', $tagsList);
+                    $query->whereIn('name', $tagsList);
                 });
+                // ->whereDoesntHave('content_user_keep', function ($query) use($userId)
+                // {
+                //     $query->where('user_id', $userId);
+                // });
 
             if(!empty($filterBy))
             {

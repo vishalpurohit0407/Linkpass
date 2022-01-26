@@ -145,7 +145,12 @@
                           {{$socialAccount->content_count}}
                         @endif
 
-                        {{$socialAccount->user_content_count == 1 ? 'Listing' : 'Listings'}}</p>
+                        @if(isset(Auth::user()->id))
+                          {{$socialAccount->user_content_count == 1 ? 'Listing' : 'Listings'}}
+                        @else
+                          {{$socialAccount->content_count == 1 ? 'Listing' : 'Listings'}}
+                        @endif
+                      </p>
                       <div class="">
                         <a href="{{route('user.account.contents', [$socialAccount->hashid, $user->hashid])}}" class="ListingLogo">
                           <img class="rounded-circle height-75 width-75 " src="{{$socialAccount->image_url}}" alt="">

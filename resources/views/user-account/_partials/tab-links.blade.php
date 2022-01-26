@@ -19,7 +19,7 @@
 @endphp
 <ul class="nav nav-pills mb-3 KeptPills" id="pills-tab" role="tablist">
 
-    @if($user->user_type == '0' || $user->user_type == '2')
+    @if(($user->user_type == '0' || $user->user_type == '2') && (isset(Auth::user()->id) && Auth::user()->id == $user->id))
         <li class="nav-item {{$class}}"> <a data-tab-name="matched" class="nav-link active content-tabs {{$disabledClass}}" id="pills-Matches-tab" data-toggle="pill" href="#pills-Matches" role="tab" aria-controls="pills-Matches" aria-selected="false" >Matches</a> </li>
     @endif
 

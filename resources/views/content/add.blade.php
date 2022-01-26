@@ -134,7 +134,7 @@
 
                                       <div class="col-sm-2">
                                           <div class="form-group">
-                                              <label class="form-control-label" for="number_of_images">Number Of Images</label>
+                                              <label class="form-control-label" for="number_of_images">Number Of Images <strong class="text-danger">*</strong></label>
                                               <div class="input-group mb-3">
                                                 <input type="number" class="form-control" min="0" id="number_of_images" name="number_of_images" placeholder="Enter Number Of Images" value="{{old('number_of_images', ($content->number_of_images == 0) ? 0 : $content->number_of_images)}}">
                                               </div>
@@ -145,7 +145,7 @@
                                     <div class="row length-field word-length-field">
                                       <div class="col-sm-2">
                                           <div class="form-group">
-                                              <label class="form-control-label" for="number_of_words">Number Of Words</label>
+                                              <label class="form-control-label" for="number_of_words">Number Of Words <strong class="text-danger">*</strong></label>
                                               <div class="input-group mb-3">
                                                 <input type="number" class="form-control" id="number_of_words" name="number_of_words" placeholder="Enter Number Of Words" value="{{old('number_of_words', $content->number_of_words)}}">
                                               </div>
@@ -156,7 +156,7 @@
                                     <div class="row length-field video-length-field">
 
                                       <div class="col-sm-12">
-                                        <label class="form-control-label" for="video_length">Video Length</label>
+                                        <label class="form-control-label" for="video_length">Video Length <strong class="text-danger">*</strong></label>
                                       </div>
 
                                       <div class="col-sm-2">
@@ -191,7 +191,7 @@
                                     <div class="row length-field podcast-length-field">
 
                                       <div class="col-sm-12">
-                                        <label class="form-control-label" for="podcast_length">Audio Length</label>
+                                        <label class="form-control-label" for="podcast_length">Audio Length <strong class="text-danger">*</strong></label>
                                       </div>
 
                                       <div class="col-sm-2">
@@ -451,9 +451,9 @@ function validateStep2()
     errCount++;
   }
 
-  if(type == 1 && number_of_images <= 0)
+  if(type == 1 && number_of_images <= 2)
   {
-    errorStr += '<p class="text-left">Please enter number of images.</p>';
+    errorStr += '<p class="text-left">Please enter atleast 2 number of images.</p>';
     errCount++;
   }
 
