@@ -434,26 +434,26 @@ class ContentController extends Controller
        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
     }
 
-    public function saveRatingVote(Request $request)
-    {
-       if(!isset(Auth::user()->id))
-       {
-            return Response::json(['status' => false, 'message' => 'Please login to vote rating.']);
-       }
+    // public function saveRatingVote(Request $request)
+    // {
+    //    if(!isset(Auth::user()->id))
+    //    {
+    //         return Response::json(['status' => false, 'message' => 'Please login to vote rating.']);
+    //    }
 
-       $ratingVote = ContentRatingVote::create([
-           'rating_id' => $request->get('rating_id'),
-           'user_id'   => Auth::user()->id,
-           'vote'      => $request->get('type')
-       ]);
+    //    $ratingVote = ContentRatingVote::create([
+    //        'rating_id' => $request->get('rating_id'),
+    //        'user_id'   => Auth::user()->id,
+    //        'vote'      => $request->get('type')
+    //    ]);
 
-       if(isset($ratingVote->id))
-       {
-            return Response::json(['status' => true, 'message' => 'Rating vote has been saved successfully.']);
-       }
+    //    if(isset($ratingVote->id))
+    //    {
+    //         return Response::json(['status' => true, 'message' => 'Rating vote has been saved successfully.']);
+    //    }
 
-       return Response::json(['status' => false, 'message' => 'Something went wrong.']);
-    }
+    //    return Response::json(['status' => false, 'message' => 'Something went wrong.']);
+    // }
 
     public function saveAction(Request $request)
     {
@@ -465,6 +465,22 @@ class ContentController extends Controller
        if($request->get('action') == 5)
        {
             ContentAction::where('content_id', $request->get('content_id'))->where('user_id', Auth::user()->id)->where('action', 4)->delete();
+       }
+       if($request->get('action') == 4)
+       {
+            ContentAction::where('content_id', $request->get('content_id'))->where('user_id', Auth::user()->id)->where('action', 5)->delete();
+       }
+
+       $tab = $request->get('tab', '');
+       $actionStr = 'Done!';
+
+       if($tab == 'saved' && $request->get('action') == 5)
+       {
+            $actionStr = 'Deleted!';
+       }
+       else if($request->get('action') == 5)
+       {
+            $actionStr = 'Removed!';
        }
 
        $action = ContentAction::create([
@@ -489,7 +505,7 @@ class ContentController extends Controller
                 }
             }
 
-            return Response::json(['status' => true, 'message' => 'Done!', 'actionCount' => $actionCount, 'reload' => $reload]);
+            return Response::json(['status' => true, 'message' => $actionStr, 'actionCount' => $actionCount, 'reload' => $reload]);
        }
 
        return Response::json(['status' => false, 'message' => 'Something went wrong.']);
@@ -529,7 +545,7 @@ class ContentController extends Controller
         $filterBy = !empty($request->get('filterBy')) ? $request->get('filterBy') : '';
         $socialAccountId = !empty($request->get('social_account_id')) ? $request->get('social_account_id') : '';
 
-        if($tab == 'creators')
+        if($tab == 'created')
         {
             $items = $this->content->where('user_id', $userId)->where('social_account_id', $socialAccountId);
             $items = $items->orderBy('created_at', 'desc');
@@ -566,6 +582,7 @@ class ContentController extends Controller
         {
             $loggedInUserGroupIds = $user->user_groups()->pluck('id')->toArray();
             $loggedInUserTags     = UserPreferencesGroupTags::whereIn('group_id', $loggedInUserGroupIds)->pluck('name')->toArray();
+            $loggedInUserTags     = UserPreferencesGroupTags::whereIn('group_id', $loggedInUserGroupIds)->pluck('name')->toArray();
 
             $tagsList = [];
             if(!empty($loggedInUserTags))
@@ -577,9 +594,16 @@ class ContentController extends Controller
             }
 
             $items = $this->content->where('is_published', '1')
-                ->whereHas('content_tags', function ($query) use ($tagsList)
+
+                ->where(function ($query) use ($tagsList)
                 {
-                    $query->whereIn('name', $tagsList);
+                    $query->whereHas('content_tags', function ($query) use ($tagsList)
+                    {
+                        $query->whereIn('name', $tagsList);
+                    })->orWhereHas('content_category_tags', function ($query) use ($tagsList)
+                    {
+                        $query->whereIn('name', $tagsList);
+                    });
                 });
                 // ->whereDoesntHave('content_user_keep', function ($query) use($userId)
                 // {

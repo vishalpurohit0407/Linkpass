@@ -202,7 +202,7 @@ function deleteSocialAccount(id){
             $('.matchesContent').html('');
         }
 
-        if(tabName == 'creators')
+        if(tabName == 'created')
         {
             $('.createdContent').html('');
         }
@@ -345,7 +345,7 @@ function deleteSocialAccount(id){
             $('.matchesContent').html('');
         }
 
-        if(tabName == 'creators')
+        if(tabName == 'created')
         {
             $('.createdContent').html('');
         }
@@ -487,6 +487,21 @@ function deleteSocialAccount(id){
                 {
                     var tabName = $('.content-tabs.active').data('tab-name');
 
+                    if(tabName == 'matched')
+                    {
+                        $('.matchesContent').html('');
+                    }
+
+                    if(tabName == 'created')
+                    {
+                        $('.createdContent').html('');
+                    }
+
+                    if(tabName == 'saved')
+                    {
+                        $('.savedContent').html('');
+                    }
+
                     getTabsContentData(tabName);
                 }
                 else
@@ -564,7 +579,7 @@ function deleteSocialAccount(id){
     //         $('.matchesContent').html('');
     //     }
 
-    //     if(tabName == 'creators')
+    //     if(tabName == 'created')
     //     {
     //         $('.createdContent').html('');
     //     }
@@ -626,7 +641,7 @@ function deleteSocialAccount(id){
             }
 
 
-            if(tab == 'creators')
+            if(tab == 'created')
             {
                 if(response.status == false) {
                     $('#invisible-created').removeClass('invisible');
@@ -820,6 +835,21 @@ function deleteSocialAccount(id){
           break;
     }
 
+    if(tabName == 'matched')
+    {
+        $('.matchesContent').html('');
+    }
+
+    if(tabName == 'created')
+    {
+        $('.createdContent').html('');
+    }
+
+    if(tabName == 'saved')
+    {
+        $('.savedContent').html('');
+    }
+
     if(action == '4')
     {
         $.ajax(
@@ -871,7 +901,7 @@ function deleteSocialAccount(id){
                       url: '{{route("user.content.save-action")}}',
                       type: "post",
                       datatype: "json",
-                      data:{content_id : content_id, action : action, reason : reportReason},
+                      data:{content_id : content_id, action : action, reason : reportReason, tab : tabName},
                   }).done(function(data){
 
                       if(data.status)
@@ -908,6 +938,21 @@ function deleteSocialAccount(id){
                             if(action == '3' && data.reload == '1')
                             {
                                 var tabName = $('.content-tabs.active').data('tab-name');
+
+                                if(tabName == 'matched')
+                                {
+                                    $('.matchesContent').html('');
+                                }
+
+                                if(tabName == 'created')
+                                {
+                                    $('.createdContent').html('');
+                                }
+
+                                if(tabName == 'saved')
+                                {
+                                    $('.savedContent').html('');
+                                }
 
                                 getTabsContentData(tabName);
                             }
