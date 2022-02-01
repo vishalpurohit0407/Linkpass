@@ -106,6 +106,11 @@ class Content extends Authenticatable
         return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '5')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');
     }
 
+    public function content_user_deleted()
+    {
+        return $this->hasOne('App\ContentAction', 'content_id','id')->where('action' , '5');
+    }
+
     public function content_user_visited()
     {
         return $this->hasOne('App\ContentView', 'content_id','id')->where('user_id', isset(Auth::user()->id) ? Auth::user()->id : 'N/A');

@@ -457,6 +457,8 @@ class ContentController extends Controller
 
     public function saveAction(Request $request)
     {
+        $saveAction = true;
+
        if(!isset(Auth::user()->id))
        {
             return Response::json(['status' => false, 'message' => 'Please login to save action.']);
@@ -477,38 +479,39 @@ class ContentController extends Controller
        if($tab == 'saved' && $request->get('action') == 5)
        {
             $actionStr = 'Deleted!';
+            $saveAction = false;
        }
        else if($request->get('action') == 5)
        {
             $actionStr = 'Removed!';
        }
 
-       $action = ContentAction::create([
-           'content_id' => $request->get('content_id'),
-           'user_id'    => Auth::user()->id,
-           'action'     => $request->get('action'),
-           'reason'     => $request->get('reason'),
-       ]);
-
-       if(isset($action->id))
+       if($saveAction == true)
        {
-            $actionCount = ContentAction::where('content_id', $request->get('content_id'))->where('action', $request->get('action'))->count();
-            $reload = '0';
-            if($request->get('action') == '3')
-            {
-                $reportCount = ContentAction::where('content_id', $request->get('content_id'))->where('action', $request->get('action'))->count();
-
-                if($reportCount > 30)
-                {
-                    Content::where('content_id', $request->get('content_id'))->update(['status' => '0']);
-                    $reload = '1';
-                }
-            }
-
-            return Response::json(['status' => true, 'message' => $actionStr, 'actionCount' => $actionCount, 'reload' => $reload]);
+            $action = ContentAction::create([
+                'content_id' => $request->get('content_id'),
+                'user_id'    => Auth::user()->id,
+                'action'     => $request->get('action'),
+                'reason'     => $request->get('reason'),
+            ]);
        }
 
-       return Response::json(['status' => false, 'message' => 'Something went wrong.']);
+
+        $actionCount = ContentAction::where('content_id', $request->get('content_id'))->where('action', $request->get('action'))->count();
+        $reload = '0';
+        if($request->get('action') == '3')
+        {
+            $reportCount = ContentAction::where('content_id', $request->get('content_id'))->where('action', $request->get('action'))->count();
+
+            if($reportCount > 30)
+            {
+                Content::where('content_id', $request->get('content_id'))->update(['status' => '0']);
+                $reload = '1';
+            }
+        }
+
+        return Response::json(['status' => true, 'message' => $actionStr, 'actionCount' => $actionCount, 'reload' => $reload]);
+
     }
 
     public function getRatings(Request $request){
@@ -604,11 +607,16 @@ class ContentController extends Controller
                     {
                         $query->whereIn('name', $tagsList);
                     });
+                })
+                ->where('user_id', '!=', $userId)
+                ->whereDoesntHave('content_user_keep', function ($query) use($userId)
+                {
+                    $query->where('user_id', $userId);
+                })
+                ->whereDoesntHave('content_user_deleted', function ($query) use($userId)
+                {
+                    $query->where('user_id', $userId);
                 });
-                // ->whereDoesntHave('content_user_keep', function ($query) use($userId)
-                // {
-                //     $query->where('user_id', $userId);
-                // });
 
             if(!empty($filterBy))
             {
