@@ -145,8 +145,10 @@
                           {{$socialAccount->content_count}}
                         @endif
 
-                        @if(isset(Auth::user()->id))
+                        @if((isset(Auth::user()->user_type) && Auth::user()->user_type != '1' && Auth::user()->id == $user->id))
                           {{$socialAccount->user_content_count == 1 ? 'Listing' : 'Listings'}}
+                        @elseif(!isset(Auth::user()->id) || Auth::user()->id != $user->id)
+                          {{$socialAccount->logged_out_user_content_count == 1 ? 'Listing' : 'Listings'}}
                         @else
                           {{$socialAccount->content_count == 1 ? 'Listing' : 'Listings'}}
                         @endif

@@ -603,10 +603,11 @@ class ContentController extends Controller
                     $query->whereHas('content_tags', function ($query) use ($tagsList)
                     {
                         $query->whereIn('name', $tagsList);
-                    })->orWhereHas('content_category_tags', function ($query) use ($tagsList)
-                    {
-                        $query->whereIn('name', $tagsList);
                     });
+                    // ->orWhereHas('content_category_tags', function ($query) use ($tagsList)
+                    // {
+                    //     $query->whereIn('name', $tagsList);
+                    // })
                 })
                 ->where('user_id', '!=', $userId)
                 ->whereDoesntHave('content_user_keep', function ($query) use($userId)
