@@ -662,7 +662,7 @@
         var keyword = "{{ request()->get('search')}}";
 
         $.ajax({
-            url: '?page=' + paginate+'&search=' + keyword,
+            url: '?page=' + paginate+'&search=' + encodeURIComponent(keyword),
             type: 'get',
             datatype: 'html',
             beforeSend: function() {

@@ -127,7 +127,15 @@ class HomeController extends Controller
     public function getResults(Request $request)
     {
         $keyword = trim($request->search);
-        $keyword = str_replace('#', '', $keyword);
+        $isTag = false;
+        if (str_contains($keyword, '#')) {
+            $isTag = true;
+        }
+
+        if($isTag == false)
+        {
+            $keyword = str_replace('#', '', $keyword);
+        }
 
         $followingIds  = [];
         $followerIds   = [];
@@ -166,14 +174,14 @@ class HomeController extends Controller
             // $query = $query->whereDoesntHave('content_user_remove');
 
             if(isset($keyword) && !empty($keyword)) {
-                $query = $query->where(function ($query) use ($keyword)
+                $query = $query->where(function ($query) use ($keyword, $isTag)
                 {
                     $query = $query->where('content.main_title','LIKE','%'.$keyword.'%');
                     $query = $query->orWhere('content.description','LIKE','%'.$keyword.'%');
                     $query = $query->orWhere('content.sub_category','LIKE','%'.$keyword.'%');
                     $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
                     {
-                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                        $query->where('name', '=', $keyword);
                     });
                     $query = $query->orWhereHas('content_category_tags', function ($query) use ($keyword)
                     {
