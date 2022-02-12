@@ -181,7 +181,7 @@ class HomeController extends Controller
                     $query = $query->orWhere('content.sub_category','LIKE','%'.$keyword.'%');
                     $query = $query->orWhereHas('content_tags', function ($query) use ($keyword)
                     {
-                        $query->where('name', '=', $keyword);
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
                     });
                     $query = $query->orWhereHas('content_category_tags', function ($query) use ($keyword)
                     {
