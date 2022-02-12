@@ -54,7 +54,7 @@ class UserAccountController extends Controller
 
         $editable = isset(Auth::user()->id) && Auth::user()->id == $user->id ? true : false;
 
-        return view('user-account.logged-in-user-account', array('title' => 'User Account', 'socialAccounts' => $socialAccounts, 'type' => 'socialAccount', 'user' => $user, 'editable' => $editable, 'followerIds' => $followerIds, 'followingIds' => $followingIds, 'interest_title' => $user->interest_title, 'interest_description' => $user->interest_description));
+        return view('user-account.logged-in-user-account', array('title' => 'User Account', 'socialAccounts' => $socialAccounts, 'type' => 'socialAccount', 'user' => $user, 'editable' => $editable, 'followerIds' => $followerIds, 'followingIds' => $followingIds, 'interest_title' => $user->interest_title, 'interest_description' => $user->interest_description, 'interest_last_updated_at' => $user->interest_last_updated_at));
     }
 
     /**
@@ -78,6 +78,6 @@ class UserAccountController extends Controller
         $followingIds  = UserFollower::where('user_id', $decodedUserId)->pluck('linked_user_id')->toArray();
         $followerIds   = UserFollower::where('linked_user_id', $decodedUserId)->pluck('user_id')->toArray();
 
-        return view('user-account.logged-in-user-account', array('title' => 'Account Contents', 'items' => $items, 'type' => 'content', 'socialAccountId' => $id, 'user' => $user, 'socialAccount' => $socialAccount, 'editable' => $editable, 'followerIds' => $followerIds, 'followingIds' => $followingIds, 'interest_title' => $user->interest_title, 'interest_description' => $user->interest_description));
+        return view('user-account.logged-in-user-account', array('title' => 'Account Contents', 'items' => $items, 'type' => 'content', 'socialAccountId' => $id, 'user' => $user, 'socialAccount' => $socialAccount, 'editable' => $editable, 'followerIds' => $followerIds, 'followingIds' => $followingIds, 'interest_title' => $user->interest_title, 'interest_description' => $user->interest_description, 'interest_last_updated_at' => $user->interest_last_updated_at));
     }
 }

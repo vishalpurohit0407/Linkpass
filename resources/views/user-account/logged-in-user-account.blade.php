@@ -33,6 +33,7 @@ var loadFile = function(event) {
 var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
 };
+var loaderImg = "{{asset('assets/img/loader.gif')}}";
 
 jQuery(document).ready(function($) {
 
@@ -199,17 +200,17 @@ function deleteSocialAccount(id){
 
         if(tabName == 'matched')
         {
-            $('.matchesContent').html('');
+            $('.matchesContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
         }
 
         if(tabName == 'created')
         {
-            $('.createdContent').html('');
+            $('.createdContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
         }
 
         if(tabName == 'saved')
         {
-            $('.savedContent').html('');
+            $('.savedContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
         }
 
         getTabsContentData(tabName, filterBy);
@@ -342,17 +343,17 @@ function deleteSocialAccount(id){
 
         if(tabName == 'matched')
         {
-            $('.matchesContent').html('');
+            $('.matchesContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
         }
 
         if(tabName == 'created')
         {
-            $('.createdContent').html('');
+            $('.createdContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
         }
 
         if(tabName == 'saved')
         {
-            $('.savedContent').html('');
+            $('.savedContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
         }
 
         getTabsContentData(tabName, filterBy, paginate);
@@ -489,17 +490,17 @@ function deleteSocialAccount(id){
 
                     if(tabName == 'matched')
                     {
-                        $('.matchesContent').html('');
+                        $('.matchesContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
                     }
 
                     if(tabName == 'created')
                     {
-                        $('.createdContent').html('');
+                        $('.createdContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
                     }
 
                     if(tabName == 'saved')
                     {
-                        $('.savedContent').html('');
+                        $('.savedContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
                     }
 
                     getTabsContentData(tabName);
@@ -616,6 +617,8 @@ function deleteSocialAccount(id){
         }).done(function(response){
 
             data = response.status == true ? response.html : '';
+
+            $('.saved-loader').remove();
 
             if(tab == 'matched')
             {
@@ -837,17 +840,17 @@ function deleteSocialAccount(id){
 
     if(tabName == 'matched')
     {
-        $('.matchesContent').html('');
+        $('.matchesContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
     }
 
     if(tabName == 'created')
     {
-        $('.createdContent').html('');
+        $('.createdContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
     }
 
     if(tabName == 'saved')
     {
-        $('.savedContent').html('');
+        $('.savedContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
     }
 
     if(action == '4')
@@ -941,17 +944,17 @@ function deleteSocialAccount(id){
 
                                 if(tabName == 'matched')
                                 {
-                                    $('.matchesContent').html('');
+                                    $('.matchesContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
                                 }
 
                                 if(tabName == 'created')
                                 {
-                                    $('.createdContent').html('');
+                                    $('.createdContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
                                 }
 
                                 if(tabName == 'saved')
                                 {
-                                    $('.savedContent').html('');
+                                    $('.savedContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
                                 }
 
                                 getTabsContentData(tabName);

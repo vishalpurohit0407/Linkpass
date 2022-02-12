@@ -46,7 +46,11 @@
 <div class="header-sec-top">
   <div class="container">
     <div class="header-sec-top-part">
-      <p class="head-time user-interest-head-time">{{ !empty(Auth::user()->interest_last_updated_at) ? date('Y/m/d h:i A', strtotime(Auth::user()->interest_last_updated_at)) : gmdate('Y/m/d h:i A').'(GMT)'}} </p>
+      @if(isset($interest_last_updated_at) && !empty($interest_last_updated_at))
+      <p class="head-time user-interest-head-time">{{ date('Y/m/d', strtotime($interest_last_updated_at)) }} </p>
+      @elseif(!empty(Auth::user()->interest_last_updated_at))
+      <p class="head-time user-interest-head-time">{{ date('Y/m/d', strtotime(Auth::user()->interest_last_updated_at)) }} </p>
+      @endif
       <h4 class="m-0 user-interest-head-title">{{ isset($interest_title) ? $interest_title : (!empty(Auth::user()->interest_title) ? Auth::user()->interest_title : 'Let your interests find you')}}</h4>
     </div>
     @php
@@ -65,13 +69,13 @@
                   <div class="col-md-6">
                     <div class="form-group{{ $errors->has('interest_title') ? ' has-danger' : '' }} text-left">
                         <div class="input-group input-group-alternative">
-                            <input class="form-control" placeholder="{{ __('Slogan') }}" maxlength="60" type="text" name="interest_title" id="interest_title" value="{{ isset(Auth::user()->interest_title) ?? Auth::user()->interest_title }}">
+                            <input class="form-control" placeholder="{{ __('Slogan') }}" maxlength="60" type="text" name="interest_title" id="interest_title" value="{{ isset(Auth::user()->interest_title) ? Auth::user()->interest_title : '' }}">
                         </div>
                     </div>
 
                     <div class="form-group{{ $errors->has('interest_description') ? ' has-danger' : '' }} text-left">
                         <div class="input-group input-group-alternative">
-                            <textarea class="form-control" placeholder="{{ __('Description') }}" name="interest_description" id="interest_description" >{{ isset(Auth::user()->interest_description) ?? Auth::user()->interest_description }}</textarea>
+                            <textarea class="form-control" placeholder="{{ __('Description') }}" name="interest_description" id="interest_description" >{{ isset(Auth::user()->interest_description) ? Auth::user()->interest_description : '' }}</textarea>
                         </div>
                     </div>
 
