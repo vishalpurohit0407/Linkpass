@@ -59,16 +59,24 @@
                   <span class="image-duration">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
                   @php
                     $currentRoute = Route::currentRouteName();
-
+                    $showLeftBorder=false;
+                    $showRightBorder=false;
                     $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
                   @endphp
                   @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results' && Auth::user()->id != $content->user_id && $tab != 'created')
-                    <div class="Remove">
+                    @php
+                      $showLeftBorder=true;
+                    @endphp
+                   <div class="Remove">
                        <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{$tab == 'matched' ? 'Remove' : 'Delete'}}"><span>{{$tab == 'matched' ? 'Remove' : 'Delete'}}</span></a>
                     </div>
                   @endif
 
                   @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type)) && Auth::user()->id != $content->user_id)
+                    @php
+                      $showRightBorder=true;
+                    @endphp
+
                     <div class="Keep Save {{$KeepLeftClass}}">
                       <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Save"><span>Save</span></a>
                     </div>
@@ -77,6 +85,17 @@
             </div>
           </div>
 
+          @if($showLeftBorder == true || $showRightBorder == true)
+            <div style="float:left;padding:8px;width:100%">
+               @if($showLeftBorder == true)
+                <span class="pull-left" style="border:2px solid #DDD;width:46%;margin-right:4%;"></span>
+               @endif
+
+               @if($showRightBorder == true)
+                <span class="pull-right" style="border:2px solid #DDD;width:46%;margin-left:4%;"></span>
+               @endif
+            </div>
+          @endif
           <p class="date">
             {{-- @if($content->ratings_count)
                 <span class="text-danger text-uppercase">Rated</span>
