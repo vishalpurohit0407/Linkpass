@@ -67,8 +67,8 @@
 
                                 <div class="form-group text-left">
                                     <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" maxlength="50">
-                                        <small id="nameHelp" class="form-text text-muted">Maximum 50 characters are allowed</small>
+                                        <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" maxlength="18">
+                                        <small id="nameHelp" class="form-text text-muted">Maximum 18 characters are allowed</small>
                                         @if($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('name') }}

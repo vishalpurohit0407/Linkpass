@@ -179,9 +179,9 @@
 
                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
-                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" id="name" value="{{ old('name') }}" maxlength="50" autofocus>
+                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" id="name" value="{{ old('name') }}" maxlength="18" autofocus>
                     </div>
-                    <small id="nameHelp" class="form-text text-muted">Maximum 50 characters are allowed</small>
+                    <small id="nameHelp" class="form-text text-muted">Maximum 18 characters are allowed</small>
 
                     @if ($errors->has('name'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
