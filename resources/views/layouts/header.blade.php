@@ -92,7 +92,7 @@
                 @if(isset($interest_description))
                   {{$interest_description}}
                 @else
-                  {{ isset(Auth::user()->interest_description) ?? Auth::user()->interest_description }}
+                  {{ isset(Auth::user()->interest_description) ? Auth::user()->interest_description : '' }}
                 @endif
               </div>
             </div>
