@@ -2471,3 +2471,16 @@ ul.ListingList li a:hover {
 {
 	display: none!important;
 }
+
+.content-action-like:hover{
+	border-bottom: 2px solid #00FF00;
+}
+
+.content-action-unlike:hover{
+	border-bottom: 2px solid #FF0000;
+}
+.content-action-like, .content-action-unlike, .content-action-like-disabled, .content-action-unlike-disabled
+{
+	height:33px;
+}
+
