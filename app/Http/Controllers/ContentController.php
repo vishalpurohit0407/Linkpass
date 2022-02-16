@@ -485,6 +485,10 @@ class ContentController extends Controller
        {
             $actionStr = 'Removed!';
        }
+       else if($request->get('action') == 4)
+       {
+            $actionStr = 'Saved!';
+       }
 
        if($saveAction == true)
        {
@@ -661,7 +665,7 @@ class ContentController extends Controller
 
             $items = $items->whereHas('content_user_keep', function ($query) use($userId)
             {
-              $query->where('user_id', $userId);
+              $query->where('user_id', $userId)->orderBy('created_at', 'desc');
             });
 
             if(!empty($filterBy))
@@ -696,7 +700,6 @@ class ContentController extends Controller
                 }
             }
 
-            $items = $items->orderBy('created_at', 'desc');
             $totalCount = $items->count();
             $items = $items->paginate(12);
         }

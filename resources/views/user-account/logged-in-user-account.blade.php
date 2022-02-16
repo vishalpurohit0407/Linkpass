@@ -853,14 +853,14 @@ function deleteSocialAccount(id){
         $('.savedContent').html('<div class="text-center mt-10 saved-loader"><img src="'+loaderImg+'" width="30"></div>');
     }
 
-    if(action == '4')
+    if(action == '4' || action == '5')
     {
         $.ajax(
         {
             url: '{{route("user.content.save-action")}}',
             type: "post",
             datatype: "json",
-            data:{content_id : content_id, action : action, reason : ''},
+            data:{content_id : content_id, action : action, reason : '',tab : tabName},
         }).done(function(data){
             if(data.status)
             {

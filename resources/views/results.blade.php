@@ -529,7 +529,7 @@
         break;
     }
 
-    if(action == '4')
+    if(action == '4' || action == '5')
     {
         $.ajax(
         {
