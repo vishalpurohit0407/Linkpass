@@ -25,7 +25,7 @@
 
                                   <div class="" id="tabs-icons-text-2" >
 
-                                    <div class="row">
+                                      <div class="row">
                                       <div class="col-md-5 main-img">
                                         <div class="form-group">
                                           <label class="form-control-label" for="content_main_image">Thumbnail <strong class="text-danger">*</strong></label>
@@ -48,6 +48,10 @@
                                         </div>
                                       </div>
                                       <div class="col-md-7">
+
+                                        <div class="form-group text-align-right">
+                                            <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-primary  text-uppercase float-right ml-2 ">Back</a>
+                                        </div>
 
                                           <div class="form-group ">
                                               <label class="form-control-label" for="example3cols2Input">Main Title <strong class="text-danger">*</strong></label>
@@ -237,7 +241,6 @@
                                       <div class="col-md-12 text-center">
                                           <input type="submit" class="btn btn-primary  text-uppercase float-left " name="submit" value="Save">
                                           <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-default  text-uppercase float-left ml-2 ">Cancel</a>
-                                          <a href="{{route('user.account.contents', [$content->content_account->hashid, Auth::user()->id])}}" class="btn btn-default  text-uppercase float-left ml-2 ">Back</a>
                                       </div>
                                     </div>
 
