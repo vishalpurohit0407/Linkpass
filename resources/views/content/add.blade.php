@@ -9,7 +9,7 @@
           <div class="row align-items-center">
               <div class="col-lg-6 col-7">
                   <span class="Small-Title mb-0">Add/Edit Content</span>
-                  <p class="text-muted">You can edit your content from here.</p>
+                  <p class="text-muted">You can create or edit your content listing here.</p>
               </div>
           </div>
           <div class="row">
@@ -28,7 +28,7 @@
                                     <div class="row">
                                       <div class="col-md-5 main-img">
                                         <div class="form-group">
-                                          <label class="form-control-label" for="content_main_image">Main Image</label>
+                                          <label class="form-control-label" for="content_main_image">Thumbnail <strong class="text-danger">*</strong></label>
 
                                           <div class="dropzone dropzone-single mb-3" data-toggle="dropzone" data-dropzone-url="{{route('user.content.mainupload',['id' => $content->id])}}">
                                             <div class="fallback">
@@ -416,7 +416,7 @@ function validateStep2()
 
   if(image == 0)
   {
-    errorStr += '<p class="text-left">Please upload main Image.</p>';
+    errorStr += '<p class="text-left">Please upload Thumbnail.</p>';
     errCount++;
   }
 

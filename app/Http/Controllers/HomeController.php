@@ -212,7 +212,7 @@ class HomeController extends Controller
             $pageNumber = $request->get('page', 0);
             $hasMoreContent = $pageNumber * 12 <=$totalCount ? true : false;
 
-            $items = $query->orderBy('users.name', 'asc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->paginate(12);
+            $items = $query->orderBy('content.created_at', 'desc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->paginate(12);
             $isUserListing = 0;
 
             if ($request->ajax()) {
