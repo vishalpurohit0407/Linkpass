@@ -56,7 +56,7 @@
     @php
       $pageName = isset($page->id) ? $page->url_slug : '';
     @endphp
-    @if(Route::currentRouteName() != 'home' && Route::currentRouteName() != 'register' && $pageName != 'about-us' && $pageName != 'privacy-policy' && $pageName != 'terms-conditions' && !empty(Route::currentRouteName()))
+    @if(isset($interest_title) || (isset(Auth::user()->id) && Route::currentRouteName() != 'home' && Route::currentRouteName() != 'register' && $pageName != 'about-us' && $pageName != 'privacy-policy' && $pageName != 'terms-conditions' && !empty(Route::currentRouteName())))
       <div class="header-sec-link btn-receita" id="btn-receitamob" data-clicked-times="0"> <span class="custom-scroll-link"><i class="fal fa-chevron-double-down" id="seta"></i></span> </div>
       <div id="receita-div" style="display: none; height: 250px; border: 1px solid #ccc; border-top: 0;" class="{{Route::currentRouteName() != 'profile.edit' ? 'receita-hidden' : 'user-ineresest-wrap'}}">
 
