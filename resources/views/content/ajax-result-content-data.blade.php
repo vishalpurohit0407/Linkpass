@@ -87,14 +87,14 @@
         <ul class="d-flex justify-content-between">
           <li>
             @php
-              $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
+              $likeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled content-action-like-disabled' : 'content-action content-action-like';
               $userLikeClass = (isset($content->content_user_like->id) && !isset($content->content_user_unlike->id)) ? 'like-action-disabled' : '';
             @endphp
             <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="1" data-content-id="{{ $content->id }}" class="mr20  {{$likeClass}} {{$userLikeClass}}"><i class="fas fa-check fa-2x like-color"></i> <span class="actionCount">{{$content->like_count}}</span></a>
           </li>
           <li>
             @php
-              $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled' : 'content-action';
+              $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled content-action-unlike-disabled' : 'content-action content-action-unlike';
               $userUnlikeClass = (!isset($content->content_user_like->id) && isset($content->content_user_unlike->id)) ? 'unlike-action-disabled' : '';
             @endphp
             <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="2" data-content-id="{{ $content->id }}" class="mr20 {{$unlikeClass}} {{$userUnlikeClass}}"><i class="fas fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>

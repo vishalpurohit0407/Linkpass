@@ -663,10 +663,11 @@ class ContentController extends Controller
         {
             $items = $this->content;
 
-            $items = $items->whereHas('content_user_keep', function ($query) use($userId)
-            {
-              $query->where('user_id', $userId)->orderBy('created_at', 'desc');
-            });
+            $items = $items->select('content.*')
+                ->join('content_actions', 'content_actions.content_id', '=', 'content.id')
+                ->where('content_actions.user_id', $userId)
+                ->where('content_actions.action', '4')
+                ->orderBy('content_actions.created_at', 'desc');
 
             if(!empty($filterBy))
             {
