@@ -174,7 +174,7 @@ class HomeController extends Controller
             // $query = $query->whereDoesntHave('content_user_remove');
 
             if(isset($keyword) && !empty($keyword)) {
-                $query = $query->where(function ($query) use ($keyword, $isTag)
+                $query = $query->where(function ($query) use ($keyword)
                 {
                     $query = $query->where('content.main_title','LIKE','%'.$keyword.'%');
                     $query = $query->orWhere('content.description','LIKE','%'.$keyword.'%');
@@ -213,6 +213,7 @@ class HomeController extends Controller
             $hasMoreContent = $pageNumber * 12 <=$totalCount ? true : false;
 
             $items = $query->orderBy('content.created_at', 'desc')->orderBy('social_accounts.name', 'asc')->orderBy('content.main_title', 'asc')->paginate(12);
+
             $isUserListing = 0;
 
             if ($request->ajax()) {

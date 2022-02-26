@@ -629,7 +629,7 @@ function deleteSocialAccount(id){
 
                     return;
                 } else {
-                    $('#load-more-matched').text('Load more...');
+                    $('#load-more-matched').show().text('Load more...');
                 }
 
                 $('.matchesContent').append(data);
@@ -651,7 +651,7 @@ function deleteSocialAccount(id){
                     $('#load-more-created').hide();
                     return;
                 } else {
-                    $('#load-more-created').text('Load more...');
+                    $('#load-more-created').show().text('Load more...');
                 }
 
                 $('.created-loader').hide();
@@ -676,7 +676,7 @@ function deleteSocialAccount(id){
                     $('#load-more-saved').hide();
                     return;
                 } else {
-                    $('#load-more-saved').text('Load more...');
+                    $('#load-more-saved').show().text('Load more...');
                 }
 
                 $('.savedContent').append(data);

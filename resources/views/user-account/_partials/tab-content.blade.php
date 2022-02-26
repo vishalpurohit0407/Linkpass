@@ -28,7 +28,7 @@
       </div>
 
       <div class="text-center mt-2">
-        <button class="btn btn-primary col-md-12 load-more" id="load-more-saved" data-paginate="2">Load more...</button>
+        <button class="btn btn-primary col-md-12 load-more" style="display: none;" id="load-more-saved" data-paginate="2">Load more...</button>
         <p id="invisible-saved" class="invisible">No listings found</p>
       </div>
     </div>
@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="text-center mt-2">
-        <button class="btn btn-primary col-md-12 load-more" id="load-more-matched" data-paginate="2">Load more...</button>
+        <button class="btn btn-primary col-md-12 load-more" style="display: none;" id="load-more-matched" data-paginate="2">Load more...</button>
         <p id="invisible-matched" class="invisible">No listings found</p>
       </div>
     </div>
@@ -203,7 +203,7 @@
 
             <div class="text-center mt-2">
               @if($items->count() > 0)
-                <button class="btn btn-primary col-md-12 load-more" id="load-more-created" data-paginate="2">Load more...</button>
+                <button class="btn btn-primary col-md-12 load-more" style="display: none;" id="load-more-created" data-paginate="2">Load more...</button>
               @endif
               <p id="invisible-created" class="invisible">No listings found</p>
             </div>

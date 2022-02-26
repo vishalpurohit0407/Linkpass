@@ -50,6 +50,7 @@
 
         @if($items->count() > 0)
             <div class="text-center mt-2">
+                <div class="loaderImage"></div>
                 <button class="btn btn-primary col-md-12" id="load-more" data-paginate="2">Load more...</button>
                 <p class="invisible">No listings found</p>
             </div>
@@ -660,34 +661,31 @@
 
         var sUrl = "{{ url('results')}}";
         var keyword = "{{ request()->get('search')}}";
+        var loaderImg = "{{asset('assets/img/loader.gif')}}";
 
         $.ajax({
             url: '?page=' + paginate+'&search=' + encodeURIComponent(keyword),
             type: 'get',
             datatype: 'html',
             beforeSend: function() {
-                $('#load-more').text('Loading...');
+                $('#load-more').hide();
+                $('.loaderImage').html('<div class="text-center mt-10 search-loader"><img src="'+loaderImg+'" width="30"></div>');
             }
         })
         .done(function(response) {
 
             data = response.status == true ? response.html : '';
 
+            $('.loaderImage').hide();
+
             if(response.status == false) {
                 $('.invisible').removeClass('invisible');
                 $('#load-more').hide();
                 return;
             } else {
-                $('#load-more').text('Load more...');
+                $('#load-more').show().text('Load more...');
                 $('#search-results').append(data);
                 $('[data-toggle="tooltip"]').tooltip();
-            }
-
-            if(response.hasMoreContent == false)
-            {
-                $('.invisible').removeClass('invisible');
-                $('#load-more').hide();
-                return;
             }
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -778,6 +776,14 @@
                 "copy": {name: " Copy Link", icon: "far fa-lg fa-copy"},
             }
            });
+
+            if(response.hasMoreContent == false)
+            {
+                $('.invisible').removeClass('invisible');
+                $('#load-more').hide();
+                return;
+            }
+
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
             alert('Something went wrong.');
