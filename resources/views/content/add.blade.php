@@ -456,7 +456,7 @@ function validateStep2()
 
   if(type == 1 && number_of_images < 2)
   {
-    errorStr += '<p class="text-left">Please enter atleast 2 number of images.</p>';
+    errorStr += '<p class="text-left">Please enter number images (minimum 2).</p>';
     errCount++;
   }
 

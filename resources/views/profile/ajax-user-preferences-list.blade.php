@@ -5,7 +5,7 @@
         <aside class="col-md-6 userPreferencesBox">
         <article class="SettingBox">
             <div class="d-flex bd-highlight justify-content-between align-items-center SettingBoxHead">
-            <h5 class="user-preferences-group p-2 flex-grow-1 bd-highlight"><a href="javascript:void(0);">#{{$i+1}} {{Str::limit(ucwords($item->name), 30)}} :</a></h5>
+            <h5 class="user-preferences-group p-2 flex-grow-1 bd-highlight"><a href="javascript:void(0);">#{{$i+1}} {{Str::limit(ucwords($item->name), 30)}}:</a></h5>
             @if($i != 0)
                 <div class="custom-control custom-switch p-2 bd-highlight">
                     @php $status = $item->status == 1 ? 'checked' : ''; @endphp

@@ -51,7 +51,7 @@
         @if($items->count() > 0)
             <div class="text-center mt-2">
                 <div class="loaderImage"></div>
-                <button class="btn btn-primary col-md-12" id="load-more" data-paginate="2">Load more...</button>
+                <button class="btn btn-primary col-md-12" id="load-more" data-paginate="2">Load More</button>
                 <p class="invisible">No listings found</p>
             </div>
         @else
@@ -683,7 +683,7 @@
                 $('#load-more').hide();
                 return;
             } else {
-                $('#load-more').show().text('Load more...');
+                $('#load-more').show().text('Load More');
                 $('#search-results').append(data);
                 $('[data-toggle="tooltip"]').tooltip();
             }

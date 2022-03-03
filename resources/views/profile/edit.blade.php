@@ -20,8 +20,8 @@
             @if(in_array(Auth::user()->user_type, ['0','2']))
                 <ul class="LinkVerb">
                     <li class="active"><a id="addNewUserPreferencesGroup" href="javascript:void(0);">New # Group</a></li>
-                    <li><label># Groups : <span id="userPreferencesCount"></span></label></li>
-                    <li><label># Total : <span id="userPreferencesTagsCount"></span></label></li>
+                    <li><label># Groups: <span id="userPreferencesCount"></span></label></li>
+                    <li><label># Total: <span id="userPreferencesTagsCount"></span></label></li>
                 </ul>
                 <div id="userPreferencesWrap"></div>
             @endif

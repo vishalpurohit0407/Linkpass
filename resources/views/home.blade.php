@@ -54,11 +54,11 @@
                   <button type="submit" class="btn btn-primary text-uppercase w-100">Log in</button>
                 </div>
                 <a href="{{ route('password.request') }}">Forgot Password?</a>
-                <h5 class="text-light mt-4">Want an account? <a href="{{ route('register') }}">Sign up</a></h5>
+                <h5 class="text-light mt-4 font-15">Want an account? <a href="{{ route('register') }}">Sign up</a></h5>
                 <div class="or">
                   <p>Or</p>
                 </div>
-                <h5 class="text-light mt-4">Want to sign up as a Creator? <a href="{{ route('creator-register') }}">Sign up</a></h5>
+                <h5 class="text-light mt-4 font-15">Want to sign up as a Creator? <a href="{{ route('creator-register') }}">Sign up</a></h5>
               </form>
             </div>
           </aside>

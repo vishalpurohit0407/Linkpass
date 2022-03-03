@@ -238,10 +238,10 @@
 
                  <div class="g-recaptcha" data-sitekey="6LeoP6MaAAAAAF8YZYET3TcBRt9fL_wO0zBcv_Vh"></div>
 
+                 <p class="text-align-left font-14 pull-left">By signing up you agree to the LinkPasser <a href="{{url('terms-conditions')}}">Terms & Conditions</a> and <a href="{{url('privacy-policy')}}">Privacy Policy</a>.  Also, by signing up you acknowledge that you are 13 years of age or older.</p>
                   <div class="form-group login-btn">
                     <button type="submit" class="btn btn-primary text-uppercase w-100">Continue</button>
                   </div>
-                  <p class="text-align-left font-14 pull-left">By signing up you agree to the LinkPasser <a href="{{url('terms-conditions')}}">Terms & Conditions</a> and <a href="{{url('privacy-policy')}}">Privacy Policy</a>.  Also, by signing up you acknowledge that you are 13 years of age or older.</p>
 
                 <h5 class="text-light mt-4">Already have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModalPrompt" >Log in</a></h5>
             </form>

@@ -469,10 +469,10 @@ button:focus {
 }
 .btn-primary {
 	color: #FFF;
-	background: #ca082a;
+	background: #007fff;
 }
 .btn-primary:hover{
-	background: #ca082a;
+	background: #007fff;
 }
 .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover, .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus, .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary {
 	background: #007fff;
@@ -614,7 +614,7 @@ a.text-primary:hover, a.text-primary:focus
 	font-size: 14px;
 }
 .font-15 {
-	font-size: 15px;
+	font-size: 15px !important;
 }
 .font-16 {
 	font-size: 16px;
@@ -980,7 +980,7 @@ a.text-primary:hover, a.text-primary:focus
 .head-time {
 	text-align: center;
 	margin: 0;
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 20px;
 }
 .head-time span {
@@ -997,6 +997,12 @@ a.text-primary:hover, a.text-primary:focus
 }
 .search-form-wrapper .form-control {
 	height: 34px !important;
+}
+.user-ineresest-head-dec-wrap
+{
+	padding: 10px 25px !important;
+	overflow-y: scroll;
+	max-height: 200px;
 }
 /*============= Banner =============*/
 /*============= Banner =============*/
@@ -1420,7 +1426,7 @@ footer {
 	position: relative;
 }
 .header-sec-top-part {
-	background: rgb(204, 204, 204);
+	background: #e7e7e7;
 	text-align: center;
 	padding: 10px 0;
 }

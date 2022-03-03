@@ -44,7 +44,6 @@
 </header>
 
 <div class="header-sec-top">
-  <div class="container">
     <div class="header-sec-top-part">
       @if(isset($interest_last_updated_at) && !empty($interest_last_updated_at))
       <p class="head-time user-interest-head-time">{{ date('Y/m/d', strtotime($interest_last_updated_at)) }} </p>
@@ -100,5 +99,4 @@
 
       </div>
     @endif
-  </div>
 </div>
