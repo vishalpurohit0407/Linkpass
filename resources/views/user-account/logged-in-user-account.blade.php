@@ -624,7 +624,7 @@ function deleteSocialAccount(id){
             {
                 $('.matched-loader').hide();
                 if(response.status == false) {
-                    $('#invisible-matched').removeClass('invisible');
+                    $('#invisible-matched').addClass('invisible');
                     $('#load-more-matched').hide();
 
                     return;
@@ -638,16 +638,15 @@ function deleteSocialAccount(id){
 
                 if(response.hasMoreContent == false)
                 {
-                    $('#invisible-matched').removeClass('invisible');
+                    $('#invisible-matched').addClass('invisible');
                     $('#load-more-matched').hide();
                 }
             }
 
-
             if(tab == 'created')
             {
                 if(response.status == false) {
-                    $('#invisible-created').removeClass('invisible');
+                    $('#invisible-created').addClass('invisible');
                     $('#load-more-created').hide();
                     return;
                 } else {

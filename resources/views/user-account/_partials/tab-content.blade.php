@@ -177,7 +177,7 @@
                   </aside>
                 @endforeach
               @else
-                <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">Social Account could not found</div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-10 text-center">You can create a listing group here</div>
               @endif
             </div>
           @endif

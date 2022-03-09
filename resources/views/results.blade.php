@@ -779,7 +779,7 @@
 
             if(response.hasMoreContent == false)
             {
-                $('.invisible').removeClass('invisible');
+                $('.invisible').addClass('invisible');
                 $('#load-more').hide();
                 return;
             }

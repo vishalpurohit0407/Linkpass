@@ -179,9 +179,9 @@
 
                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
-                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" id="name" value="{{ old('name') }}" maxlength="18" autofocus>
+                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" type="text" name="name" id="name" value="{{ old('name') }}" maxlength="25" autofocus>
                     </div>
-                    <small id="nameHelp" class="form-text text-muted">Maximum 18 characters are allowed</small>
+                    <small id="nameHelp" class="form-text text-muted">Maximum 25 characters are allowed</small>
 
                     @if ($errors->has('name'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -202,9 +202,9 @@
                 </div>
                 <div class="form-group{{ $errors->has('account_name') ? ' has-danger' : '' }} text-left">
                     <div class="input-group input-group-alternative">
-                      <input class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" type="text" name="account_name" id="account_name" value="{{ old('account_name') }}" maxlength="18">
+                      <input class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" type="text" name="account_name" id="account_name" value="{{ old('account_name') }}" maxlength="25">
                     </div>
-                    <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 18 characters allowed</small>
+                    <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 25 characters allowed</small>
 
                   {{-- <a href="javascript:void(0);" id="generateAccountName">Generate</a> --}}
 

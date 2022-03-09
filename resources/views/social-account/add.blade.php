@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
                                     <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
-                                        <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name') }}" maxlength="18" autofocus>
+                                        <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name') }}" maxlength="25" autofocus>
 
                                         @if($errors->has('host_name'))
                                             <span class="invalid-feedback" role="alert">

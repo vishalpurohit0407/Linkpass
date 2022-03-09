@@ -118,7 +118,7 @@
                 $unlikeClass = (isset($content->content_user_like->id) || isset($content->content_user_unlike->id) || (isset(Auth::user()->user_type) && Auth::user()->user_type == '1')) ? 'action-disabled content-action-unlike-disabled' : 'content-action content-action-unlike';
                 $userUnlikeClass = (!isset($content->content_user_like->id) && isset($content->content_user_unlike->id)) ? 'unlike-action-disabled' : '';
               @endphp
-              <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="2" data-content-id="{{ $content->id }}" class="mr20 content-unlike-{{ $content->id }} {{$unlikeClass}} {{$userUnlikeClass}}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Non Recommend"><i class="fas fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
+              <a href="javascript:void(0);" data-login="{{isset(Auth::user()->id) ? 1 : 0 }}" data-action="2" data-content-id="{{ $content->id }}" class="mr20 content-unlike-{{ $content->id }} {{$unlikeClass}} {{$userUnlikeClass}}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Not Recommend"><i class="fas fa-times fa-2x unlike-color"></i> <span class="actionCount">{{$content->unlike_count}}</span></a>
             </li>
 
             <li>

@@ -24,7 +24,7 @@
                                   <div class="form-group">
                                       {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
                                       <div class="{{ $errors->has('subject') ? ' has-danger' : '' }}">
-                                          <input type="text" name="subject" id="input-name" class="form-control {{ $errors->has('subject') ? ' is-invalid' : '' }}" placeholder="{{ __('Subject') }}" value="{{ old('subject') }}" maxlength="18" autofocus required>
+                                          <input type="text" name="subject" id="input-name" class="form-control {{ $errors->has('subject') ? ' is-invalid' : '' }}" placeholder="{{ __('Subject') }}" value="{{ old('subject') }}" maxlength="25" autofocus required>
 
                                           @if($errors->has('subject'))
                                               <span class="invalid-feedback" role="alert">
