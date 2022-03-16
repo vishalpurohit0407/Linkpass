@@ -412,6 +412,7 @@ jQuery(document).ready(function($) {
                 allowDuplicates: false,
                 trimValue: true,
                 addOnBlur: false,
+                maxChars:25,
                 itemText: function(item) {
                     item = item.replace(" ", "");
                     item = item.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');

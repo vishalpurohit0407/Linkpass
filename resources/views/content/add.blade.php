@@ -342,7 +342,7 @@ $(document).ready(function() {
       $('#content-terms').modal('hide');
   });
 
-  $('#tags').tagsinput();
+  $('#tags').tagsinput({maxChars:25});
 
   $('#tags').on('beforeItemAdd', function(event) {
       var item = event.item;

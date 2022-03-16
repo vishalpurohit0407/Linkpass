@@ -32,12 +32,8 @@
                                     {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
                                     <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
                                         <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name') }}" maxlength="25" autofocus>
-<<<<<<< HEAD
-                                        <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 25 characters allowed</small>
-=======
                                         <small id="hostNameHelp" class="form-text text-muted">For example, YouTube </small>
 
->>>>>>> 64ee5ae2180e83af19ff073985feb294a8fe87c0
                                         @if($errors->has('host_name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('host_name') }}
