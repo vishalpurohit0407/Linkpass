@@ -32,7 +32,12 @@
                                     {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
                                     <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
                                         <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name') }}" maxlength="25" autofocus>
+<<<<<<< HEAD
                                         <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 25 characters allowed</small>
+=======
+                                        <small id="hostNameHelp" class="form-text text-muted">For example, YouTube </small>
+
+>>>>>>> 64ee5ae2180e83af19ff073985feb294a8fe87c0
                                         @if($errors->has('host_name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('host_name') }}
@@ -45,7 +50,7 @@
                                     {{-- <label class="form-control-label" for="url">{{ __('URL') }}</label> --}}
                                     <div class="{{ $errors->has('url') ? ' has-danger' : '' }}">
                                         <input type="url" name="url" id="url" class="form-control {{ $errors->has('url') ? ' is-invalid' : '' }}" placeholder="{{ __('Enter URL') }}" value="{{ old('url') }}">
-
+                                        <small id="hostNameHelp" class="form-text text-muted">For example, https://www.youtube.com </small>
                                         @if ($errors->has('url'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('url') }}
@@ -58,7 +63,7 @@
                                     {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
                                     <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
                                         <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('name') }}" maxlength="25" autofocus>
-
+                                        <small id="hostNameHelp" class="form-text text-muted">Enter your account name or designation on the "Host" service</small>
                                         @if($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('name') }}
@@ -71,7 +76,7 @@
                                     {{-- <label class="form-control-label" for="account_url">{{ __('Account URL') }}</label> --}}
                                     <div class="{{ $errors->has('account_url') ? ' has-danger' : '' }}">
                                         <input type="url" name="account_url" id="account_url" class="form-control {{ $errors->has('account_url') ? ' is-invalid' : '' }}" placeholder="{{ __('Enter Account URL') }}" value="{{ old('account_url') }}">
-
+                                        <small id="hostNameHelp" class="form-text text-muted">Enter your URL of your account or designation on the "Host" service.  For example, https://www.youtube.com/c/accountName</small>
                                         @if ($errors->has('account_url'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('account_url') }}

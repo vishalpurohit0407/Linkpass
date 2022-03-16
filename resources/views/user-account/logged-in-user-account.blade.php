@@ -624,7 +624,7 @@ function deleteSocialAccount(id){
             {
                 $('.matched-loader').hide();
                 if(response.status == false) {
-                    $('#invisible-matched').addClass('invisible');
+                    $('#invisible-matched').removeClass('invisible');
                     $('#load-more-matched').hide();
 
                     return;
@@ -646,7 +646,7 @@ function deleteSocialAccount(id){
             if(tab == 'created')
             {
                 if(response.status == false) {
-                    $('#invisible-created').addClass('invisible');
+                    $('#invisible-created').removeClass('invisible');
                     $('#load-more-created').hide();
                     return;
                 } else {

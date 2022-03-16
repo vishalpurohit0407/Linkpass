@@ -32,6 +32,7 @@
                                 <div class="form-group">
                                     <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
                                         <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name', $socialAccount->host_name) }}" maxlength="25"  autofocus>
+                                        <small id="hostNameHelp" class="form-text text-muted">For example, YouTube </small>
 
                                         @if($errors->has('host_name'))
                                             <span class="invalid-feedback" role="alert">
@@ -44,6 +45,7 @@
                                 <div class="form-group">
                                     <div class="{{ $errors->has('url') ? ' has-danger' : '' }}">
                                         <input type="url" name="url" id="url" class="form-control {{ $errors->has('url') ? ' is-invalid' : '' }}" placeholder="{{ __('Enter URL') }}" value="{{ old('url', $socialAccount->url) }}">
+                                        <small id="hostNameHelp" class="form-text text-muted">For example, https://www.youtube.com </small>
 
                                         @if ($errors->has('url'))
                                             <span class="invalid-feedback" role="alert">
@@ -56,6 +58,7 @@
                                 <div class="form-group">
                                     <div class="{{ $errors->has('name') ? ' has-danger' : '' }}">
                                         <input type="text" name="name" id="input-name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Account Name') }}" value="{{ old('name', $socialAccount->name) }}" maxlength="25"  autofocus>
+                                        <small id="hostNameHelp" class="form-text text-muted">Enter your account name or designation on the "Host" service</small>
 
                                         @if($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
@@ -68,6 +71,7 @@
                                 <div class="form-group">
                                     <div class="{{ $errors->has('account_url') ? ' has-danger' : '' }}">
                                         <input type="url" name="account_url" id="account_url" class="form-control {{ $errors->has('account_url') ? ' is-invalid' : '' }}" placeholder="{{ __('Enter Account URL') }}" value="{{ old('url', $socialAccount->account_url) }}">
+                                        <small id="hostNameHelp" class="form-text text-muted">Enter your URL of your account or designation on the "Host" service.  For example, https://www.youtube.com/c/accountName</small>
 
                                         @if ($errors->has('account_url'))
                                             <span class="invalid-feedback" role="alert">
