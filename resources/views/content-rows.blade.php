@@ -142,7 +142,7 @@
               <div class="mr-2 height-32 width-32 user-profile-avatar">
                 <img src="{{$content->content_user->user_image_url}}" alt="" class="rounded-circle  {{$userProfileClass}}">
               </div>
-              <strong><a href="{{route('other-user.account', $content->content_user->hashid)}}" class="account-label">{{$creatorName}}</a></strong>
+              <strong><a href="{{route('other-user.account', $content->content_user->account_name)}}" class="account-label">{{$creatorName}}</a></strong>
             </span>
 
             {{-- <span class="d-flex align-items-center">

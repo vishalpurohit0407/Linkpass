@@ -43,9 +43,21 @@ class UserAccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getOtherUserAccount($id)
+    public function getOtherUserAccount($accoutnName)
     {
-        $decodedId = decodeHashId($id);
+        $user = User::where('account_name', $accoutnName)->first();
+       
+        if(!isset($user->id))
+        {
+            if(isset(Auth::user()->id))
+            {
+                return redirect(route('user.account'));
+            }
+
+            return redirect(route('home'));
+        }
+
+        $decodedId = isset($user->id) ? $user->id : '';
 
         $socialAccounts = SocialAccount::where('user_id', $decodedId)->where('status', '1')->orderBy('name', 'asc')->get();
         $followingIds  = UserFollower::where('user_id', $decodedId)->pluck('linked_user_id')->toArray();
