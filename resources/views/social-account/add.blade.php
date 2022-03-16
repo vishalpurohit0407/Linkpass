@@ -32,7 +32,7 @@
                                     {{-- <label class="form-control-label" for="input-name">{{ __('Name') }}</label> --}}
                                     <div class="{{ $errors->has('host_name') ? ' has-danger' : '' }}">
                                         <input type="text" name="host_name" id="input-name" class="form-control {{ $errors->has('host_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Host Name') }}" value="{{ old('host_name') }}" maxlength="25" autofocus>
-
+                                        <small id="accNameHelp" class="form-text text-muted">Only 0-9a-zA-Z-_ allowed with maximum 25 characters allowed</small>
                                         @if($errors->has('host_name'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('host_name') }}
