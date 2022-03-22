@@ -26,15 +26,15 @@
                     <div class="row ">
                         <aside class="col-md-3">
                             <div class="user-profile-avatar-90 user-profile-avatar-top  ml-10">
-                                <a href="{{route('other-user.account', $user->hashid)}}">
+                                <a href="{{route('other-user.account', $user->account_name)}}">
                                 <img src="{{$user->user_image_url}}" alt="" class="rounded-circle height-90 width-90 {{$userProfileClass}}">
                                 </a>
                             </div>
 
                         </aside>
                         <aside class="col-md-9">
-                            <p><a href="{{route('other-user.account', $user->hashid)}}" ><strong class="text-secondary">{{$user->account_name}}</strong></a></p>
-                            <p><a href="{{route('other-user.account', $user->hashid)}}" class="text-secondary">{{$user->name}}</a></p>
+                            <p><a href="{{route('other-user.account', $user->account_name)}}" ><strong class="text-secondary">{{$user->account_name}}</strong></a></p>
+                            <p><a href="{{route('other-user.account', $user->account_name)}}" class="text-secondary">{{$user->name}}</a></p>
                             <p class="font-14"><a href="javascript:void(0);" class="text-primary"><strong class="text-primary">Here Since: </strong><span>{{date('d M Y', strtotime($user->created_at))}}</span></a></p>
                         </aside>
                     </div>
