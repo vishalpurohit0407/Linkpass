@@ -170,6 +170,7 @@ class HomeController extends Controller
             $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
             $query = $query->join('users', 'users.id', '=', 'content.user_id');
             $query = $query->where('content.status', '1');
+            $query = $query->whereNull('social_accounts.deleted_at');
 
             // $query = $query->whereDoesntHave('content_user_remove');
 
