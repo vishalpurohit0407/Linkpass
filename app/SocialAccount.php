@@ -48,6 +48,6 @@ class SocialAccount extends Authenticatable
 
     public function getImageUrlAttribute()
     {
-        return (isset($this->image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->image) ? Config('filesystems.disks.public.url').'/'.$this->image : asset('assets/img/no_img.png'));
+        return (isset($this->image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->image) ? Config('filesystems.disks.public.url').'/'.$this->image : asset('assets/img/no_img.jpg'));
     }
 }

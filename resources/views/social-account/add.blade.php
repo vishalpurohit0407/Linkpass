@@ -99,7 +99,7 @@
 
                                     <div class="col-6 col-md-4 social-account-avatar">
                                         <a href="javascript:void(0);">
-                                            <img id="output" src="{{asset('assets/img/no_img.png')}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg">
+                                            <img id="output" src="{{asset('assets/img/no_img.jpg')}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg">
                                         </a>
                                     </div>
                                 </div>

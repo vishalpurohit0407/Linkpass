@@ -41,7 +41,7 @@
             <div class="col-sm-6 col-md-3 item">
                 <div class="item-wrap">
                     <a href="{!! route('result.get-details', $item->id) !!}">
-                        <img width="225" height="150" src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.png')}}">
+                        <img width="225" height="150" src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.jpg')}}">
                     </a>
                     <h3 class="name">{!! $item->main_title !!}</h3>
                     <p class="description">{!! $item->description !!}</p>
@@ -75,7 +75,7 @@
             <div class="col-sm-6 col-md-3 item">
                 <div class="item-wrap">
                     <a href="{!! route('result.get-details', $item->id) !!}">
-                        <img width="225" height="150" src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.png')}}">
+                        <img width="225" height="150" src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.jpg')}}">
                     </a>
                     <h3 class="name">{!! $item->main_title !!}</h3>
                     <p class="description">{!! $item->description !!}</p>
@@ -109,7 +109,7 @@
             <div class="col-sm-6 col-md-3 item">
                 <div class="item-wrap">
                     <a href="#">
-                        <img width="225" height="150" src="{{!empty($item->icon_url) ? $item->icon_url : asset('assets/img/no_img.png')}}">
+                        <img width="225" height="150" src="{{!empty($item->icon_url) ? $item->icon_url : asset('assets/img/no_img.jpg')}}">
                     </a>
                     <h3 class="name">{!! $item->name !!}</h3>
                     <a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>

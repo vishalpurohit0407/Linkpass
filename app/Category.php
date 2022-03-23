@@ -60,7 +60,7 @@ class Category extends Authenticatable
 
     public function getIconUrlAttribute()
     {
-        return (isset($this->icon) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->icon) ? Config('filesystems.disks.public.url').'/'.$this->icon : asset('assets/img/no_img.png'));
+        return (isset($this->icon) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->icon) ? Config('filesystems.disks.public.url').'/'.$this->icon : asset('assets/img/no_img.jpg'));
     }
 
 }

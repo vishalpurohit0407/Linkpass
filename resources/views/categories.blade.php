@@ -26,7 +26,7 @@
             <div class="col-md-3">
               <div class="item">
                 <div class="CategoryBox"> <a href="{{route('categories.get-items', $item->hashid)}}">
-                  <div class="boximg"> <img src="{{!empty($item->icon_url) ? $item->icon_url : asset('assets/img/no_img.png')}}" alt="" width="256" height="160"> </div>
+                  <div class="boximg"> <img src="{{!empty($item->icon_url) ? $item->icon_url : asset('assets/img/no_img.jpg')}}" alt="" width="256" height="160"> </div>
                   <div class="description">
                     <h4>{!! $item->name !!}</h4>
                   </div>

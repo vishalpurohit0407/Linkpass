@@ -47,7 +47,7 @@
                   <img src="{{$content->content_account->image_url}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg1">
                 </a>
                 @else
-                <img src="{{asset('assets/img/no_img.png')}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg1">
+                <img src="{{asset('assets/img/no_img.jpg')}}" alt="" class="rounded-circle height-75 width-75 creator-profile-bg1">
               @endif
             </div>
           </div>

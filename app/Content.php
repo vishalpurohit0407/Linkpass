@@ -33,7 +33,7 @@ class Content extends Authenticatable
 
     public function getMainImageUrlAttribute()
     {
-        return (isset($this->main_image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->main_image) ? Config('filesystems.disks.public.url').'/'.$this->main_image : asset('assets/img/no_img.png'));
+        return (isset($this->main_image) && Storage::disk(env('FILESYSTEM_DRIVER'))->exists($this->main_image) ? Config('filesystems.disks.public.url').'/'.$this->main_image : asset('assets/img/no_img.jpg'));
     }
 
     public function getViewsCountAttribute()

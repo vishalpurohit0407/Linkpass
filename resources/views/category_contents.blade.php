@@ -38,7 +38,7 @@
             <div class="col-md-3">
               <div class="item">
                 <div class="SliderBox">
-                  <div class="boximg"> <img src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.png')}}" alt="" class="w-100"> </div>
+                  <div class="boximg"> <img src="{{!empty($item->main_image_url) ? $item->main_image_url : asset('assets/img/no_img.jpg')}}" alt="" class="w-100"> </div>
                   <div class="description">
                     <h3><a href="{!! route('result.get-details', $item->hashid) !!}">{!! $item->main_title !!}</a></h3>
                     <div class="d-flex align-items-center">

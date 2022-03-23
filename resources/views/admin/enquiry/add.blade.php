@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-3">
                             <a href="javascript:void(0);">
-                                <img id="output" src="{{asset('assets/img/no_img.png')}}" class="img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
+                                <img id="output" src="{{asset('assets/img/no_img.jpg')}}" class="img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
                             </a>
                         </div>
                     </div>
