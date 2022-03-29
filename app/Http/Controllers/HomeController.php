@@ -168,7 +168,12 @@ class HomeController extends Controller
         {
             $query = $this->content->select('content.*');
             $query = $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
-            $query = $query->join('users', 'users.id', '=', 'content.user_id');
+            //$query = $query->join('users', 'users.id', '=', 'content.user_id');
+             $query = $query->join('users', function($join)
+             {
+                 $join->on('users.id', '=', 'content.user_id')
+                     ->whereIn('users.user_type', ['1','2']);
+             });
             $query = $query->where('content.status', '1');
             $query = $query->whereNull('social_accounts.deleted_at');
 
