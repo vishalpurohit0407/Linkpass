@@ -557,6 +557,7 @@ class ContentController extends Controller
         {
             $items = $this->content->where('user_id', $userId)->where('social_account_id', $socialAccountId);
             $items = $items->orderBy('created_at', 'desc');
+            $items = $items->whereHas('content_account');
             $totalCount = $items->count();
             $items = $items->paginate(12);
 
@@ -601,8 +602,7 @@ class ContentController extends Controller
                 }
             }
 
-            $items = $this->content->where('is_published', '1')
-
+            $items = $this->content->where('is_published', '1')->whereHas('content_account')
                 ->where(function ($query) use ($tagsList)
                 {
                     $query->whereHas('content_tags', function ($query) use ($tagsList)
@@ -668,6 +668,7 @@ class ContentController extends Controller
                 ->join('content_actions', 'content_actions.content_id', '=', 'content.id')
                 ->where('content_actions.user_id', $userId)
                 ->where('content_actions.action', '4')
+                ->whereHas('content_account')
                 ->orderBy('content_actions.created_at', 'desc');
 
             if(!empty($filterBy))

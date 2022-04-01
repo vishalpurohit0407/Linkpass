@@ -155,6 +155,7 @@ class HomeController extends Controller
                 $query->join('users', 'users.id', '=', 'content.user_id');
                 $query->where('content.status', '1');
                 $query->whereDoesntHave('content_user_remove');
+                $query->whereHas('content_account');
             }])->where(function ($uQuery) use ($keyword)
             {
                 $uQuery->where('account_name', 'LIKE', '%'.$keyword.'%');
