@@ -126,24 +126,6 @@
                                 </div>
 
                                 {{-- <div class="form-group text-left">
-                                    <div class="select-wrapper {{ $errors->has('category') ? ' has-danger' : '' }}">
-                                        <select name="category" class="form-control {{ $errors->has('category') ? ' is-invalid' : '' }}">
-                                            <option value="">Please Select Category</option>
-                                            @if(count($categories) > 0)
-                                                @foreach($categories as $category)
-                                                    <option value="{{$category['id']}}" @if($category['id'] == auth()->user()->category_id)) selected @endif>{!! $category['name'] !!}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @if ($errors->has('category'))
-                                            <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('category') }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div> --}}
-
-                                {{-- <div class="form-group text-left">
                                     <label class="form-control-label" for="tags">{{ __('Tags') }}</label>
                                     <div class="{{ $errors->has('tags') ? ' has-danger' : '' }}">
                                         <input type="text" name="tags" class="form-control" id="tags" value="{{old('tags', $userTags)}}" data-role="tagsinput" />

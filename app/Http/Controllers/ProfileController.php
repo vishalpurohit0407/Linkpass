@@ -26,7 +26,6 @@ class ProfileController extends Controller
     {
         $user                  = auth()->user();
         $category              = new Category();
-        $categories            = $category->categoryList();
         $userPreferencesGroups = UserPreferencesGroups::where('user_id', $user->id)->where('name', 'default')->first();
 
         if(!isset($userPreferencesGroups->id))
@@ -34,7 +33,7 @@ class ProfileController extends Controller
             UserPreferencesGroups::create(['name' => 'default', 'user_id' => Auth::user()->id]);
         }
 
-        return view('profile.edit', array('categories'=> $categories, 'user' => $user));
+        return view('profile.edit', array('user' => $user));
     }
 
     /**
@@ -46,10 +45,9 @@ class ProfileController extends Controller
     {
         $user        = auth()->user();
         $category    = new Category();
-        $categories  = $category->categoryList();
         $toalUserPreferencesGroups = UserPreferencesGroups::where('user_id', $user->id)->count();
 
-        return view('profile.change-password', array('categories'=> $categories));
+        return view('profile.change-password');
     }
 
     /**

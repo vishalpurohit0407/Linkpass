@@ -78,8 +78,8 @@
                                             <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
                                               <option value="">Please Select Category</option>
                                                 @if(count($categories) > 0)
-                                                  @foreach($categories as $k => $v)
-                                                    <option value="{{$k}}" @if($k == $content['category_id'])) selected @endif>{!! $v !!}</option>
+                                                  @foreach($categories as $category)
+                                                    <option value="{{$category['id']}}" @if($category['id'] == $content['category_id'])) selected @endif>{!! $category['name'] !!}</option>
                                                   @endforeach
                                                 @endif
                                             </select>

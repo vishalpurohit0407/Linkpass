@@ -61,10 +61,18 @@ class Category extends Authenticatable
         {
             unset($categories[$k]);
             $categories[$k] = 'Other';
-    
         }
-//dd('aa');
-        return $categories;
+
+        $filteredCategories = [];
+        if(!empty($categories))
+        {
+            foreach($categories as $id=>$name)
+            {
+                $filteredCategories[] = array('id' => $id, 'name' => $name);
+            }
+        }
+
+        return collect($filteredCategories);
     }
 
     public function getIconUrlAttribute()
