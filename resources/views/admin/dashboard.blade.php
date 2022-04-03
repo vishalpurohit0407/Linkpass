@@ -42,6 +42,27 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Total Hybrid Users</h5>
+                                    <span class="h2 font-weight-bold mb-0">{{$totalHybridUser}}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <a href="{{route('admin.user.list')}}" class="text-nowrap font-weight-600">See Details</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">Total Creators</h5>
                                     <span class="h2 font-weight-bold mb-0">{{$totalCreator}}</span>
                                 </div>

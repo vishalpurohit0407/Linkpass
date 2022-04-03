@@ -148,7 +148,7 @@ class HomeController extends Controller
 
         if(strlen($keyword) >= 3)
         {
-            $users = $this->user->whereHas('contents')->with(['contents' => function ($query)
+            $users = $this->user->where('status', '!=', '3')->where('user_type', '!=', '0')->whereHas('contents')->with(['contents' => function ($query)
             {
                 $query->select('content.*');
                 $query->join('social_accounts', 'social_accounts.id', '=', 'content.social_account_id');
@@ -156,6 +156,7 @@ class HomeController extends Controller
                 $query->where('content.status', '1');
                 $query->whereDoesntHave('content_user_remove');
                 $query->whereHas('content_account');
+                $query->orderBy('content.created_at', 'desc');
             }])->where(function ($uQuery) use ($keyword)
             {
                 $uQuery->where('account_name', 'LIKE', '%'.$keyword.'%');

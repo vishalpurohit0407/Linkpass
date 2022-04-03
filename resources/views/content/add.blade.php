@@ -66,7 +66,7 @@
                                             <select class="js-example-basic-single form-control @if($errors->has('type')) is-invalid @endif" id="type" name="type" onchange="bindType()">
                                               <option value="">Please Select Type</option>
                                               <option @if($content->type ==1) selected @endif value="1">Images</option>
-                                              <option @if($content->type ==2) selected @endif value="2">Video</option>
+                                              <option selected @if($content->type ==2) selected @endif value="2">Video</option>
                                               <option @if($content->type ==3) selected @endif value="3">Audio</option>
                                               <option @if($content->type ==4) selected @endif value="4">Text/Blog</option>
                                             </select>
@@ -78,8 +78,8 @@
                                             <select class="js-example-basic-single form-control @if($errors->has('category_id')) is-invalid @endif" id="category_id" name="category_id">
                                               <option value="">Please Select Category</option>
                                                 @if(count($categories) > 0)
-                                                  @foreach($categories as $category)
-                                                    <option value="{{$category['id']}}" @if($category['id'] == $content['category_id'])) selected @endif>{!! $category['name'] !!}</option>
+                                                  @foreach($categories as $k => $v)
+                                                    <option value="{{$k}}" @if($k == $content['category_id'])) selected @endif>{!! $v !!}</option>
                                                   @endforeach
                                                 @endif
                                             </select>
@@ -98,7 +98,7 @@
 
                                           <div class="form-group">
                                               <label class="form-control-label" for="type">Posting Date <strong class="text-danger">*</strong></label>
-                                              <input type="text" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" name="posted_at" placeholder="Posting Date" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
+                                              <input type="text" class="form-control @if($errors->has('posted_at')) is-invalid @endif" id="posted_at" autocomplete="off" name="posted_at" placeholder="Posting Date" value="{{old('posted_at', !empty($content->posted_at) ? date('Y-m-d', strtotime($content->posted_at)) : '')}}">
                                               @if($errors->has('posted_at'))
                                                   <span class="invalid-feedback">{{ $errors->first('posted_at') }}</span>
                                               @endif

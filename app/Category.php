@@ -53,8 +53,17 @@ class Category extends Authenticatable
 
     public function categoryList()
     {
-        $categories = $this->where('status' , '1')->orderBy('id', 'asc')->get();
+        $categories = $this->where('status' , '1')->orderBy('name', 'asc')->pluck('name', 'id')->toArray();
+       
+        $k = array_search('Other', $categories);
 
+        if($k != false);
+        {
+            unset($categories[$k]);
+            $categories[$k] = 'Other';
+    
+        }
+//dd('aa');
         return $categories;
     }
 

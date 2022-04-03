@@ -557,6 +557,10 @@ class ContentController extends Controller
         {
             $items = $this->content->where('user_id', $userId)->where('social_account_id', $socialAccountId);
             $items = $items->orderBy('created_at', 'desc');
+            $items = $items->whereHas('content_user', function ($query)
+            {
+                $query->where('user_type', '!=', '0');
+            });
             $items = $items->whereHas('content_account');
             $totalCount = $items->count();
             $items = $items->paginate(12);
@@ -614,6 +618,10 @@ class ContentController extends Controller
                     //     $query->whereIn('name', $tagsList);
                     // })
                 })
+                ->whereHas('content_user', function ($query)
+                {
+                    $query->where('user_type', '!=', '0');
+                })
                 ->where('user_id', '!=', $userId)
                 ->whereDoesntHave('content_user_keep', function ($query) use($userId)
                 {
@@ -667,6 +675,10 @@ class ContentController extends Controller
             $items = $items->select('content.*')
                 ->join('content_actions', 'content_actions.content_id', '=', 'content.id')
                 ->where('content_actions.user_id', $userId)
+                ->whereHas('content_user', function ($query)
+                {
+                    $query->where('user_type', '!=', '0');
+                })
                 ->where('content_actions.action', '4')
                 ->whereHas('content_account')
                 ->orderBy('content_actions.created_at', 'desc');

@@ -56,6 +56,7 @@
                     <th class="w-10">No.</th>
                     <th class="w-100">Name</th>
                     <th class="w-30">Email</th>
+                    <th class="w-30">User Type</th>
                     <th>Status</th>
                     <th>Created At</th>
                     <th>Options</th>
@@ -67,6 +68,7 @@
                     <th class="w-10">No.</th>
                     <th class="w-70">Name</th>
                     <th class="w-30">Email</th>
+                    <th class="w-30">User Type</th>
                     <th>Status</th>
                     <th>Created At</th>
                     <th>Options</th>
@@ -110,6 +112,7 @@
                 { "data": "srnumber" },
                 { "data": "name" },
                 { "data": "email" },
+                { "data": "user_type" },
                 { "data": "status" },
                 { "data": "created_at" },
                 { "data": "options" }

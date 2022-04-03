@@ -28,11 +28,12 @@ class UserController extends Controller
                         0 => 'id',
                         1 => 'name',
                         2 => 'email',
-                        3 => 'status',
-                        4 => 'created_at',
+                        3 => 'user_type',
+                        4 => 'status',
+                        5 => 'created_at',
                     );
 
-        $totalData = User::where('status','!=','3')->where('user_type','0')->count();
+        $totalData = User::where('status','!=','3')->whereIn('user_type',['0', '2'])->count();
 
         $totalFiltered = $totalData;
 
@@ -47,13 +48,13 @@ class UserController extends Controller
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->where('status','!=','3')
-                         ->where('user_type','0')
+                         ->whereIn('user_type',['0', '2'])
                          ->get();
         }
         else {
             $search = $request->input('search.value');
             $posts =  User::where('status','!=','3')
-                            ->where('user_type','0')
+                            ->whereIn('user_type',['0', '2'])
                             ->where(function ($query)  use ($search) {
                                 $query->where('email','LIKE',"%{$search}%")
                                     ->orWhere('name', 'LIKE',"%{$search}%");
@@ -63,7 +64,7 @@ class UserController extends Controller
                             ->orderBy($order,$dir)
                             ->get();
 
-            $totalFiltered = User::where('status','!=','3')
+            $totalFiltered = User::whereIn('user_type',['0', '2'])
                             ->where('user_type','0')
                             ->where(function ($query) use ($search){
                                 $query->where('email','LIKE',"%{$search}%")
@@ -95,6 +96,7 @@ class UserController extends Controller
                 }else{
                   $nestedData['status'] = '<span class="badge badge-pill badge-danger">Deleted</span>';
                 };
+                $nestedData['user_type'] = $post->user_type == '2' ? 'Hybrid User' : 'User';
                 $nestedData['created_at'] = date('d-M-Y',strtotime($post->created_at));
                 $nestedData['options'] = "&emsp;<a href='{$edit}' class='btn btn-primary btn-sm mr-0' title='EDIT' >Edit</a>
                                           &emsp;<form action='{$destroy}' method='POST' style='display: contents;' id='frm_{$post->hashid}'> <input type='hidden' name='_method' value='DELETE'> <input type='hidden' name='_token' value='{$token}'> <a type='submit' class='btn btn-danger btn-sm' style='color: white;' onclick='return deleteConfirm(this);' id='{$post->hashid}'>Delete</a></form>";

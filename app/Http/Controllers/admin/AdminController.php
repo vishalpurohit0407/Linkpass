@@ -34,11 +34,11 @@ class AdminController extends Controller {
     public function index() {
 
       $totalUser    = User::where('status', '!=', '3')->where('user_type' , '0')->count();
+      $totalHybridUser = User::where('status', '!=', '3')->where('user_type' , '2')->count();
       $totalCreator = User::where('status', '!=', '3')->where('user_type' , '1')->count();
       $totalContent = Content::where('status', '!=', '3')->count();
 
-
-      return view('admin.dashboard', array('totalUser' => $totalUser, 'totalCreator' => $totalCreator, 'totalContent' => $totalContent));
+      return view('admin.dashboard', array('totalUser' => $totalUser, 'totalCreator' => $totalCreator, 'totalHybridUser' => $totalHybridUser, 'totalContent' => $totalContent));
     }
 
     public function getChangePass() {

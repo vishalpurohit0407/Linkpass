@@ -227,7 +227,7 @@ class SocialAccountController extends Controller
             }
 
             if ($socialAccount->delete()) {
-                $request->session()->flash('alert-success', 'Social account has been deleted successfully.');
+                $request->session()->flash('alert-success', 'Listing Group has been deleted successfully.');
             }
 
             return redirect(route('user.social-account.list'));
@@ -246,9 +246,9 @@ class SocialAccountController extends Controller
 
             $socialAccount->delete();
 
-            return Response::json(['status' => true, 'message' => 'Social Account has been deleted successfully.']);
+            return Response::json(['status' => true, 'message' => 'Listing Group has been deleted successfully.']);
         }
 
-        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting Social Account.']);
+        return Response::json(['status' => false, 'message' => 'Something went wrong while deleting Listing Group.']);
     }
 }
