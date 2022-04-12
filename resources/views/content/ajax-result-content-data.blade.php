@@ -16,7 +16,7 @@
     $tabName = isset($tabName) ? $tabName : '';
 
     $contentType = array(1 => 'Images', 2 => 'Video', 3 => 'Audio', 4 => 'Text/Blog');
-    $contentTypeDuration = array(1 => $content->number_of_images, 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words.($content->number_of_words == 1 ? ' Word' : ' Words'));
+    $contentTypeDuration = array(1 => $content->number_of_images.($content->number_of_images == 1 ? ' Image' : ' Images'), 2 => $content->video_length, 3 => $content->podcast_length, 4 => $content->number_of_words.($content->number_of_words == 1 ? ' Word' : ' Words'));
 
 @endphp
 <div class="row d-flex align-items-stretch">
@@ -58,16 +58,25 @@
 
 
                 <span class="image-duration image-duration-detail">{{ isset($contentTypeDuration[$content->type]) ? $contentTypeDuration[$content->type] : '0' }}</span>
-                @php
-                  $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
-                @endphp
-                @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results' && Auth::user()->id != $content->user_id)
+                  @php
+                    $currentRoute = Route::currentRouteName();
+                    $showLeftBorder=false;
+                    $showRightBorder=false;
+                    $KeepLeftClass = $currentRoute == 'results' ? 'left-0' : '';
+                  @endphp
+                  @if(!isset($content->content_user_remove->id) && (isset(Auth::user()->user_type)) && $currentRoute != 'results' && Auth::user()->id != $content->user_id && $tabName != 'created')
+                  @php
+                    $showLeftBorder=true;
+                  @endphp
                   <div class="Remove">
                       <a href="javascript:void(0);" data-action="5" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{$tabName == 'matched' ? 'Remove' : 'Delete'}}"><span>{{$tabName == 'matched' ? 'Remove' : 'Delete'}}</span></a>
                   </div>
                 @endif
 
                 @if(!isset($content->content_user_keep->id) && (isset(Auth::user()->user_type)) && Auth::user()->id != $content->user_id)
+                @php
+                  $showRightBorder=true;
+                @endphp
                   <div class="Keep Save {{$KeepLeftClass}}">
                     <a href="javascript:void(0);" data-action="4" data-content-id="{{ $content->id }}" class="content-action" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Save"><span>Save</span></a>
                   </div>

@@ -33,7 +33,7 @@ class AdminController extends Controller {
 
     public function index() {
 
-      $totalUser    = User::where('status', '!=', '3')->where('user_type' , '0')->count();
+      $totalUser    = User::where('status', '!=', '3')->where('user_type' , '!=', '1')->count();
       $totalHybridUser = User::where('status', '!=', '3')->where('user_type' , '2')->count();
       $totalCreator = User::where('status', '!=', '3')->where('user_type' , '1')->count();
       $totalContent = Content::where('status', '!=', '3')->count();

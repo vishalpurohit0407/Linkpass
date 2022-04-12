@@ -62,7 +62,7 @@ jQuery(document).ready(function($) {
 
       swal({
           title: "Delete?",
-          text: "Would you like to delete this account!",
+          text: "Would you like to delete this Listing Group?",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: '#DD6B55',

@@ -244,7 +244,7 @@ function deleteConfirm(event){
 
   swal({
     title: "Are you sure?",
-    text: "Would you like to delete this account!",
+    text: "Would you like to delete this Listing Group?",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: '#DD6B55',
