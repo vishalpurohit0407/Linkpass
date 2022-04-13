@@ -1,26 +1,25 @@
 @php
     $currentRoute  = Route::currentRouteName();
-    $class         = '';
     $disabledClass = '';
 
-    if($user->user_type == '2' && (isset(Auth::user()->id) && Auth::user()->id == $user->id))
-    {
-        $class = 'tabs-33-perc';
-    }
-    else
-    {
-        $class = 'tabs-50-perc';
-    }
+    $class = 'tabs-33-perc';
+    $activeClass = 'active';
 
     if(!isset(Auth::user()->id) || (Auth::user()->id && Auth::user()->id != $user->id))
     {
         $disabledClass = 'disabled';
+        $activeClass = '';
+    }
+
+    if($user->user_type == '0' || $user->user_type == '1')
+    {
+        $class = 'tabs-50-perc';
     }
 @endphp
 <ul class="nav nav-pills mb-3 KeptPills" id="pills-tab" role="tablist">
 
-    @if(($user->user_type == '0' || $user->user_type == '2') && (isset(Auth::user()->id) && Auth::user()->id == $user->id))
-        <li class="nav-item {{$class}}"> <a data-tab-name="matched" class="nav-link active content-tabs {{$disabledClass}}" id="pills-Matches-tab" data-toggle="pill" href="#pills-Matches" role="tab" aria-controls="pills-Matches" aria-selected="false" >Matches</a> </li>
+    @if(($user->user_type == '0' || $user->user_type == '2'))
+        <li class="nav-item {{$class}}"> <a data-tab-name="matched" class="nav-link {{$activeClass}} content-tabs {{$disabledClass}}" id="pills-Matches-tab" data-toggle="pill" href="#pills-Matches" role="tab" aria-controls="pills-Matches" aria-selected="false" >Matches</a> </li>
     @endif
 
     @if($user->user_type == '1' || $user->user_type == '2')

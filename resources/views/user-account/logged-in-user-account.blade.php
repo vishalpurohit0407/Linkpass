@@ -174,10 +174,12 @@ function deleteSocialAccount(id){
   jQuery(document).ready(function($) {
 
     var userType = "{{ isset(Auth::user()->id) ? Auth::user()->user_type : '' }}";
+    var loggedInUserId = "{{ isset(Auth::user()->id) ? Auth::user()->id : '' }}";
+    var userId = "{{ $user->id }}";
     var currentRoute = "{{ Route::currentRouteName() }}";
     var activeTab = "{{ request()->get('tab', '') }}";
 
-    if(activeTab == 'created')
+    if(activeTab == 'created' || loggedInUserId != userId)
     {
         setTimeout(function(){ $('#pills-Cretors-tab').click(); }, 100);
     }
