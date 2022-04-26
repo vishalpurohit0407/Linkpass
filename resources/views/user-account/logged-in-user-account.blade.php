@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
       var socialAccId = $(this).attr('data-id');
 
       swal({
-          title: "Delete?",
+          title: "Delete!",
           text: "Would you like to delete this Listing Group?",
           type: "warning",
           showCancelButton: true,

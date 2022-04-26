@@ -158,7 +158,7 @@
                   <span class="text-danger text-uppercase mr-5 saved-label detail-saved-label" style="font-weight: bold;">SAVED</span>
               </div>
               @endif
-              <div class="w30p {{ (!isset($content->content_user_keep->id) || $tabName == 'saved') ? 'text-left' : 'text-center' }}">
+              <div class="w30p {{ (!isset($content->content_user_keep->id) || $tabName == 'saved' || !isset(Auth::user()->id)) ? 'text-left' : 'text-center' }}">
                 <a href="javascript:void(0);" style="" data-id="{{ $content->id }}" class="btn btn-primary btn-sm goto-content-details visit-btn">VISIT</a>
               </div>
 
