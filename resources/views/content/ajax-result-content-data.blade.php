@@ -84,6 +84,17 @@
             </div>
           </div>
         </div>
+        @if($showLeftBorder == true || $showRightBorder == true)
+            <div style="float:left;padding:8px;width:100%">
+               @if($showRightBorder == true)
+                <span class="pull-left" style="border:2px solid #DDD;width:46%;margin-right:4%;"></span>
+               @endif
+
+               @if($showLeftBorder == true)
+                <span class="pull-right" style="border:2px solid #DDD;width:46%;margin-left:4%;"></span>
+               @endif
+            </div>
+        @endif
         <p class="date">
           {{-- @if($content->ratings_count)
               <span class="text-danger text-uppercase">Rated</span>
